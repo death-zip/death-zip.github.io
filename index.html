@@ -1,201 +1,721 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portafolio - Cloud & DevOps</title>
-<style>
-  :root{
-    --bg:#0f1115; --card:#171a21; --accent:#4f9dff; --text:#e6e6e6; --muted:#8a8f98;
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);}
-  header{padding:60px 20px;text-align:center;}
-  header h1{margin:0 0 10px;font-size:2.2rem;}
-  header p{color:var(--muted);max-width:600px;margin:0 auto;}
-  .links a{color:var(--accent);text-decoration:none;margin:0 10px;}
-  section{max-width:1000px;margin:0 auto;padding:30px 20px;}
-  h2{border-left:4px solid var(--accent);padding-left:10px;}
-  #status{padding:15px;border-radius:8px;margin-bottom:20px;font-size:.9rem;}
-  #status.loading{background:#1e2a3a;color:#9cc4ff;}
-  #status.error{background:#3a1e1e;color:#ff9c9c;}
-  #status.ok{display:none;}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;}
-  .item-card{background:var(--card);border-radius:8px;overflow:hidden;transition:transform .15s;cursor:pointer;position:relative;}
-  .item-card:hover{transform:translateY(-4px);}
-  .item-card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;background:#222;}
-  .item-card .title{padding:8px;font-size:.8rem;color:var(--muted);}
-  .badge{position:absolute;top:6px;right:6px;background:rgba(0,0,0,.7);color:var(--accent);
-    font-size:.65rem;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;}
-  footer{text-align:center;padding:30px;color:var(--muted);font-size:.8rem;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juan Antonio Rivera · Portafolio Cloud & DevOps</title>
+    <!-- Font Awesome (íconos profesionales) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0b0d12;
+            --bg2: #12151c;
+            --card: #171a21;
+            --accent: #4f9dff;
+            --accent2: #7c5cff;
+            --text: #e8e9ec;
+            --muted: #8a8f98;
+            --border: #242832;
+        }
 
-  /* Modal */
-  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;
-    align-items:center;justify-content:center;padding:20px;}
-  .overlay.open{display:flex;}
-  .modal{background:var(--card);border-radius:10px;max-width:600px;width:100%;
-    max-height:85vh;overflow-y:auto;padding:24px;position:relative;}
-  .modal .close{position:absolute;top:12px;right:16px;background:none;border:none;
-    color:var(--muted);font-size:1.5rem;cursor:pointer;}
-  .modal h3{margin:0 0 4px;}
-  .modal .meta{color:var(--muted);font-size:.85rem;margin-bottom:12px;}
-  .modal .overview{line-height:1.5;color:#c9ccd1;margin-bottom:20px;}
-  .modal .actions a, .modal .actions button{
-    display:inline-block;background:var(--accent);color:#fff;border:none;
-    padding:10px 18px;border-radius:6px;text-decoration:none;font-size:.9rem;
-    cursor:pointer;margin-right:10px;}
-  .modal .actions .secondary{background:#2a2f3a;color:var(--text);}
-</style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* --- Navegación --- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(11, 13, 18, .85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .brand {
+            font-weight: 700;
+            letter-spacing: .5px;
+            font-size: 1.2rem;
+        }
+
+        nav .brand span {
+            color: var(--accent);
+        }
+
+        nav .links {
+            display: flex;
+            gap: 22px;
+            font-size: .9rem;
+        }
+
+        nav .links a {
+            color: var(--muted);
+            transition: color .15s;
+        }
+
+        nav .links a:hover {
+            color: var(--accent);
+        }
+
+        /* --- Hero --- */
+        header.hero {
+            padding: 90px 24px 70px;
+            text-align: center;
+            background: radial-gradient(circle at 50% 0%, rgba(79, 157, 255, .12), transparent 60%);
+        }
+
+        header.hero .eyebrow {
+            color: var(--accent);
+            font-size: .85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        header.hero h1 {
+            margin: 0 0 8px;
+            font-size: 2.6rem;
+            background: linear-gradient(90deg, #fff, #b9c4d6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        header.hero h2 {
+            margin: 0 0 18px;
+            font-weight: 400;
+            color: var(--accent);
+            font-size: 1.15rem;
+        }
+
+        header.hero p {
+            color: var(--muted);
+            max-width: 640px;
+            margin: 0 auto 28px;
+            line-height: 1.6;
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 11px 22px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: .9rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            transition: transform .15s, background .15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn.primary {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .btn.ghost {
+            background: transparent;
+            color: var(--text);
+        }
+
+        .btn.outline {
+            background: transparent;
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* --- Secciones --- */
+        section {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        section h2.section-title {
+            font-size: 1.6rem;
+            margin: 0 0 8px;
+        }
+
+        section .section-sub {
+            color: var(--muted);
+            margin: 0 0 30px;
+            font-size: .95rem;
+        }
+
+        /* --- Sobre Mi (Acerca de) --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .about-text .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .about-text .badge-group span {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--card);
+        }
+
+        .about-image .placeholder-icon {
+            font-size: 8rem;
+            color: var(--muted);
+            opacity: 0.3;
+        }
+
+        /* --- Servicios --- */
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 26px;
+            transition: transform .15s, border-color .15s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .service-card .icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .service-card h3 {
+            margin: 0 0 8px;
+            font-size: 1.1rem;
+        }
+
+        .service-card p {
+            color: var(--muted);
+            font-size: .9rem;
+            line-height: 1.5;
+        }
+
+        .service-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .service-card .tags span {
+            background: #1e2230;
+            color: #b9c4d6;
+            font-size: .7rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        /* --- Proyecto (Media Library) --- */
+        #status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: .9rem;
+        }
+
+        #status.loading {
+            background: #1e2a3a;
+            color: #9cc4ff;
+        }
+
+        #status.error {
+            background: #3a1e1e;
+            color: #ff9c9c;
+        }
+
+        #status.ok {
+            display: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+        }
+
+        .item-card {
+            background: var(--card);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform .15s;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+
+        .item-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .item-card img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            display: block;
+            background: #222;
+        }
+
+        .item-card .title {
+            padding: 8px;
+            font-size: .8rem;
+            color: var(--muted);
+        }
+
+        .badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(0, 0, 0, .7);
+            color: var(--accent);
+            font-size: .65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        /* --- Certificaciones --- */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .cert-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px;
+            text-decoration: none;
+            color: var(--text);
+            transition: transform .15s, border-color .15s;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .cert-card .cert-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .cert-card h4 {
+            margin: 0 0 4px;
+            font-size: .95rem;
+        }
+
+        .cert-card .issuer {
+            color: var(--muted);
+            font-size: .8rem;
+        }
+
+        .cert-card .date {
+            color: var(--muted);
+            font-size: .75rem;
+            margin-top: 8px;
+        }
+
+        /* --- Experiencia --- */
+        .exp-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .exp-card h3 {
+            margin: 0 0 4px;
+            font-size: 1.1rem;
+        }
+
+        .exp-card .role {
+            color: var(--accent);
+            font-size: .9rem;
+            margin-bottom: 8px;
+        }
+
+        .exp-card .desc {
+            color: var(--muted);
+            font-size: .88rem;
+            max-width: 520px;
+            line-height: 1.5;
+        }
+
+        .exp-card .badge-status {
+            background: #1e2a3a;
+            color: #9cc4ff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: .78rem;
+            white-space: nowrap;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--muted);
+            font-size: .82rem;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        footer .foot-links {
+            margin-top: 10px;
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        footer .foot-links a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer .foot-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            nav .links {
+                display: none;
+            }
+            header.hero h1 {
+                font-size: 2rem;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .about-image img {
+                max-width: 200px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <h1>Juan Antonio Rivera Rodriguez</h1>
-  <p>Aspiring Cloud Engineer · Docker & Linux</p>
-  <div class="links">
-    <a href="https://github.com/death-zip" target="_blank">GitHub</a>
-    <a href="#" target="_blank">LinkedIn</a>
-    <a href="https://media.jarr.cc.cd" target="_blank">Servidor Jellyfin en vivo</a>
-  </div>
-</header>
+    <!-- Navegación -->
+    <nav>
+        <div class="brand">JAR<span>.</span></div>
+        <div class="links">
+            <a href="#sobre-mi">Sobre mí</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#proyecto">Proyecto</a>
+            <a href="#certificaciones">Certificaciones</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </nav>
 
-<section>
-  <h2>Proyecto: Servidor de streaming self-hosted</h2>
-  <p style="color:var(--muted)">
-    Jellyfin corriendo en Docker (WSL2), expuesto de forma segura a internet vía Cloudflare Tunnel,
-    con dominio propio y proxy CORS para consumo desde este portafolio.
-  </p>
+    <!-- Hero -->
+    <header class="hero" id="sobre-mi">
+        <div class="eyebrow"><i class="fas fa-globe-americas"></i> Disponible para oportunidades remotas</div>
+        <h1>Juan Antonio Rivera Rodriguez</h1>
+        <h2>Aspiring Cloud Engineer · Docker &amp; Linux</h2>
+        <p>
+            Estudiante de Ingeniería en Desarrollo de Software en Universidad Tecmilenio (modelo MAPS).
+            Construyo infraestructura contenerizada y me enfoco en automatización, redes y sistemas
+            auto-hospedados. Este portafolio en sí mismo es un proyecto en vivo: un servidor de streaming
+            propio, expuesto de forma segura a internet.
+        </p>
+        <div class="cta-row">
+            <a href="#proyecto" class="btn primary"><i class="fas fa-play"></i> Ver el proyecto en vivo</a>
+            <a href="https://github.com/death-zip" target="_blank" class="btn ghost"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank" class="btn ghost"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+            <a href="cv.pdf" target="_blank" class="btn outline"><i class="fas fa-file-pdf"></i> Descargar CV</a>
+        </div>
+    </header>
 
-  <div id="status" class="loading">Cargando biblioteca desde el servidor…</div>
-  <div id="library" class="grid"></div>
-</section>
+    <!-- Servicios -->
+    <section id="servicios">
+        <h2 class="section-title"><i class="fas fa-cogs"></i> Servicios</h2>
+        <p class="section-sub">Lo que puedo aportar a tu equipo</p>
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-server"></i></div>
+                <h3>Infraestructura como Código</h3>
+                <p>Diseño e implementación de entornos contenerizados con Docker y Docker Compose para aplicaciones escalables y portables.</p>
+                <div class="tags">
+                    <span>Docker</span>
+                    <span>Linux</span>
+                    <span>Bash</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-cloud"></i></div>
+                <h3>Despliegue en la Nube</h3>
+                <p>Configuración de servidores en la nube, túneles seguros (Cloudflare) y exposición de servicios a internet con HTTPS.</p>
+                <div class="tags">
+                    <span>Cloudflare</span>
+                    <span>Nginx</span>
+                    <span>SSL/TLS</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Automatización &amp; Seguridad</h3>
+                <p>Automatización de tareas con scripts y hardening de sistemas para entornos de producción seguros.</p>
+                <div class="tags">
+                    <span>Bash</span>
+                    <span>Firewall</span>
+                    <span>WSL2</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<footer>© 2026 — Hecho con Docker, Jellyfin y Cloudflare Tunnel</footer>
+    <!-- Proyecto (Jellyfin) -->
+    <section id="proyecto">
+        <h2 class="section-title"><i class="fas fa-film"></i> Proyecto: Servidor de Streaming Self-Hosted</h2>
+        <p class="section-sub">
+            Jellyfin en Docker (WSL2), expuesto vía Cloudflare Tunnel con dominio propio y consumo en vivo de la API REST.
+        </p>
 
-<!-- Modal de detalle -->
-<div class="overlay" id="overlay">
-  <div class="modal">
-    <button class="close" id="modalClose">&times;</button>
-    <h3 id="modalTitle"></h3>
-    <div class="meta" id="modalMeta"></div>
-    <div class="overview" id="modalOverview"></div>
-    <div class="actions" id="modalActions"></div>
-  </div>
-</div>
+        <div id="status" class="loading">Cargando biblioteca desde el servidor…</div>
+        <div id="library" class="grid"></div>
 
-<script>
-  // Config: mueve esto a variables de entorno / backend en cuanto puedas.
-  // Exponer la API key en HTML público es riesgoso: cualquiera puede leerla
-  // y usarla para acceder a tu servidor. Considera regenerarla en Jellyfin
-  // (Panel Admin > API Keys) tras probar esto, o crear una key de solo lectura
-  // con un usuario limitado en vez del admin.
-  const JELLYFIN_URL = "https://media.jarr.cc.cd";
-  const API_KEY = "4119d7f4257c477ab5b72ddb1fcd735e";
-  const USER_ID = "99d724cfca8847e0bf89fbf93a734421";
+        <div style="margin-top: 24px; text-align: center;">
+            <a href="https://media.jarr.cc.cd" target="_blank" class="btn primary">
+                <i class="fas fa-external-link-alt"></i> Ver servidor completo
+            </a>
+        </div>
+    </section>
 
-  const statusEl = document.getElementById("status");
-  const gridEl = document.getElementById("library");
-  const overlay = document.getElementById("overlay");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalMeta = document.getElementById("modalMeta");
-  const modalOverview = document.getElementById("modalOverview");
-  const modalActions = document.getElementById("modalActions");
+    <!-- Certificaciones -->
+    <section id="certificaciones">
+        <h2 class="section-title"><i class="fas fa-certificate"></i> Certificaciones</h2>
+        <p class="section-sub">Verificables en Credly</p>
+        <div class="cert-grid" id="certGrid">
+            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
+                <div class="cert-icon"><i class="fas fa-cloud"></i></div>
+                <h4>AWS Academy Graduate - Cloud Operations</h4>
+                <div class="issuer">Amazon Web Services Training</div>
+                <div class="date">Abril 2026</div>
+            </a>
+            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
+                <div class="cert-icon"><i class="fas fa-cloud"></i></div>
+                <h4>Computación en la Nube (Sobresaliente)</h4>
+                <div class="issuer">Universidad Tecmilenio</div>
+                <div class="date">Enero 2026</div>
+            </a>
+            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
+                <div class="cert-icon"><i class="fas fa-code-branch"></i></div>
+                <h4>Fundamentos de DevOps</h4>
+                <div class="issuer">Universidad Tecmilenio</div>
+                <div class="date">Junio 2026</div>
+            </a>
+            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
+                <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+                <h4>Gestión de Redes</h4>
+                <div class="issuer">Universidad Tecmilenio</div>
+                <div class="date">Junio 2026</div>
+            </a>
+            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
+                <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+                <h4>Networking Basics</h4>
+                <div class="issuer">Cisco</div>
+                <div class="date">Febrero 2026</div>
+            </a>
+            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
+                <div class="cert-icon"><i class="fas fa-code"></i></div>
+                <h4>Desarrollo Full Stack</h4>
+                <div class="issuer">Universidad Tecmilenio</div>
+                <div class="date">Junio 2026</div>
+            </a>
+            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
+                <div class="cert-icon"><i class="fas fa-code"></i></div>
+                <h4>Web Development Fundamentals</h4>
+                <div class="issuer">IBM SkillsBuild</div>
+                <div class="date">Febrero 2026</div>
+            </a>
+            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
+                <div class="cert-icon"><i class="fab fa-python"></i></div>
+                <h4>Python Essentials 1</h4>
+                <div class="issuer">Cisco</div>
+                <div class="date">Octubre 2024</div>
+            </a>
+        </div>
+    </section>
 
-  let itemsById = {};
+    <!-- Experiencia -->
+    <section id="experiencia">
+        <h2 class="section-title"><i class="fas fa-briefcase"></i> Experiencia</h2>
+        <p class="section-sub">Trayectoria profesional</p>
+        <div class="exp-card">
+            <div>
+                <h3>Desarrollador Freelance</h3>
+                <div class="role">Autónomo · 2026 - Presente</div>
+                <div class="desc">
+                    Desarrollo de proyectos personalizados para clientes. Especializado en la creación de infraestructura
+                    contenerizada, despliegue de aplicaciones web y automatización de tareas.
+                </div>
+            </div>
+            <div class="badge-status">Activo</div>
+        </div>
+    </section>
 
-  function setStatus(type, msg) {
-    statusEl.className = type;
-    statusEl.textContent = msg;
-  }
+    <!-- Contacto -->
+    <footer id="contacto">
+        <div style="font-size: 1.1rem; color: var(--text); margin-bottom: 8px;">
+            <i class="fas fa-envelope"></i> ¿Tienes un proyecto en mente o quieres charlar?
+        </div>
+        <div class="foot-links">
+            <a href="mailto:riverarodriguezjuanantonio@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+            <a href="https://github.com/death-zip" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+            <a href="https://media.jarr.cc.cd" target="_blank"><i class="fas fa-server"></i> Servidor Jellyfin</a>
+        </div>
+        <div style="margin-top: 18px;">
+            © 2026 — Hecho con <i class="fas fa-heart" style="color: var(--accent);"></i> y Docker
+        </div>
+    </footer>
 
-  async function fetchLibrary() {
-    try {
-      const url = `${JELLYFIN_URL}/Users/${USER_ID}/Items` +
-        `?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series` +
-        `&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating` +
-        `&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=24`;
+    <!-- Script para cargar la biblioteca de Jellyfin -->
+    <script>
+        // Configuración
+        const JELLYFIN_URL = "https://media.jarr.cc.cd";
+        const API_KEY = "4119d7f4257c477ab5b72ddb1fcd735e"; // Reemplaza con tu API Key real
+        const USER_ID = "99d724cfca8847e0bf89fbf93a734421";
 
-      const res = await fetch(url, {
-        headers: { "X-Emby-Token": API_KEY }
-      });
+        const statusEl = document.getElementById("status");
+        const gridEl = document.getElementById("library");
 
-      if (!res.ok) {
-        throw new Error(`El servidor respondió con estado ${res.status}`);
-      }
+        function setStatus(type, msg) {
+            statusEl.className = type;
+            statusEl.textContent = msg;
+        }
 
-      const data = await res.json();
-      renderLibrary(data.Items || []);
-    } catch (err) {
-      // Si esto tira "Failed to fetch" casi siempre es CORS o el túnel caído.
-      // Si tira 401/403, es la API key o el user ID.
-      setStatus("error",
-        `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo y que el proxy CORS esté corriendo.`);
-      console.error("Error cargando Jellyfin:", err);
-    }
-  }
+        async function fetchLibrary() {
+            try {
+                const url = `${JELLYFIN_URL}/Users/${USER_ID}/Items` +
+                    `?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series` +
+                    `&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating` +
+                    `&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=24`;
 
-  function renderLibrary(items) {
-    if (items.length === 0) {
-      setStatus("error", "El servidor respondió, pero no hay contenido visible.");
-      return;
-    }
-    statusEl.className = "ok";
-    itemsById = {};
-    gridEl.innerHTML = items.map(item => {
-      itemsById[item.Id] = item;
-      const imgUrl = item.ImageTags && item.ImageTags.Primary
-        ? `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}`
-        : "";
-      const badge = item.Type === "Series" ? "Serie" : "Película";
-      return `
-        <div class="item-card" data-id="${item.Id}">
-          <span class="badge">${badge}</span>
-          ${imgUrl ? `<img src="${imgUrl}" alt="${item.Name}" loading="lazy">` : ""}
-          <div class="title">${item.Name}</div>
-        </div>`;
-    }).join("");
+                const res = await fetch(url, { headers: { "X-Emby-Token": API_KEY } });
+                if (!res.ok) throw new Error(`El servidor respondió con estado ${res.status}`);
 
-    gridEl.querySelectorAll(".item-card").forEach(card => {
-      card.addEventListener("click", () => openModal(card.dataset.id));
-    });
-  }
+                const data = await res.json();
+                renderLibrary(data.Items || []);
+            } catch (err) {
+                setStatus("error",
+                    `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`);
+                console.error("Error cargando Jellyfin:", err);
+            }
+        }
 
-  function openModal(id) {
-    const item = itemsById[id];
-    if (!item) return;
+        function renderLibrary(items) {
+            if (items.length === 0) {
+                setStatus("error", "El servidor respondió, pero no hay contenido visible.");
+                return;
+            }
+            statusEl.className = "ok";
+            gridEl.innerHTML = items.map(item => {
+                const imgUrl = item.ImageTags && item.ImageTags.Primary
+                    ? `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}`
+                    : "";
+                const badge = item.Type === "Series" ? "Serie" : "Película";
+                return `
+                        <div class="item-card" data-id="${item.Id}">
+                            <span class="badge">${badge}</span>
+                            ${imgUrl ? `<img src="${imgUrl}" alt="${item.Name}" loading="lazy">` : ""}
+                            <div class="title">${item.Name}</div>
+                        </div>`;
+            }).join("");
 
-    modalTitle.textContent = item.Name;
-    const year = item.ProductionYear ? item.ProductionYear : "";
-    const rating = item.CommunityRating ? `⭐ ${item.CommunityRating.toFixed(1)}` : "";
-    modalMeta.textContent = [year, rating, item.Type === "Series" ? "Serie" : "Película"]
-      .filter(Boolean).join(" · ");
-    modalOverview.textContent = item.Overview || "Sin descripción disponible.";
+            // Aquí puedes añadir el evento click para abrir el modal, si lo deseas.
+        }
 
-    if (item.Type === "Movie") {
-      const streamUrl = `${JELLYFIN_URL}/Videos/${item.Id}/stream?static=true&api_key=${API_KEY}`;
-      modalActions.innerHTML = `
-        <a href="${streamUrl}" target="_blank">▶ Reproducir</a>
-        <button class="secondary" id="modalCloseBtn">Cerrar</button>`;
-    } else {
-      // Para series no hay un solo archivo que reproducir; mandamos al detalle en el servidor.
-      modalActions.innerHTML = `
-        <a href="${JELLYFIN_URL}/web/#/details?id=${item.Id}" target="_blank">Ver episodios en el servidor</a>
-        <button class="secondary" id="modalCloseBtn">Cerrar</button>`;
-    }
-
-    document.getElementById("modalCloseBtn").addEventListener("click", closeModal);
-    overlay.classList.add("open");
-  }
-
-  function closeModal() {
-    overlay.classList.remove("open");
-  }
-
-  document.getElementById("modalClose").addEventListener("click", closeModal);
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) closeModal(); });
-
-  fetchLibrary();
-</script>
+        fetchLibrary();
+    </script>
 
 </body>
 </html>
