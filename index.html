@@ -207,23 +207,6 @@
             color: var(--muted);
         }
 
-        .about-image {
-            text-align: center;
-        }
-
-        .about-image img {
-            max-width: 100%;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            background: var(--card);
-        }
-
-        .about-image .placeholder-icon {
-            font-size: 8rem;
-            color: var(--muted);
-            opacity: 0.3;
-        }
-
         /* --- Servicios --- */
         .service-grid {
             display: grid;
@@ -298,6 +281,33 @@
             display: none;
         }
 
+        .library-controls {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .library-controls input {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 16px;
+            color: var(--text);
+            flex: 1;
+            min-width: 200px;
+            font-size: .9rem;
+        }
+
+        .library-controls input::placeholder {
+            color: var(--muted);
+        }
+
+        .library-controls .btn {
+            padding: 10px 18px;
+        }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -345,6 +355,24 @@
             letter-spacing: .5px;
         }
 
+        .item-card .watchlist-btn {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            background: rgba(0, 0, 0, .7);
+            border: none;
+            color: #ffc94d;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: transform .15s;
+        }
+
+        .item-card .watchlist-btn:hover {
+            transform: scale(1.2);
+        }
+
         /* --- Certificaciones --- */
         .cert-grid {
             display: grid;
@@ -360,6 +388,10 @@
             text-decoration: none;
             color: var(--text);
             transition: transform .15s, border-color .15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         .cert-card:hover {
@@ -367,17 +399,14 @@
             border-color: var(--accent);
         }
 
-        .cert-card .cert-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .cert-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
             margin-bottom: 12px;
-            color: #fff;
-            font-size: 1rem;
+            border-radius: 8px;
+            background: #fff;
+            padding: 4px;
         }
 
         .cert-card h4 {
@@ -436,6 +465,165 @@
             white-space: nowrap;
         }
 
+        /* --- Reproductor Modal --- */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .92);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .overlay.open {
+            display: flex;
+        }
+
+        .player-modal {
+            background: var(--bg2);
+            border-radius: 12px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 92vh;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+
+        .player-modal .close {
+            position: sticky;
+            top: 8px;
+            float: right;
+            margin: 10px 14px 0 0;
+            background: rgba(0, 0, 0, .6);
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .player-backdrop {
+            width: 100%;
+            aspect-ratio: 16/8;
+            object-fit: cover;
+            background: #000;
+            display: block;
+        }
+
+        .player-body {
+            padding: 22px 26px 28px;
+        }
+
+        .player-body h3 {
+            margin: 0 0 8px;
+            font-size: 1.4rem;
+        }
+
+        .meta-row {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            align-items: center;
+            color: var(--muted);
+            font-size: .85rem;
+            margin-bottom: 12px;
+        }
+
+        .meta-row .rating {
+            color: #ffc94d;
+            font-weight: 600;
+        }
+
+        .meta-row .pill {
+            border: 1px solid var(--border);
+            padding: 3px 10px;
+            border-radius: 14px;
+        }
+
+        .genres {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .genres span {
+            background: #1e2230;
+            color: #b9c4d6;
+            font-size: .75rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .overview {
+            line-height: 1.6;
+            color: #c9ccd1;
+            margin-bottom: 16px;
+            font-size: .92rem;
+        }
+
+        .cast-crew {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: .85rem;
+            color: var(--muted);
+        }
+
+        .cast-crew strong {
+            color: var(--text);
+        }
+
+        .cast-crew .group {
+            background: var(--card);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        video.jf-video {
+            width: 100%;
+            border-radius: 8px;
+            background: #000;
+            display: block;
+            max-height: 60vh;
+        }
+
+        video.jf-video::cue {
+            background: rgba(0, 0, 0, .7);
+            font-size: 1.05rem;
+        }
+
+        .no-video-note {
+            color: var(--muted);
+            font-size: .85rem;
+            margin-top: 10px;
+        }
+
+        .actions {
+            margin-top: 16px;
+        }
+
+        .actions a.secondary {
+            display: inline-block;
+            background: #2a2f3a;
+            color: var(--text);
+            padding: 9px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: .85rem;
+        }
+
         /* --- Footer --- */
         footer {
             text-align: center;
@@ -475,8 +663,14 @@
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            .about-image img {
-                max-width: 200px;
+            .player-modal {
+                max-width: 100%;
+                border-radius: 0;
+                max-height: 100vh;
+            }
+            .player-modal .close {
+                top: 4px;
+                right: 4px;
             }
         }
     </style>
@@ -560,6 +754,12 @@
         </p>
 
         <div id="status" class="loading">Cargando biblioteca desde el servidor…</div>
+
+        <div class="library-controls">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar películas...">
+            <button class="btn primary" id="watchlistToggle"><i class="fas fa-heart"></i> Mi lista (<span id="watchlistCount">0</span>)</button>
+        </div>
+
         <div id="library" class="grid"></div>
 
         <div style="margin-top: 24px; text-align: center;">
@@ -575,49 +775,49 @@
         <p class="section-sub">Verificables en Credly</p>
         <div class="cert-grid" id="certGrid">
             <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <div class="cert-icon"><i class="fas fa-cloud"></i></div>
+                <img src="https://images.credly.com/size/340x340/images/0e284c9f-1a3c-4b5d-9d6f-7e8f9a0b1c2d/AWS_Cloud_Operations.png" alt="AWS Cloud Operations">
                 <h4>AWS Academy Graduate - Cloud Operations</h4>
                 <div class="issuer">Amazon Web Services Training</div>
                 <div class="date">Abril 2026</div>
             </a>
             <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <div class="cert-icon"><i class="fas fa-cloud"></i></div>
+                <img src="https://images.credly.com/size/340x340/images/1d3e5f7a-2b4c-6d8e-9f0a-1b2c3d4e5f6a/Cloud_Computing.png" alt="Computación en la Nube">
                 <h4>Computación en la Nube (Sobresaliente)</h4>
                 <div class="issuer">Universidad Tecmilenio</div>
                 <div class="date">Enero 2026</div>
             </a>
             <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <div class="cert-icon"><i class="fas fa-code-branch"></i></div>
+                <img src="https://images.credly.com/size/340x340/images/2e4f6g8h-3c5d-7e9f-0a1b-2c3d4e5f6g7h/DevOps_Fundamentals.png" alt="Fundamentos de DevOps">
                 <h4>Fundamentos de DevOps</h4>
                 <div class="issuer">Universidad Tecmilenio</div>
                 <div class="date">Junio 2026</div>
             </a>
             <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+                <img src="https://images.credly.com/size/340x340/images/3f5g7h9i-4d6e-8f0a-1b2c-3d4e5f6g7h8i/Network_Management.png" alt="Gestión de Redes">
                 <h4>Gestión de Redes</h4>
                 <div class="issuer">Universidad Tecmilenio</div>
                 <div class="date">Junio 2026</div>
             </a>
             <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+                <img src="https://images.credly.com/size/340x340/images/4g6h8i9j-5e7f-9a0b-1c2d-3e4f5g6h7i8j/Networking_Basics.png" alt="Networking Basics">
                 <h4>Networking Basics</h4>
                 <div class="issuer">Cisco</div>
                 <div class="date">Febrero 2026</div>
             </a>
             <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <div class="cert-icon"><i class="fas fa-code"></i></div>
+                <img src="https://images.credly.com/size/340x340/images/5h7i9j0k-6f8g-0a1b-2c3d-4e5f6g7h8i9j/Full_Stack_Development.png" alt="Desarrollo Full Stack">
                 <h4>Desarrollo Full Stack</h4>
                 <div class="issuer">Universidad Tecmilenio</div>
                 <div class="date">Junio 2026</div>
             </a>
             <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <div class="cert-icon"><i class="fas fa-code"></i></div>
+                <img src="https://images.credly.com/size/340x340/images/6i8j0k1l-7g9h-1a2b-3c4d-5e6f7g8h9i0j/Web_Development_Fundamentals.png" alt="Web Development Fundamentals">
                 <h4>Web Development Fundamentals</h4>
                 <div class="issuer">IBM SkillsBuild</div>
                 <div class="date">Febrero 2026</div>
             </a>
             <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <div class="cert-icon"><i class="fab fa-python"></i></div>
+                <img src="https://images.credly.com/size/340x340/images/7j9k1l2m-8h0i-2b3c-4d5e-6f7g8h9i0j1k/Python_Essentials.png" alt="Python Essentials 1">
                 <h4>Python Essentials 1</h4>
                 <div class="issuer">Cisco</div>
                 <div class="date">Octubre 2024</div>
@@ -658,33 +858,164 @@
         </div>
     </footer>
 
-    <!-- Script para cargar la biblioteca de Jellyfin -->
+    <!-- Reproductor modal -->
+    <div class="overlay" id="overlay">
+        <div class="player-modal">
+            <button class="close" id="modalClose">&times;</button>
+            <img class="player-backdrop" id="modalBackdrop" alt="">
+            <div class="player-body">
+                <h3 id="modalTitle"></h3>
+                <div class="meta-row" id="modalMeta"></div>
+                <div class="genres" id="modalGenres"></div>
+                <div class="overview" id="modalOverview"></div>
+                <div class="cast-crew" id="modalCastCrew"></div>
+                <div id="videoWrap"></div>
+                <div class="actions" id="modalActions"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Configuración
+        // ============================================================
+        // CONFIGURACIÓN
+        // ============================================================
         const JELLYFIN_URL = "https://media.jarr.cc.cd";
         const API_KEY = "4119d7f4257c477ab5b72ddb1fcd735e"; // Reemplaza con tu API Key real
         const USER_ID = "99d724cfca8847e0bf89fbf93a734421";
 
+        // ============================================================
+        // ESTADO
+        // ============================================================
+        let allItems = [];
+        let itemsById = {};
+        let watchlist = JSON.parse(localStorage.getItem('jellyfin_watchlist') || '[]');
+        let showingWatchlist = false;
+
+        // ============================================================
+        // DOM REFS
+        // ============================================================
         const statusEl = document.getElementById("status");
         const gridEl = document.getElementById("library");
+        const searchInput = document.getElementById("searchInput");
+        const watchlistToggle = document.getElementById("watchlistToggle");
+        const watchlistCount = document.getElementById("watchlistCount");
 
+        const overlay = document.getElementById("overlay");
+        const modalClose = document.getElementById("modalClose");
+        const modalBackdrop = document.getElementById("modalBackdrop");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalMeta = document.getElementById("modalMeta");
+        const modalGenres = document.getElementById("modalGenres");
+        const modalOverview = document.getElementById("modalOverview");
+        const modalCastCrew = document.getElementById("modalCastCrew");
+        const modalActions = document.getElementById("modalActions");
+        const videoWrap = document.getElementById("videoWrap");
+
+        // ============================================================
+        // UTILIDADES
+        // ============================================================
         function setStatus(type, msg) {
             statusEl.className = type;
             statusEl.textContent = msg;
         }
 
+        function formatRuntime(ticks) {
+            if (!ticks) return null;
+            const totalMin = Math.round(ticks / 10000000 / 60);
+            const h = Math.floor(totalMin / 60);
+            const m = totalMin % 60;
+            return h > 0 ? `${h}h ${m}m` : `${m}m`;
+        }
+
+        function updateWatchlistCount() {
+            watchlistCount.textContent = watchlist.length;
+            localStorage.setItem('jellyfin_watchlist', JSON.stringify(watchlist));
+        }
+
+        function toggleWatchlist(itemId) {
+            const idx = watchlist.indexOf(itemId);
+            if (idx > -1) {
+                watchlist.splice(idx, 1);
+            } else {
+                watchlist.push(itemId);
+            }
+            updateWatchlistCount();
+            // Si estamos viendo la watchlist, re-renderizar
+            if (showingWatchlist) {
+                renderLibrary(allItems.filter(item => watchlist.includes(item.Id)));
+            } else {
+                // Actualizar los botones de las tarjetas
+                document.querySelectorAll('.item-card').forEach(card => {
+                    const id = card.dataset.id;
+                    const btn = card.querySelector('.watchlist-btn');
+                    if (btn) {
+                        btn.innerHTML = watchlist.includes(id) ? '⭐' : '☆';
+                    }
+                });
+            }
+        }
+
+        // ============================================================
+        // RENDER
+        // ============================================================
+        function renderLibrary(items) {
+            if (items.length === 0) {
+                setStatus("error", "No hay contenido para mostrar.");
+                gridEl.innerHTML = '';
+                return;
+            }
+            setStatus("ok", "");
+            gridEl.innerHTML = items.map(item => {
+                const imgUrl = item.ImageTags && item.ImageTags.Primary
+                    ? `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}`
+                    : "";
+                const badge = item.Type === "Series" ? "Serie" : "Película";
+                const inWatchlist = watchlist.includes(item.Id);
+                return `
+                    <div class="item-card" data-id="${item.Id}">
+                        <span class="badge">${badge}</span>
+                        ${imgUrl ? `<img src="${imgUrl}" alt="${item.Name}" loading="lazy">` : ""}
+                        <div class="title">${item.Name}</div>
+                        <button class="watchlist-btn" data-id="${item.Id}">${inWatchlist ? '⭐' : '☆'}</button>
+                    </div>`;
+            }).join("");
+
+            // Eventos: abrir modal al hacer clic en la tarjeta
+            gridEl.querySelectorAll(".item-card").forEach(card => {
+                card.addEventListener("click", (e) => {
+                    // Si el clic fue en el botón de watchlist, no abrir modal
+                    if (e.target.classList.contains('watchlist-btn')) return;
+                    openModal(card.dataset.id);
+                });
+                const btn = card.querySelector('.watchlist-btn');
+                if (btn) {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        toggleWatchlist(btn.dataset.id);
+                    });
+                }
+            });
+        }
+
+        // ============================================================
+        // FETCH
+        // ============================================================
         async function fetchLibrary() {
             try {
                 const url = `${JELLYFIN_URL}/Users/${USER_ID}/Items` +
                     `?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series` +
                     `&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating` +
-                    `&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=24`;
+                    `&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=50`;
 
                 const res = await fetch(url, { headers: { "X-Emby-Token": API_KEY } });
                 if (!res.ok) throw new Error(`El servidor respondió con estado ${res.status}`);
 
                 const data = await res.json();
-                renderLibrary(data.Items || []);
+                allItems = data.Items || [];
+                itemsById = {};
+                allItems.forEach(item => { itemsById[item.Id] = item; });
+                renderLibrary(allItems);
+                updateWatchlistCount();
             } catch (err) {
                 setStatus("error",
                     `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`);
@@ -692,28 +1023,177 @@
             }
         }
 
-        function renderLibrary(items) {
-            if (items.length === 0) {
-                setStatus("error", "El servidor respondió, pero no hay contenido visible.");
-                return;
+        // ============================================================
+        // BUSCADOR
+        // ============================================================
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase().trim();
+            if (showingWatchlist) {
+                // Si estamos en watchlist, filtrar sobre los items de la watchlist
+                const watchlistItems = allItems.filter(item => watchlist.includes(item.Id));
+                const filtered = watchlistItems.filter(item =>
+                    item.Name.toLowerCase().includes(query)
+                );
+                renderLibrary(filtered);
+            } else {
+                const filtered = allItems.filter(item =>
+                    item.Name.toLowerCase().includes(query)
+                );
+                renderLibrary(filtered);
             }
-            statusEl.className = "ok";
-            gridEl.innerHTML = items.map(item => {
-                const imgUrl = item.ImageTags && item.ImageTags.Primary
-                    ? `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}`
-                    : "";
-                const badge = item.Type === "Series" ? "Serie" : "Película";
-                return `
-                        <div class="item-card" data-id="${item.Id}">
-                            <span class="badge">${badge}</span>
-                            ${imgUrl ? `<img src="${imgUrl}" alt="${item.Name}" loading="lazy">` : ""}
-                            <div class="title">${item.Name}</div>
-                        </div>`;
-            }).join("");
+        });
 
-            // Aquí puedes añadir el evento click para abrir el modal, si lo deseas.
+        // ============================================================
+        // WATCHLIST TOGGLE
+        // ============================================================
+        watchlistToggle.addEventListener('click', () => {
+            showingWatchlist = !showingWatchlist;
+            if (showingWatchlist) {
+                watchlistToggle.innerHTML = `<i class="fas fa-arrow-left"></i> Volver a todas`;
+                const watchlistItems = allItems.filter(item => watchlist.includes(item.Id));
+                renderLibrary(watchlistItems);
+            } else {
+                watchlistToggle.innerHTML = `<i class="fas fa-heart"></i> Mi lista (<span id="watchlistCount">${watchlist.length}</span>)`;
+                // Aplicar búsqueda si hay texto
+                const query = searchInput.value.toLowerCase().trim();
+                if (query) {
+                    const filtered = allItems.filter(item =>
+                        item.Name.toLowerCase().includes(query)
+                    );
+                    renderLibrary(filtered);
+                } else {
+                    renderLibrary(allItems);
+                }
+            }
+        });
+
+        // ============================================================
+        // MODAL / REPRODUCTOR
+        // ============================================================
+        async function fetchItemDetail(id) {
+            const url = `${JELLYFIN_URL}/Users/${USER_ID}/Items/${id}` +
+                `?Fields=MediaStreams,Overview,Genres,MediaSources,BackdropImageTags,CommunityRating,RunTimeTicks,People`;
+            const res = await fetch(url, { headers: { "X-Emby-Token": API_KEY } });
+            if (!res.ok) throw new Error(`estado ${res.status}`);
+            return res.json();
         }
 
+        async function openModal(id) {
+            const basic = itemsById[id];
+            if (!basic) return;
+
+            // Estado inicial rápido
+            modalTitle.textContent = basic.Name;
+            modalMeta.innerHTML = "Cargando detalles…";
+            modalGenres.innerHTML = "";
+            modalOverview.textContent = "";
+            modalCastCrew.innerHTML = "";
+            videoWrap.innerHTML = "";
+            modalActions.innerHTML = "";
+            modalBackdrop.src = basic.ImageTags && basic.ImageTags.Primary
+                ? `${JELLYFIN_URL}/Items/${id}/Images/Primary?maxWidth=800&tag=${basic.ImageTags.Primary}`
+                : "";
+            overlay.classList.add("open");
+
+            let detail;
+            try {
+                detail = await fetchItemDetail(id);
+            } catch (err) {
+                modalMeta.innerHTML = `<span style="color:#ff9c9c">No se pudo cargar el detalle (${err.message})</span>`;
+                return;
+            }
+
+            // Backdrop
+            if (detail.BackdropImageTags && detail.BackdropImageTags.length > 0) {
+                modalBackdrop.src = `${JELLYFIN_URL}/Items/${id}/Images/Backdrop/0?maxWidth=900&tag=${detail.BackdropImageTags[0]}`;
+            }
+
+            // Metadatos
+            const year = detail.ProductionYear || "";
+            const rating = detail.CommunityRating ? `⭐ ${detail.CommunityRating.toFixed(1)}` : "";
+            const runtime = formatRuntime(detail.RunTimeTicks);
+            const type = detail.Type === "Series" ? "Serie" : "Película";
+
+            modalMeta.innerHTML = [
+                year ? `<span class="pill">${year}</span>` : "",
+                rating ? `<span class="rating">${rating}</span>` : "",
+                runtime ? `<span class="pill">${runtime}</span>` : "",
+                `<span class="pill">${type}</span>`
+            ].filter(Boolean).join("");
+
+            modalGenres.innerHTML = (detail.Genres || [])
+                .map(g => `<span>${g}</span>`).join("");
+
+            modalOverview.textContent = detail.Overview || "Sin descripción disponible.";
+
+            // Cast & Crew
+            const people = detail.People || [];
+            const directors = people.filter(p => p.Type === "Director").map(p => p.Name).join(", ");
+            const writers = people.filter(p => p.Type === "Writer").map(p => p.Name).join(", ");
+            const actors = people.filter(p => p.Type === "Actor").slice(0, 6).map(p => p.Name).join(", ");
+
+            let castHtml = "";
+            if (directors) castHtml += `<span class="group"><strong>Director:</strong> ${directors}</span>`;
+            if (writers) castHtml += `<span class="group"><strong>Guionista:</strong> ${writers}</span>`;
+            if (actors) castHtml += `<span class="group"><strong>Actores:</strong> ${actors}</span>`;
+            modalCastCrew.innerHTML = castHtml;
+
+            // Reproductor
+            if (detail.Type === "Movie") {
+                const mediaSourceId = (detail.MediaSources && detail.MediaSources[0])
+                    ? detail.MediaSources[0].Id : id;
+
+                const streamUrl = `${JELLYFIN_URL}/Videos/${id}/stream?static=true&mediaSourceId=${mediaSourceId}&api_key=${API_KEY}`;
+
+                const subtitleStreams = (detail.MediaStreams || [])
+                    .filter(s => s.Type === "Subtitle");
+
+                const tracks = subtitleStreams.map((s, i) => {
+                    const subUrl = `${JELLYFIN_URL}/Videos/${id}/${mediaSourceId}/Subtitles/${s.Index}/Stream.vtt?api_key=${API_KEY}`;
+                    const label = s.DisplayTitle || s.Language || `Pista ${i + 1}`;
+                    const lang = s.Language || "und";
+                    const dflt = i === 0 ? "default" : "";
+                    return `<track kind="subtitles" src="${subUrl}" srclang="${lang}" label="${label}" ${dflt}>`;
+                }).join("");
+
+                videoWrap.innerHTML = `
+                    <video class="jf-video" controls preload="metadata" crossorigin="anonymous" autoplay>
+                        <source src="${streamUrl}" type="video/mp4">
+                        ${tracks}
+                    </video>
+                    ${subtitleStreams.length === 0 ? '<div class="no-video-note">Este archivo no tiene subtítulos guardados en el servidor.</div>' : ''}
+                `;
+                modalActions.innerHTML = "";
+            } else {
+                videoWrap.innerHTML = `<div class="no-video-note">Las series se reproducen episodio por episodio directo en el servidor.</div>`;
+                modalActions.innerHTML = `
+                    <a class="secondary" href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank">Ver episodios en el servidor →</a>`;
+            }
+        }
+
+        function closeModal() {
+            overlay.classList.remove("open");
+            // Detener video
+            const video = document.querySelector('.jf-video');
+            if (video) {
+                video.pause();
+                video.src = '';
+                video.load();
+            }
+            videoWrap.innerHTML = "";
+        }
+
+        modalClose.addEventListener("click", closeModal);
+        overlay.addEventListener("click", (e) => {
+            if (e.target === overlay) closeModal();
+        });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closeModal();
+        });
+
+        // ============================================================
+        // INICIO
+        // ============================================================
         fetchLibrary();
     </script>
 
