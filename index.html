@@ -154,6 +154,26 @@
             color: var(--accent);
         }
 
+        .lang-toggle {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            padding: 4px 14px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text);
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--accent);
+            background: var(--border);
+        }
+
         /* ── Hero ── */
         .hero {
             padding: 80px 0 60px;
@@ -569,22 +589,30 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
 
         .cert-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px);
             border-color: var(--accent);
         }
 
         .cert-card img {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             object-fit: contain;
-            border-radius: 10px;
+            border-radius: 50%;
             background: #fff;
-            padding: 6px;
+            padding: 8px;
             margin-bottom: 12px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid var(--border);
+        }
+
+        .cert-card:hover img {
+            transform: scale(1.05);
+            border-color: var(--accent);
         }
 
         .cert-card h4 {
@@ -597,6 +625,87 @@
         .cert-card .issuer {
             color: var(--muted);
             font-size: 0.75rem;
+        }
+
+        .cert-more-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .cert-hidden {
+            display: none !important;
+        }
+
+        /* ── TMDB Search ── */
+        .tmdb-results {
+            margin-top: 20px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .tmdb-results h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--muted);
+        }
+
+        .tmdb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px;
+        }
+
+        .tmdb-item {
+            background: var(--card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            cursor: pointer;
+            text-align: center;
+            padding-bottom: 10px;
+        }
+
+        .tmdb-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .tmdb-item img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            display: block;
+            background: #1a1e26;
+        }
+
+        .tmdb-item .info {
+            padding: 8px 10px 4px;
+        }
+
+        .tmdb-item .info .title {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .tmdb-item .info .year {
+            font-size: 0.7rem;
+            color: var(--muted);
+        }
+
+        .tmdb-item .watchlist-btn {
+            background: transparent;
+            border: none;
+            color: #fbbf24;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            transition: transform var(--transition);
+        }
+
+        .tmdb-item .watchlist-btn:hover {
+            transform: scale(1.2);
         }
 
         /* ── Experience ── */
@@ -765,6 +874,68 @@
             color: var(--text);
         }
 
+        .colorimetry {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 8px 14px;
+            margin-bottom: 14px;
+            border-left: 3px solid var(--accent);
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .colorimetry strong {
+            color: var(--text);
+        }
+
+        .recommendations {
+            margin-top: 14px;
+            border-top: 1px solid var(--border);
+            padding-top: 14px;
+        }
+
+        .recommendations h4 {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            color: var(--muted);
+        }
+
+        .recommendations .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .recommendations .rec-item {
+            background: var(--card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            cursor: pointer;
+            text-align: center;
+            padding-bottom: 6px;
+        }
+
+        .recommendations .rec-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .recommendations .rec-item img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            display: block;
+            background: #1a1e26;
+        }
+
+        .recommendations .rec-item .title {
+            font-size: 0.7rem;
+            padding: 4px 6px;
+            color: var(--muted);
+        }
+
         video.jf-video {
             width: 100%;
             border-radius: 8px;
@@ -839,6 +1010,12 @@
             .cert-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
+            .tmdb-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            .recommendations .rec-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
         }
 
         @media (max-width: 480px) {
@@ -863,12 +1040,15 @@
         <div class="container">
             <div class="brand">JAR<span>.</span></div>
             <div class="links">
-                <a href="#about">Sobre mí</a>
-                <a href="#services">Servicios</a>
-                <a href="#skills">Habilidades</a>
-                <a href="#projects">Proyectos</a>
-                <a href="#certifications">Certificaciones</a>
-                <a href="#contact">Contacto</a>
+                <a href="#about" data-i18n="nav.about">Sobre mí</a>
+                <a href="#services" data-i18n="nav.services">Servicios</a>
+                <a href="#skills" data-i18n="nav.skills">Habilidades</a>
+                <a href="#projects" data-i18n="nav.projects">Proyectos</a>
+                <a href="#certifications" data-i18n="nav.certs">Certificaciones</a>
+                <a href="#contact" data-i18n="nav.contact">Contacto</a>
+                <button class="lang-toggle" id="langToggle">
+                    <i class="fas fa-globe"></i> <span id="langLabel">ES</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -876,20 +1056,20 @@
     <!-- ─── HERO ─── -->
     <header class="hero">
         <div class="container">
-            <div class="eyebrow anim anim-delay-1">✦ Disponible para oportunidades remotas</div>
+            <div class="eyebrow anim anim-delay-1" data-i18n="hero.eyebrow">✦ Disponible para oportunidades remotas</div>
             <h1 class="anim anim-delay-2">Juan Antonio Rivera Rodriguez</h1>
-            <p class="sub anim anim-delay-3">Aspiring Cloud Engineer · Docker &amp; Linux</p>
-            <p class="anim anim-delay-4">
+            <p class="sub anim anim-delay-3" data-i18n="hero.sub">Aspiring Cloud Engineer · Docker &amp; Linux</p>
+            <p class="anim anim-delay-4" data-i18n="hero.desc">
                 Estudiante de Ingeniería en Desarrollo de Software en Universidad Tecmilenio (modelo MAPS).
                 Construyo infraestructura contenerizada y me enfoco en automatización, redes y sistemas
                 auto‑hospedados. Este portafolio en sí mismo es un proyecto en vivo: un servidor de streaming
                 propio, expuesto de forma segura a internet.
             </p>
             <div class="cta-group anim anim-delay-5">
-                <a href="#projects" class="btn btn-primary"><i class="fas fa-play"></i> Ver proyecto en vivo</a>
+                <a href="#projects" class="btn btn-primary" data-i18n="hero.cta1"><i class="fas fa-play"></i> Ver proyecto en vivo</a>
                 <a href="https://github.com/death-zip" target="_blank" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
                 <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank" class="btn btn-ghost"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-                <a href="cv.pdf" target="_blank" class="btn btn-outline"><i class="fas fa-file-pdf"></i> Descargar CV</a>
+                <a href="cv.pdf" target="_blank" class="btn btn-outline" data-i18n="hero.cta2"><i class="fas fa-file-pdf"></i> Descargar CV</a>
             </div>
         </div>
     </header>
@@ -898,16 +1078,16 @@
 
         <!-- ─── ABOUT ─── -->
         <section id="about">
-            <h2 class="section-title anim">Sobre Mí</h2>
+            <h2 class="section-title anim" data-i18n="about.title">Sobre Mí</h2>
             <div class="section-divider anim"></div>
             <div class="about-grid">
                 <div class="about-text anim">
-                    <p>
+                    <p data-i18n="about.p1">
                         Soy un estudiante de Ingeniería en Desarrollo de Software con una fuerte pasión por la
                         infraestructura en la nube, DevOps y la automatización. Disfruto construir sistemas desde cero
                         — desde aplicaciones contenerizadas hasta túneles de red seguros.
                     </p>
-                    <p>
+                    <p data-i18n="about.p2">
                         Este portafolio es un testimonio de ello: un servidor multimedia completamente funcional
                         ejecutándose en Docker, expuesto a través de Cloudflare Tunnel y consumiendo su propia API REST
                         — todo construido como un viaje de aprendizaje y una muestra de habilidades prácticas.
@@ -929,13 +1109,13 @@
 
         <!-- ─── SERVICES ─── -->
         <section id="services">
-            <h2 class="section-title anim">Servicios</h2>
-            <p class="section-sub anim">Lo que puedo aportar a tu equipo</p>
+            <h2 class="section-title anim" data-i18n="services.title">Servicios</h2>
+            <p class="section-sub anim" data-i18n="services.sub">Lo que puedo aportar a tu equipo</p>
             <div class="service-grid">
                 <div class="service-card anim anim-delay-1">
                     <div class="icon"><i class="fas fa-server"></i></div>
-                    <h3>Infraestructura como Código</h3>
-                    <p>Diseño e implementación de entornos contenerizados con Docker y Docker Compose para aplicaciones escalables y portables.</p>
+                    <h3 data-i18n="services.s1.title">Infraestructura como Código</h3>
+                    <p data-i18n="services.s1.desc">Diseño e implementación de entornos contenerizados con Docker y Docker Compose para aplicaciones escalables y portables.</p>
                     <div class="tags">
                         <span>Docker</span>
                         <span>Linux</span>
@@ -944,8 +1124,8 @@
                 </div>
                 <div class="service-card anim anim-delay-2">
                     <div class="icon"><i class="fas fa-cloud"></i></div>
-                    <h3>Despliegue en la Nube</h3>
-                    <p>Configuración de servidores en la nube, túneles seguros (Cloudflare) y exposición de servicios a internet con HTTPS.</p>
+                    <h3 data-i18n="services.s2.title">Despliegue en la Nube</h3>
+                    <p data-i18n="services.s2.desc">Configuración de servidores en la nube, túneles seguros (Cloudflare) y exposición de servicios a internet con HTTPS.</p>
                     <div class="tags">
                         <span>Cloudflare</span>
                         <span>Nginx</span>
@@ -954,8 +1134,8 @@
                 </div>
                 <div class="service-card anim anim-delay-3">
                     <div class="icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Automatización &amp; Seguridad</h3>
-                    <p>Automatización de tareas con scripts y hardening de sistemas para entornos de producción seguros.</p>
+                    <h3 data-i18n="services.s3.title">Automatización &amp; Seguridad</h3>
+                    <p data-i18n="services.s3.desc">Automatización de tareas con scripts y hardening de sistemas para entornos de producción seguros.</p>
                     <div class="tags">
                         <span>Bash</span>
                         <span>Firewall</span>
@@ -967,8 +1147,8 @@
 
         <!-- ─── SKILLS (ÉPICO) ─── -->
         <section id="skills">
-            <h2 class="section-title anim"><i class="fas fa-bolt" style="color: var(--accent);"></i> Habilidades Técnicas</h2>
-            <p class="section-sub anim">Tecnologías y herramientas que domino</p>
+            <h2 class="section-title anim"><i class="fas fa-bolt" style="color: var(--accent);"></i> <span data-i18n="skills.title">Habilidades Técnicas</span></h2>
+            <p class="section-sub anim" data-i18n="skills.sub">Tecnologías y herramientas que domino</p>
             <div class="skills-wrapper anim">
                 <canvas id="particlesCanvas"></canvas>
                 <div class="skills-cloud">
@@ -992,24 +1172,30 @@
             </div>
         </section>
 
-        <!-- ─── PROJECTS (JELLYFIN) ─── -->
+        <!-- ─── PROJECTS (JELLYFIN + TMDB) ─── -->
         <section id="projects">
-            <h2 class="section-title anim">Proyecto destacado</h2>
-            <p class="section-sub anim">Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel</p>
+            <h2 class="section-title anim" data-i18n="projects.title">Proyecto destacado</h2>
+            <p class="section-sub anim" data-i18n="projects.sub">Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel</p>
 
-            <div id="status" class="loading anim">Cargando biblioteca desde el servidor…</div>
+            <div id="status" class="loading anim" data-i18n="projects.loading">Cargando biblioteca desde el servidor…</div>
 
             <div class="library-controls anim">
-                <input type="text" id="searchInput" placeholder="🔍 Buscar películas…" />
+                <input type="text" id="searchInput" placeholder="🔍 Buscar películas…" data-i18n="projects.search" />
                 <button class="btn btn-primary" id="watchlistToggle">
-                    <i class="fas fa-heart"></i> Mi lista (<span id="watchlistCount">0</span>)
+                    <i class="fas fa-heart"></i> <span data-i18n="projects.watchlist">Mi lista</span> (<span id="watchlistCount">0</span>)
                 </button>
             </div>
 
             <div id="library" class="grid anim"></div>
 
+            <!-- Resultados de TMDB -->
+            <div id="tmdbResults" class="tmdb-results anim" style="display:none;">
+                <h3 data-i18n="tmdb.title">Resultados de TMDB</h3>
+                <div id="tmdbGrid" class="tmdb-grid"></div>
+            </div>
+
             <div class="text-center" style="margin-top: 24px; text-align: center;">
-                <a href="https://media.jarr.cc.cd" target="_blank" class="btn btn-primary">
+                <a href="https://media.jarr.cc.cd" target="_blank" class="btn btn-primary" data-i18n="projects.full">
                     <i class="fas fa-external-link-alt"></i> Abrir servidor completo
                 </a>
             </div>
@@ -1017,134 +1203,30 @@
 
         <!-- ─── CERTIFICATIONS ─── -->
         <section id="certifications">
-            <h2 class="section-title anim">Certificaciones</h2>
-            <p class="section-sub anim">Verificadas en Credly</p>
+            <h2 class="section-title anim" data-i18n="certs.title">Certificaciones</h2>
+            <p class="section-sub anim" data-i18n="certs.sub">Verificadas en Credly</p>
             <div class="cert-grid" id="certGrid">
-                <!-- 1 -->
-                <a class="cert-card anim anim-delay-1" href="https://www.credly.com/badges/65c923dc-22a2-45ea-8285-ca464feddfa4" target="_blank">
-                    <img src="https://images.credly.com/images/fdecf3ca-1fa7-46c9-93c7-e203f718579b/linkedin_thumb_blob" alt="Desarrollo Full Stack" />
-                    <h4>Desarrollo Full Stack</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 2 -->
-                <a class="cert-card anim anim-delay-2" href="https://www.credly.com/badges/0595675d-b4e1-42ab-950a-4889cfd51323" target="_blank">
-                    <img src="https://images.credly.com/images/18d30937-4c1b-442c-83a1-543265bcf02f/linkedin_thumb_image.png" alt="Fundamentos de DevOps" />
-                    <h4>Fundamentos de DevOps</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 3 -->
-                <a class="cert-card anim anim-delay-3" href="https://www.credly.com/badges/471e6f41-5a6c-40fd-ae73-ce09ecd446a9" target="_blank">
-                    <img src="https://images.credly.com/images/c0e5a9ce-f523-483c-8daa-4c37019ad7aa/linkedin_thumb_blob" alt="Gestión de Redes" />
-                    <h4>Gestión de Redes</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 4 -->
-                <a class="cert-card anim anim-delay-4" href="https://www.credly.com/badges/3c900f69-4fff-4a93-8142-5a6cb3606cbf" target="_blank">
-                    <img src="https://images.credly.com/images/07e7ba52-aea4-431f-ba2d-a4113efd1d5a/linkedin_thumb_blob" alt="AWS Cloud Operations" />
-                    <h4>AWS Cloud Operations</h4>
-                    <div class="issuer">Amazon Web Services</div>
-                </a>
-                <!-- 5 -->
-                <a class="cert-card anim anim-delay-5" href="https://www.credly.com/badges/49bff30e-f0a0-4ee0-92c8-9865a5940f80" target="_blank">
-                    <img src="https://images.credly.com/images/5bdd6a39-..." alt="Networking Basics" />
-                    <h4>Networking Basics</h4>
-                    <div class="issuer">Cisco</div>
-                </a>
-                <!-- 6 -->
-                <a class="cert-card anim anim-delay-1" href="https://www.credly.com/badges/807e567b-6e76-426a-8c1e-41e83b2e2eb1" target="_blank">
-                    <img src="https://images.credly.com/images/0c1c6eed-818c-4f78-bfaa-7ea8704c863a/linkedin_thumb_image.png" alt="Web Development Fundamentals" />
-                    <h4>Web Development Fundamentals</h4>
-                    <div class="issuer">IBM SkillsBuild</div>
-                </a>
-                <!-- 7 -->
-                <a class="cert-card anim anim-delay-2" href="https://www.credly.com/badges/8416f2cd-0796-48d3-b1ba-93174ce233ac" target="_blank">
-                    <img src="https://images.credly.com/images/4013b068-cd88-443a-b109-292cad70e121/linkedin_thumb_blob" alt="Ciencia de Datos" />
-                    <h4>Ciencia de Datos</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 8 -->
-                <a class="cert-card anim anim-delay-3" href="https://www.credly.com/badges/507c3a84-2b0e-40c7-acfd-fda85afe2f4c" target="_blank">
-                    <img src="https://images.credly.com/images/da491c56-6aef-47a6-9ae4-eb3bbfa9b60e/linkedin_thumb_blob" alt="Computación en la Nube" />
-                    <h4>Computación en la Nube</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 9 -->
-                <a class="cert-card anim anim-delay-4" href="https://www.credly.com/badges/ac1bf2ac-d8ab-4a71-ab62-1b16d31abeed" target="_blank">
-                    <img src="https://images.credly.com/images/0871bc81-7152-4340-8367-8fbe3896c43f/linkedin_thumb_blob" alt="Fundamentos de Programación" />
-                    <h4>Fundamentos de Programación</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 10 -->
-                <a class="cert-card anim anim-delay-5" href="https://www.credly.com/badges/b7ec7525-1f53-4147-94f7-15a01965f6fc" target="_blank">
-                    <img src="https://images.credly.com/images/c187e134-e491-4f6b-9083-decb5e0bd265/linkedin_thumb_blob" alt="Probabilidad y Estadística" />
-                    <h4>Probabilidad y Estadística</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 11 -->
-                <a class="cert-card anim anim-delay-1" href="https://www.credly.com/badges/14086fc7-ef71-4eed-a940-06211aa0ee4d" target="_blank">
-                    <img src="https://images.credly.com/images/dc201a38-6b7c-4ffd-85cc-0d337b22bc05/linkedin_thumb_blob" alt="Programación Orientada a Objetos" />
-                    <h4>Programación Orientada a Objetos</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 12 -->
-                <a class="cert-card anim anim-delay-2" href="https://www.credly.com/badges/b3ef07b3-e988-4277-aae2-11c4dbf4c1b7" target="_blank">
-                    <img src="https://images.credly.com/images/24c929ed-4d14-4226-975f-116ee666d81e/linkedin_thumb_blob" alt="Sistemas Operativos" />
-                    <h4>Sistemas Operativos</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 13 -->
-                <a class="cert-card anim anim-delay-3" href="https://www.credly.com/badges/3b65589f-c9c3-40f6-bc7a-8b414d6cf7ad" target="_blank">
-                    <img src="https://images.credly.com/images/251db325-c323-4cbf-927d-9970329fdebb/linkedin_thumb_image.png" alt="Inglés 5" />
-                    <h4>Inglés 5</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 14 -->
-                <a class="cert-card anim anim-delay-4" href="https://www.credly.com/badges/383ecc92-5b6f-4c0a-9940-cc95370f6d5c" target="_blank">
-                    <img src="https://images.credly.com/images/2cc5aef9-1698-4a6c-9a22-6b81b1a6fe51/linkedin_thumb_blob" alt="Metodologías Ágiles" />
-                    <h4>Metodologías Ágiles</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 15 -->
-                <a class="cert-card anim anim-delay-5" href="https://www.credly.com/badges/681e734c-7a4b-41a7-b5ab-ce0724e5c2ae" target="_blank">
-                    <img src="https://images.credly.com/images/3e8f3768-bb7b-426f-ba22-e214da27aca5/linkedin_thumb_blob" alt="Bases de Datos" />
-                    <h4>Bases de Datos</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 16 -->
-                <a class="cert-card anim anim-delay-1" href="https://www.credly.com/badges/f530762e-fc52-472b-a94b-47a9cadb32c7" target="_blank">
-                    <img src="https://images.credly.com/images/868fef28-16a5-4ed4-92f6-ef43da8fec4a/linkedin_thumb_blob" alt="Estructura de Datos" />
-                    <h4>Estructura de Datos</h4>
-                    <div class="issuer">Universidad Tecmilenio</div>
-                </a>
-                <!-- 17 -->
-                <a class="cert-card anim anim-delay-2" href="https://www.credly.com/badges/dfa65af0-89cc-4062-ad0c-ae7e88d8495e" target="_blank">
-                    <img src="https://images.credly.com/images/b38a42e0-dc58-4ce2-b6c0-28d978e8aaad/linkedin_thumb_image.png" alt="Introduction to Data Science" />
-                    <h4>Introduction to Data Science</h4>
-                    <div class="issuer">Cisco</div>
-                </a>
-                <!-- 18 -->
-                <a class="cert-card anim anim-delay-3" href="https://www.credly.com/badges/cea7bc5d-b0b8-40ee-a47a-c5a779b86edd" target="_blank">
-                    <img src="https://images.credly.com/images/68c0b94d-f6ac-40b1-a0e0-921439eb092e/linkedin_thumb_image.png" alt="Python Essentials 1" />
-                    <h4>Python Essentials 1</h4>
-                    <div class="issuer">Cisco</div>
-                </a>
+                <!-- Aquí se inyectan las insignias con JS para manejar "Ver más" -->
+            </div>
+            <div class="cert-more-btn">
+                <button id="toggleCertsBtn" class="btn btn-primary" data-i18n="certs.showmore">Ver más</button>
             </div>
         </section>
 
         <!-- ─── EXPERIENCE ─── -->
         <section id="experience">
-            <h2 class="section-title anim">Experiencia</h2>
-            <p class="section-sub anim">Trayectoria profesional</p>
+            <h2 class="section-title anim" data-i18n="exp.title">Experiencia</h2>
+            <p class="section-sub anim" data-i18n="exp.sub">Trayectoria profesional</p>
             <div class="exp-card anim">
                 <div>
-                    <h3>Desarrollador Freelance</h3>
-                    <div class="role">Autónomo · 2026 – Presente</div>
-                    <div class="desc">
+                    <h3 data-i18n="exp.role">Desarrollador Freelance</h3>
+                    <div class="role" data-i18n="exp.period">Autónomo · 2026 – Presente</div>
+                    <div class="desc" data-i18n="exp.desc">
                         Desarrollo de proyectos personalizados para clientes. Especializado en la creación de infraestructura
                         contenerizada, despliegue de aplicaciones web y automatización de tareas.
                     </div>
                 </div>
-                <div class="status-badge">Activo</div>
+                <div class="status-badge" data-i18n="exp.status">Activo</div>
             </div>
         </section>
 
@@ -1154,7 +1236,7 @@
     <footer id="contact">
         <div class="container">
             <div style="font-size:1.1rem; color:var(--text); margin-bottom:6px;">
-                <i class="fas fa-envelope"></i> ¿Tienes un proyecto en mente o quieres charlar?
+                <i class="fas fa-envelope"></i> <span data-i18n="footer.cta">¿Tienes un proyecto en mente o quieres charlar?</span>
             </div>
             <div class="foot-links">
                 <a href="mailto:riverarodriguezjuanantonio@gmail.com"><i class="fas fa-envelope"></i> Email</a>
@@ -1179,14 +1261,158 @@
                 <div class="genres" id="modalGenres"></div>
                 <div class="overview" id="modalOverview"></div>
                 <div class="cast-crew" id="modalCastCrew"></div>
+                <div class="colorimetry" id="modalColorimetry"></div>
                 <div id="videoWrap"></div>
                 <div class="actions" id="modalActions"></div>
+                <div class="recommendations" id="modalRecommendations" style="display:none;">
+                    <h4 data-i18n="recommendations.title">Recomendaciones</h4>
+                    <div class="rec-grid" id="recGrid"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ─── PARTICULAS PARA LA SECCIÓN DE HABILIDADES ───
+        // ─── I18N ───
+        const translations = {
+            es: {
+                'nav.about': 'Sobre mí',
+                'nav.services': 'Servicios',
+                'nav.skills': 'Habilidades',
+                'nav.projects': 'Proyectos',
+                'nav.certs': 'Certificaciones',
+                'nav.contact': 'Contacto',
+                'hero.eyebrow': '✦ Disponible para oportunidades remotas',
+                'hero.sub': 'Aspirante a Cloud Engineer · Docker y Linux',
+                'hero.desc': 'Estudiante de Ingeniería en Desarrollo de Software en Universidad Tecmilenio (modelo MAPS). Construyo infraestructura contenerizada y me enfoco en automatización, redes y sistemas auto‑hospedados. Este portafolio en sí mismo es un proyecto en vivo: un servidor de streaming propio, expuesto de forma segura a internet.',
+                'hero.cta1': 'Ver proyecto en vivo',
+                'hero.cta2': 'Descargar CV',
+                'about.title': 'Sobre Mí',
+                'about.p1': 'Soy un estudiante de Ingeniería en Desarrollo de Software con una fuerte pasión por la infraestructura en la nube, DevOps y la automatización. Disfruto construir sistemas desde cero — desde aplicaciones contenerizadas hasta túneles de red seguros.',
+                'about.p2': 'Este portafolio es un testimonio de ello: un servidor multimedia completamente funcional ejecutándose en Docker, expuesto a través de Cloudflare Tunnel y consumiendo su propia API REST — todo construido como un viaje de aprendizaje y una muestra de habilidades prácticas.',
+                'services.title': 'Servicios',
+                'services.sub': 'Lo que puedo aportar a tu equipo',
+                'services.s1.title': 'Infraestructura como Código',
+                'services.s1.desc': 'Diseño e implementación de entornos contenerizados con Docker y Docker Compose para aplicaciones escalables y portables.',
+                'services.s2.title': 'Despliegue en la Nube',
+                'services.s2.desc': 'Configuración de servidores en la nube, túneles seguros (Cloudflare) y exposición de servicios a internet con HTTPS.',
+                'services.s3.title': 'Automatización & Seguridad',
+                'services.s3.desc': 'Automatización de tareas con scripts y hardening de sistemas para entornos de producción seguros.',
+                'skills.title': 'Habilidades Técnicas',
+                'skills.sub': 'Tecnologías y herramientas que domino',
+                'projects.title': 'Proyecto destacado',
+                'projects.sub': 'Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel',
+                'projects.loading': 'Cargando biblioteca desde el servidor…',
+                'projects.search': 'Buscar películas…',
+                'projects.watchlist': 'Mi lista',
+                'projects.full': 'Abrir servidor completo',
+                'certs.title': 'Certificaciones',
+                'certs.sub': 'Verificadas en Credly',
+                'certs.showmore': 'Ver más',
+                'tmdb.title': 'Resultados de TMDB',
+                'exp.title': 'Experiencia',
+                'exp.sub': 'Trayectoria profesional',
+                'exp.role': 'Desarrollador Freelance',
+                'exp.period': 'Autónomo · 2026 – Presente',
+                'exp.desc': 'Desarrollo de proyectos personalizados para clientes. Especializado en infraestructura contenerizada, despliegue de aplicaciones web y automatización de tareas.',
+                'exp.status': 'Activo',
+                'footer.cta': '¿Tienes un proyecto en mente o quieres charlar?',
+                'recommendations.title': 'Recomendaciones',
+                'modal.colorimetry': 'Colorimetría',
+                'modal.audio': 'Pistas de audio'
+            },
+            en: {
+                'nav.about': 'About',
+                'nav.services': 'Services',
+                'nav.skills': 'Skills',
+                'nav.projects': 'Projects',
+                'nav.certs': 'Certifications',
+                'nav.contact': 'Contact',
+                'hero.eyebrow': '✦ Available for remote opportunities',
+                'hero.sub': 'Aspiring Cloud Engineer · Docker & Linux',
+                'hero.desc': 'Software Engineering student at Universidad Tecmilenio (MAPS model). I build containerized infrastructure and focus on automation, networking, and self‑hosted systems. This portfolio itself is a live project: a self‑hosted streaming server, securely exposed to the internet.',
+                'hero.cta1': 'View live project',
+                'hero.cta2': 'Download CV',
+                'about.title': 'About Me',
+                'about.p1': 'I am a Software Engineering student at Universidad Tecmilenio with a strong passion for cloud infrastructure, DevOps, and automation. I enjoy building systems from the ground up — from containerized applications to secure networking tunnels.',
+                'about.p2': 'This portfolio is a testament to that: a fully functional media server running on Docker, exposed via Cloudflare Tunnel, and consuming its own REST API — all built as a learning journey and a showcase of practical skills.',
+                'services.title': 'Services',
+                'services.sub': 'What I can bring to your team',
+                'services.s1.title': 'Infrastructure as Code',
+                'services.s1.desc': 'Design and implementation of containerized environments with Docker and Docker Compose for scalable, portable applications.',
+                'services.s2.title': 'Cloud Deployment',
+                'services.s2.desc': 'Configuration of cloud servers, secure tunnels (Cloudflare), and exposure of services to the internet with HTTPS.',
+                'services.s3.title': 'Automation & Security',
+                'services.s3.desc': 'Task automation with scripts and system hardening for secure production environments.',
+                'skills.title': 'Technical Skills',
+                'skills.sub': 'Technologies and tools I master',
+                'projects.title': 'Featured Project',
+                'projects.sub': 'Self‑hosted streaming server · Jellyfin · Docker · Cloudflare Tunnel',
+                'projects.loading': 'Loading library from server…',
+                'projects.search': 'Search movies…',
+                'projects.watchlist': 'My list',
+                'projects.full': 'Open full server',
+                'certs.title': 'Certifications',
+                'certs.sub': 'Verified on Credly',
+                'certs.showmore': 'Show more',
+                'tmdb.title': 'TMDB Results',
+                'exp.title': 'Experience',
+                'exp.sub': 'Professional journey',
+                'exp.role': 'Freelance Developer',
+                'exp.period': 'Self‑employed · 2026 – Present',
+                'exp.desc': 'Development of custom projects for clients. Specialised in containerised infrastructure, web application deployment, and task automation.',
+                'exp.status': 'Active',
+                'footer.cta': 'Have a project in mind or want to chat?',
+                'recommendations.title': 'Recommendations',
+                'modal.colorimetry': 'Colorimetry',
+                'modal.audio': 'Audio tracks'
+            }
+        };
+
+        let currentLang = 'es';
+
+        function t(key) {
+            return translations[currentLang]?.[key] || key;
+        }
+
+        function applyTranslations() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                const val = t(key);
+                if (val) el.textContent = val;
+            });
+            document.getElementById('langLabel').textContent = currentLang.toUpperCase();
+            // Actualizar botón de watchlist
+            const wlBtn = document.getElementById('watchlistToggle');
+            if (wlBtn) {
+                const txt = t('projects.watchlist');
+                const count = document.getElementById('watchlistCount').textContent;
+                wlBtn.innerHTML = `<i class="fas fa-heart"></i> ${txt} (<span id="watchlistCount">${count}</span>)`;
+            }
+            // Actualizar placeholder del buscador
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.placeholder = t('projects.search');
+            }
+            // Actualizar botón de certificaciones
+            const toggleBtn = document.getElementById('toggleCertsBtn');
+            if (toggleBtn) {
+                const isShowingAll = toggleBtn.dataset.showing === 'true';
+                toggleBtn.textContent = isShowingAll ? 'Ver menos' : t('certs.showmore');
+            }
+            // Actualizar estado de carga
+            const statusEl = document.getElementById('status');
+            if (statusEl && statusEl.className === 'loading') {
+                statusEl.textContent = t('projects.loading');
+            }
+        }
+
+        document.getElementById('langToggle').addEventListener('click', () => {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            applyTranslations();
+        });
+
+        // ─── PARTICULAS ───
         document.addEventListener('DOMContentLoaded', () => {
             const canvas = document.getElementById('particlesCanvas');
             if (!canvas) return;
@@ -1244,7 +1470,6 @@
                     p.update();
                     p.draw();
                 });
-                // Dibujar líneas entre partículas cercanas
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
@@ -1272,10 +1497,61 @@
             animate();
         });
 
-        // ─── JELLYFIN CONFIG ───
+        // ─── CERTIFICACIONES (insignias) ───
+        const certData = [
+            { name: 'Desarrollo Full Stack', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/fdecf3ca-1fa7-46c9-93c7-e203f718579b/linkedin_thumb_blob', url: 'https://www.credly.com/badges/65c923dc-22a2-45ea-8285-ca464feddfa4' },
+            { name: 'Fundamentos de DevOps', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/18d30937-4c1b-442c-83a1-543265bcf02f/linkedin_thumb_image.png', url: 'https://www.credly.com/badges/0595675d-b4e1-42ab-950a-4889cfd51323' },
+            { name: 'Gestión de Redes', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/c0e5a9ce-f523-483c-8daa-4c37019ad7aa/linkedin_thumb_blob', url: 'https://www.credly.com/badges/471e6f41-5a6c-40fd-ae73-ce09ecd446a9' },
+            { name: 'AWS Cloud Operations', issuer: 'Amazon Web Services', img: 'https://images.credly.com/images/07e7ba52-aea4-431f-ba2d-a4113efd1d5a/linkedin_thumb_blob', url: 'https://www.credly.com/badges/3c900f69-4fff-4a93-8142-5a6cb3606cbf' },
+            { name: 'Networking Basics', issuer: 'Cisco', img: 'https://images.credly.com/images/5bdd6a39-...', url: 'https://www.credly.com/badges/49bff30e-f0a0-4ee0-92c8-9865a5940f80' },
+            { name: 'Web Development Fundamentals', issuer: 'IBM SkillsBuild', img: 'https://images.credly.com/images/0c1c6eed-818c-4f78-bfaa-7ea8704c863a/linkedin_thumb_image.png', url: 'https://www.credly.com/badges/807e567b-6e76-426a-8c1e-41e83b2e2eb1' },
+            { name: 'Ciencia de Datos', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/4013b068-cd88-443a-b109-292cad70e121/linkedin_thumb_blob', url: 'https://www.credly.com/badges/8416f2cd-0796-48d3-b1ba-93174ce233ac' },
+            { name: 'Computación en la Nube', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/da491c56-6aef-47a6-9ae4-eb3bbfa9b60e/linkedin_thumb_blob', url: 'https://www.credly.com/badges/507c3a84-2b0e-40c7-acfd-fda85afe2f4c' },
+            { name: 'Fundamentos de Programación', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/0871bc81-7152-4340-8367-8fbe3896c43f/linkedin_thumb_blob', url: 'https://www.credly.com/badges/ac1bf2ac-d8ab-4a71-ab62-1b16d31abeed' },
+            { name: 'Probabilidad y Estadística', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/c187e134-e491-4f6b-9083-decb5e0bd265/linkedin_thumb_blob', url: 'https://www.credly.com/badges/b7ec7525-1f53-4147-94f7-15a01965f6fc' },
+            { name: 'Programación Orientada a Objetos', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/dc201a38-6b7c-4ffd-85cc-0d337b22bc05/linkedin_thumb_blob', url: 'https://www.credly.com/badges/14086fc7-ef71-4eed-a940-06211aa0ee4d' },
+            { name: 'Sistemas Operativos', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/24c929ed-4d14-4226-975f-116ee666d81e/linkedin_thumb_blob', url: 'https://www.credly.com/badges/b3ef07b3-e988-4277-aae2-11c4dbf4c1b7' },
+            { name: 'Inglés 5', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/251db325-c323-4cbf-927d-9970329fdebb/linkedin_thumb_image.png', url: 'https://www.credly.com/badges/3b65589f-c9c3-40f6-bc7a-8b414d6cf7ad' },
+            { name: 'Metodologías Ágiles', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/2cc5aef9-1698-4a6c-9a22-6b81b1a6fe51/linkedin_thumb_blob', url: 'https://www.credly.com/badges/383ecc92-5b6f-4c0a-9940-cc95370f6d5c' },
+            { name: 'Bases de Datos', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/3e8f3768-bb7b-426f-ba22-e214da27aca5/linkedin_thumb_blob', url: 'https://www.credly.com/badges/681e734c-7a4b-41a7-b5ab-ce0724e5c2ae' },
+            { name: 'Estructura de Datos', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/868fef28-16a5-4ed4-92f6-ef43da8fec4a/linkedin_thumb_blob', url: 'https://www.credly.com/badges/f530762e-fc52-472b-a94b-47a9cadb32c7' },
+            { name: 'Introduction to Data Science', issuer: 'Cisco', img: 'https://images.credly.com/images/b38a42e0-dc58-4ce2-b6c0-28d978e8aaad/linkedin_thumb_image.png', url: 'https://www.credly.com/badges/dfa65af0-89cc-4062-ad0c-ae7e88d8495e' },
+            { name: 'Python Essentials 1', issuer: 'Cisco', img: 'https://images.credly.com/images/68c0b94d-f6ac-40b1-a0e0-921439eb092e/linkedin_thumb_image.png', url: 'https://www.credly.com/badges/cea7bc5d-b0b8-40ee-a47a-c5a779b86edd' }
+        ];
+
+        const certGrid = document.getElementById('certGrid');
+        const toggleBtn = document.getElementById('toggleCertsBtn');
+        let showingAll = false;
+        const VISIBLE_COUNT = 6;
+
+        function renderCerts(showAll) {
+            const items = showAll ? certData : certData.slice(0, VISIBLE_COUNT);
+            certGrid.innerHTML = items.map(cert => `
+                    <a class="cert-card" href="${cert.url}" target="_blank">
+                        <img src="${cert.img}" alt="${cert.name}" />
+                        <h4>${cert.name}</h4>
+                        <div class="issuer">${cert.issuer}</div>
+                    </a>
+                `).join('');
+            toggleBtn.textContent = showAll ? 'Ver menos' : t('certs.showmore');
+            toggleBtn.dataset.showing = showAll ? 'true' : 'false';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            showingAll = !showingAll;
+            renderCerts(showingAll);
+            // re-aplicar traducción al botón
+            const label = showingAll ? 'Ver menos' : t('certs.showmore');
+            toggleBtn.textContent = label;
+        });
+
+        renderCerts(false);
+
+        // ─── JELLYFIN + TMDB ───
         const JELLYFIN_URL = 'https://media.jarr.cc.cd';
         const API_KEY = '4119d7f4257c477ab5b72ddb1fcd735e';
         const USER_ID = '99d724cfca8847e0bf89fbf93a734421';
+        const TMDB_API_KEY = 'TU_API_KEY_TMDB'; // Reemplaza con tu clave de TMDB (gratuita)
 
         let allItems = [];
         let itemsById = {};
@@ -1287,6 +1563,8 @@
         const searchInput = document.getElementById('searchInput');
         const watchlistToggle = document.getElementById('watchlistToggle');
         const watchlistCount = document.getElementById('watchlistCount');
+        const tmdbResults = document.getElementById('tmdbResults');
+        const tmdbGrid = document.getElementById('tmdbGrid');
 
         const overlay = document.getElementById('overlay');
         const modalClose = document.getElementById('modalClose');
@@ -1296,8 +1574,13 @@
         const modalGenres = document.getElementById('modalGenres');
         const modalOverview = document.getElementById('modalOverview');
         const modalCastCrew = document.getElementById('modalCastCrew');
+        const modalColorimetry = document.getElementById('modalColorimetry');
         const modalActions = document.getElementById('modalActions');
         const videoWrap = document.getElementById('videoWrap');
+        const modalRecommendations = document.getElementById('modalRecommendations');
+        const recGrid = document.getElementById('recGrid');
+
+        let currentSearchQuery = '';
 
         function setStatus(type, msg) {
             statusEl.className = type;
@@ -1309,7 +1592,7 @@
             localStorage.setItem('jellyfin_watchlist', JSON.stringify(watchlist));
         }
 
-        function toggleWatchlist(itemId) {
+        function toggleWatchlist(itemId, title) {
             const idx = watchlist.indexOf(itemId);
             if (idx > -1) {
                 watchlist.splice(idx, 1);
@@ -1327,6 +1610,11 @@
                         btn.innerHTML = watchlist.includes(id) ? '⭐' : '☆';
                     }
                 });
+                // También actualizar los botones de TMDB
+                document.querySelectorAll('.tmdb-item .watchlist-btn').forEach(btn => {
+                    const id = btn.dataset.id;
+                    btn.innerHTML = watchlist.includes(id) ? '⭐' : '☆';
+                });
             }
         }
 
@@ -1338,9 +1626,9 @@
             }
             setStatus('ok', '');
             gridEl.innerHTML = items.map(item => {
-                const imgUrl = item.ImageTags && item.ImageTags.Primary
-                    ? `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}`
-                    : '';
+                const imgUrl = item.ImageTags && item.ImageTags.Primary ?
+                    `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}` :
+                    '';
                 const badge = item.Type === 'Series' ? 'Serie' : 'Película';
                 const inWatchlist = watchlist.includes(item.Id);
                 return `
@@ -1386,37 +1674,130 @@
             }
         }
 
-        searchInput.addEventListener('input', () => {
-            const query = searchInput.value.toLowerCase().trim();
-            if (showingWatchlist) {
-                const watchlistItems = allItems.filter(item => watchlist.includes(item.Id));
-                const filtered = watchlistItems.filter(item => item.Name.toLowerCase().includes(query));
-                renderLibrary(filtered);
-            } else {
-                const filtered = allItems.filter(item => item.Name.toLowerCase().includes(query));
-                renderLibrary(filtered);
+        // ─── TMDB Search ───
+        async function searchTMDB(query) {
+            if (!query.trim()) {
+                tmdbResults.style.display = 'none';
+                return;
             }
-        });
-
-        watchlistToggle.addEventListener('click', () => {
-            showingWatchlist = !showingWatchlist;
-            if (showingWatchlist) {
-                watchlistToggle.innerHTML = `<i class="fas fa-arrow-left"></i> Volver a todas`;
-                const watchlistItems = allItems.filter(item => watchlist.includes(item.Id));
-                renderLibrary(watchlistItems);
-            } else {
-                watchlistToggle.innerHTML = `<i class="fas fa-heart"></i> Mi lista (<span id="watchlistCount">${watchlist.length}</span>)`;
-                const query = searchInput.value.toLowerCase().trim();
-                if (query) {
-                    const filtered = allItems.filter(item => item.Name.toLowerCase().includes(query));
-                    renderLibrary(filtered);
+            try {
+                const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=es`;
+                const res = await fetch(url);
+                if (!res.ok) throw new Error('TMDB error');
+                const data = await res.json();
+                if (data.results && data.results.length > 0) {
+                    tmdbResults.style.display = 'block';
+                    tmdbGrid.innerHTML = data.results.slice(0, 10).map(m => {
+                        const id = `tmdb_${m.id}`;
+                        const inWatchlist = watchlist.includes(id);
+                        const poster = m.poster_path ? `https://image.tmdb.org/t/p/w200${m.poster_path}` : '';
+                        return `
+                                <div class="tmdb-item" data-tmdb-id="${m.id}">
+                                    ${poster ? `<img src="${poster}" alt="${m.title}" loading="lazy">` : ''}
+                                    <div class="info">
+                                        <div class="title">${m.title}</div>
+                                        <div class="year">${m.release_date ? m.release_date.split('-')[0] : ''}</div>
+                                    </div>
+                                    <button class="watchlist-btn" data-id="${id}">${inWatchlist ? '⭐' : '☆'}</button>
+                                </div>
+                            `;
+                    }).join('');
+                    // Añadir eventos a los botones de watchlist de TMDB
+                    tmdbGrid.querySelectorAll('.tmdb-item .watchlist-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            const id = btn.dataset.id;
+                            const parent = btn.closest('.tmdb-item');
+                            const title = parent.querySelector('.title')?.textContent || '';
+                            toggleWatchlist(id, title);
+                        });
+                    });
+                    // Al hacer clic en un item de TMDB, abrir modal con info de TMDB
+                    tmdbGrid.querySelectorAll('.tmdb-item').forEach(el => {
+                        el.addEventListener('click', async (e) => {
+                            if (e.target.closest('.watchlist-btn')) return;
+                            const tmdbId = el.dataset.tmdbId;
+                            await openModalFromTMDB(tmdbId);
+                        });
+                    });
                 } else {
-                    renderLibrary(allItems);
+                    tmdbResults.style.display = 'block';
+                    tmdbGrid.innerHTML = `<p style="color:var(--muted);">No se encontraron resultados en TMDB.</p>`;
                 }
+            } catch (err) {
+                console.error('TMDB search error:', err);
+                tmdbResults.style.display = 'block';
+                tmdbGrid.innerHTML = `<p style="color:var(--muted);">Error al conectar con TMDB.</p>`;
             }
-        });
+        }
 
-        // ─── MODAL / PLAYER ───
+        // ─── Modal desde TMDB ───
+        async function openModalFromTMDB(tmdbId) {
+            try {
+                const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${TMDB_API_KEY}&language=es&append_to_response=credits,recommendations`;
+                const res = await fetch(url);
+                if (!res.ok) throw new Error('TMDB error');
+                const movie = await res.json();
+
+                modalTitle.textContent = movie.title;
+                modalBackdrop.src = movie.backdrop_path ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}` : '';
+                modalMeta.innerHTML = `
+                        ${movie.release_date ? `<span class="pill">${movie.release_date.split('-')[0]}</span>` : ''}
+                        ${movie.vote_average ? `<span class="rating">⭐ ${movie.vote_average.toFixed(1)}</span>` : ''}
+                        ${movie.runtime ? `<span class="pill">${Math.floor(movie.runtime/60)}h ${movie.runtime%60}m</span>` : ''}
+                        <span class="pill">Película</span>
+                    `;
+                modalGenres.innerHTML = (movie.genres || []).map(g => `<span>${g.name}</span>`).join('');
+                modalOverview.textContent = movie.overview || 'Sin descripción disponible.';
+
+                // Cast & Crew
+                const directors = (movie.credits?.crew || []).filter(p => p.job === 'Director').map(p => p.name).join(', ');
+                const writers = (movie.credits?.crew || []).filter(p => p.job === 'Writer').map(p => p.name).join(', ');
+                const actors = (movie.credits?.cast || []).slice(0, 6).map(p => p.name).join(', ');
+                let castHtml = '';
+                if (directors) castHtml += `<span class="group"><strong>Director:</strong> ${directors}</span>`;
+                if (writers) castHtml += `<span class="group"><strong>Guionista:</strong> ${writers}</span>`;
+                if (actors) castHtml += `<span class="group"><strong>Actores:</strong> ${actors}</span>`;
+                modalCastCrew.innerHTML = castHtml;
+
+                // Colorimetría (si está disponible en TMDB)
+                // No hay campo directo, pero podemos mostrar información técnica
+                modalColorimetry.innerHTML = `
+                        <strong>Colorimetría:</strong> No disponible en TMDB.<br>
+                        <small>Formato de color: Digital (simulado)</small>
+                    `;
+
+                // Recomendaciones
+                const recs = movie.recommendations?.results || [];
+                if (recs.length > 0) {
+                    modalRecommendations.style.display = 'block';
+                    recGrid.innerHTML = recs.slice(0, 6).map(r => `
+                            <div class="rec-item" data-tmdb-id="${r.id}">
+                                ${r.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${r.poster_path}" alt="${r.title}" loading="lazy">` : ''}
+                                <div class="title">${r.title}</div>
+                            </div>
+                        `).join('');
+                    recGrid.querySelectorAll('.rec-item').forEach(el => {
+                        el.addEventListener('click', () => {
+                            openModalFromTMDB(el.dataset.tmdbId);
+                        });
+                    });
+                } else {
+                    modalRecommendations.style.display = 'none';
+                }
+
+                // Reproductor: no tenemos URL de video, mostrar mensaje
+                videoWrap.innerHTML = `
+                        <div class="no-video-note">Esta película no está en tu servidor Jellyfin. Puedes añadirla a tu lista de deseos para descargarla después.</div>
+                    `;
+                modalActions.innerHTML = '';
+                overlay.classList.add('open');
+            } catch (err) {
+                console.error('Error abriendo modal desde TMDB:', err);
+            }
+        }
+
+        // ─── Modal desde Jellyfin ───
         async function fetchItemDetail(id) {
             const url =
                 `${JELLYFIN_URL}/Users/${USER_ID}/Items/${id}?Fields=MediaStreams,Overview,Genres,MediaSources,BackdropImageTags,CommunityRating,RunTimeTicks,People`;
@@ -1442,6 +1823,8 @@
             modalGenres.innerHTML = '';
             modalOverview.textContent = '';
             modalCastCrew.innerHTML = '';
+            modalColorimetry.innerHTML = '';
+            modalRecommendations.style.display = 'none';
             videoWrap.innerHTML = '';
             modalActions.innerHTML = '';
             modalBackdrop.src = basic.ImageTags && basic.ImageTags.Primary ?
@@ -1489,12 +1872,61 @@
             if (actors) castHtml += `<span class="group"><strong>Actores:</strong> ${actors}</span>`;
             modalCastCrew.innerHTML = castHtml;
 
+            // Colorimetría (si está en MediaStreams)
+            const videoStream = (detail.MediaStreams || []).find(s => s.Type === 'Video');
+            let colorInfo = 'No disponible.';
+            if (videoStream) {
+                const parts = [];
+                if (videoStream.BitDepth) parts.push(`Profundidad de color: ${videoStream.BitDepth} bits`);
+                if (videoStream.ColorSpace) parts.push(`Espacio de color: ${videoStream.ColorSpace}`);
+                if (videoStream.ColorTransfer) parts.push(`Transferencia: ${videoStream.ColorTransfer}`);
+                if (videoStream.ColorPrimaries) parts.push(`Primarias: ${videoStream.ColorPrimaries}`);
+                if (videoStream.PixelFormat) parts.push(`Formato de píxel: ${videoStream.PixelFormat}`);
+                if (videoStream.VideoRange) parts.push(`Rango dinámico: ${videoStream.VideoRange}`);
+                colorInfo = parts.length ? parts.join(' · ') : 'No disponible.';
+            }
+            modalColorimetry.innerHTML = `<strong>Colorimetría:</strong> ${colorInfo}`;
+
+            // Recomendaciones basadas en director y año
+            const recs = allItems.filter(item => {
+                if (item.Id === id) return false;
+                const itemPeople = item.People || [];
+                const sameDirector = directors && itemPeople.some(p => p.Type === 'Director' && directors.includes(p.Name));
+                const sameYear = year && item.ProductionYear === year;
+                return sameDirector || sameYear;
+            }).slice(0, 6);
+
+            if (recs.length > 0) {
+                modalRecommendations.style.display = 'block';
+                recGrid.innerHTML = recs.map(r => {
+                    const imgUrl = r.ImageTags && r.ImageTags.Primary ?
+                        `${JELLYFIN_URL}/Items/${r.Id}/Images/Primary?maxWidth=200&tag=${r.ImageTags.Primary}` :
+                        '';
+                    return `
+                            <div class="rec-item" data-id="${r.Id}">
+                                ${imgUrl ? `<img src="${imgUrl}" alt="${r.Name}" loading="lazy">` : ''}
+                                <div class="title">${r.Name}</div>
+                            </div>
+                        `;
+                }).join('');
+                recGrid.querySelectorAll('.rec-item').forEach(el => {
+                    el.addEventListener('click', () => {
+                        openModal(el.dataset.id);
+                    });
+                });
+            } else {
+                modalRecommendations.style.display = 'none';
+            }
+
+            // Reproductor
             if (detail.Type === 'Movie') {
                 const mediaSourceId = (detail.MediaSources && detail.MediaSources[0]) ? detail.MediaSources[0].Id : id;
                 const streamUrl =
                     `${JELLYFIN_URL}/Videos/${id}/stream?static=true&mediaSourceId=${mediaSourceId}&api_key=${API_KEY}`;
                 const subtitleStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Subtitle');
-                const tracks = subtitleStreams.map((s, i) => {
+                const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
+
+                let tracks = subtitleStreams.map((s, i) => {
                     const subUrl =
                         `${JELLYFIN_URL}/Videos/${id}/${mediaSourceId}/Subtitles/${s.Index}/Stream.vtt?api_key=${API_KEY}`;
                     const label = s.DisplayTitle || s.Language || `Pista ${i + 1}`;
@@ -1503,12 +1935,20 @@
                     return `<track kind="subtitles" src="${subUrl}" srclang="${lang}" label="${label}" ${dflt}>`;
                 }).join('');
 
+                let audioInfo = '';
+                if (audioStreams.length > 0) {
+                    audioInfo = `<div style="color:var(--muted); font-size:0.8rem; margin-top:6px;">
+                            <i class="fas fa-volume-up"></i> ${audioStreams.map(a => a.DisplayTitle || a.Language || 'Audio').join(' · ')}
+                        </div>`;
+                }
+
                 videoWrap.innerHTML = `
                         <video class="jf-video" controls preload="metadata" crossorigin="anonymous" autoplay>
                             <source src="${streamUrl}" type="video/mp4">
                             ${tracks}
                         </video>
                         ${subtitleStreams.length === 0 ? '<div class="no-video-note">Este archivo no tiene subtítulos guardados en el servidor.</div>' : ''}
+                        ${audioInfo}
                     `;
                 modalActions.innerHTML = '';
             } else {
@@ -1538,7 +1978,50 @@
             if (e.key === 'Escape') closeModal();
         });
 
+        // ─── Buscador combinado ───
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            currentSearchQuery = query;
+            // Filtrar Jellyfin
+            if (showingWatchlist) {
+                const watchlistItems = allItems.filter(item => watchlist.includes(item.Id));
+                const filtered = watchlistItems.filter(item => item.Name.toLowerCase().includes(query.toLowerCase()));
+                renderLibrary(filtered);
+            } else {
+                const filtered = allItems.filter(item => item.Name.toLowerCase().includes(query.toLowerCase()));
+                renderLibrary(filtered);
+            }
+            // Buscar en TMDB si hay query
+            if (query.length > 2) {
+                searchTMDB(query);
+            } else {
+                tmdbResults.style.display = 'none';
+            }
+        });
+
+        watchlistToggle.addEventListener('click', () => {
+            showingWatchlist = !showingWatchlist;
+            if (showingWatchlist) {
+                watchlistToggle.innerHTML = `<i class="fas fa-arrow-left"></i> <span data-i18n="projects.back">Volver a todas</span>`;
+                const watchlistItems = allItems.filter(item => watchlist.includes(item.Id));
+                renderLibrary(watchlistItems);
+            } else {
+                const txt = t('projects.watchlist');
+                const count = watchlist.length;
+                watchlistToggle.innerHTML =
+                    `<i class="fas fa-heart"></i> ${txt} (<span id="watchlistCount">${count}</span>)`;
+                const query = searchInput.value.trim();
+                if (query) {
+                    const filtered = allItems.filter(item => item.Name.toLowerCase().includes(query.toLowerCase()));
+                    renderLibrary(filtered);
+                } else {
+                    renderLibrary(allItems);
+                }
+            }
+        });
+
         // ─── INIT ───
+        applyTranslations();
         fetchLibrary();
     </script>
 
