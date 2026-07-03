@@ -1,212 +1,122 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Portafolio - Cloud & DevOps</title>
-        <style>
-            :root {
-                --bg: #0f1115;
-                --card: #171a21;
-                --accent: #4f9dff;
-                --text: #e6e6e6;
-                --muted: #8a8f98;
-            }
-            * {
-                box-sizing: border-box;
-            }
-            body {
-                margin: 0;
-                font-family: "Segoe UI", sans-serif;
-                background: var(--bg);
-                color: var(--text);
-            }
-            header {
-                padding: 60px 20px;
-                text-align: center;
-            }
-            header h1 {
-                margin: 0 0 10px;
-                font-size: 2.2rem;
-            }
-            header p {
-                color: var(--muted);
-                max-width: 600px;
-                margin: 0 auto;
-            }
-            .links a {
-                color: var(--accent);
-                text-decoration: none;
-                margin: 0 10px;
-            }
-            section {
-                max-width: 1000px;
-                margin: 0 auto;
-                padding: 30px 20px;
-            }
-            h2 {
-                border-left: 4px solid var(--accent);
-                padding-left: 10px;
-            }
-            #status {
-                padding: 15px;
-                border-radius: 8px;
-                margin-bottom: 20px;
-                font-size: 0.9rem;
-            }
-            #status.loading {
-                background: #1e2a3a;
-                color: #9cc4ff;
-            }
-            #status.error {
-                background: #3a1e1e;
-                color: #ff9c9c;
-            }
-            #status.ok {
-                display: none;
-            }
-            .grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 16px;
-            }
-            .movie {
-                background: var(--card);
-                border-radius: 8px;
-                overflow: hidden;
-                transition: transform 0.15s;
-            }
-            .movie:hover {
-                transform: translateY(-4px);
-            }
-            .movie img {
-                width: 100%;
-                aspect-ratio: 2/3;
-                object-fit: cover;
-                display: block;
-                background: #222;
-            }
-            .movie .title {
-                padding: 8px;
-                font-size: 0.8rem;
-                color: var(--muted);
-            }
-            footer {
-                text-align: center;
-                padding: 30px;
-                color: var(--muted);
-                font-size: 0.8rem;
-            }
-        </style>
-    </head>
-    <body>
-        <header>
-            <h1>Juan Antonio Rivera Rodriguez</h1>
-            <p>
-                Estudiante de Ingeniería en Desarrollo de Software · Cloud
-                Support / Jr. DevOps
-            </p>
-            <div class="links">
-                <a href="https://github.com/death-zip" target="_blank"
-                    >GitHub</a
-                >
-                <a href="#" target="_blank">LinkedIn</a>
-                <a href="https://media.jarr.cc.cd" target="_blank"
-                    >Servidor Jellyfin en vivo</a
-                >
-            </div>
-        </header>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portafolio - Cloud & DevOps</title>
+<style>
+  :root{
+    --bg:#0f1115; --card:#171a21; --accent:#4f9dff; --text:#e6e6e6; --muted:#8a8f98;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);}
+  header{padding:60px 20px;text-align:center;}
+  header h1{margin:0 0 10px;font-size:2.2rem;}
+  header p{color:var(--muted);max-width:600px;margin:0 auto;}
+  .links a{color:var(--accent);text-decoration:none;margin:0 10px;}
+  section{max-width:1000px;margin:0 auto;padding:30px 20px;}
+  h2{border-left:4px solid var(--accent);padding-left:10px;}
+  #status{padding:15px;border-radius:8px;margin-bottom:20px;font-size:.9rem;}
+  #status.loading{background:#1e2a3a;color:#9cc4ff;}
+  #status.error{background:#3a1e1e;color:#ff9c9c;}
+  #status.ok{display:none;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;}
+  .movie{background:var(--card);border-radius:8px;overflow:hidden;transition:transform .15s;}
+  .movie:hover{transform:translateY(-4px);}
+  .movie img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;background:#222;}
+  .movie .title{padding:8px;font-size:.8rem;color:var(--muted);}
+  footer{text-align:center;padding:30px;color:var(--muted);font-size:.8rem;}
+</style>
+</head>
+<body>
 
-        <section>
-            <h2>Proyecto: Servidor de streaming self-hosted</h2>
-            <p style="color: var(--muted)">
-                Jellyfin corriendo en Docker (WSL2), expuesto de forma segura a
-                internet vía Cloudflare Tunnel, con dominio propio y proxy CORS
-                para consumo desde este portafolio.
-            </p>
+<header>
+  <h1>Juan Antonio Rivera Rodriguez</h1>
+  <p>Estudiante de Ingeniería en Desarrollo de Software · Cloud Support / Jr. DevOps</p>
+  <div class="links">
+    <a href="https://github.com/death-zip" target="_blank">GitHub</a>
+    <a href="#" target="_blank">LinkedIn</a>
+    <a href="https://media.jarr.cc.cd" target="_blank">Servidor Jellyfin en vivo</a>
+  </div>
+</header>
 
-            <div id="status" class="loading">
-                Cargando películas desde el servidor…
-            </div>
-            <div id="movies" class="grid"></div>
-        </section>
+<section>
+  <h2>Proyecto: Servidor de streaming self-hosted</h2>
+  <p style="color:var(--muted)">
+    Jellyfin corriendo en Docker (WSL2), expuesto de forma segura a internet vía Cloudflare Tunnel,
+    con dominio propio y proxy CORS para consumo desde este portafolio.
+  </p>
 
-        <footer>© 2026 — Hecho con Docker, Jellyfin y Cloudflare Tunnel</footer>
+  <div id="status" class="loading">Cargando películas desde el servidor…</div>
+  <div id="movies" class="grid"></div>
+</section>
 
-        <script>
-            // Config: mueve esto a variables de entorno / backend en cuanto puedas.
-            // Exponer la API key en HTML público es riesgoso: cualquiera puede leerla
-            // y usarla para acceder a tu servidor. Considera regenerarla en Jellyfin
-            // (Panel Admin > API Keys) tras probar esto, o crear una key de solo lectura
-            // con un usuario limitado en vez del admin.
-            const JELLYFIN_URL = "https://media.jarr.cc.cd";
-            const API_KEY = "TU_API_KEY_AQUI";
-            const USER_ID = "TU_USER_ID_AQUI";
+<footer>© 2026 — Hecho con Docker, Jellyfin y Cloudflare Tunnel</footer>
 
-            const statusEl = document.getElementById("status");
-            const gridEl = document.getElementById("movies");
+<script>
+  // Config: mueve esto a variables de entorno / backend en cuanto puedas.
+  // Exponer la API key en HTML público es riesgoso: cualquiera puede leerla
+  // y usarla para acceder a tu servidor. Considera regenerarla en Jellyfin
+  // (Panel Admin > API Keys) tras probar esto, o crear una key de solo lectura
+  // con un usuario limitado en vez del admin.
+  const JELLYFIN_URL = "https://media.jarr.cc.cd";
+  const API_KEY = "4119d7f4257c477ab5b72ddb1fcd735e";
+  const USER_ID = "99d724cfca8847e0bf89fbf93a734421";
 
-            function setStatus(type, msg) {
-                statusEl.className = type;
-                statusEl.textContent = msg;
-            }
+  const statusEl = document.getElementById("status");
+  const gridEl = document.getElementById("movies");
 
-            async function fetchMovies() {
-                try {
-                    const url =
-                        `${JELLYFIN_URL}/Users/${USER_ID}/Items` +
-                        `?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie` +
-                        `&Recursive=true&Fields=PrimaryImageAspectRatio` +
-                        `&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=12`;
+  function setStatus(type, msg) {
+    statusEl.className = type;
+    statusEl.textContent = msg;
+  }
 
-                    const res = await fetch(url, {
-                        headers: { "X-Emby-Token": API_KEY },
-                    });
+  async function fetchMovies() {
+    try {
+      const url = `${JELLYFIN_URL}/Users/${USER_ID}/Items` +
+        `?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie` +
+        `&Recursive=true&Fields=PrimaryImageAspectRatio` +
+        `&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=12`;
 
-                    if (!res.ok) {
-                        throw new Error(
-                            `El servidor respondió con estado ${res.status}`,
-                        );
-                    }
+      const res = await fetch(url, {
+        headers: { "X-Emby-Token": API_KEY }
+      });
 
-                    const data = await res.json();
-                    renderMovies(data.Items || []);
-                } catch (err) {
-                    // Si esto tira "Failed to fetch" casi siempre es CORS o el túnel caído.
-                    // Si tira 401/403, es la API key o el user ID.
-                    setStatus(
-                        "error",
-                        `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo y que el proxy CORS esté corriendo.`,
-                    );
-                    console.error("Error cargando Jellyfin:", err);
-                }
-            }
+      if (!res.ok) {
+        throw new Error(`El servidor respondió con estado ${res.status}`);
+      }
 
-            function renderMovies(items) {
-                if (items.length === 0) {
-                    setStatus(
-                        "error",
-                        "El servidor respondió, pero no hay películas visibles.",
-                    );
-                    return;
-                }
-                statusEl.className = "ok";
-                gridEl.innerHTML = items
-                    .map((item) => {
-                        const imgUrl =
-                            item.ImageTags && item.ImageTags.Primary
-                                ? `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}`
-                                : "";
-                        return `
+      const data = await res.json();
+      renderMovies(data.Items || []);
+    } catch (err) {
+      // Si esto tira "Failed to fetch" casi siempre es CORS o el túnel caído.
+      // Si tira 401/403, es la API key o el user ID.
+      setStatus("error",
+        `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo y que el proxy CORS esté corriendo.`);
+      console.error("Error cargando Jellyfin:", err);
+    }
+  }
+
+  function renderMovies(items) {
+    if (items.length === 0) {
+      setStatus("error", "El servidor respondió, pero no hay películas visibles.");
+      return;
+    }
+    statusEl.className = "ok";
+    gridEl.innerHTML = items.map(item => {
+      const imgUrl = item.ImageTags && item.ImageTags.Primary
+        ? `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}`
+        : "";
+      return `
         <div class="movie">
           ${imgUrl ? `<img src="${imgUrl}" alt="${item.Name}" loading="lazy">` : ""}
           <div class="title">${item.Name}</div>
         </div>`;
-                    })
-                    .join("");
-            }
+    }).join("");
+  }
 
-            fetchMovies();
-        </script>
-    </body>
+  fetchMovies();
+</script>
+
+</body>
 </html>
