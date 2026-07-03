@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juan Antonio Rivera · Portafolio Cloud & DevOps</title>
-    <!-- Font Awesome (íconos profesionales) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Juan Antonio Rivera · Cloud & DevOps</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
     <style>
-        :root {
-            --bg: #0b0d12;
-            --bg2: #12151c;
-            --card: #171a21;
-            --accent: #4f9dff;
-            --accent2: #7c5cff;
-            --text: #e8e9ec;
-            --muted: #8a8f98;
-            --border: #242832;
-        }
-
+        /* ── Reset & base ── */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0c10;
+            --bg2: #11141a;
+            --card: #181c24;
+            --border: #2a2f3a;
+            --text: #eef0f2;
+            --muted: #8e95a5;
+            --accent: #5b9aff;
+            --accent2: #8b7aff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            --radius: 14px;
+            --transition: 0.25s ease;
         }
 
         html {
@@ -29,10 +33,11 @@
         }
 
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         a {
@@ -40,24 +45,92 @@
             text-decoration: none;
         }
 
-        /* --- Navegación --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 6px;
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .anim {
+            opacity: 0;
+            animation: fadeUp 0.7s ease forwards;
+        }
+
+        .anim-delay-1 {
+            animation-delay: 0.1s;
+        }
+        .anim-delay-2 {
+            animation-delay: 0.2s;
+        }
+        .anim-delay-3 {
+            animation-delay: 0.3s;
+        }
+        .anim-delay-4 {
+            animation-delay: 0.4s;
+        }
+        .anim-delay-5 {
+            animation-delay: 0.5s;
+        }
+
+        /* ── Nav ── */
         nav {
             position: sticky;
             top: 0;
-            z-index: 50;
-            background: rgba(11, 13, 18, .85);
-            backdrop-filter: blur(10px);
+            z-index: 60;
+            background: rgba(10, 12, 16, 0.85);
+            backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
-            padding: 14px 24px;
+            padding: 14px 0;
+        }
+
+        nav .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         nav .brand {
             font-weight: 700;
-            letter-spacing: .5px;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
+            letter-spacing: -0.3px;
         }
 
         nav .brand span {
@@ -66,58 +139,63 @@
 
         nav .links {
             display: flex;
-            gap: 22px;
-            font-size: .9rem;
+            gap: 24px;
+            font-size: 0.9rem;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
         nav .links a {
             color: var(--muted);
-            transition: color .15s;
+            transition: color var(--transition);
         }
 
         nav .links a:hover {
             color: var(--accent);
         }
 
-        /* --- Hero --- */
-        header.hero {
-            padding: 90px 24px 70px;
+        /* ── Hero ── */
+        .hero {
+            padding: 80px 0 60px;
             text-align: center;
-            background: radial-gradient(circle at 50% 0%, rgba(79, 157, 255, .12), transparent 60%);
+            background: radial-gradient(circle at 50% 0%, rgba(91, 154, 255, 0.08), transparent 60%);
         }
 
-        header.hero .eyebrow {
+        .hero .eyebrow {
             color: var(--accent);
-            font-size: .85rem;
-            letter-spacing: 1px;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            font-weight: 500;
         }
 
-        header.hero h1 {
-            margin: 0 0 8px;
-            font-size: 2.6rem;
-            background: linear-gradient(90deg, #fff, #b9c4d6);
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 50%, #b0c4de);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            margin-bottom: 8px;
         }
 
-        header.hero h2 {
-            margin: 0 0 18px;
+        .hero .sub {
+            font-size: 1.2rem;
             font-weight: 400;
             color: var(--accent);
-            font-size: 1.15rem;
+            margin-bottom: 18px;
         }
 
-        header.hero p {
+        .hero p {
             color: var(--muted);
             max-width: 640px;
             margin: 0 auto 28px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        .cta-row {
+        .cta-group {
             display: flex;
             gap: 12px;
             justify-content: center;
@@ -125,59 +203,81 @@
         }
 
         .btn {
-            padding: 11px 22px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: .9rem;
+            padding: 10px 24px;
+            border-radius: 40px;
             font-weight: 600;
+            font-size: 0.9rem;
             border: 1px solid var(--border);
-            transition: transform .15s, background .15s;
+            transition: all var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             cursor: pointer;
+            background: transparent;
+            color: var(--text);
         }
 
         .btn:hover {
             transform: translateY(-2px);
         }
 
-        .btn.primary {
+        .btn-primary {
             background: var(--accent);
-            color: #fff;
             border-color: var(--accent);
+            color: #fff;
         }
 
-        .btn.ghost {
-            background: transparent;
-            color: var(--text);
+        .btn-primary:hover {
+            background: #4a8ae8;
+            border-color: #4a8ae8;
         }
 
-        .btn.outline {
-            background: transparent;
+        .btn-outline {
             border-color: var(--accent);
             color: var(--accent);
         }
 
-        /* --- Secciones --- */
-        section {
-            max-width: 1050px;
-            margin: 0 auto;
-            padding: 60px 24px;
+        .btn-outline:hover {
+            background: var(--accent);
+            color: #fff;
         }
 
-        section h2.section-title {
-            font-size: 1.6rem;
-            margin: 0 0 8px;
-        }
-
-        section .section-sub {
+        .btn-ghost {
             color: var(--muted);
-            margin: 0 0 30px;
-            font-size: .95rem;
         }
 
-        /* --- Sobre Mi (Acerca de) --- */
+        .btn-ghost:hover {
+            color: var(--text);
+            border-color: var(--muted);
+        }
+
+        /* ── Section ── */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .section-sub {
+            color: var(--muted);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 4px;
+            margin: 8px 0 24px 0;
+        }
+
+        /* ── About ── */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -187,43 +287,62 @@
 
         .about-text p {
             color: var(--muted);
-            line-height: 1.7;
+            line-height: 1.8;
             margin-bottom: 16px;
         }
 
-        .about-text .badge-group {
+        .about-text .badge-pills {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 8px;
+            margin-top: 16px;
         }
 
-        .about-text .badge-group span {
+        .about-text .badge-pills span {
             background: var(--card);
             border: 1px solid var(--border);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: .8rem;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
             color: var(--muted);
         }
 
-        /* --- Servicios --- */
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 40px rgba(91, 154, 255, 0.2);
+            transition: all var(--transition);
+        }
+
+        .about-image img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 60px rgba(91, 154, 255, 0.4);
+        }
+
+        /* ── Services ── */
         .service-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 24px;
         }
 
         .service-card {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 26px;
-            transition: transform .15s, border-color .15s;
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            transition: all var(--transition);
         }
 
         .service-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             border-color: var(--accent);
         }
 
@@ -234,42 +353,194 @@
         }
 
         .service-card h3 {
-            margin: 0 0 8px;
             font-size: 1.1rem;
+            margin-bottom: 6px;
         }
 
         .service-card p {
             color: var(--muted);
-            font-size: .9rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         .service-card .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin-top: 12px;
+            margin-top: 14px;
         }
 
         .service-card .tags span {
-            background: #1e2230;
-            color: #b9c4d6;
-            font-size: .7rem;
-            padding: 4px 10px;
-            border-radius: 12px;
+            background: #1e2430;
+            color: #bcc4d4;
+            font-size: 0.7rem;
+            padding: 3px 12px;
+            border-radius: 30px;
         }
 
-        /* --- Proyecto (Media Library) --- */
+        /* ── Skills (Épico) ── */
+        .skills-wrapper {
+            position: relative;
+            padding: 40px 20px;
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            min-height: 300px;
+        }
+
+        .skills-wrapper canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .skills-cloud {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .skills-cloud .skill-tag {
+            background: rgba(91, 154, 255, 0.1);
+            border: 1px solid rgba(91, 154, 255, 0.25);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: all 0.3s ease;
+            cursor: default;
+            backdrop-filter: blur(4px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .skills-cloud .skill-tag:hover {
+            transform: scale(1.1);
+            background: rgba(91, 154, 255, 0.25);
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(91, 154, 255, 0.2);
+        }
+
+        .skills-cloud .skill-tag i {
+            margin-right: 6px;
+            color: var(--accent);
+        }
+
+        /* ── Projects / Media Library ── */
+        .library-controls {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            align-items: center;
+        }
+
+        .library-controls input {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 10px 18px;
+            color: var(--text);
+            flex: 1;
+            min-width: 200px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border var(--transition);
+        }
+
+        .library-controls input:focus {
+            border-color: var(--accent);
+        }
+
+        .library-controls input::placeholder {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 18px;
+        }
+
+        .item-card {
+            background: var(--card);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .item-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .item-card img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            display: block;
+            background: #1a1e26;
+        }
+
+        .item-card .title {
+            padding: 10px 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--muted);
+        }
+
+        .item-card .badge-type {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--accent);
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .item-card .watchlist-btn {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: #fbbf24;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: transform var(--transition);
+        }
+
+        .item-card .watchlist-btn:hover {
+            transform: scale(1.2);
+        }
+
         #status {
-            padding: 15px;
-            border-radius: 8px;
+            padding: 14px 20px;
+            border-radius: var(--radius);
             margin-bottom: 20px;
-            font-size: .9rem;
+            font-size: 0.9rem;
         }
 
         #status.loading {
-            background: #1e2a3a;
-            color: #9cc4ff;
+            background: #1a2538;
+            color: #9bbaff;
         }
 
         #status.error {
@@ -281,121 +552,27 @@
             display: none;
         }
 
-        .library-controls {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            align-items: center;
-        }
-
-        .library-controls input {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 10px 16px;
-            color: var(--text);
-            flex: 1;
-            min-width: 200px;
-            font-size: .9rem;
-        }
-
-        .library-controls input::placeholder {
-            color: var(--muted);
-        }
-
-        .library-controls .btn {
-            padding: 10px 18px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 16px;
-        }
-
-        .item-card {
-            background: var(--card);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform .15s;
-            cursor: pointer;
-            position: relative;
-            border: 1px solid var(--border);
-        }
-
-        .item-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .item-card img {
-            width: 100%;
-            aspect-ratio: 2/3;
-            object-fit: cover;
-            display: block;
-            background: #222;
-        }
-
-        .item-card .title {
-            padding: 8px;
-            font-size: .8rem;
-            color: var(--muted);
-        }
-
-        .badge {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            background: rgba(0, 0, 0, .7);
-            color: var(--accent);
-            font-size: .65rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-        }
-
-        .item-card .watchlist-btn {
-            position: absolute;
-            bottom: 6px;
-            right: 6px;
-            background: rgba(0, 0, 0, .7);
-            border: none;
-            color: #ffc94d;
-            font-size: 1.1rem;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: transform .15s;
-        }
-
-        .item-card .watchlist-btn:hover {
-            transform: scale(1.2);
-        }
-
-        /* --- Certificaciones --- */
+        /* ── Certifications ── */
         .cert-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
         }
 
         .cert-card {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 18px;
-            text-decoration: none;
-            color: var(--text);
-            transition: transform .15s, border-color .15s;
+            border-radius: var(--radius);
+            padding: 20px 16px;
+            text-align: center;
+            transition: all var(--transition);
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
         }
 
         .cert-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-4px);
             border-color: var(--accent);
         }
 
@@ -403,34 +580,31 @@
             width: 80px;
             height: 80px;
             object-fit: contain;
-            margin-bottom: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             background: #fff;
-            padding: 4px;
+            padding: 6px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
         }
 
         .cert-card h4 {
-            margin: 0 0 4px;
-            font-size: .95rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+            line-height: 1.3;
         }
 
         .cert-card .issuer {
             color: var(--muted);
-            font-size: .8rem;
+            font-size: 0.75rem;
         }
 
-        .cert-card .date {
-            color: var(--muted);
-            font-size: .75rem;
-            margin-top: 8px;
-        }
-
-        /* --- Experiencia --- */
+        /* ── Experience ── */
         .exp-card {
             background: var(--card);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px 26px;
+            border-radius: var(--radius);
+            padding: 24px 28px;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -439,38 +613,38 @@
         }
 
         .exp-card h3 {
-            margin: 0 0 4px;
             font-size: 1.1rem;
+            margin-bottom: 2px;
         }
 
         .exp-card .role {
             color: var(--accent);
-            font-size: .9rem;
-            margin-bottom: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
         }
 
         .exp-card .desc {
             color: var(--muted);
-            font-size: .88rem;
+            font-size: 0.88rem;
             max-width: 520px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        .exp-card .badge-status {
-            background: #1e2a3a;
+        .exp-card .status-badge {
+            background: #1a2a3a;
             color: #9cc4ff;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: .78rem;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
             white-space: nowrap;
         }
 
-        /* --- Reproductor Modal --- */
+        /* ── Modal Player ── */
         .overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, .92);
+            background: rgba(0, 0, 0, 0.92);
             z-index: 100;
             align-items: center;
             justify-content: center;
@@ -483,13 +657,13 @@
 
         .player-modal {
             background: var(--bg2);
-            border-radius: 12px;
-            max-width: 900px;
+            border-radius: var(--radius);
+            max-width: 920px;
             width: 100%;
             max-height: 92vh;
             overflow-y: auto;
-            position: relative;
             border: 1px solid var(--border);
+            position: relative;
         }
 
         .player-modal .close {
@@ -497,18 +671,18 @@
             top: 8px;
             float: right;
             margin: 10px 14px 0 0;
-            background: rgba(0, 0, 0, .6);
+            background: rgba(0, 0, 0, 0.6);
             border: none;
             color: #fff;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             cursor: pointer;
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            z-index: 5;
             display: flex;
             align-items: center;
             justify-content: center;
+            z-index: 5;
         }
 
         .player-backdrop {
@@ -520,12 +694,12 @@
         }
 
         .player-body {
-            padding: 22px 26px 28px;
+            padding: 22px 28px 28px;
         }
 
         .player-body h3 {
-            margin: 0 0 8px;
             font-size: 1.4rem;
+            margin-bottom: 6px;
         }
 
         .meta-row {
@@ -534,61 +708,61 @@
             flex-wrap: wrap;
             align-items: center;
             color: var(--muted);
-            font-size: .85rem;
-            margin-bottom: 12px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
         }
 
         .meta-row .rating {
-            color: #ffc94d;
+            color: #fbbf24;
             font-weight: 600;
         }
 
         .meta-row .pill {
             border: 1px solid var(--border);
-            padding: 3px 10px;
-            border-radius: 14px;
+            padding: 2px 12px;
+            border-radius: 30px;
         }
 
         .genres {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .genres span {
-            background: #1e2230;
-            color: #b9c4d6;
-            font-size: .75rem;
-            padding: 4px 10px;
-            border-radius: 12px;
+            background: #1e2430;
+            color: #bcc4d4;
+            font-size: 0.75rem;
+            padding: 3px 12px;
+            border-radius: 30px;
         }
 
         .overview {
-            line-height: 1.6;
-            color: #c9ccd1;
-            margin-bottom: 16px;
-            font-size: .92rem;
+            line-height: 1.7;
+            color: #c9cdd4;
+            margin-bottom: 14px;
+            font-size: 0.92rem;
         }
 
         .cast-crew {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 16px;
-            font-size: .85rem;
+            gap: 10px;
+            margin-bottom: 14px;
+            font-size: 0.85rem;
             color: var(--muted);
-        }
-
-        .cast-crew strong {
-            color: var(--text);
         }
 
         .cast-crew .group {
             background: var(--card);
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 4px 14px;
+            border-radius: 30px;
             border: 1px solid var(--border);
+        }
+
+        .cast-crew strong {
+            color: var(--text);
         }
 
         video.jf-video {
@@ -600,68 +774,58 @@
         }
 
         video.jf-video::cue {
-            background: rgba(0, 0, 0, .7);
-            font-size: 1.05rem;
+            background: rgba(0, 0, 0, 0.7);
+            font-size: 1rem;
         }
 
         .no-video-note {
             color: var(--muted);
-            font-size: .85rem;
+            font-size: 0.85rem;
             margin-top: 10px;
         }
 
-        .actions {
-            margin-top: 16px;
-        }
-
-        .actions a.secondary {
-            display: inline-block;
-            background: #2a2f3a;
-            color: var(--text);
-            padding: 9px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: .85rem;
-        }
-
-        /* --- Footer --- */
+        /* ── Footer ── */
         footer {
             text-align: center;
-            padding: 40px 24px;
-            color: var(--muted);
-            font-size: .82rem;
+            padding: 40px 0 20px;
             border-top: 1px solid var(--border);
-            margin-top: 40px;
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 0.85rem;
         }
 
         footer .foot-links {
-            margin-top: 10px;
+            margin-top: 12px;
             display: flex;
-            gap: 18px;
+            gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         footer .foot-links a {
             color: var(--accent);
-            text-decoration: none;
+            transition: color var(--transition);
         }
 
         footer .foot-links a:hover {
-            text-decoration: underline;
+            color: var(--text);
         }
 
-        /* --- Responsive --- */
+        /* ── Responsive ── */
         @media (max-width: 768px) {
-            nav .links {
+            nav .links a:not(.lang-toggle) {
                 display: none;
             }
-            header.hero h1 {
-                font-size: 2rem;
+            .hero h1 {
+                font-size: 2.2rem;
             }
             .about-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+            .about-image img {
+                width: 200px;
+                height: 200px;
             }
             .player-modal {
                 max-width: 100%;
@@ -672,197 +836,343 @@
                 top: 4px;
                 right: 4px;
             }
+            .cert-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 12px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navegación -->
+    <!-- ─── NAV ─── -->
     <nav>
-        <div class="brand">JAR<span>.</span></div>
-        <div class="links">
-            <a href="#sobre-mi">Sobre mí</a>
-            <a href="#servicios">Servicios</a>
-            <a href="#proyecto">Proyecto</a>
-            <a href="#certificaciones">Certificaciones</a>
-            <a href="#contacto">Contacto</a>
+        <div class="container">
+            <div class="brand">JAR<span>.</span></div>
+            <div class="links">
+                <a href="#about">Sobre mí</a>
+                <a href="#services">Servicios</a>
+                <a href="#skills">Habilidades</a>
+                <a href="#projects">Proyectos</a>
+                <a href="#certifications">Certificaciones</a>
+                <a href="#contact">Contacto</a>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <header class="hero" id="sobre-mi">
-        <div class="eyebrow"><i class="fas fa-globe-americas"></i> Disponible para oportunidades remotas</div>
-        <h1>Juan Antonio Rivera Rodriguez</h1>
-        <h2>Aspiring Cloud Engineer · Docker &amp; Linux</h2>
-        <p>
-            Estudiante de Ingeniería en Desarrollo de Software en Universidad Tecmilenio (modelo MAPS).
-            Construyo infraestructura contenerizada y me enfoco en automatización, redes y sistemas
-            auto-hospedados. Este portafolio en sí mismo es un proyecto en vivo: un servidor de streaming
-            propio, expuesto de forma segura a internet.
-        </p>
-        <div class="cta-row">
-            <a href="#proyecto" class="btn primary"><i class="fas fa-play"></i> Ver el proyecto en vivo</a>
-            <a href="https://github.com/death-zip" target="_blank" class="btn ghost"><i class="fab fa-github"></i> GitHub</a>
-            <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank" class="btn ghost"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-            <a href="cv.pdf" target="_blank" class="btn outline"><i class="fas fa-file-pdf"></i> Descargar CV</a>
+    <!-- ─── HERO ─── -->
+    <header class="hero">
+        <div class="container">
+            <div class="eyebrow anim anim-delay-1">✦ Disponible para oportunidades remotas</div>
+            <h1 class="anim anim-delay-2">Juan Antonio Rivera Rodriguez</h1>
+            <p class="sub anim anim-delay-3">Aspiring Cloud Engineer · Docker &amp; Linux</p>
+            <p class="anim anim-delay-4">
+                Estudiante de Ingeniería en Desarrollo de Software en Universidad Tecmilenio (modelo MAPS).
+                Construyo infraestructura contenerizada y me enfoco en automatización, redes y sistemas
+                auto‑hospedados. Este portafolio en sí mismo es un proyecto en vivo: un servidor de streaming
+                propio, expuesto de forma segura a internet.
+            </p>
+            <div class="cta-group anim anim-delay-5">
+                <a href="#projects" class="btn btn-primary"><i class="fas fa-play"></i> Ver proyecto en vivo</a>
+                <a href="https://github.com/death-zip" target="_blank" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank" class="btn btn-ghost"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                <a href="cv.pdf" target="_blank" class="btn btn-outline"><i class="fas fa-file-pdf"></i> Descargar CV</a>
+            </div>
         </div>
     </header>
 
-    <!-- Servicios -->
-    <section id="servicios">
-        <h2 class="section-title"><i class="fas fa-cogs"></i> Servicios</h2>
-        <p class="section-sub">Lo que puedo aportar a tu equipo</p>
-        <div class="service-grid">
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-server"></i></div>
-                <h3>Infraestructura como Código</h3>
-                <p>Diseño e implementación de entornos contenerizados con Docker y Docker Compose para aplicaciones escalables y portables.</p>
-                <div class="tags">
-                    <span>Docker</span>
-                    <span>Linux</span>
-                    <span>Bash</span>
+    <div class="container">
+
+        <!-- ─── ABOUT ─── -->
+        <section id="about">
+            <h2 class="section-title anim">Sobre Mí</h2>
+            <div class="section-divider anim"></div>
+            <div class="about-grid">
+                <div class="about-text anim">
+                    <p>
+                        Soy un estudiante de Ingeniería en Desarrollo de Software con una fuerte pasión por la
+                        infraestructura en la nube, DevOps y la automatización. Disfruto construir sistemas desde cero
+                        — desde aplicaciones contenerizadas hasta túneles de red seguros.
+                    </p>
+                    <p>
+                        Este portafolio es un testimonio de ello: un servidor multimedia completamente funcional
+                        ejecutándose en Docker, expuesto a través de Cloudflare Tunnel y consumiendo su propia API REST
+                        — todo construido como un viaje de aprendizaje y una muestra de habilidades prácticas.
+                    </p>
+                    <div class="badge-pills">
+                        <span>Docker</span>
+                        <span>Linux</span>
+                        <span>Cloudflare</span>
+                        <span>REST APIs</span>
+                        <span>WSL2</span>
+                        <span>Bash</span>
+                    </div>
+                </div>
+                <div class="about-image anim">
+                    <img src="1773352902571.jpg" alt="Juan Antonio Rivera" />
                 </div>
             </div>
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-cloud"></i></div>
-                <h3>Despliegue en la Nube</h3>
-                <p>Configuración de servidores en la nube, túneles seguros (Cloudflare) y exposición de servicios a internet con HTTPS.</p>
-                <div class="tags">
-                    <span>Cloudflare</span>
-                    <span>Nginx</span>
-                    <span>SSL/TLS</span>
+        </section>
+
+        <!-- ─── SERVICES ─── -->
+        <section id="services">
+            <h2 class="section-title anim">Servicios</h2>
+            <p class="section-sub anim">Lo que puedo aportar a tu equipo</p>
+            <div class="service-grid">
+                <div class="service-card anim anim-delay-1">
+                    <div class="icon"><i class="fas fa-server"></i></div>
+                    <h3>Infraestructura como Código</h3>
+                    <p>Diseño e implementación de entornos contenerizados con Docker y Docker Compose para aplicaciones escalables y portables.</p>
+                    <div class="tags">
+                        <span>Docker</span>
+                        <span>Linux</span>
+                        <span>Bash</span>
+                    </div>
+                </div>
+                <div class="service-card anim anim-delay-2">
+                    <div class="icon"><i class="fas fa-cloud"></i></div>
+                    <h3>Despliegue en la Nube</h3>
+                    <p>Configuración de servidores en la nube, túneles seguros (Cloudflare) y exposición de servicios a internet con HTTPS.</p>
+                    <div class="tags">
+                        <span>Cloudflare</span>
+                        <span>Nginx</span>
+                        <span>SSL/TLS</span>
+                    </div>
+                </div>
+                <div class="service-card anim anim-delay-3">
+                    <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Automatización &amp; Seguridad</h3>
+                    <p>Automatización de tareas con scripts y hardening de sistemas para entornos de producción seguros.</p>
+                    <div class="tags">
+                        <span>Bash</span>
+                        <span>Firewall</span>
+                        <span>WSL2</span>
+                    </div>
                 </div>
             </div>
-            <div class="service-card">
-                <div class="icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>Automatización &amp; Seguridad</h3>
-                <p>Automatización de tareas con scripts y hardening de sistemas para entornos de producción seguros.</p>
-                <div class="tags">
-                    <span>Bash</span>
-                    <span>Firewall</span>
-                    <span>WSL2</span>
+        </section>
+
+        <!-- ─── SKILLS (ÉPICO) ─── -->
+        <section id="skills">
+            <h2 class="section-title anim"><i class="fas fa-bolt" style="color: var(--accent);"></i> Habilidades Técnicas</h2>
+            <p class="section-sub anim">Tecnologías y herramientas que domino</p>
+            <div class="skills-wrapper anim">
+                <canvas id="particlesCanvas"></canvas>
+                <div class="skills-cloud">
+                    <span class="skill-tag"><i class="fab fa-docker"></i> Docker</span>
+                    <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
+                    <span class="skill-tag"><i class="fas fa-cloud"></i> Cloudflare</span>
+                    <span class="skill-tag"><i class="fas fa-code-branch"></i> DevOps</span>
+                    <span class="skill-tag"><i class="fas fa-network-wired"></i> Networking</span>
+                    <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+                    <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+                    <span class="skill-tag"><i class="fab fa-html5"></i> HTML</span>
+                    <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS</span>
+                    <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
+                    <span class="skill-tag"><i class="fas fa-code"></i> Bash</span>
+                    <span class="skill-tag"><i class="fas fa-git-alt"></i> Git</span>
+                    <span class="skill-tag"><i class="fab fa-aws"></i> AWS</span>
+                    <span class="skill-tag"><i class="fas fa-shield-alt"></i> Seguridad</span>
+                    <span class="skill-tag"><i class="fas fa-server"></i> Nginx</span>
+                    <span class="skill-tag"><i class="fas fa-cogs"></i> WSL2</span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Proyecto (Jellyfin) -->
-    <section id="proyecto">
-        <h2 class="section-title"><i class="fas fa-film"></i> Proyecto: Servidor de Streaming Self-Hosted</h2>
-        <p class="section-sub">
-            Jellyfin en Docker (WSL2), expuesto vía Cloudflare Tunnel con dominio propio y consumo en vivo de la API REST.
-        </p>
+        <!-- ─── PROJECTS (JELLYFIN) ─── -->
+        <section id="projects">
+            <h2 class="section-title anim">Proyecto destacado</h2>
+            <p class="section-sub anim">Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel</p>
 
-        <div id="status" class="loading">Cargando biblioteca desde el servidor…</div>
+            <div id="status" class="loading anim">Cargando biblioteca desde el servidor…</div>
 
-        <div class="library-controls">
-            <input type="text" id="searchInput" placeholder="🔍 Buscar películas...">
-            <button class="btn primary" id="watchlistToggle"><i class="fas fa-heart"></i> Mi lista (<span id="watchlistCount">0</span>)</button>
-        </div>
-
-        <div id="library" class="grid"></div>
-
-        <div style="margin-top: 24px; text-align: center;">
-            <a href="https://media.jarr.cc.cd" target="_blank" class="btn primary">
-                <i class="fas fa-external-link-alt"></i> Ver servidor completo
-            </a>
-        </div>
-    </section>
-
-    <!-- Certificaciones -->
-    <section id="certificaciones">
-        <h2 class="section-title"><i class="fas fa-certificate"></i> Certificaciones</h2>
-        <p class="section-sub">Verificables en Credly</p>
-        <div class="cert-grid" id="certGrid">
-            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <img src="https://images.credly.com/size/340x340/images/0e284c9f-1a3c-4b5d-9d6f-7e8f9a0b1c2d/AWS_Cloud_Operations.png" alt="AWS Cloud Operations">
-                <h4>AWS Academy Graduate - Cloud Operations</h4>
-                <div class="issuer">Amazon Web Services Training</div>
-                <div class="date">Abril 2026</div>
-            </a>
-            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <img src="https://images.credly.com/size/340x340/images/1d3e5f7a-2b4c-6d8e-9f0a-1b2c3d4e5f6a/Cloud_Computing.png" alt="Computación en la Nube">
-                <h4>Computación en la Nube (Sobresaliente)</h4>
-                <div class="issuer">Universidad Tecmilenio</div>
-                <div class="date">Enero 2026</div>
-            </a>
-            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <img src="https://images.credly.com/size/340x340/images/2e4f6g8h-3c5d-7e9f-0a1b-2c3d4e5f6g7h/DevOps_Fundamentals.png" alt="Fundamentos de DevOps">
-                <h4>Fundamentos de DevOps</h4>
-                <div class="issuer">Universidad Tecmilenio</div>
-                <div class="date">Junio 2026</div>
-            </a>
-            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <img src="https://images.credly.com/size/340x340/images/3f5g7h9i-4d6e-8f0a-1b2c-3d4e5f6g7h8i/Network_Management.png" alt="Gestión de Redes">
-                <h4>Gestión de Redes</h4>
-                <div class="issuer">Universidad Tecmilenio</div>
-                <div class="date">Junio 2026</div>
-            </a>
-            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <img src="https://images.credly.com/size/340x340/images/4g6h8i9j-5e7f-9a0b-1c2d-3e4f5g6h7i8j/Networking_Basics.png" alt="Networking Basics">
-                <h4>Networking Basics</h4>
-                <div class="issuer">Cisco</div>
-                <div class="date">Febrero 2026</div>
-            </a>
-            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <img src="https://images.credly.com/size/340x340/images/5h7i9j0k-6f8g-0a1b-2c3d-4e5f6g7h8i9j/Full_Stack_Development.png" alt="Desarrollo Full Stack">
-                <h4>Desarrollo Full Stack</h4>
-                <div class="issuer">Universidad Tecmilenio</div>
-                <div class="date">Junio 2026</div>
-            </a>
-            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <img src="https://images.credly.com/size/340x340/images/6i8j0k1l-7g9h-1a2b-3c4d-5e6f7g8h9i0j/Web_Development_Fundamentals.png" alt="Web Development Fundamentals">
-                <h4>Web Development Fundamentals</h4>
-                <div class="issuer">IBM SkillsBuild</div>
-                <div class="date">Febrero 2026</div>
-            </a>
-            <a class="cert-card" href="https://www.credly.com/users/juan-antonio-rivera-rodriguez" target="_blank">
-                <img src="https://images.credly.com/size/340x340/images/7j9k1l2m-8h0i-2b3c-4d5e-6f7g8h9i0j1k/Python_Essentials.png" alt="Python Essentials 1">
-                <h4>Python Essentials 1</h4>
-                <div class="issuer">Cisco</div>
-                <div class="date">Octubre 2024</div>
-            </a>
-        </div>
-    </section>
-
-    <!-- Experiencia -->
-    <section id="experiencia">
-        <h2 class="section-title"><i class="fas fa-briefcase"></i> Experiencia</h2>
-        <p class="section-sub">Trayectoria profesional</p>
-        <div class="exp-card">
-            <div>
-                <h3>Desarrollador Freelance</h3>
-                <div class="role">Autónomo · 2026 - Presente</div>
-                <div class="desc">
-                    Desarrollo de proyectos personalizados para clientes. Especializado en la creación de infraestructura
-                    contenerizada, despliegue de aplicaciones web y automatización de tareas.
-                </div>
+            <div class="library-controls anim">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar películas…" />
+                <button class="btn btn-primary" id="watchlistToggle">
+                    <i class="fas fa-heart"></i> Mi lista (<span id="watchlistCount">0</span>)
+                </button>
             </div>
-            <div class="badge-status">Activo</div>
-        </div>
-    </section>
 
-    <!-- Contacto -->
-    <footer id="contacto">
-        <div style="font-size: 1.1rem; color: var(--text); margin-bottom: 8px;">
-            <i class="fas fa-envelope"></i> ¿Tienes un proyecto en mente o quieres charlar?
-        </div>
-        <div class="foot-links">
-            <a href="mailto:riverarodriguezjuanantonio@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-            <a href="https://github.com/death-zip" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-            <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-            <a href="https://media.jarr.cc.cd" target="_blank"><i class="fas fa-server"></i> Servidor Jellyfin</a>
-        </div>
-        <div style="margin-top: 18px;">
-            © 2026 — Hecho con <i class="fas fa-heart" style="color: var(--accent);"></i> y Docker
+            <div id="library" class="grid anim"></div>
+
+            <div class="text-center" style="margin-top: 24px; text-align: center;">
+                <a href="https://media.jarr.cc.cd" target="_blank" class="btn btn-primary">
+                    <i class="fas fa-external-link-alt"></i> Abrir servidor completo
+                </a>
+            </div>
+        </section>
+
+        <!-- ─── CERTIFICATIONS ─── -->
+        <section id="certifications">
+            <h2 class="section-title anim">Certificaciones</h2>
+            <p class="section-sub anim">Verificadas en Credly</p>
+            <div class="cert-grid" id="certGrid">
+                <!-- 1 -->
+                <a class="cert-card anim anim-delay-1" href="https://www.credly.com/badges/65c923dc-22a2-45ea-8285-ca464feddfa4" target="_blank">
+                    <img src="https://images.credly.com/images/fdecf3ca-1fa7-46c9-93c7-e203f718579b/linkedin_thumb_blob" alt="Desarrollo Full Stack" />
+                    <h4>Desarrollo Full Stack</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 2 -->
+                <a class="cert-card anim anim-delay-2" href="https://www.credly.com/badges/0595675d-b4e1-42ab-950a-4889cfd51323" target="_blank">
+                    <img src="https://images.credly.com/images/18d30937-4c1b-442c-83a1-543265bcf02f/linkedin_thumb_image.png" alt="Fundamentos de DevOps" />
+                    <h4>Fundamentos de DevOps</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 3 -->
+                <a class="cert-card anim anim-delay-3" href="https://www.credly.com/badges/471e6f41-5a6c-40fd-ae73-ce09ecd446a9" target="_blank">
+                    <img src="https://images.credly.com/images/c0e5a9ce-f523-483c-8daa-4c37019ad7aa/linkedin_thumb_blob" alt="Gestión de Redes" />
+                    <h4>Gestión de Redes</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 4 -->
+                <a class="cert-card anim anim-delay-4" href="https://www.credly.com/badges/3c900f69-4fff-4a93-8142-5a6cb3606cbf" target="_blank">
+                    <img src="https://images.credly.com/images/07e7ba52-aea4-431f-ba2d-a4113efd1d5a/linkedin_thumb_blob" alt="AWS Cloud Operations" />
+                    <h4>AWS Cloud Operations</h4>
+                    <div class="issuer">Amazon Web Services</div>
+                </a>
+                <!-- 5 -->
+                <a class="cert-card anim anim-delay-5" href="https://www.credly.com/badges/49bff30e-f0a0-4ee0-92c8-9865a5940f80" target="_blank">
+                    <img src="https://images.credly.com/images/5bdd6a39-..." alt="Networking Basics" />
+                    <h4>Networking Basics</h4>
+                    <div class="issuer">Cisco</div>
+                </a>
+                <!-- 6 -->
+                <a class="cert-card anim anim-delay-1" href="https://www.credly.com/badges/807e567b-6e76-426a-8c1e-41e83b2e2eb1" target="_blank">
+                    <img src="https://images.credly.com/images/0c1c6eed-818c-4f78-bfaa-7ea8704c863a/linkedin_thumb_image.png" alt="Web Development Fundamentals" />
+                    <h4>Web Development Fundamentals</h4>
+                    <div class="issuer">IBM SkillsBuild</div>
+                </a>
+                <!-- 7 -->
+                <a class="cert-card anim anim-delay-2" href="https://www.credly.com/badges/8416f2cd-0796-48d3-b1ba-93174ce233ac" target="_blank">
+                    <img src="https://images.credly.com/images/4013b068-cd88-443a-b109-292cad70e121/linkedin_thumb_blob" alt="Ciencia de Datos" />
+                    <h4>Ciencia de Datos</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 8 -->
+                <a class="cert-card anim anim-delay-3" href="https://www.credly.com/badges/507c3a84-2b0e-40c7-acfd-fda85afe2f4c" target="_blank">
+                    <img src="https://images.credly.com/images/da491c56-6aef-47a6-9ae4-eb3bbfa9b60e/linkedin_thumb_blob" alt="Computación en la Nube" />
+                    <h4>Computación en la Nube</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 9 -->
+                <a class="cert-card anim anim-delay-4" href="https://www.credly.com/badges/ac1bf2ac-d8ab-4a71-ab62-1b16d31abeed" target="_blank">
+                    <img src="https://images.credly.com/images/0871bc81-7152-4340-8367-8fbe3896c43f/linkedin_thumb_blob" alt="Fundamentos de Programación" />
+                    <h4>Fundamentos de Programación</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 10 -->
+                <a class="cert-card anim anim-delay-5" href="https://www.credly.com/badges/b7ec7525-1f53-4147-94f7-15a01965f6fc" target="_blank">
+                    <img src="https://images.credly.com/images/c187e134-e491-4f6b-9083-decb5e0bd265/linkedin_thumb_blob" alt="Probabilidad y Estadística" />
+                    <h4>Probabilidad y Estadística</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 11 -->
+                <a class="cert-card anim anim-delay-1" href="https://www.credly.com/badges/14086fc7-ef71-4eed-a940-06211aa0ee4d" target="_blank">
+                    <img src="https://images.credly.com/images/dc201a38-6b7c-4ffd-85cc-0d337b22bc05/linkedin_thumb_blob" alt="Programación Orientada a Objetos" />
+                    <h4>Programación Orientada a Objetos</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 12 -->
+                <a class="cert-card anim anim-delay-2" href="https://www.credly.com/badges/b3ef07b3-e988-4277-aae2-11c4dbf4c1b7" target="_blank">
+                    <img src="https://images.credly.com/images/24c929ed-4d14-4226-975f-116ee666d81e/linkedin_thumb_blob" alt="Sistemas Operativos" />
+                    <h4>Sistemas Operativos</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 13 -->
+                <a class="cert-card anim anim-delay-3" href="https://www.credly.com/badges/3b65589f-c9c3-40f6-bc7a-8b414d6cf7ad" target="_blank">
+                    <img src="https://images.credly.com/images/251db325-c323-4cbf-927d-9970329fdebb/linkedin_thumb_image.png" alt="Inglés 5" />
+                    <h4>Inglés 5</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 14 -->
+                <a class="cert-card anim anim-delay-4" href="https://www.credly.com/badges/383ecc92-5b6f-4c0a-9940-cc95370f6d5c" target="_blank">
+                    <img src="https://images.credly.com/images/2cc5aef9-1698-4a6c-9a22-6b81b1a6fe51/linkedin_thumb_blob" alt="Metodologías Ágiles" />
+                    <h4>Metodologías Ágiles</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 15 -->
+                <a class="cert-card anim anim-delay-5" href="https://www.credly.com/badges/681e734c-7a4b-41a7-b5ab-ce0724e5c2ae" target="_blank">
+                    <img src="https://images.credly.com/images/3e8f3768-bb7b-426f-ba22-e214da27aca5/linkedin_thumb_blob" alt="Bases de Datos" />
+                    <h4>Bases de Datos</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 16 -->
+                <a class="cert-card anim anim-delay-1" href="https://www.credly.com/badges/f530762e-fc52-472b-a94b-47a9cadb32c7" target="_blank">
+                    <img src="https://images.credly.com/images/868fef28-16a5-4ed4-92f6-ef43da8fec4a/linkedin_thumb_blob" alt="Estructura de Datos" />
+                    <h4>Estructura de Datos</h4>
+                    <div class="issuer">Universidad Tecmilenio</div>
+                </a>
+                <!-- 17 -->
+                <a class="cert-card anim anim-delay-2" href="https://www.credly.com/badges/dfa65af0-89cc-4062-ad0c-ae7e88d8495e" target="_blank">
+                    <img src="https://images.credly.com/images/b38a42e0-dc58-4ce2-b6c0-28d978e8aaad/linkedin_thumb_image.png" alt="Introduction to Data Science" />
+                    <h4>Introduction to Data Science</h4>
+                    <div class="issuer">Cisco</div>
+                </a>
+                <!-- 18 -->
+                <a class="cert-card anim anim-delay-3" href="https://www.credly.com/badges/cea7bc5d-b0b8-40ee-a47a-c5a779b86edd" target="_blank">
+                    <img src="https://images.credly.com/images/68c0b94d-f6ac-40b1-a0e0-921439eb092e/linkedin_thumb_image.png" alt="Python Essentials 1" />
+                    <h4>Python Essentials 1</h4>
+                    <div class="issuer">Cisco</div>
+                </a>
+            </div>
+        </section>
+
+        <!-- ─── EXPERIENCE ─── -->
+        <section id="experience">
+            <h2 class="section-title anim">Experiencia</h2>
+            <p class="section-sub anim">Trayectoria profesional</p>
+            <div class="exp-card anim">
+                <div>
+                    <h3>Desarrollador Freelance</h3>
+                    <div class="role">Autónomo · 2026 – Presente</div>
+                    <div class="desc">
+                        Desarrollo de proyectos personalizados para clientes. Especializado en la creación de infraestructura
+                        contenerizada, despliegue de aplicaciones web y automatización de tareas.
+                    </div>
+                </div>
+                <div class="status-badge">Activo</div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ─── FOOTER ─── -->
+    <footer id="contact">
+        <div class="container">
+            <div style="font-size:1.1rem; color:var(--text); margin-bottom:6px;">
+                <i class="fas fa-envelope"></i> ¿Tienes un proyecto en mente o quieres charlar?
+            </div>
+            <div class="foot-links">
+                <a href="mailto:riverarodriguezjuanantonio@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                <a href="https://github.com/death-zip" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                <a href="https://media.jarr.cc.cd" target="_blank"><i class="fas fa-server"></i> Servidor Jellyfin</a>
+            </div>
+            <div style="margin-top:18px;">
+                © 2026 — Hecho con <i class="fas fa-heart" style="color:var(--accent);"></i> y Docker
+            </div>
         </div>
     </footer>
 
-    <!-- Reproductor modal -->
+    <!-- ─── PLAYER MODAL ─── -->
     <div class="overlay" id="overlay">
         <div class="player-modal">
             <button class="close" id="modalClose">&times;</button>
-            <img class="player-backdrop" id="modalBackdrop" alt="">
+            <img class="player-backdrop" id="modalBackdrop" alt="" />
             <div class="player-body">
                 <h3 id="modalTitle"></h3>
                 <div class="meta-row" id="modalMeta"></div>
@@ -876,55 +1186,122 @@
     </div>
 
     <script>
-        // ============================================================
-        // CONFIGURACIÓN
-        // ============================================================
-        const JELLYFIN_URL = "https://media.jarr.cc.cd";
-        const API_KEY = "4119d7f4257c477ab5b72ddb1fcd735e"; // Reemplaza con tu API Key real
-        const USER_ID = "99d724cfca8847e0bf89fbf93a734421";
+        // ─── PARTICULAS PARA LA SECCIÓN DE HABILIDADES ───
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('particlesCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
 
-        // ============================================================
-        // ESTADO
-        // ============================================================
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                canvas.width = rect.width;
+                canvas.height = rect.height;
+                width = canvas.width;
+                height = canvas.height;
+            }
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 2 + 1;
+                    this.speedX = (Math.random() - 0.5) * 0.6;
+                    this.speedY = (Math.random() - 0.5) * 0.6;
+                    this.opacity = Math.random() * 0.5 + 0.2;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x > width) this.x = 0;
+                    if (this.x < 0) this.x = width;
+                    if (this.y > height) this.y = 0;
+                    if (this.y < 0) this.y = height;
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(91, 154, 255, ${this.opacity})`;
+                    ctx.fill();
+                }
+            }
+
+            function init() {
+                resize();
+                particles = [];
+                const count = Math.min(80, Math.floor((width * height) / 8000));
+                for (let i = 0; i < count; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                // Dibujar líneas entre partículas cercanas
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(91, 154, 255, ${0.1 * (1 - dist / 120)})`;
+                            ctx.lineWidth = 0.6;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', () => {
+                resize();
+                init();
+            });
+
+            init();
+            animate();
+        });
+
+        // ─── JELLYFIN CONFIG ───
+        const JELLYFIN_URL = 'https://media.jarr.cc.cd';
+        const API_KEY = '4119d7f4257c477ab5b72ddb1fcd735e';
+        const USER_ID = '99d724cfca8847e0bf89fbf93a734421';
+
         let allItems = [];
         let itemsById = {};
         let watchlist = JSON.parse(localStorage.getItem('jellyfin_watchlist') || '[]');
         let showingWatchlist = false;
 
-        // ============================================================
-        // DOM REFS
-        // ============================================================
-        const statusEl = document.getElementById("status");
-        const gridEl = document.getElementById("library");
-        const searchInput = document.getElementById("searchInput");
-        const watchlistToggle = document.getElementById("watchlistToggle");
-        const watchlistCount = document.getElementById("watchlistCount");
+        const statusEl = document.getElementById('status');
+        const gridEl = document.getElementById('library');
+        const searchInput = document.getElementById('searchInput');
+        const watchlistToggle = document.getElementById('watchlistToggle');
+        const watchlistCount = document.getElementById('watchlistCount');
 
-        const overlay = document.getElementById("overlay");
-        const modalClose = document.getElementById("modalClose");
-        const modalBackdrop = document.getElementById("modalBackdrop");
-        const modalTitle = document.getElementById("modalTitle");
-        const modalMeta = document.getElementById("modalMeta");
-        const modalGenres = document.getElementById("modalGenres");
-        const modalOverview = document.getElementById("modalOverview");
-        const modalCastCrew = document.getElementById("modalCastCrew");
-        const modalActions = document.getElementById("modalActions");
-        const videoWrap = document.getElementById("videoWrap");
+        const overlay = document.getElementById('overlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalBackdrop = document.getElementById('modalBackdrop');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMeta = document.getElementById('modalMeta');
+        const modalGenres = document.getElementById('modalGenres');
+        const modalOverview = document.getElementById('modalOverview');
+        const modalCastCrew = document.getElementById('modalCastCrew');
+        const modalActions = document.getElementById('modalActions');
+        const videoWrap = document.getElementById('videoWrap');
 
-        // ============================================================
-        // UTILIDADES
-        // ============================================================
         function setStatus(type, msg) {
             statusEl.className = type;
             statusEl.textContent = msg;
-        }
-
-        function formatRuntime(ticks) {
-            if (!ticks) return null;
-            const totalMin = Math.round(ticks / 10000000 / 60);
-            const h = Math.floor(totalMin / 60);
-            const m = totalMin % 60;
-            return h > 0 ? `${h}h ${m}m` : `${m}m`;
         }
 
         function updateWatchlistCount() {
@@ -940,11 +1317,9 @@
                 watchlist.push(itemId);
             }
             updateWatchlistCount();
-            // Si estamos viendo la watchlist, re-renderizar
             if (showingWatchlist) {
                 renderLibrary(allItems.filter(item => watchlist.includes(item.Id)));
             } else {
-                // Actualizar los botones de las tarjetas
                 document.querySelectorAll('.item-card').forEach(card => {
                     const id = card.dataset.id;
                     const btn = card.querySelector('.watchlist-btn');
@@ -955,35 +1330,31 @@
             }
         }
 
-        // ============================================================
-        // RENDER
-        // ============================================================
         function renderLibrary(items) {
-            if (items.length === 0) {
-                setStatus("error", "No hay contenido para mostrar.");
+            if (!items || items.length === 0) {
+                setStatus('error', 'No se encontraron resultados.');
                 gridEl.innerHTML = '';
                 return;
             }
-            setStatus("ok", "");
+            setStatus('ok', '');
             gridEl.innerHTML = items.map(item => {
                 const imgUrl = item.ImageTags && item.ImageTags.Primary
                     ? `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}`
-                    : "";
-                const badge = item.Type === "Series" ? "Serie" : "Película";
+                    : '';
+                const badge = item.Type === 'Series' ? 'Serie' : 'Película';
                 const inWatchlist = watchlist.includes(item.Id);
                 return `
-                    <div class="item-card" data-id="${item.Id}">
-                        <span class="badge">${badge}</span>
-                        ${imgUrl ? `<img src="${imgUrl}" alt="${item.Name}" loading="lazy">` : ""}
-                        <div class="title">${item.Name}</div>
-                        <button class="watchlist-btn" data-id="${item.Id}">${inWatchlist ? '⭐' : '☆'}</button>
-                    </div>`;
-            }).join("");
+                        <div class="item-card" data-id="${item.Id}">
+                            <span class="badge-type">${badge}</span>
+                            ${imgUrl ? `<img src="${imgUrl}" alt="${item.Name}" loading="lazy">` : ''}
+                            <div class="title">${item.Name}</div>
+                            <button class="watchlist-btn" data-id="${item.Id}">${inWatchlist ? '⭐' : '☆'}</button>
+                        </div>
+                    `;
+            }).join('');
 
-            // Eventos: abrir modal al hacer clic en la tarjeta
-            gridEl.querySelectorAll(".item-card").forEach(card => {
-                card.addEventListener("click", (e) => {
-                    // Si el clic fue en el botón de watchlist, no abrir modal
+            gridEl.querySelectorAll('.item-card').forEach(card => {
+                card.addEventListener('click', (e) => {
                     if (e.target.classList.contains('watchlist-btn')) return;
                     openModal(card.dataset.id);
                 });
@@ -997,19 +1368,12 @@
             });
         }
 
-        // ============================================================
-        // FETCH
-        // ============================================================
         async function fetchLibrary() {
             try {
-                const url = `${JELLYFIN_URL}/Users/${USER_ID}/Items` +
-                    `?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series` +
-                    `&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating` +
-                    `&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=50`;
-
-                const res = await fetch(url, { headers: { "X-Emby-Token": API_KEY } });
+                const url =
+                    `${JELLYFIN_URL}/Users/${USER_ID}/Items?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=50`;
+                const res = await fetch(url, { headers: { 'X-Emby-Token': API_KEY } });
                 if (!res.ok) throw new Error(`El servidor respondió con estado ${res.status}`);
-
                 const data = await res.json();
                 allItems = data.Items || [];
                 itemsById = {};
@@ -1017,35 +1381,23 @@
                 renderLibrary(allItems);
                 updateWatchlistCount();
             } catch (err) {
-                setStatus("error",
-                    `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`);
-                console.error("Error cargando Jellyfin:", err);
+                setStatus('error', `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`);
+                console.error('Error cargando Jellyfin:', err);
             }
         }
 
-        // ============================================================
-        // BUSCADOR
-        // ============================================================
         searchInput.addEventListener('input', () => {
             const query = searchInput.value.toLowerCase().trim();
             if (showingWatchlist) {
-                // Si estamos en watchlist, filtrar sobre los items de la watchlist
                 const watchlistItems = allItems.filter(item => watchlist.includes(item.Id));
-                const filtered = watchlistItems.filter(item =>
-                    item.Name.toLowerCase().includes(query)
-                );
+                const filtered = watchlistItems.filter(item => item.Name.toLowerCase().includes(query));
                 renderLibrary(filtered);
             } else {
-                const filtered = allItems.filter(item =>
-                    item.Name.toLowerCase().includes(query)
-                );
+                const filtered = allItems.filter(item => item.Name.toLowerCase().includes(query));
                 renderLibrary(filtered);
             }
         });
 
-        // ============================================================
-        // WATCHLIST TOGGLE
-        // ============================================================
         watchlistToggle.addEventListener('click', () => {
             showingWatchlist = !showingWatchlist;
             if (showingWatchlist) {
@@ -1054,12 +1406,9 @@
                 renderLibrary(watchlistItems);
             } else {
                 watchlistToggle.innerHTML = `<i class="fas fa-heart"></i> Mi lista (<span id="watchlistCount">${watchlist.length}</span>)`;
-                // Aplicar búsqueda si hay texto
                 const query = searchInput.value.toLowerCase().trim();
                 if (query) {
-                    const filtered = allItems.filter(item =>
-                        item.Name.toLowerCase().includes(query)
-                    );
+                    const filtered = allItems.filter(item => item.Name.toLowerCase().includes(query));
                     renderLibrary(filtered);
                 } else {
                     renderLibrary(allItems);
@@ -1067,33 +1416,38 @@
             }
         });
 
-        // ============================================================
-        // MODAL / REPRODUCTOR
-        // ============================================================
+        // ─── MODAL / PLAYER ───
         async function fetchItemDetail(id) {
-            const url = `${JELLYFIN_URL}/Users/${USER_ID}/Items/${id}` +
-                `?Fields=MediaStreams,Overview,Genres,MediaSources,BackdropImageTags,CommunityRating,RunTimeTicks,People`;
-            const res = await fetch(url, { headers: { "X-Emby-Token": API_KEY } });
+            const url =
+                `${JELLYFIN_URL}/Users/${USER_ID}/Items/${id}?Fields=MediaStreams,Overview,Genres,MediaSources,BackdropImageTags,CommunityRating,RunTimeTicks,People`;
+            const res = await fetch(url, { headers: { 'X-Emby-Token': API_KEY } });
             if (!res.ok) throw new Error(`estado ${res.status}`);
             return res.json();
+        }
+
+        function formatRuntime(ticks) {
+            if (!ticks) return null;
+            const totalMin = Math.round(ticks / 10000000 / 60);
+            const h = Math.floor(totalMin / 60);
+            const m = totalMin % 60;
+            return h > 0 ? `${h}h ${m}m` : `${m}m`;
         }
 
         async function openModal(id) {
             const basic = itemsById[id];
             if (!basic) return;
 
-            // Estado inicial rápido
             modalTitle.textContent = basic.Name;
-            modalMeta.innerHTML = "Cargando detalles…";
-            modalGenres.innerHTML = "";
-            modalOverview.textContent = "";
-            modalCastCrew.innerHTML = "";
-            videoWrap.innerHTML = "";
-            modalActions.innerHTML = "";
-            modalBackdrop.src = basic.ImageTags && basic.ImageTags.Primary
-                ? `${JELLYFIN_URL}/Items/${id}/Images/Primary?maxWidth=800&tag=${basic.ImageTags.Primary}`
-                : "";
-            overlay.classList.add("open");
+            modalMeta.innerHTML = 'Cargando detalles…';
+            modalGenres.innerHTML = '';
+            modalOverview.textContent = '';
+            modalCastCrew.innerHTML = '';
+            videoWrap.innerHTML = '';
+            modalActions.innerHTML = '';
+            modalBackdrop.src = basic.ImageTags && basic.ImageTags.Primary ?
+                `${JELLYFIN_URL}/Items/${id}/Images/Primary?maxWidth=800&tag=${basic.ImageTags.Primary}` :
+                '';
+            overlay.classList.add('open');
 
             let detail;
             try {
@@ -1103,97 +1457,88 @@
                 return;
             }
 
-            // Backdrop
             if (detail.BackdropImageTags && detail.BackdropImageTags.length > 0) {
-                modalBackdrop.src = `${JELLYFIN_URL}/Items/${id}/Images/Backdrop/0?maxWidth=900&tag=${detail.BackdropImageTags[0]}`;
+                modalBackdrop.src =
+                    `${JELLYFIN_URL}/Items/${id}/Images/Backdrop/0?maxWidth=900&tag=${detail.BackdropImageTags[0]}`;
             }
 
-            // Metadatos
-            const year = detail.ProductionYear || "";
-            const rating = detail.CommunityRating ? `⭐ ${detail.CommunityRating.toFixed(1)}` : "";
+            const year = detail.ProductionYear || '';
+            const rating = detail.CommunityRating ? `⭐ ${detail.CommunityRating.toFixed(1)}` : '';
             const runtime = formatRuntime(detail.RunTimeTicks);
-            const type = detail.Type === "Series" ? "Serie" : "Película";
+            const type = detail.Type === 'Series' ? 'Serie' : 'Película';
 
             modalMeta.innerHTML = [
-                year ? `<span class="pill">${year}</span>` : "",
-                rating ? `<span class="rating">${rating}</span>` : "",
-                runtime ? `<span class="pill">${runtime}</span>` : "",
+                year ? `<span class="pill">${year}</span>` : '',
+                rating ? `<span class="rating">${rating}</span>` : '',
+                runtime ? `<span class="pill">${runtime}</span>` : '',
                 `<span class="pill">${type}</span>`
-            ].filter(Boolean).join("");
+            ].filter(Boolean).join('');
 
-            modalGenres.innerHTML = (detail.Genres || [])
-                .map(g => `<span>${g}</span>`).join("");
+            modalGenres.innerHTML = (detail.Genres || []).map(g => `<span>${g}</span>`).join('');
 
-            modalOverview.textContent = detail.Overview || "Sin descripción disponible.";
+            modalOverview.textContent = detail.Overview || 'Sin descripción disponible.';
 
-            // Cast & Crew
             const people = detail.People || [];
-            const directors = people.filter(p => p.Type === "Director").map(p => p.Name).join(", ");
-            const writers = people.filter(p => p.Type === "Writer").map(p => p.Name).join(", ");
-            const actors = people.filter(p => p.Type === "Actor").slice(0, 6).map(p => p.Name).join(", ");
+            const directors = people.filter(p => p.Type === 'Director').map(p => p.Name).join(', ');
+            const writers = people.filter(p => p.Type === 'Writer').map(p => p.Name).join(', ');
+            const actors = people.filter(p => p.Type === 'Actor').slice(0, 6).map(p => p.Name).join(', ');
 
-            let castHtml = "";
+            let castHtml = '';
             if (directors) castHtml += `<span class="group"><strong>Director:</strong> ${directors}</span>`;
             if (writers) castHtml += `<span class="group"><strong>Guionista:</strong> ${writers}</span>`;
             if (actors) castHtml += `<span class="group"><strong>Actores:</strong> ${actors}</span>`;
             modalCastCrew.innerHTML = castHtml;
 
-            // Reproductor
-            if (detail.Type === "Movie") {
-                const mediaSourceId = (detail.MediaSources && detail.MediaSources[0])
-                    ? detail.MediaSources[0].Id : id;
-
-                const streamUrl = `${JELLYFIN_URL}/Videos/${id}/stream?static=true&mediaSourceId=${mediaSourceId}&api_key=${API_KEY}`;
-
-                const subtitleStreams = (detail.MediaStreams || [])
-                    .filter(s => s.Type === "Subtitle");
-
+            if (detail.Type === 'Movie') {
+                const mediaSourceId = (detail.MediaSources && detail.MediaSources[0]) ? detail.MediaSources[0].Id : id;
+                const streamUrl =
+                    `${JELLYFIN_URL}/Videos/${id}/stream?static=true&mediaSourceId=${mediaSourceId}&api_key=${API_KEY}`;
+                const subtitleStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Subtitle');
                 const tracks = subtitleStreams.map((s, i) => {
-                    const subUrl = `${JELLYFIN_URL}/Videos/${id}/${mediaSourceId}/Subtitles/${s.Index}/Stream.vtt?api_key=${API_KEY}`;
+                    const subUrl =
+                        `${JELLYFIN_URL}/Videos/${id}/${mediaSourceId}/Subtitles/${s.Index}/Stream.vtt?api_key=${API_KEY}`;
                     const label = s.DisplayTitle || s.Language || `Pista ${i + 1}`;
-                    const lang = s.Language || "und";
-                    const dflt = i === 0 ? "default" : "";
+                    const lang = s.Language || 'und';
+                    const dflt = i === 0 ? 'default' : '';
                     return `<track kind="subtitles" src="${subUrl}" srclang="${lang}" label="${label}" ${dflt}>`;
-                }).join("");
+                }).join('');
 
                 videoWrap.innerHTML = `
-                    <video class="jf-video" controls preload="metadata" crossorigin="anonymous" autoplay>
-                        <source src="${streamUrl}" type="video/mp4">
-                        ${tracks}
-                    </video>
-                    ${subtitleStreams.length === 0 ? '<div class="no-video-note">Este archivo no tiene subtítulos guardados en el servidor.</div>' : ''}
-                `;
-                modalActions.innerHTML = "";
+                        <video class="jf-video" controls preload="metadata" crossorigin="anonymous" autoplay>
+                            <source src="${streamUrl}" type="video/mp4">
+                            ${tracks}
+                        </video>
+                        ${subtitleStreams.length === 0 ? '<div class="no-video-note">Este archivo no tiene subtítulos guardados en el servidor.</div>' : ''}
+                    `;
+                modalActions.innerHTML = '';
             } else {
-                videoWrap.innerHTML = `<div class="no-video-note">Las series se reproducen episodio por episodio directo en el servidor.</div>`;
-                modalActions.innerHTML = `
-                    <a class="secondary" href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank">Ver episodios en el servidor →</a>`;
+                videoWrap.innerHTML =
+                    `<div class="no-video-note">Las series se reproducen episodio por episodio directo en el servidor.</div>`;
+                modalActions.innerHTML =
+                    `<a class="btn btn-primary" href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank">Ver episodios en el servidor →</a>`;
             }
         }
 
         function closeModal() {
-            overlay.classList.remove("open");
-            // Detener video
+            overlay.classList.remove('open');
             const video = document.querySelector('.jf-video');
             if (video) {
                 video.pause();
                 video.src = '';
                 video.load();
             }
-            videoWrap.innerHTML = "";
+            videoWrap.innerHTML = '';
         }
 
-        modalClose.addEventListener("click", closeModal);
-        overlay.addEventListener("click", (e) => {
+        modalClose.addEventListener('click', closeModal);
+        overlay.addEventListener('click', (e) => {
             if (e.target === overlay) closeModal();
         });
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") closeModal();
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
         });
 
-        // ============================================================
-        // INICIO
-        // ============================================================
+        // ─── INIT ───
         fetchLibrary();
     </script>
 
