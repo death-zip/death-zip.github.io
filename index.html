@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Juan Antonio Rivera · Cloud & DevOps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- Fondo animado (loop de imágenes) --- */
+        #background-loop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.15;
+            object-fit: cover;
+            transition: opacity 1s ease;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* --- Hero con fondo oscuro translúcido --- */
+        .hero {
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            border: 1px solid #1f1f1f;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #ffffff 60%, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: #60a5fa;
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+
+        .hero .tagline {
+            margin-top: 1rem;
+            color: #9ca3af;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #1f1f1f;
+            color: #e5e5e5;
+            border-color: #3b3b3b;
+        }
+        .btn-secondary:hover {
+            background: #2a2a2a;
+            border-color: #666;
+        }
+
+        .btn-success {
+            background: #16a34a;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #15803d;
+            transform: translateY(-2px);
+        }
+
+        /* --- Sección de películas (estilo Netflix) --- */
+        .movie-section {
+            margin: 4rem 0;
+        }
+
+        .movie-section h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .movie-card {
+            background: #141414;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+            border: 1px solid #262626;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+            border-color: #60a5fa;
+        }
+
+        .movie-card img {
+            width: 100%;
+            aspect-ratio: 2/3;
+            object-fit: cover;
+            display: block;
+            background: #222;
+        }
+
+        .movie-card .info {
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .movie-card .title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #e5e5e5;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .movie-card .year {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* --- Reproductor integrado --- */
+        .player-container {
+            margin: 2rem 0;
+            background: #0a0a0a;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #262626;
+            display: none;
+        }
+
+        .player-container.active {
+            display: block;
+        }
+
+        .player-container video {
+            width: 100%;
+            max-height: 500px;
+            display: block;
+            background: #000;
+        }
+
+        .player-container .player-info {
+            padding: 1rem;
+            background: #141414;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .player-container .player-info .close-btn {
+            background: #dc2626;
+            border: none;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* --- Tecnologías --- */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .skills span {
+            background: #1a1a1a;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid #2a2a2a;
+            font-size: 0.9rem;
+            color: #c0c0c0;
+        }
+
+        .contact {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid #1f1f1f;
+            margin-top: 3rem;
+        }
+        .contact a {
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact a:hover {
+            text-decoration: underline;
+        }
+
+        .placeholder {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #6b7280;
+            padding: 2rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .movie-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            .btn {
+                padding: 0.5rem 1.2rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fondo animado (loop de imágenes) -->
+    <img id="background-loop" src="" alt="background" />
+
+    <div class="container">
+
+        <!-- Hero -->
+        <header class="hero">
+            <h1>Juan Antonio Rivera Rodriguez</h1>
+            <p class="subtitle">Aspiring Cloud Engineer · Docker &amp; Linux</p>
+            <p class="tagline">
+                Construyo infraestructura contenerizada. Este portafolio demuestra
+                <strong>Docker, Cloudflare Tunnel y APIs REST</strong>
+                a través de un servidor multimedia auto-hospedado.
+            </p>
+
+            <div class="actions">
+                <a href="#peliculas" class="btn btn-primary">🎬 Ver películas</a>
+                <a href="https://github.com/death-zip" target="_blank" class="btn btn-secondary">GitHub</a>
+                <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank" class="btn btn-secondary">LinkedIn</a>
+                <a href="https://media.jarr.cc.cd/web/#/login" target="_blank" class="btn btn-success">🌐 Servidor completo</a>
+            </div>
+        </header>
+
+        <!-- Reproductor integrado (aparece al hacer clic en una película) -->
+        <div class="player-container" id="player-container">
+            <video id="player-video" controls autoplay></video>
+            <div class="player-info">
+                <span id="player-title">Reproduciendo...</span>
+                <button class="close-btn" id="close-player">Cerrar</button>
+            </div>
+        </div>
+
+        <!-- Sección de películas -->
+        <section class="movie-section" id="peliculas">
+            <h2>🎞️ Películas destacadas</h2>
+            <div class="movie-grid" id="movie-grid">
+                <div class="placeholder">⏳ Cargando desde Jellyfin...</div>
+            </div>
+            <p style="color:#4b5563; font-size:0.8rem; margin-top:1rem; text-align:center;">
+                * Haz clic en una película para reproducirla directamente desde tu servidor.
+            </p>
+        </section>
+
+        <!-- Tecnologías -->
+        <div style="margin: 2rem 0;">
+            <h2 style="text-align:center; font-size:1.8rem;">🛠️ Tecnologías</h2>
+            <div class="skills">
+                <span>Docker Compose</span>
+                <span>Linux (Ubuntu en WSL2)</span>
+                <span>Cloudflare Tunnel</span>
+                <span>REST APIs</span>
+                <span>Jellyfin</span>
+                <span>Git / GitHub</span>
+                <span>Bash Scripting</span>
+            </div>
+        </div>
+
+        <!-- Contacto -->
+        <footer class="contact">
+            <h2 style="font-size:1.3rem;">📬 Conectemos</h2>
+            <p style="color:#9ca3af; margin: 0.5rem 0 1rem;">
+                Busco mi primera oportunidad remota como
+                <strong>Cloud Support</strong> o <strong>Jr. DevOps</strong>.
+            </p>
+            <p>
+                <a href="mailto:tuemail@ejemplo.com">tuemail@ejemplo.com</a>
+                &nbsp;·&nbsp;
+                <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank">LinkedIn</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/death-zip" target="_blank">GitHub</a>
+            </p>
+            <p style="font-size:0.8rem; color:#4b5563; margin-top:1.5rem;">
+                Hecho con ❤️ y Docker. 2026
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // ============================================================
+        // CONFIGURACIÓN - TUS DATOS REALES
+        // ============================================================
+        const JELLYFIN_SERVER = 'https://media.jarr.cc.cd';
+        const JELLYFIN_API_KEY = '39ed0eeeb4754c1b91493c7a4077338c';
+        const USER_ID = '99d724cfca8847e0bf89fbf93a734421';
+
+        // ============================================================
+        // 1. OBTENER PELÍCULAS Y MOSTRARLAS EN GRID
+        // ============================================================
+        async function fetchMovies() {
+            const grid = document.getElementById('movie-grid');
+            grid.innerHTML = `<div class="placeholder">⏳ Cargando desde Jellyfin...</div>`;
+
+            try {
+                const proxy = 'https://api.allorigins.win/raw?url=';
+                const api = `${JELLYFIN_SERVER}/Users/${USER_ID}/Items?api_key=${JELLYFIN_API_KEY}&Limit=20&Recursive=true&SortBy=DateCreated&SortOrder=Descending`;
+                const res = await fetch(proxy + encodeURIComponent(api));
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json();
+
+                grid.innerHTML = '';
+
+                if (!data.Items || data.Items.length === 0) {
+                    grid.innerHTML = `<div class="placeholder">📭 No hay películas. Agrega contenido a Jellyfin.</div>`;
+                    return;
+                }
+
+                // Guardar lista global para el reproductor
+                window.movies = data.Items;
+
+                data.Items.forEach((item, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'movie-card';
+                    card.dataset.index = index;
+
+                    const img = document.createElement('img');
+                    const poster = item.ImageTags?.Primary
+                        ? `${JELLYFIN_SERVER}/Items/${item.Id}/Images/Primary?api_key=${JELLYFIN_API_KEY}&maxHeight=300`
+                        : '';
+                    img.src = poster || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="300" viewBox="0 0 200 300"%3E%3Crect width="200" height="300" fill="%23222"%3E%3C/rect%3E%3Ctext x="100" y="150" font-family="sans-serif" font-size="16" fill="%23666" text-anchor="middle"%3ENo poster%3C/text%3E%3C/svg%3E';
+                    img.alt = item.Name || 'Sin título';
+                    card.appendChild(img);
+
+                    const info = document.createElement('div');
+                    info.className = 'info';
+                    const title = document.createElement('div');
+                    title.className = 'title';
+                    title.textContent = item.Name || 'Sin título';
+                    info.appendChild(title);
+
+                    const year = document.createElement('div');
+                    year.className = 'year';
+                    year.textContent = item.ProductionYear || '';
+                    info.appendChild(year);
+                    card.appendChild(info);
+
+                    // Al hacer clic, reproducir la película
+                    card.addEventListener('click', () => playMovie(item));
+
+                    grid.appendChild(card);
+                });
+
+                // Iniciar loop de fondo con las imágenes de las películas
+                startBackgroundLoop(data.Items);
+
+            } catch (err) {
+                console.error('Error:', err);
+                grid.innerHTML = `
+                    <div class="placeholder">
+                        ⚠️ Error de conexión.<br>
+                        <span style="font-size:0.8rem;">Verifica que el túnel esté activo.</span>
+                    </div>
+                `;
+            }
+        }
+
+        // ============================================================
+        // 2. REPRODUCIR PELÍCULA EN EL PLAYER INTEGRADO
+        // ============================================================
+        function playMovie(item) {
+            const container = document.getElementById('player-container');
+            const video = document.getElementById('player-video');
+            const title = document.getElementById('player-title');
+
+            // Construir URL de stream (usando el primer MediaSource)
+            const sourceId = item.MediaSources?.[0]?.Id || item.Id;
+            const streamUrl = `${JELLYFIN_SERVER}/Videos/${item.Id}/stream?api_key=${JELLYFIN_API_KEY}&MediaSourceId=${sourceId}&Static=true`;
+
+            video.src = streamUrl;
+            video.load();
+            video.play();
+
+            title.textContent = `🎬 ${item.Name || 'Película'} (${item.ProductionYear || ''})`;
+            container.classList.add('active');
+            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Cerrar reproductor
+        document.getElementById('close-player').addEventListener('click', () => {
+            const container = document.getElementById('player-container');
+            const video = document.getElementById('player-video');
+            video.pause();
+            video.src = '';
+            container.classList.remove('active');
+        });
+
+        // ============================================================
+        // 3. LOOP DE FONDO (cambia imagen cada 5 segundos)
+        // ============================================================
+        let backgroundInterval;
+
+        function startBackgroundLoop(items) {
+            const img = document.getElementById('background-loop');
+            let index = 0;
+
+            // Función para cambiar la imagen de fondo
+            function updateBackground() {
+                const item = items[index % items.length];
+                const poster = item.ImageTags?.Primary
+                    ? `${JELLYFIN_SERVER}/Items/${item.Id}/Images/Primary?api_key=${JELLYFIN_API_KEY}&maxHeight=1080`
+                    : '';
+                if (poster) {
+                    img.src = poster;
+                    img.style.opacity = '0.2';
+                }
+                index++;
+            }
+
+            // Cambiar cada 5 segundos
+            if (backgroundInterval) clearInterval(backgroundInterval);
+            updateBackground();
+            backgroundInterval = setInterval(updateBackground, 5000);
+        }
+
+        // ============================================================
+        // 4. INICIALIZAR
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', fetchMovies);
+    </script>
+
+</body>
+</html>
