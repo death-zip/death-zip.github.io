@@ -23,6 +23,7 @@
             justify-content: center;
             padding: 40px 20px;
             line-height: 1.5;
+            min-height: 100vh;
         }
 
         .cv-container {
@@ -34,6 +35,7 @@
             padding: 48px 52px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
             position: relative;
+            transition: all 0.3s ease;
         }
 
         /* ── Language Toggle ── */
@@ -41,6 +43,9 @@
             position: absolute;
             top: 20px;
             right: 30px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
 
         .lang-toggle {
@@ -56,6 +61,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none;
         }
 
         .lang-toggle:hover {
@@ -318,42 +324,106 @@
         }
 
         /* ── Project ── */
+        .project-item {
+            background: #181c24;
+            border: 1px solid #2a2f3a;
+            border-radius: 12px;
+            padding: 20px 24px;
+            transition: border-color 0.3s;
+        }
+
+        .project-item:hover {
+            border-color: #5b9aff;
+        }
+
         .project-item h4 {
-            font-size: 0.95rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: #eef0f2;
+            margin-bottom: 6px;
         }
 
         .project-item .tech {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin: 4px 0 8px;
+            margin: 4px 0 12px;
         }
 
         .project-item .tech span {
             background: #1e2430;
-            padding: 2px 12px;
+            padding: 2px 14px;
             border-radius: 30px;
             font-size: 0.7rem;
             color: #8e95a5;
+            border: 1px solid #2a2f3a;
         }
 
         .project-item p {
             color: #bcc4d4;
             font-size: 0.85rem;
             line-height: 1.6;
+            margin-bottom: 12px;
         }
 
-        .project-item a {
+        .project-item .links a {
             color: #5b9aff;
             text-decoration: none;
             font-size: 0.85rem;
+            margin-right: 16px;
+            transition: color 0.2s;
         }
 
-        .project-item a:hover {
+        .project-item .links a:hover {
+            color: #eef0f2;
             text-decoration: underline;
         }
+
+        /* ─── DIAGRAMA DE ARQUITECTURA ANIMADO ─── */
+        .arch-diagram-wrap {
+            margin: 16px 0 0;
+            background: #0a0c10;
+            border-radius: 10px;
+            padding: 16px 20px;
+            border: 1px solid #2a2f3a;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            line-height: 1.8;
+            overflow-x: auto;
+            white-space: pre;
+            color: #8e95a5;
+            position: relative;
+        }
+
+        .arch-diagram-wrap .highlight {
+            color: #5b9aff;
+            font-weight: 600;
+        }
+
+        .arch-diagram-wrap .connector {
+            color: #2a2f3a;
+            animation: pulseConnector 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulseConnector {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .arch-diagram-wrap .box {
+            display: inline-block;
+            background: #181c24;
+            padding: 0 8px;
+            border-radius: 4px;
+            border: 1px solid #2a2f3a;
+            color: #eef0f2;
+        }
+
+        .arch-diagram-wrap .box.docker { border-color: #2496ED; color: #2496ED; }
+        .arch-diagram-wrap .box.cloudflare { border-color: #F38020; color: #F38020; }
+        .arch-diagram-wrap .box.nginx { border-color: #009639; color: #009639; }
+        .arch-diagram-wrap .box.linux { border-color: #FCC624; color: #FCC624; }
+        .arch-diagram-wrap .box.jellyfin { border-color: #00A4DC; color: #00A4DC; }
 
         /* ── Remote Readiness ── */
         .readiness-grid {
@@ -430,6 +500,7 @@
                 position: static;
                 text-align: right;
                 margin-bottom: 12px;
+                justify-content: flex-end;
             }
         }
 
@@ -511,6 +582,10 @@
             .edu-item p {
                 color: #374151;
             }
+            .project-item {
+                background: #f9fafb;
+                border-color: #e5e7eb;
+            }
             .project-item h4 {
                 color: #111827;
             }
@@ -521,7 +596,7 @@
             .project-item p {
                 color: #374151;
             }
-            .project-item a {
+            .project-item .links a {
                 color: #2563eb;
             }
             .cert-item img {
@@ -529,6 +604,24 @@
             }
             .lang-toggle-wrap {
                 display: none;
+            }
+            .arch-diagram-wrap {
+                background: #f3f4f6;
+                border-color: #d1d5db;
+                color: #4b5563;
+            }
+            .arch-diagram-wrap .box {
+                background: #e5e7eb;
+                border-color: #9ca3af;
+            }
+            .arch-diagram-wrap .box.docker { color: #1e40af; border-color: #1e40af; }
+            .arch-diagram-wrap .box.cloudflare { color: #c2410c; border-color: #c2410c; }
+            .arch-diagram-wrap .box.nginx { color: #065f46; border-color: #065f46; }
+            .arch-diagram-wrap .box.linux { color: #854d0e; border-color: #854d0e; }
+            .arch-diagram-wrap .box.jellyfin { color: #0369a1; border-color: #0369a1; }
+            .arch-diagram-wrap .connector {
+                animation: none;
+                color: #9ca3af;
             }
         }
     </style>
@@ -538,12 +631,12 @@
     <div class="cv-container">
 
         <!-- ─── LANGUAGE TOGGLE + VOLVER + IMPRIMIR ─── -->
-        <div class="lang-toggle-wrap" style="display:flex; gap:10px; align-items:center;">
+        <div class="lang-toggle-wrap">
             <a href="index.html" class="lang-toggle" style="text-decoration:none;">
-                <i class="fas fa-arrow-left"></i> Portafolio
+                <i class="fas fa-arrow-left"></i> Portfolio
             </a>
             <button class="lang-toggle" onclick="window.print()">
-                <i class="fas fa-file-pdf"></i> Guardar como PDF
+                <i class="fas fa-file-pdf"></i> <span class="lang-es">Guardar PDF</span><span class="lang-en hidden">Save PDF</span>
             </button>
             <button class="lang-toggle" id="langToggle">
                 <i class="fas fa-globe"></i> <span id="langLabel">ES</span>
@@ -703,13 +796,13 @@
                     <div class="readiness-item">
                         <div class="k lang-es">Zona horaria</div>
                         <div class="k lang-en hidden">Time zone</div>
-                        <div class="v lang-es">Mexico (UTC-6), flexible</div>
+                        <div class="v lang-es">México (UTC-6), flexible</div>
                         <div class="v lang-en hidden">Mexico (UTC-6), flexible overlap</div>
                     </div>
                     <div class="readiness-item">
-                        <div class="k lang-es">Comunicacion</div>
+                        <div class="k lang-es">Comunicación</div>
                         <div class="k lang-en hidden">Communication</div>
-                        <div class="v lang-es">Documentacion clara y seguimiento</div>
+                        <div class="v lang-es">Documentación clara y seguimiento</div>
                         <div class="v lang-en hidden">Clear documentation and follow-through</div>
                     </div>
                     <div class="readiness-item">
@@ -746,7 +839,7 @@
                         <img src="https://images.credly.com/images/07e7ba52-aea4-431f-ba2d-a4113efd1d5a/linkedin_thumb_blob" alt="AWS Cloud Operations" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
                         <div class="info"><h4>AWS Cloud Operations</h4><div class="issuer">Amazon Web Services</div></div>
                     </div>
-                    <!-- 5. Networking Basics (Cisco) - ¡IMAGEN CORREGIDA! -->
+                    <!-- 5. Networking Basics (Cisco) -->
                     <div class="cert-item">
                         <img src="https://images.credly.com/images/5bdd6a39-3e03-4444-9510-ecff80c9ce79/linkedin_thumb_image.png" alt="Networking Basics" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
                         <div class="info"><h4>Networking Basics</h4><div class="issuer">Cisco</div></div>
@@ -832,6 +925,7 @@
                         <span>REST API</span>
                         <span>Linux</span>
                         <span>WSL2</span>
+                        <span>Nginx</span>
                     </div>
                     <p class="lang-es">
                         Servidor de streaming contenerizado con Docker Compose, expuesto de forma segura
@@ -846,9 +940,34 @@
                         and playback URLs, plus periodic health-check automation for failure recovery.
                         The project demonstrates containerization, networking, security, and service operations skills.
                     </p>
-                    <a href="https://media.jarr.cc.cd" target="_blank">🔗 View live server</a>
-                    &nbsp;·&nbsp;
-                    <a href="https://github.com/death-zip/docker-mediaserver-lab" target="_blank">📦 View on GitHub</a>
+                    <div class="links">
+                        <a href="https://media.jarr.cc.cd" target="_blank"><i class="fas fa-external-link-alt"></i> Ver servidor en vivo</a>
+                        <a href="https://github.com/death-zip/death-zip-jellyfin-cloud-infra" target="_blank"><i class="fab fa-github"></i> Ver infraestructura en GitHub</a>
+                    </div>
+
+                    <!-- 🏗️ DIAGRAMA DE ARQUITECTURA ANIMADO (TEXTO) -->
+                    <div class="arch-diagram-wrap">
+                        <span class="highlight">🏗️ Arquitectura</span>
+                        <span style="color:#5b9aff;"> (infraestructura como código)</span>
+
+┌─────────────────────────────────────────────────────────────┐
+│  <span class="box linux">🖥️ Linux (WSL2)</span>             │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │  <span class="box docker">🐳 Docker Compose</span>          │   │
+│  │                                                     │   │
+│  │  ┌──────────────┐        ┌────────────────────┐   │   │
+│  │  │ <span class="box nginx">🔄 Nginx Proxy</span> │  ────  │ <span class="box jellyfin">🎬 Jellyfin</span> │   │   │
+│  │  └──────────────┘        └────────────────────┘   │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                         │                                   │
+│                         ▼                                   │
+│              <span class="box cloudflare">☁️ Cloudflare Tunnel</span>          │
+│                         │                                   │
+│                         ▼                                   │
+│              🌍 <span class="highlight">Internet (HTTPS)</span>               │
+└─────────────────────────────────────────────────────────────┘
+                    </div>
                 </div>
             </div>
 
@@ -876,4 +995,3 @@
 
 </body>
 </html>
-
