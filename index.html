@@ -2427,6 +2427,7 @@
 
             // ─── REPRODUCTOR CON VIDEO.JS + PlaybackInfo de Jellyfin ───
             if (detail.Type === 'Movie' || detail.Type === 'Episode') {
+                const isMovie = detail.Type === 'Movie';
                 const mediaSourceRaw = (detail.MediaSources && detail.MediaSources[0]) ? detail.MediaSources[0] : null;
                 const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
                 const subtitleStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Subtitle');
@@ -2456,8 +2457,34 @@
                 const statusLine = document.createElement('div');
                 statusLine.id = 'playbackStatusLine';
                 statusLine.style.cssText = 'color:var(--muted); font-size:0.78rem; margin-top:8px;';
-                statusLine.textContent = 'Preparando reproducción…';
+                statusLine.textContent = isMovie
+                    ? 'Modo recomendado: abrir en Jellyfin nativo para máxima compatibilidad.'
+                    : 'Preparando reproducción…';
                 videoWrap.appendChild(statusLine);
+
+                let integratedStarted = false;
+                let nativeFirstPanel = null;
+
+                if (isMovie) {
+                    videoContainer.style.display = 'none';
+                    nativeFirstPanel = document.createElement('div');
+                    nativeFirstPanel.className = 'subtitle-tools';
+                    nativeFirstPanel.innerHTML = `
+                        <div style="font-size:0.88rem; margin-bottom:8px; color:var(--text);">
+                            <i class="fas fa-shield-alt" style="color:var(--accent);"></i>
+                            Reproducción priorizada en Jellyfin nativo (más estable para codecs complejos: EAC3, DTS, HEVC, HDR, etc.)
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                            <button type="button" id="openNativeNow" class="btn btn-primary" style="padding:7px 12px; font-size:0.8rem;">
+                                <i class="fas fa-external-link-alt"></i> Abrir Jellyfin nativo
+                            </button>
+                            <button type="button" id="useIntegratedNow" class="btn btn-outline" style="padding:7px 12px; font-size:0.8rem;">
+                                <i class="fas fa-play"></i> Usar reproductor integrado
+                            </button>
+                        </div>
+                    `;
+                    videoWrap.prepend(nativeFirstPanel);
+                }
 
                 function attachSidecarSubtitles() {
                     videoEl.querySelectorAll('track[data-server-sub]').forEach(t => t.remove());
@@ -2578,7 +2605,27 @@
                     }
                 });
 
-                loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
+                const startIntegratedPlayback = () => {
+                    if (integratedStarted) return;
+                    integratedStarted = true;
+                    videoContainer.style.display = 'block';
+                    if (nativeFirstPanel) nativeFirstPanel.remove();
+                    statusLine.textContent = 'Preparando reproducción…';
+                    loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
+                };
+
+                if (isMovie) {
+                    const nativeBtn = nativeFirstPanel.querySelector('#openNativeNow');
+                    const integratedBtn = nativeFirstPanel.querySelector('#useIntegratedNow');
+                    nativeBtn.addEventListener('click', () => {
+                        window.open(`${JELLYFIN_URL}/web/#/details?id=${id}`, '_blank', 'noopener,noreferrer');
+                    });
+                    integratedBtn.addEventListener('click', () => {
+                        startIntegratedPlayback();
+                    });
+                } else {
+                    startIntegratedPlayback();
+                }
 
                 // Información + selector de pista de audio
                 let audioInfo = '';
@@ -2624,16 +2671,24 @@
                     applyAudioBtn.addEventListener('click', () => {
                         selectedAudioIndex = parseInt(sel.value, 10);
                         hasFallenBackToTranscode = false;
-                        statusLine.textContent = 'Cambiando pista de audio...';
-                        loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
+                        if (!integratedStarted) {
+                            startIntegratedPlayback();
+                        } else {
+                            statusLine.textContent = 'Cambiando pista de audio...';
+                            loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
+                        }
                     });
 
                     // Aplicacion rapida al cambiar en el select
                     sel.addEventListener('change', () => {
                         selectedAudioIndex = parseInt(sel.value, 10);
                         hasFallenBackToTranscode = false;
-                        statusLine.textContent = 'Cambiando pista de audio...';
-                        loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
+                        if (!integratedStarted) {
+                            startIntegratedPlayback();
+                        } else {
+                            statusLine.textContent = 'Cambiando pista de audio...';
+                            loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
+                        }
                     });
                     audioSelectWrap.appendChild(sel);
                     audioSelectWrap.appendChild(applyAudioBtn);
@@ -2655,7 +2710,7 @@
 
                 modalActions.innerHTML = `
                         <a href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:6px 14px; font-size:0.8rem; margin-right:10px;">
-                            <i class="fas fa-external-link-alt"></i> Abrir en Jellyfin
+                            <i class="fas fa-external-link-alt"></i> Jellyfin nativo (recomendado)
                         </a>
                         <a href="https://www.opensubtitles.org/es/search/sublanguageid-spa" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding:6px 14px; font-size:0.8rem;">
                             <i class="fas fa-search"></i> Buscar subtítulos
