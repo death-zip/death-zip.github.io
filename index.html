@@ -5,1318 +5,320 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Juan Antonio Rivera · Cloud & DevOps</title>
     <meta name="description" content="Portafolio de Juan Antonio Rivera: estudiante de Software Engineering con enfoque en DevOps, Cloud y automatizacion. Disponible para rol junior remoto en Cloud Support o DevOps." />
-    <!-- Video.js (el reproductor de Jellyfin) -->
+    <!-- Video.js -->
     <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
-    <!-- Video.js Quality Selector (opcional, pero útil) -->
-    <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.4/dist/plugin.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <style>
-        /* ── Reset & base ── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* ── Reset & base (mismo que antes, pero con ajustes para la sección de series compacta) ── */
+        * { margin:0; padding:0; box-sizing:border-box; }
         :root {
-            --bg: #0a0c10;
-            --bg2: #11141a;
-            --card: #181c24;
-            --border: #2a2f3a;
-            --text: #eef0f2;
-            --muted: #8e95a5;
-            --accent: #5b9aff;
-            --accent2: #8b7aff;
-            --shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            --radius: 14px;
-            --transition: 0.25s ease;
+            --bg: #0a0c10; --bg2: #11141a; --card: #181c24; --border: #2a2f3a;
+            --text: #eef0f2; --muted: #8e95a5; --accent: #5b9aff; --accent2: #8b7aff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.5); --radius: 14px; --transition: 0.25s ease;
         }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        a { color: inherit; text-decoration: none; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 6px; }
 
-        body {
-            font-family: 'Inter', -apple-system, system-ui, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ── Scrollbar ── */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 6px;
-        }
-
-        /* ── Animations ── */
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        .anim {
-            opacity: 0;
-            animation: fadeUp 0.7s ease forwards;
-        }
-
-        .anim-delay-1 {
-            animation-delay: 0.1s;
-        }
-        .anim-delay-2 {
-            animation-delay: 0.2s;
-        }
-        .anim-delay-3 {
-            animation-delay: 0.3s;
-        }
-        .anim-delay-4 {
-            animation-delay: 0.4s;
-        }
-        .anim-delay-5 {
-            animation-delay: 0.5s;
-        }
+        @keyframes fadeUp { 0% { opacity:0; transform:translateY(30px); } 100% { opacity:1; transform:translateY(0); } }
+        @keyframes float { 0% { transform:translateY(0px); } 50% { transform:translateY(-10px); } 100% { transform:translateY(0px); } }
+        .anim { opacity:0; animation: fadeUp 0.7s ease forwards; }
+        .anim-delay-1 { animation-delay: 0.1s; }
+        .anim-delay-2 { animation-delay: 0.2s; }
+        .anim-delay-3 { animation-delay: 0.3s; }
+        .anim-delay-4 { animation-delay: 0.4s; }
+        .anim-delay-5 { animation-delay: 0.5s; }
 
         /* ── Nav ── */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 60;
-            background: rgba(10, 12, 16, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 14px 0;
-        }
-
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        nav .brand {
-            font-weight: 700;
-            font-size: 1.25rem;
-            letter-spacing: -0.3px;
-        }
-
-        nav .brand span {
-            color: var(--accent);
-        }
-
-        nav .links {
-            display: flex;
-            gap: 24px;
-            font-size: 0.9rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        nav .links a {
-            color: var(--muted);
-            transition: color var(--transition);
-        }
-
-        nav .links a:hover {
-            color: var(--accent);
-        }
-
-        .lang-toggle {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            padding: 4px 14px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text);
-            cursor: pointer;
-            transition: all var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .lang-toggle:hover {
-            border-color: var(--accent);
-            background: var(--border);
-        }
+        nav { position:sticky; top:0; z-index:60; background:rgba(10,12,16,0.85); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:14px 0; }
+        nav .container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+        nav .brand { font-weight:700; font-size:1.25rem; letter-spacing:-0.3px; }
+        nav .brand span { color:var(--accent); }
+        nav .links { display:flex; gap:24px; font-size:0.9rem; align-items:center; flex-wrap:wrap; }
+        nav .links a { color:var(--muted); transition:color var(--transition); }
+        nav .links a:hover { color:var(--accent); }
+        .lang-toggle { background:var(--card); border:1px solid var(--border); border-radius:30px; padding:4px 14px; font-size:0.8rem; font-weight:500; color:var(--text); cursor:pointer; transition:all var(--transition); display:flex; align-items:center; gap:6px; }
+        .lang-toggle:hover { border-color:var(--accent); background:var(--border); }
 
         /* ── Hero ── */
-        .hero {
-            padding: 80px 0 60px;
-            text-align: center;
-            background: radial-gradient(circle at 50% 0%, rgba(91, 154, 255, 0.08), transparent 60%);
-        }
+        .hero { padding:80px 0 60px; text-align:center; background:radial-gradient(circle at 50% 0%, rgba(91,154,255,0.08), transparent 60%); }
+        .hero .eyebrow { color:var(--accent); font-size:0.8rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:12px; font-weight:500; }
+        .hero h1 { font-size:3rem; font-weight:700; letter-spacing:-1px; background:linear-gradient(135deg, #ffffff 50%, #b0c4de); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:8px; }
+        .hero .sub { font-size:1.2rem; font-weight:400; color:var(--accent); margin-bottom:18px; }
+        .hero p { color:var(--muted); max-width:640px; margin:0 auto 28px; line-height:1.7; }
+        .cta-group { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
 
-        .hero .eyebrow {
-            color: var(--accent);
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
+        .btn { padding:10px 24px; border-radius:40px; font-weight:600; font-size:0.9rem; border:1px solid var(--border); transition:all var(--transition); display:inline-flex; align-items:center; gap:8px; cursor:pointer; background:transparent; color:var(--text); }
+        .btn:hover { transform:translateY(-2px); }
+        .btn-primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+        .btn-primary:hover { background:#4a8ae8; border-color:#4a8ae8; }
+        .btn-outline { border-color:var(--accent); color:var(--accent); }
+        .btn-outline:hover { background:var(--accent); color:#fff; }
+        .btn-ghost { color:var(--muted); }
+        .btn-ghost:hover { color:var(--text); border-color:var(--muted); }
+        .btn-sm { padding:6px 12px; font-size:0.78rem; border-radius:12px; }
 
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #ffffff 50%, #b0c4de);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 8px;
-        }
+        /* ── Hire panel ── */
+        .hire-section { padding-top:14px; }
+        .hire-panel { background:linear-gradient(135deg, rgba(91,154,255,0.14), rgba(139,122,255,0.08)); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+        .hire-panel h2 { font-size:1.35rem; margin-bottom:8px; }
+        .hire-panel p { color:var(--muted); margin-bottom:18px; }
+        .hire-facts { display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:12px; margin-bottom:16px; }
+        .hire-fact { background:rgba(10,12,16,0.5); border:1px solid var(--border); border-radius:10px; padding:12px; }
+        .hire-fact .label { color:var(--muted); font-size:0.75rem; margin-bottom:2px; text-transform:uppercase; letter-spacing:0.8px; }
+        .hire-fact .value { font-size:0.92rem; font-weight:600; }
 
-        .hero .sub {
-            font-size: 1.2rem;
-            font-weight: 400;
-            color: var(--accent);
-            margin-bottom: 18px;
-        }
-
-        .hero p {
-            color: var(--muted);
-            max-width: 640px;
-            margin: 0 auto 28px;
-            line-height: 1.7;
-        }
-
-        .cta-group {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 10px 24px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 1px solid var(--border);
-            transition: all var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            background: transparent;
-            color: var(--text);
-        }
-
-        .btn-sm {
-            padding: 6px 12px;
-            font-size: 0.78rem;
-            border-radius: 12px;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            background: #4a8ae8;
-            border-color: #4a8ae8;
-        }
-
-        .btn-outline {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .btn-outline:hover {
-            background: var(--accent);
-            color: #fff;
-        }
-
-        .btn-ghost {
-            color: var(--muted);
-        }
-
-        .btn-ghost:hover {
-            color: var(--text);
-            border-color: var(--muted);
-        }
-
-        /* ── Hire Me ── */
-        .hire-section {
-            padding-top: 14px;
-        }
-
-        .hire-panel {
-            background: linear-gradient(135deg, rgba(91, 154, 255, 0.14), rgba(139, 122, 255, 0.08));
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px;
-        }
-
-        .hire-panel h2 {
-            font-size: 1.35rem;
-            margin-bottom: 8px;
-        }
-
-        .hire-panel p {
-            color: var(--muted);
-            margin-bottom: 18px;
-        }
-
-        .hire-facts {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .hire-fact {
-            background: rgba(10, 12, 16, 0.5);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 12px;
-        }
-
-        .hire-fact .label {
-            color: var(--muted);
-            font-size: 0.75rem;
-            margin-bottom: 2px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-
-        .hire-fact .value {
-            font-size: 0.92rem;
-            font-weight: 600;
-        }
-
-        /* ── Section ── */
-        section {
-            padding: 60px 0;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-            letter-spacing: -0.3px;
-        }
-
-        .section-sub {
-            color: var(--muted);
-            font-size: 0.95rem;
-            margin-bottom: 32px;
-        }
-
-        .section-divider {
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            border-radius: 4px;
-            margin: 8px 0 24px 0;
-        }
+        /* ── Sections ── */
+        section { padding:60px 0; }
+        .section-title { font-size:1.8rem; font-weight:600; margin-bottom:6px; letter-spacing:-0.3px; }
+        .section-sub { color:var(--muted); font-size:0.95rem; margin-bottom:32px; }
+        .section-divider { width:60px; height:3px; background:linear-gradient(90deg, var(--accent), var(--accent2)); border-radius:4px; margin:8px 0 24px 0; }
 
         /* ── About ── */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .about-text p {
-            color: var(--muted);
-            line-height: 1.8;
-            margin-bottom: 16px;
-        }
-
-        .about-text .badge-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 16px;
-        }
-
-        .about-text .badge-pills span {
-            background: var(--card);
-            border: 1px solid var(--border);
-            padding: 4px 16px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            color: var(--muted);
-        }
-
-        .about-image {
-            text-align: center;
-        }
-
-        .about-image img {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 40px rgba(91, 154, 255, 0.2);
-            transition: all var(--transition);
-        }
-
-        .about-image img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 60px rgba(91, 154, 255, 0.4);
-        }
+        .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
+        .about-text p { color:var(--muted); line-height:1.8; margin-bottom:16px; }
+        .about-text .badge-pills { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+        .about-text .badge-pills span { background:var(--card); border:1px solid var(--border); padding:4px 16px; border-radius:30px; font-size:0.8rem; color:var(--muted); }
+        .about-image { text-align:center; }
+        .about-image img { width:280px; height:280px; border-radius:50%; object-fit:cover; border:3px solid var(--accent); box-shadow:0 0 40px rgba(91,154,255,0.2); transition:all var(--transition); }
+        .about-image img:hover { transform:scale(1.02); box-shadow:0 0 60px rgba(91,154,255,0.4); }
 
         /* ── Services ── */
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 24px;
-        }
+        .service-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:24px; }
+        .service-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:28px 24px; transition:all var(--transition); }
+        .service-card:hover { transform:translateY(-4px); border-color:var(--accent); }
+        .service-card .icon { font-size:2rem; color:var(--accent); margin-bottom:12px; }
+        .service-card h3 { font-size:1.1rem; margin-bottom:6px; }
+        .service-card p { color:var(--muted); font-size:0.9rem; line-height:1.6; }
+        .service-card .tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+        .service-card .tags span { background:#1e2430; color:#bcc4d4; font-size:0.7rem; padding:3px 12px; border-radius:30px; }
 
-        .service-card {
+        /* ── Skills ── */
+        .skills-wrapper { position:relative; padding:40px 20px; background:var(--card); border-radius:var(--radius); border:1px solid var(--border); overflow:hidden; min-height:300px; }
+        .skills-wrapper canvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+        .skills-cloud { position:relative; z-index:1; display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+        .skills-cloud .skill-tag { background:rgba(91,154,255,0.1); border:1px solid rgba(91,154,255,0.25); padding:8px 20px; border-radius:30px; font-size:0.85rem; font-weight:500; color:var(--text); transition:all 0.3s ease; cursor:default; backdrop-filter:blur(4px); animation:float 6s ease-in-out infinite; }
+        .skills-cloud .skill-tag:hover { transform:scale(1.1); background:rgba(91,154,255,0.25); border-color:var(--accent); box-shadow:0 0 20px rgba(91,154,255,0.2); }
+        .skills-cloud .skill-tag i { margin-right:6px; color:var(--accent); }
+
+        /* ── Library ── */
+        .library-controls { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; align-items:center; }
+        .library-controls input { background:var(--card); border:1px solid var(--border); border-radius:40px; padding:10px 18px; color:var(--text); flex:1; min-width:200px; font-size:0.9rem; outline:none; transition:border var(--transition); }
+        .library-controls input:focus { border-color:var(--accent); }
+        .library-controls input::placeholder { color:var(--muted); }
+        .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:18px; }
+        .item-card { background:var(--card); border-radius:10px; overflow:hidden; border:1px solid var(--border); transition:all var(--transition); cursor:pointer; position:relative; }
+        .item-card:hover { transform:translateY(-4px); border-color:var(--accent); }
+        .item-card img { width:100%; aspect-ratio:2/3; object-fit:cover; display:block; background:#1a1e26; }
+        .item-card .title { padding:10px 12px; font-size:0.8rem; font-weight:500; color:var(--muted); }
+        .item-card .badge-type { position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.7); color:var(--accent); font-size:0.6rem; padding:2px 8px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; }
+        .item-card .watchlist-btn { position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.7); border:none; color:#fbbf24; font-size:1.1rem; cursor:pointer; padding:4px 8px; border-radius:6px; transition:transform var(--transition); }
+        .item-card .watchlist-btn:hover { transform:scale(1.2); }
+
+        .status-banner { padding:10px 14px; border-radius:10px; margin-bottom:12px; font-size:0.86rem; border:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+        .status-banner.loading { background:#1a2538; color:#9bbaff; }
+        .status-banner.loading::before { content:''; width:12px; height:12px; border-radius:50%; border:2px solid rgba(155,186,255,0.35); border-top-color:#9bbaff; animation:spin 0.9s linear infinite; flex-shrink:0; }
+        .status-banner.error { background:#3a1e1e; color:#ff9c9c; }
+        .status-banner.ok { display:none; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+
+        /* ── SHOWS (ULTRA COMPACTO) ── */
+        .shows-compact {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 28px 24px;
-            transition: all var(--transition);
+            padding: 8px 10px;
         }
-
-        .service-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-        }
-
-        .service-card .icon {
-            font-size: 2rem;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .service-card h3 {
-            font-size: 1.1rem;
+        .shows-compact .shows-top {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
             margin-bottom: 6px;
         }
-
-        .service-card p {
-            color: var(--muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .service-card .tags {
+        .shows-compact .series-strip {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 14px;
-        }
-
-        .service-card .tags span {
-            background: #1e2430;
-            color: #bcc4d4;
-            font-size: 0.7rem;
-            padding: 3px 12px;
-            border-radius: 30px;
-        }
-
-        /* ── Skills (Épico) ── */
-        .skills-wrapper {
-            position: relative;
-            padding: 40px 20px;
-            background: var(--card);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            overflow: hidden;
-            min-height: 300px;
-        }
-
-        .skills-wrapper canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .skills-cloud {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .skills-cloud .skill-tag {
-            background: rgba(91, 154, 255, 0.1);
-            border: 1px solid rgba(91, 154, 255, 0.25);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text);
-            transition: all 0.3s ease;
-            cursor: default;
-            backdrop-filter: blur(4px);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .skills-cloud .skill-tag:hover {
-            transform: scale(1.1);
-            background: rgba(91, 154, 255, 0.25);
-            border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(91, 154, 255, 0.2);
-        }
-
-        .skills-cloud .skill-tag i {
-            margin-right: 6px;
-            color: var(--accent);
-        }
-
-        /* ── Projects / Media Library ── */
-        .library-controls {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-            align-items: center;
-        }
-
-        .library-controls input {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 40px;
-            padding: 10px 18px;
-            color: var(--text);
+            gap: 4px;
             flex: 1;
-            min-width: 200px;
-            font-size: 0.9rem;
-            outline: none;
-            transition: border var(--transition);
         }
-
-        .library-controls input:focus {
-            border-color: var(--accent);
-        }
-
-        .library-controls input::placeholder {
-            color: var(--muted);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 18px;
-        }
-
-        .shows-layout {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            gap: 12px;
-            align-items: start;
-        }
-
-        .shows-panel {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 10px;
-        }
-
-        .shows-panel h4 {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            color: var(--muted);
-        }
-
-        .series-list {
-            max-height: 420px;
-            overflow: auto;
-            display: grid;
-            gap: 8px;
-            scroll-behavior: smooth;
-        }
-
-        .series-item-btn {
-            width: 100%;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .shows-compact .series-btn {
             background: #1e2430;
             border: 1px solid var(--border);
-            color: var(--text);
-            border-radius: 8px;
-            padding: 7px 8px;
-            font-size: 0.82rem;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 0.7rem;
+            color: var(--muted);
             cursor: pointer;
-            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
         }
-
-        .series-item-btn:hover,
-        .series-item-btn.active {
+        .shows-compact .series-btn:hover,
+        .shows-compact .series-btn.active {
             border-color: var(--accent);
             background: #253047;
-            transform: translateX(1px);
+            color: var(--text);
         }
-
-        .series-item-btn .thumb {
-            width: 44px;
-            height: 62px;
-            border-radius: 6px;
+        .shows-compact .series-btn img {
+            width: 20px;
+            height: 28px;
             object-fit: cover;
-            flex-shrink: 0;
+            border-radius: 4px;
             background: #111;
-            border: 1px solid var(--border);
         }
-
-        .series-item-btn .meta {
-            min-width: 0;
-            flex: 1;
-        }
-
-        .series-item-btn .name {
-            font-size: 0.8rem;
-            font-weight: 600;
-            line-height: 1.3;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .series-item-btn .count {
-            color: var(--muted);
-            font-size: 0.72rem;
-            margin-top: 2px;
-        }
-
-        .episode-browser {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 10px;
-        }
-
-        .episode-controls {
+        .shows-compact .season-strip {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 10px;
-            align-items: center;
+            gap: 4px;
+            margin: 4px 0;
         }
-
-        .season-tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .season-tab {
+        .shows-compact .season-tab {
             background: var(--bg2);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text);
-            padding: 6px 10px;
-            font-size: 0.76rem;
+            border-radius: 12px;
+            padding: 2px 10px;
+            font-size: 0.65rem;
+            color: var(--muted);
             cursor: pointer;
             transition: all var(--transition);
         }
-
-        .season-tab:hover,
-        .season-tab.active {
+        .shows-compact .season-tab:hover,
+        .shows-compact .season-tab.active {
             border-color: var(--accent);
             background: #253047;
+            color: var(--text);
         }
-
-        .episodes-grid {
+        .shows-compact .episodes-mini {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 4px;
+            max-height: 140px;
+            overflow-y: auto;
+            margin-top: 4px;
         }
-
-        .episode-card {
+        .shows-compact .episode-mini {
             background: #1e2430;
             border: 1px solid var(--border);
-            border-radius: 10px;
-            overflow: hidden;
+            border-radius: 6px;
+            padding: 2px 4px;
+            font-size: 0.6rem;
+            color: var(--muted);
             cursor: pointer;
             transition: all var(--transition);
-        }
-
-        .episode-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .episode-card img {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
-            background: #111;
-            display: block;
-        }
-
-        .episode-card .ep-body {
-            padding: 6px 8px;
-        }
-
-        .episode-card .ep-title {
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-            line-height: 1.3;
+            text-align: center;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-        .episode-card .ep-meta {
-            font-size: 0.7rem;
-            color: var(--muted);
-            display: flex;
-            justify-content: space-between;
-            gap: 6px;
-        }
-
-        .status-banner {
-            padding: 10px 14px;
-            border-radius: 10px;
-            margin-bottom: 12px;
-            font-size: 0.86rem;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .status-banner.loading {
-            background: #1a2538;
-            color: #9bbaff;
-        }
-
-        .status-banner.loading::before {
-            content: '';
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 2px solid rgba(155, 186, 255, 0.35);
-            border-top-color: #9bbaff;
-            animation: spin 0.9s linear infinite;
-            flex-shrink: 0;
-        }
-
-        .status-banner.error {
-            background: #3a1e1e;
-            color: #ff9c9c;
-        }
-
-        .status-banner.ok {
-            display: none;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .native-banner {
-            margin-bottom: 8px;
-            background: rgba(17, 20, 26, 0.85);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            color: var(--muted);
-        }
-
-        .item-card {
-            background: var(--card);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transition: all var(--transition);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .item-card:hover {
-            transform: translateY(-4px);
+        .shows-compact .episode-mini:hover {
             border-color: var(--accent);
+            color: var(--text);
         }
-
-        .item-card img {
-            width: 100%;
-            aspect-ratio: 2/3;
-            object-fit: cover;
-            display: block;
-            background: #1a1e26;
-        }
-
-        .item-card .title {
-            padding: 10px 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--muted);
-        }
-
-        .item-card .badge-type {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(0, 0, 0, 0.7);
+        .shows-compact .episode-mini .ep-num {
+            font-weight: 600;
             color: var(--accent);
-            font-size: 0.6rem;
-            padding: 2px 8px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .item-card .watchlist-btn {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            background: rgba(0, 0, 0, 0.7);
-            border: none;
-            color: #fbbf24;
-            font-size: 1.1rem;
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
-            transition: transform var(--transition);
-        }
-
-        .item-card .watchlist-btn:hover {
-            transform: scale(1.2);
+            margin-right: 2px;
         }
 
         /* ── Certifications ── */
-        .cert-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .cert-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px 16px;
-            text-align: center;
-            transition: all var(--transition);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-        }
-
-        .cert-card:hover {
-            transform: translateY(-6px);
-            border-color: var(--accent);
-        }
-
-        .cert-card img {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-            border-radius: 50%;
-            background: #fff;
-            padding: 8px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-            border: 2px solid var(--border);
-        }
-
-        .cert-card:hover img {
-            transform: scale(1.05);
-            border-color: var(--accent);
-        }
-
-        .cert-card h4 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-            line-height: 1.3;
-        }
-
-        .cert-card .issuer {
-            color: var(--muted);
-            font-size: 0.75rem;
-        }
-
-        .cert-more-btn {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .cert-hidden {
-            display: none !important;
-        }
+        .cert-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:20px; }
+        .cert-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 16px; text-align:center; transition:all var(--transition); display:flex; flex-direction:column; align-items:center; position:relative; }
+        .cert-card:hover { transform:translateY(-6px); border-color:var(--accent); }
+        .cert-card img { width:100px; height:100px; object-fit:contain; border-radius:50%; background:#fff; padding:8px; margin-bottom:12px; box-shadow:0 4px 20px rgba(0,0,0,0.4); transition:all 0.3s ease; border:2px solid var(--border); }
+        .cert-card:hover img { transform:scale(1.05); border-color:var(--accent); }
+        .cert-card h4 { font-size:0.85rem; font-weight:600; margin-bottom:2px; line-height:1.3; }
+        .cert-card .issuer { color:var(--muted); font-size:0.75rem; }
+        .cert-more-btn { margin-top:20px; text-align:center; }
+        .cert-hidden { display:none !important; }
 
         /* ── Experience ── */
-        .exp-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px 28px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .exp-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 2px;
-        }
-
-        .exp-card .role {
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin-bottom: 6px;
-        }
-
-        .exp-card .desc {
-            color: var(--muted);
-            font-size: 0.88rem;
-            max-width: 520px;
-            line-height: 1.6;
-        }
-
-        .exp-card .status-badge {
-            background: #1a2a3a;
-            color: #9cc4ff;
-            padding: 4px 14px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            white-space: nowrap;
-        }
+        .exp-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:24px 28px; display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+        .exp-card h3 { font-size:1.1rem; margin-bottom:2px; }
+        .exp-card .role { color:var(--accent); font-size:0.9rem; margin-bottom:6px; }
+        .exp-card .desc { color:var(--muted); font-size:0.88rem; max-width:520px; line-height:1.6; }
+        .exp-card .status-badge { background:#1a2a3a; color:#9cc4ff; padding:4px 14px; border-radius:30px; font-size:0.75rem; white-space:nowrap; }
 
         /* ── Modal Player ── */
-        .overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+        .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:100; align-items:center; justify-content:center; padding:20px; }
+        .overlay.open { display:flex; }
+        .player-modal { background:var(--bg2); border-radius:var(--radius); max-width:920px; width:100%; max-height:92vh; overflow-y:auto; border:1px solid var(--border); position:relative; }
+        .player-modal .close { position:sticky; top:8px; float:right; margin:10px 14px 0 0; background:rgba(0,0,0,0.6); border:none; color:#fff; font-size:1.6rem; cursor:pointer; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; z-index:5; }
+        .player-backdrop { width:100%; aspect-ratio:16/8; object-fit:cover; background:#000; display:block; }
+        .player-body { padding:22px 28px 28px; }
+        .player-body h3 { font-size:1.4rem; margin-bottom:6px; }
+        .meta-row { display:flex; gap:14px; flex-wrap:wrap; align-items:center; color:var(--muted); font-size:0.85rem; margin-bottom:10px; }
+        .meta-row .rating { color:#fbbf24; font-weight:600; }
+        .meta-row .pill { border:1px solid var(--border); padding:2px 12px; border-radius:30px; }
+        .genres { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+        .genres span { background:#1e2430; color:#bcc4d4; font-size:0.75rem; padding:3px 12px; border-radius:30px; }
+        .overview { line-height:1.7; color:#c9cdd4; margin-bottom:14px; font-size:0.92rem; }
+        .cast-crew { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; font-size:0.85rem; color:var(--muted); }
+        .cast-crew .group { background:var(--card); padding:4px 14px; border-radius:30px; border:1px solid var(--border); }
+        .cast-crew strong { color:var(--text); }
+        .colorimetry { background:var(--card); border-radius:8px; padding:8px 14px; margin-bottom:14px; border-left:3px solid var(--accent); font-size:0.85rem; color:var(--muted); }
+        .colorimetry strong { color:var(--text); }
+        .recommendations { margin-top:14px; border-top:1px solid var(--border); padding-top:14px; }
+        .recommendations h4 { font-size:0.95rem; margin-bottom:10px; color:var(--muted); }
+        .recommendations .rec-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:12px; }
+        .recommendations .rec-item { background:var(--card); border-radius:8px; overflow:hidden; border:1px solid var(--border); transition:all var(--transition); cursor:pointer; text-align:center; padding-bottom:6px; }
+        .recommendations .rec-item:hover { transform:translateY(-3px); border-color:var(--accent); }
+        .recommendations .rec-item img { width:100%; aspect-ratio:2/3; object-fit:cover; display:block; background:#1a1e26; }
+        .recommendations .rec-item .title { font-size:0.7rem; padding:4px 6px; color:var(--muted); }
 
-        .overlay.open {
-            display: flex;
-        }
-
-        .player-modal {
-            background: var(--bg2);
-            border-radius: var(--radius);
-            max-width: 920px;
-            width: 100%;
-            max-height: 92vh;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-            position: relative;
-        }
-
-        .player-modal .close {
-            position: sticky;
-            top: 8px;
-            float: right;
-            margin: 10px 14px 0 0;
-            background: rgba(0, 0, 0, 0.6);
-            border: none;
-            color: #fff;
-            font-size: 1.6rem;
-            cursor: pointer;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 5;
-        }
-
-        .player-backdrop {
-            width: 100%;
-            aspect-ratio: 16/8;
-            object-fit: cover;
-            background: #000;
-            display: block;
-        }
-
-        .player-body {
-            padding: 22px 28px 28px;
-        }
-
-        .player-body h3 {
-            font-size: 1.4rem;
-            margin-bottom: 6px;
-        }
-
-        .meta-row {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            align-items: center;
-            color: var(--muted);
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-        }
-
-        .meta-row .rating {
-            color: #fbbf24;
-            font-weight: 600;
-        }
-
-        .meta-row .pill {
-            border: 1px solid var(--border);
-            padding: 2px 12px;
-            border-radius: 30px;
-        }
-
-        .genres {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-
-        .genres span {
-            background: #1e2430;
-            color: #bcc4d4;
-            font-size: 0.75rem;
-            padding: 3px 12px;
-            border-radius: 30px;
-        }
-
-        .overview {
-            line-height: 1.7;
-            color: #c9cdd4;
-            margin-bottom: 14px;
-            font-size: 0.92rem;
-        }
-
-        .cast-crew {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 14px;
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
-
-        .cast-crew .group {
-            background: var(--card);
-            padding: 4px 14px;
-            border-radius: 30px;
-            border: 1px solid var(--border);
-        }
-
-        .cast-crew strong {
-            color: var(--text);
-        }
-
-        .colorimetry {
-            background: var(--card);
-            border-radius: 8px;
-            padding: 8px 14px;
-            margin-bottom: 14px;
-            border-left: 3px solid var(--accent);
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
-
-        .colorimetry strong {
-            color: var(--text);
-        }
-
-        .recommendations {
-            margin-top: 14px;
-            border-top: 1px solid var(--border);
-            padding-top: 14px;
-        }
-
-        .recommendations h4 {
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-            color: var(--muted);
-        }
-
-        .recommendations .rec-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 12px;
-        }
-
-        .recommendations .rec-item {
-            background: var(--card);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transition: all var(--transition);
-            cursor: pointer;
-            text-align: center;
-            padding-bottom: 6px;
-        }
-
-        .recommendations .rec-item:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-        }
-
-        .recommendations .rec-item img {
-            width: 100%;
-            aspect-ratio: 2/3;
-            object-fit: cover;
-            display: block;
-            background: #1a1e26;
-        }
-
-        .recommendations .rec-item .title {
-            font-size: 0.7rem;
-            padding: 4px 6px;
-            color: var(--muted);
-        }
-
-        /* ── Video.js custom overrides ── */
-        .video-js {
-            width: 100% !important;
-            border-radius: 8px;
-            background: #000;
-        }
-
-        .video-js .vjs-big-play-button {
-            background: rgba(0, 0, 0, 0.6) !important;
-            border: 2px solid var(--accent) !important;
-            border-radius: 50% !important;
-            width: 64px !important;
-            height: 64px !important;
-            line-height: 64px !important;
-            font-size: 1.8rem !important;
-            margin-left: -32px !important;
-            margin-top: -32px !important;
-            color: #fff !important;
-        }
-
-        .video-js .vjs-big-play-button:hover {
-            background: var(--accent) !important;
-        }
-
-        .video-js .vjs-control-bar {
-            background: rgba(0, 0, 0, 0.8) !important;
-        }
-
-        .video-js .vjs-progress-holder .vjs-play-progress {
-            background: var(--accent) !important;
-        }
+        /* ── Video.js ── */
+        .video-js { width:100% !important; border-radius:8px; background:#000; }
+        .video-js .vjs-big-play-button { background:rgba(0,0,0,0.6) !important; border:2px solid var(--accent) !important; border-radius:50% !important; width:64px !important; height:64px !important; line-height:64px !important; font-size:1.8rem !important; margin-left:-32px !important; margin-top:-32px !important; color:#fff !important; }
+        .video-js .vjs-big-play-button:hover { background:var(--accent) !important; }
+        .video-js .vjs-control-bar { background:rgba(0,0,0,0.8) !important; }
+        .video-js .vjs-progress-holder .vjs-play-progress { background:var(--accent) !important; }
 
         /* ── Subtitles upload ── */
-        .subtitle-upload-area {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
-            margin-top: 12px;
-            padding: 8px 14px;
-            background: var(--card);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
-        .subtitle-upload-area label {
-            color: var(--muted);
-            font-size: 0.85rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .subtitle-upload-area label:hover {
-            color: var(--text);
-        }
-
-        .subtitle-upload-area input[type="file"] {
-            display: none;
-        }
-
-        .subtitle-upload-area .file-name {
-            color: var(--muted);
-            font-size: 0.8rem;
-            flex: 1;
-        }
-
-        .subtitle-tools {
-            margin-top: 12px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 10px 12px;
-        }
-
-        .subtitle-switcher {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .subtitle-switcher select {
-            background: var(--bg2);
-            color: var(--text);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 7px 10px;
-            min-width: 240px;
-            font-size: 0.82rem;
-            outline: none;
-        }
-
-        .subtitle-switcher .subtitle-list {
-            width: 100%;
-            color: var(--muted);
-            font-size: 0.78rem;
-        }
+        .subtitle-upload-area { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:12px; padding:8px 14px; background:var(--card); border-radius:8px; border:1px solid var(--border); }
+        .subtitle-upload-area label { color:var(--muted); font-size:0.85rem; cursor:pointer; display:flex; align-items:center; gap:8px; }
+        .subtitle-upload-area label:hover { color:var(--text); }
+        .subtitle-upload-area input[type="file"] { display:none; }
+        .subtitle-upload-area .file-name { color:var(--muted); font-size:0.8rem; flex:1; }
+        .subtitle-tools { margin-top:12px; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:10px 12px; }
+        .subtitle-switcher { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px; }
+        .subtitle-switcher select { background:var(--bg2); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:7px 10px; min-width:240px; font-size:0.82rem; outline:none; }
+        .subtitle-switcher .subtitle-list { width:100%; color:var(--muted); font-size:0.78rem; }
 
         /* ── Footer ── */
-        footer {
-            text-align: center;
-            padding: 40px 0 20px;
-            border-top: 1px solid var(--border);
-            margin-top: 20px;
-            color: var(--muted);
-            font-size: 0.85rem;
-        }
-
-        footer .foot-links {
-            margin-top: 12px;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        footer .foot-links a {
-            color: var(--accent);
-            transition: color var(--transition);
-        }
-
-        footer .foot-links a:hover {
-            color: var(--text);
-        }
+        footer { text-align:center; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:20px; color:var(--muted); font-size:0.85rem; }
+        footer .foot-links { margin-top:12px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+        footer .foot-links a { color:var(--accent); transition:color var(--transition); }
+        footer .foot-links a:hover { color:var(--text); }
 
         /* ── Responsive ── */
         @media (max-width: 768px) {
-            nav .links a:not(.lang-toggle) {
-                display: none;
-            }
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .about-image img {
-                width: 200px;
-                height: 200px;
-            }
-            .player-modal {
-                max-width: 100%;
-                border-radius: 0;
-                max-height: 100vh;
-            }
-            .player-modal .close {
-                top: 4px;
-                right: 4px;
-            }
-            .shows-layout {
-                grid-template-columns: 1fr;
-            }
-            .series-list {
-                max-height: 240px;
-            }
-            .episodes-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            }
-            .cert-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            .recommendations .rec-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            }
+            nav .links a:not(.lang-toggle) { display:none; }
+            .hero h1 { font-size:2.2rem; }
+            .about-grid { grid-template-columns:1fr; gap:20px; }
+            .about-image img { width:200px; height:200px; }
+            .player-modal { max-width:100%; border-radius:0; max-height:100vh; }
+            .player-modal .close { top:4px; right:4px; }
+            .shows-compact .episodes-mini { grid-template-columns:repeat(auto-fill, minmax(70px,1fr)); max-height:100px; }
+            .cert-grid { grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); }
+            .recommendations .rec-grid { grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); }
         }
-
         @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            .btn {
-                padding: 8px 16px;
-                font-size: 0.8rem;
-            }
-            .grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                gap: 12px;
-            }
+            .hero h1 { font-size:1.8rem; }
+            .btn { padding:8px 16px; font-size:0.8rem; }
+            .grid { grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:12px; }
         }
     </style>
 </head>
 <body>
-
     <!-- ─── NAV ─── -->
     <nav>
         <div class="container">
@@ -1330,9 +332,7 @@
                 <a href="#shows" data-i18n="nav.shows">Series</a>
                 <a href="#certifications" data-i18n="nav.certs">Certificaciones</a>
                 <a href="#contact" data-i18n="nav.contact">Contacto</a>
-                <button class="lang-toggle" id="langToggle">
-                    <i class="fas fa-globe"></i> <span id="langLabel">ES</span>
-                </button>
+                <button class="lang-toggle" id="langToggle"><i class="fas fa-globe"></i> <span id="langLabel">ES</span></button>
             </div>
         </div>
     </nav>
@@ -1343,11 +343,7 @@
             <div class="eyebrow anim anim-delay-1" data-i18n="hero.eyebrow">✦ Disponible para oportunidades remotas</div>
             <h1 class="anim anim-delay-2">Juan Antonio Rivera Rodriguez</h1>
             <p class="sub anim anim-delay-3" data-i18n="hero.sub">Aspiring Cloud Engineer · Docker &amp; Linux</p>
-            <p class="anim anim-delay-4" data-i18n="hero.desc">
-                Construyo y opero entornos reales con Docker, Linux y Cloudflare Tunnel.
-                Estoy buscando mi primera oportunidad junior remota en Cloud Support o DevOps,
-                donde pueda aportar ejecución técnica, disciplina para documentar y ganas de aprender rápido.
-            </p>
+            <p class="anim anim-delay-4" data-i18n="hero.desc">Construyo y opero entornos reales con Docker, Linux y Cloudflare Tunnel. Estoy buscando mi primera oportunidad junior remota en Cloud Support o DevOps, donde pueda aportar ejecución técnica, disciplina para documentar y ganas de aprender rápido.</p>
             <div class="cta-group anim anim-delay-5">
                 <a href="mailto:riverarodriguezjuanantonio@gmail.com?subject=Oportunidad%20junior%20Cloud%2FDevOps" class="btn btn-primary" data-i18n="hero.cta1"><i class="fas fa-paper-plane"></i> Contactar ahora</a>
                 <a href="https://github.com/death-zip" target="_blank" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
@@ -1358,29 +354,16 @@
     </header>
 
     <div class="container">
-
         <!-- ─── HIRE ME ─── -->
         <section id="hire" class="hire-section">
             <div class="hire-panel anim">
                 <h2 data-i18n="hire.title">Por qué podrías contratarme hoy</h2>
                 <p data-i18n="hire.desc">Perfil junior con enfoque práctico: ya construí, aseguré y documenté un sistema real end-to-end. Puedo apoyar desde el día uno en tareas operativas, soporte cloud y automatización básica.</p>
                 <div class="hire-facts">
-                    <div class="hire-fact">
-                        <div class="label" data-i18n="hire.f1.label">Rol objetivo</div>
-                        <div class="value" data-i18n="hire.f1.value">Junior Cloud Support / DevOps</div>
-                    </div>
-                    <div class="hire-fact">
-                        <div class="label" data-i18n="hire.f2.label">Modalidad</div>
-                        <div class="value" data-i18n="hire.f2.value">Remoto, tiempo completo</div>
-                    </div>
-                    <div class="hire-fact">
-                        <div class="label" data-i18n="hire.f3.label">Idiomas</div>
-                        <div class="value" data-i18n="hire.f3.value">Español nativo · Inglés técnico</div>
-                    </div>
-                    <div class="hire-fact">
-                        <div class="label" data-i18n="hire.f4.label">Fortaleza</div>
-                        <div class="value" data-i18n="hire.f4.value">Debugging, documentación y ownership</div>
-                    </div>
+                    <div class="hire-fact"><div class="label" data-i18n="hire.f1.label">Rol objetivo</div><div class="value" data-i18n="hire.f1.value">Junior Cloud Support / DevOps</div></div>
+                    <div class="hire-fact"><div class="label" data-i18n="hire.f2.label">Modalidad</div><div class="value" data-i18n="hire.f2.value">Remoto, tiempo completo</div></div>
+                    <div class="hire-fact"><div class="label" data-i18n="hire.f3.label">Idiomas</div><div class="value" data-i18n="hire.f3.value">Español nativo · Inglés técnico</div></div>
+                    <div class="hire-fact"><div class="label" data-i18n="hire.f4.label">Fortaleza</div><div class="value" data-i18n="hire.f4.value">Debugging, documentación y ownership</div></div>
                 </div>
                 <div class="cta-group">
                     <a href="mailto:riverarodriguezjuanantonio@gmail.com?subject=Entrevista%20junior%20Cloud%20DevOps" class="btn btn-primary" data-i18n="hire.cta1"><i class="fas fa-calendar-check"></i> Agendar entrevista</a>
@@ -1395,28 +378,11 @@
             <div class="section-divider anim"></div>
             <div class="about-grid">
                 <div class="about-text anim">
-                    <p data-i18n="about.p1">
-                        Soy un estudiante de Ingeniería en Desarrollo de Software con una fuerte pasión por la
-                        infraestructura en la nube, DevOps y la automatización. Disfruto construir sistemas desde cero
-                        — desde aplicaciones contenerizadas hasta túneles de red seguros.
-                    </p>
-                    <p data-i18n="about.p2">
-                        Este portafolio es un testimonio de ello: un servidor multimedia completamente funcional
-                        ejecutándose en Docker, expuesto a través de Cloudflare Tunnel y consumiendo su propia API REST
-                        — todo construido como un viaje de aprendizaje y una muestra de habilidades prácticas.
-                    </p>
-                    <div class="badge-pills">
-                        <span>Docker</span>
-                        <span>Linux</span>
-                        <span>Cloudflare</span>
-                        <span>REST APIs</span>
-                        <span>WSL2</span>
-                        <span>Bash</span>
-                    </div>
+                    <p data-i18n="about.p1">Soy un estudiante de Ingeniería en Desarrollo de Software con una fuerte pasión por la infraestructura en la nube, DevOps y la automatización. Disfruto construir sistemas desde cero — desde aplicaciones contenerizadas hasta túneles de red seguros.</p>
+                    <p data-i18n="about.p2">Este portafolio es la prueba: un servidor multimedia funcionando en Docker, expuesto con Cloudflare Tunnel, resolviendo su propio problema de CORS y consumiendo su propia API en vivo. Nada de plantillas ni tutoriales copiados — cada parte la debuggeé yo mismo.</p>
+                    <div class="badge-pills"><span>Docker</span><span>Linux</span><span>Cloudflare</span><span>REST APIs</span><span>WSL2</span><span>Bash</span></div>
                 </div>
-                <div class="about-image anim">
-                    <img src="1773352902571.jpg" alt="Juan Antonio Rivera" />
-                </div>
+                <div class="about-image anim"><img src="1773352902571.jpg" alt="Juan Antonio Rivera" /></div>
             </div>
         </section>
 
@@ -1429,36 +395,24 @@
                     <div class="icon"><i class="fas fa-server"></i></div>
                     <h3 data-i18n="services.s1.title">Infraestructura como Código</h3>
                     <p data-i18n="services.s1.desc">Diseño e implementación de entornos contenerizados con Docker y Docker Compose para aplicaciones escalables y portables.</p>
-                    <div class="tags">
-                        <span>Docker</span>
-                        <span>Linux</span>
-                        <span>Bash</span>
-                    </div>
+                    <div class="tags"><span>Docker</span><span>Linux</span><span>Bash</span></div>
                 </div>
                 <div class="service-card anim anim-delay-2">
                     <div class="icon"><i class="fas fa-cloud"></i></div>
                     <h3 data-i18n="services.s2.title">Despliegue en la Nube</h3>
                     <p data-i18n="services.s2.desc">Configuración de servidores en la nube, túneles seguros (Cloudflare) y exposición de servicios a internet con HTTPS.</p>
-                    <div class="tags">
-                        <span>Cloudflare</span>
-                        <span>Nginx</span>
-                        <span>SSL/TLS</span>
-                    </div>
+                    <div class="tags"><span>Cloudflare</span><span>Nginx</span><span>SSL/TLS</span></div>
                 </div>
                 <div class="service-card anim anim-delay-3">
                     <div class="icon"><i class="fas fa-shield-alt"></i></div>
                     <h3 data-i18n="services.s3.title">Automatización &amp; Seguridad</h3>
                     <p data-i18n="services.s3.desc">Automatización de tareas con scripts y hardening de sistemas para entornos de producción seguros.</p>
-                    <div class="tags">
-                        <span>Bash</span>
-                        <span>Firewall</span>
-                        <span>WSL2</span>
-                    </div>
+                    <div class="tags"><span>Bash</span><span>Firewall</span><span>WSL2</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- ─── SKILLS (ÉPICO) ─── -->
+        <!-- ─── SKILLS ─── -->
         <section id="skills">
             <h2 class="section-title anim"><i class="fas fa-bolt" style="color: var(--accent);"></i> <span data-i18n="skills.title">Habilidades Técnicas</span></h2>
             <p class="section-sub anim" data-i18n="skills.sub">Tecnologías y herramientas que domino</p>
@@ -1485,45 +439,32 @@
             </div>
         </section>
 
-        <!-- ─── PROYECTO (JELLYFIN) ─── -->
+        <!-- ─── PROJECTS ─── -->
         <section id="projects">
             <h2 class="section-title anim" data-i18n="projects.title">Proyecto destacado</h2>
             <p class="section-sub anim" data-i18n="projects.sub">Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel</p>
-
             <div id="status" class="status-banner loading anim" data-i18n="projects.loading">Cargando biblioteca desde el servidor…</div>
-
             <div class="library-controls anim">
                 <input type="text" id="searchInput" placeholder="🔍 Buscar películas…" data-i18n="projects.search" />
-                <button class="btn btn-primary" id="watchlistToggle">
-                    <i class="fas fa-heart"></i> <span data-i18n="projects.watchlist">Mi lista</span> (<span id="watchlistCount">0</span>)
-                </button>
+                <button class="btn btn-primary" id="watchlistToggle"><i class="fas fa-heart"></i> <span data-i18n="projects.watchlist">Mi lista</span> (<span id="watchlistCount">0</span>)</button>
             </div>
-
             <div id="library" class="grid anim"></div>
-
-            <div class="text-center" style="margin-top: 24px; text-align: center;">
-                <a href="https://media.jarr.cc.cd" target="_blank" class="btn btn-primary" data-i18n="projects.full">
-                    <i class="fas fa-external-link-alt"></i> Abrir servidor completo
-                </a>
+            <div class="text-center" style="margin-top:24px; text-align:center;">
+                <a href="https://media.jarr.cc.cd" target="_blank" class="btn btn-primary" data-i18n="projects.full"><i class="fas fa-external-link-alt"></i> Abrir servidor completo</a>
             </div>
         </section>
 
-        <!-- ─── SHOWS / SERIES ─── -->
+        <!-- ─── SHOWS (ULTRA COMPACTO) ─── -->
         <section id="shows">
             <h2 class="section-title anim" data-i18n="shows.title">Series por temporadas</h2>
-            <p class="section-sub anim" data-i18n="shows.sub">Explora series, elige temporada y reproduce episodios con el player compatible de Jellyfin</p>
+            <p class="section-sub anim" data-i18n="shows.sub">Selecciona una serie y episodio para reproducir</p>
             <div id="showsStatus" class="status-banner loading anim">Cargando series...</div>
-            <div class="shows-layout anim">
-                <div class="shows-panel">
-                    <h4 data-i18n="shows.serieslist">Series disponibles</h4>
-                    <div id="seriesList" class="series-list"></div>
+            <div class="shows-compact anim" id="showsCompact">
+                <div class="shows-top">
+                    <div class="series-strip" id="seriesStrip"></div>
                 </div>
-                <div class="episode-browser">
-                    <div class="episode-controls">
-                        <div id="seasonTabs" class="season-tabs"></div>
-                    </div>
-                    <div id="episodesGrid" class="episodes-grid"></div>
-                </div>
+                <div class="season-strip" id="seasonStrip"></div>
+                <div class="episodes-mini" id="episodesMini"></div>
             </div>
         </section>
 
@@ -1531,12 +472,8 @@
         <section id="certifications">
             <h2 class="section-title anim" data-i18n="certs.title">Certificaciones</h2>
             <p class="section-sub anim" data-i18n="certs.sub">Verificadas en Credly</p>
-            <div class="cert-grid" id="certGrid">
-                <!-- Aquí se inyectan las insignias con JS para manejar "Ver más" -->
-            </div>
-            <div class="cert-more-btn">
-                <button id="toggleCertsBtn" class="btn btn-primary" data-i18n="certs.showmore">Ver más</button>
-            </div>
+            <div class="cert-grid" id="certGrid"></div>
+            <div class="cert-more-btn"><button id="toggleCertsBtn" class="btn btn-primary" data-i18n="certs.showmore">Ver más</button></div>
         </section>
 
         <!-- ─── ENFOQUE ACTUAL ─── -->
@@ -1547,38 +484,28 @@
                 <div>
                     <h3 data-i18n="exp.role">Estudiante de Ingeniería en Desarrollo de Software</h3>
                     <div class="role" data-i18n="exp.period">Universidad Tecmilenio · 2026 – Presente</div>
-                    <div class="desc" data-i18n="exp.desc">
-                        Curso la especialización en DevOps dentro del modelo MAPS. Mientras termino la carrera,
-                        construyo proyectos propios de infraestructura para aprender haciendo: este servidor
-                        de streaming es el más completo hasta ahora. Buscando mi primera posición junior en
-                        Cloud Support o DevOps para seguir creciendo en un equipo real.
-                    </div>
+                    <div class="desc" data-i18n="exp.desc">Curso la especialización en DevOps dentro del modelo MAPS. Mientras termino la carrera, construyo proyectos propios de infraestructura para aprender haciendo: este servidor de streaming es el más completo hasta ahora. Buscando mi primera posición junior en Cloud Support o DevOps.</div>
                 </div>
                 <div class="status-badge" data-i18n="exp.status">Buscando oportunidad</div>
             </div>
         </section>
-
     </div>
 
     <!-- ─── FOOTER ─── -->
     <footer id="contact">
         <div class="container">
-            <div style="font-size:1.1rem; color:var(--text); margin-bottom:6px;">
-                <i class="fas fa-envelope"></i> <span data-i18n="footer.cta">¿Tienes un proyecto en mente o quieres charlar?</span>
-            </div>
+            <div style="font-size:1.1rem; color:var(--text); margin-bottom:6px;"><i class="fas fa-envelope"></i> <span data-i18n="footer.cta">¿Tienes un proyecto en mente o quieres charlar?</span></div>
             <div class="foot-links">
                 <a href="mailto:riverarodriguezjuanantonio@gmail.com"><i class="fas fa-envelope"></i> Email</a>
                 <a href="https://github.com/death-zip" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
                 <a href="https://media.jarr.cc.cd" target="_blank"><i class="fas fa-server"></i> Servidor Jellyfin</a>
             </div>
-            <div style="margin-top:18px;">
-                © 2026 — Hecho con <i class="fas fa-heart" style="color:var(--accent);"></i> y Docker
-            </div>
+            <div style="margin-top:18px;">© 2026 — Hecho con <i class="fas fa-heart" style="color:var(--accent);"></i> y Docker</div>
         </div>
     </footer>
 
-    <!-- ─── PLAYER MODAL ─── -->
+    <!-- ─── MODAL ─── -->
     <div class="overlay" id="overlay">
         <div class="player-modal">
             <button class="close" id="modalClose">&times;</button>
@@ -1604,142 +531,76 @@
         // ─── I18N ───
         const translations = {
             es: {
-                'nav.about': 'Sobre mí',
-                'nav.hire': 'Contratame',
-                'nav.services': 'Servicios',
-                'nav.skills': 'Habilidades',
-                'nav.projects': 'Proyectos',
-                'nav.shows': 'Series',
-                'nav.certs': 'Certificaciones',
-                'nav.contact': 'Contacto',
-                'hero.eyebrow': '✦ Disponible para oportunidades remotas',
-                'hero.sub': 'Aspirante a Cloud Engineer · Docker y Linux',
+                'nav.about': 'Sobre mí', 'nav.hire': 'Contratame', 'nav.services': 'Servicios', 'nav.skills': 'Habilidades',
+                'nav.projects': 'Proyectos', 'nav.shows': 'Series', 'nav.certs': 'Certificaciones', 'nav.contact': 'Contacto',
+                'hero.eyebrow': '✦ Disponible para oportunidades remotas', 'hero.sub': 'Aspirante a Cloud Engineer · Docker y Linux',
                 'hero.desc': 'Construyo y opero entornos reales con Docker, Linux y Cloudflare Tunnel. Estoy buscando mi primera oportunidad junior remota en Cloud Support o DevOps, donde pueda aportar ejecución técnica, disciplina para documentar y ganas de aprender rápido.',
-                'hero.cta1': 'Contactar ahora',
-                'hero.cta2': 'Ver CV',
-                'hire.title': 'Por que podrias contratarme hoy',
-                'hire.desc': 'Perfil junior con enfoque practico: ya construi, asegure y documente un sistema real end-to-end. Puedo apoyar desde el dia uno en tareas operativas, soporte cloud y automatizacion basica.',
-                'hire.f1.label': 'Rol objetivo',
-                'hire.f1.value': 'Junior Cloud Support / DevOps',
-                'hire.f2.label': 'Modalidad',
-                'hire.f2.value': 'Remoto, tiempo completo',
-                'hire.f3.label': 'Idiomas',
-                'hire.f3.value': 'Espanol nativo · Ingles tecnico',
-                'hire.f4.label': 'Fortaleza',
-                'hire.f4.value': 'Debugging, documentacion y ownership',
-                'hire.cta1': 'Agendar entrevista',
-                'hire.cta2': 'Ver proyecto en vivo',
-                'about.title': 'Sobre Mí',
-                'about.p1': 'Soy un estudiante de Ingeniería en Desarrollo de Software con una fuerte pasión por la infraestructura en la nube, DevOps y la automatización. Disfruto construir sistemas desde cero — desde aplicaciones contenerizadas hasta túneles de red seguros.',
+                'hero.cta1': 'Contactar ahora', 'hero.cta2': 'Ver CV',
+                'hire.title': 'Por que podrias contratarme hoy', 'hire.desc': 'Perfil junior con enfoque practico: ya construi, asegure y documente un sistema real end-to-end. Puedo apoyar desde el dia uno en tareas operativas, soporte cloud y automatizacion basica.',
+                'hire.f1.label': 'Rol objetivo', 'hire.f1.value': 'Junior Cloud Support / DevOps',
+                'hire.f2.label': 'Modalidad', 'hire.f2.value': 'Remoto, tiempo completo',
+                'hire.f3.label': 'Idiomas', 'hire.f3.value': 'Espanol nativo · Ingles tecnico',
+                'hire.f4.label': 'Fortaleza', 'hire.f4.value': 'Debugging, documentacion y ownership',
+                'hire.cta1': 'Agendar entrevista', 'hire.cta2': 'Ver proyecto en vivo',
+                'about.title': 'Sobre Mí', 'about.p1': 'Soy un estudiante de Ingeniería en Desarrollo de Software con una fuerte pasión por la infraestructura en la nube, DevOps y la automatización. Disfruto construir sistemas desde cero — desde aplicaciones contenerizadas hasta túneles de red seguros.',
                 'about.p2': 'Este portafolio es la prueba: un servidor multimedia funcionando en Docker, expuesto con Cloudflare Tunnel, resolviendo su propio problema de CORS y consumiendo su propia API en vivo. Nada de plantillas ni tutoriales copiados — cada parte la debuggeé yo mismo.',
-                'services.title': 'Servicios',
-                'services.sub': 'Lo que puedo aportar a tu equipo',
-                'services.s1.title': 'Infraestructura como Código',
-                'services.s1.desc': 'Diseño e implementación de entornos contenerizados con Docker y Docker Compose para aplicaciones escalables y portables.',
-                'services.s2.title': 'Despliegue en la Nube',
-                'services.s2.desc': 'Configuración de servidores en la nube, túneles seguros (Cloudflare) y exposición de servicios a internet con HTTPS.',
-                'services.s3.title': 'Automatización & Seguridad',
-                'services.s3.desc': 'Automatización de tareas con scripts y hardening de sistemas para entornos de producción seguros.',
-                'skills.title': 'Habilidades Técnicas',
-                'skills.sub': 'Tecnologías y herramientas que domino',
-                'projects.title': 'Proyecto destacado',
-                'projects.sub': 'Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel',
-                'projects.loading': 'Cargando biblioteca desde el servidor…',
-                'projects.search': 'Buscar películas…',
-                'projects.watchlist': 'Mi lista',
-                'projects.full': 'Abrir servidor completo',
-                'shows.title': 'Series por temporadas',
-                'shows.sub': 'Explora series, elige temporada y reproduce episodios con el player compatible de Jellyfin',
-                'shows.serieslist': 'Series disponibles',
-                'shows.season': 'Temporada',
-                'shows.episodes': 'episodios',
-                'shows.retry': 'Reintentar',
-                'certs.title': 'Certificaciones',
-                'certs.sub': 'Verificadas en Credly',
-                'certs.showmore': 'Ver más',
-                'exp.title': 'Enfoque actual',
-                'exp.sub': 'Dónde estoy y qué busco',
-                'exp.role': 'Estudiante de Ingeniería en Desarrollo de Software',
-                'exp.period': 'Universidad Tecmilenio · 2026 – Presente',
+                'services.title': 'Servicios', 'services.sub': 'Lo que puedo aportar a tu equipo',
+                'services.s1.title': 'Infraestructura como Código', 'services.s1.desc': 'Diseño e implementación de entornos contenerizados con Docker y Docker Compose para aplicaciones escalables y portables.',
+                'services.s2.title': 'Despliegue en la Nube', 'services.s2.desc': 'Configuración de servidores en la nube, túneles seguros (Cloudflare) y exposición de servicios a internet con HTTPS.',
+                'services.s3.title': 'Automatización & Seguridad', 'services.s3.desc': 'Automatización de tareas con scripts y hardening de sistemas para entornos de producción seguros.',
+                'skills.title': 'Habilidades Técnicas', 'skills.sub': 'Tecnologías y herramientas que domino',
+                'projects.title': 'Proyecto destacado', 'projects.sub': 'Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel',
+                'projects.loading': 'Cargando biblioteca desde el servidor…', 'projects.search': 'Buscar películas…',
+                'projects.watchlist': 'Mi lista', 'projects.full': 'Abrir servidor completo',
+                'shows.title': 'Series por temporadas', 'shows.sub': 'Selecciona una serie y episodio para reproducir',
+                'shows.serieslist': 'Series disponibles', 'shows.season': 'Temporada', 'shows.episodes': 'episodios',
+                'shows.retry': 'Reintentar', 'shows.next': 'Siguiente episodio', 'shows.prev': 'Episodio anterior',
+                'certs.title': 'Certificaciones', 'certs.sub': 'Verificadas en Credly', 'certs.showmore': 'Ver más',
+                'exp.title': 'Enfoque actual', 'exp.sub': 'Dónde estoy y qué busco',
+                'exp.role': 'Estudiante de Ingeniería en Desarrollo de Software', 'exp.period': 'Universidad Tecmilenio · 2026 – Presente',
                 'exp.desc': 'Curso la especialización en DevOps dentro del modelo MAPS. Mientras termino la carrera, construyo proyectos propios de infraestructura para aprender haciendo: este servidor de streaming es el más completo hasta ahora. Buscando mi primera posición junior en Cloud Support o DevOps.',
                 'exp.status': 'Buscando oportunidad',
                 'footer.cta': '¿Tienes un proyecto en mente o quieres charlar?',
-                'recommendations.title': 'Recomendaciones',
-                'modal.colorimetry': 'Colorimetría',
-                'modal.audio': 'Pistas de audio'
+                'recommendations.title': 'Recomendaciones', 'modal.colorimetry': 'Colorimetría', 'modal.audio': 'Pistas de audio'
             },
             en: {
-                'nav.about': 'About',
-                'nav.hire': 'Hire Me',
-                'nav.services': 'Services',
-                'nav.skills': 'Skills',
-                'nav.projects': 'Projects',
-                'nav.shows': 'Shows',
-                'nav.certs': 'Certifications',
-                'nav.contact': 'Contact',
-                'hero.eyebrow': '✦ Available for remote opportunities',
-                'hero.sub': 'Aspiring Cloud Engineer · Docker & Linux',
+                'nav.about': 'About', 'nav.hire': 'Hire Me', 'nav.services': 'Services', 'nav.skills': 'Skills',
+                'nav.projects': 'Projects', 'nav.shows': 'Shows', 'nav.certs': 'Certifications', 'nav.contact': 'Contact',
+                'hero.eyebrow': '✦ Available for remote opportunities', 'hero.sub': 'Aspiring Cloud Engineer · Docker & Linux',
                 'hero.desc': 'I build and operate real environments with Docker, Linux, and Cloudflare Tunnel. I am looking for my first remote junior role in Cloud Support or DevOps, where I can contribute technical execution, strong documentation habits, and fast learning.',
-                'hero.cta1': 'Contact now',
-                'hero.cta2': 'View CV',
-                'hire.title': 'Why you can hire me now',
-                'hire.desc': 'Junior profile with a practical approach: I already built, secured, and documented a real end-to-end system. I can support day-one operations, cloud support tasks, and basic automation.',
-                'hire.f1.label': 'Target role',
-                'hire.f1.value': 'Junior Cloud Support / DevOps',
-                'hire.f2.label': 'Work mode',
-                'hire.f2.value': 'Remote, full-time',
-                'hire.f3.label': 'Languages',
-                'hire.f3.value': 'Native Spanish · Technical English',
-                'hire.f4.label': 'Strength',
-                'hire.f4.value': 'Debugging, documentation, ownership',
-                'hire.cta1': 'Schedule interview',
-                'hire.cta2': 'View live project',
-                'about.title': 'About Me',
-                'about.p1': 'I am a Software Engineering student at Universidad Tecmilenio with a strong passion for cloud infrastructure, DevOps, and automation. I enjoy building systems from the ground up — from containerized applications to secure networking tunnels.',
+                'hero.cta1': 'Contact now', 'hero.cta2': 'View CV',
+                'hire.title': 'Why you can hire me now', 'hire.desc': 'Junior profile with a practical approach: I already built, secured, and documented a real end-to-end system. I can support day-one operations, cloud support tasks, and basic automation.',
+                'hire.f1.label': 'Target role', 'hire.f1.value': 'Junior Cloud Support / DevOps',
+                'hire.f2.label': 'Work mode', 'hire.f2.value': 'Remote, full-time',
+                'hire.f3.label': 'Languages', 'hire.f3.value': 'Native Spanish · Technical English',
+                'hire.f4.label': 'Strength', 'hire.f4.value': 'Debugging, documentation, ownership',
+                'hire.cta1': 'Schedule interview', 'hire.cta2': 'View live project',
+                'about.title': 'About Me', 'about.p1': 'I am a Software Engineering student at Universidad Tecmilenio with a strong passion for cloud infrastructure, DevOps, and automation. I enjoy building systems from the ground up — from containerized applications to secure networking tunnels.',
                 'about.p2': 'This portfolio is the proof: a media server running on Docker, exposed through Cloudflare Tunnel, solving its own CORS problem, and consuming its own live API. No templates or copied tutorials — I debugged every piece of it myself.',
-                'services.title': 'Services',
-                'services.sub': 'What I can bring to your team',
-                'services.s1.title': 'Infrastructure as Code',
-                'services.s1.desc': 'Design and implementation of containerized environments with Docker and Docker Compose for scalable, portable applications.',
-                'services.s2.title': 'Cloud Deployment',
-                'services.s2.desc': 'Configuration of cloud servers, secure tunnels (Cloudflare), and exposure of services to the internet with HTTPS.',
-                'services.s3.title': 'Automation & Security',
-                'services.s3.desc': 'Task automation with scripts and system hardening for secure production environments.',
-                'skills.title': 'Technical Skills',
-                'skills.sub': 'Technologies and tools I master',
-                'projects.title': 'Featured Project',
-                'projects.sub': 'Self‑hosted streaming server · Jellyfin · Docker · Cloudflare Tunnel',
-                'projects.loading': 'Loading library from server…',
-                'projects.search': 'Search movies…',
-                'projects.watchlist': 'My list',
-                'projects.full': 'Open full server',
-                'shows.title': 'Shows by season',
-                'shows.sub': 'Browse shows, choose season, and play episodes with the Jellyfin-compatible player',
-                'shows.serieslist': 'Available shows',
-                'shows.season': 'Season',
-                'shows.episodes': 'episodes',
-                'shows.retry': 'Retry',
-                'certs.title': 'Certifications',
-                'certs.sub': 'Verified on Credly',
-                'certs.showmore': 'Show more',
-                'exp.title': 'Current focus',
-                'exp.sub': 'Where I am and what I\'m looking for',
-                'exp.role': 'Software Engineering Student',
-                'exp.period': 'Universidad Tecmilenio · 2026 – Present',
+                'services.title': 'Services', 'services.sub': 'What I can bring to your team',
+                'services.s1.title': 'Infrastructure as Code', 'services.s1.desc': 'Design and implementation of containerized environments with Docker and Docker Compose for scalable, portable applications.',
+                'services.s2.title': 'Cloud Deployment', 'services.s2.desc': 'Configuration of cloud servers, secure tunnels (Cloudflare), and exposure of services to the internet with HTTPS.',
+                'services.s3.title': 'Automation & Security', 'services.s3.desc': 'Task automation with scripts and system hardening for secure production environments.',
+                'skills.title': 'Technical Skills', 'skills.sub': 'Technologies and tools I master',
+                'projects.title': 'Featured Project', 'projects.sub': 'Self‑hosted streaming server · Jellyfin · Docker · Cloudflare Tunnel',
+                'projects.loading': 'Loading library from server…', 'projects.search': 'Search movies…',
+                'projects.watchlist': 'My list', 'projects.full': 'Open full server',
+                'shows.title': 'Shows by season', 'shows.sub': 'Select a show and episode to play',
+                'shows.serieslist': 'Available shows', 'shows.season': 'Season', 'shows.episodes': 'episodes',
+                'shows.retry': 'Retry', 'shows.next': 'Next episode', 'shows.prev': 'Previous episode',
+                'certs.title': 'Certifications', 'certs.sub': 'Verified on Credly', 'certs.showmore': 'Show more',
+                'exp.title': 'Current focus', 'exp.sub': 'Where I am and what I\'m looking for',
+                'exp.role': 'Software Engineering Student', 'exp.period': 'Universidad Tecmilenio · 2026 – Present',
                 'exp.desc': 'Currently specializing in DevOps within the MAPS model. While finishing my degree, I build my own infrastructure projects to learn by doing — this streaming server is the most complete one so far. Looking for my first junior role in Cloud Support or DevOps.',
                 'exp.status': 'Open to opportunities',
                 'footer.cta': 'Have a project in mind or want to chat?',
-                'recommendations.title': 'Recommendations',
-                'modal.colorimetry': 'Colorimetry',
-                'modal.audio': 'Audio tracks'
+                'recommendations.title': 'Recommendations', 'modal.colorimetry': 'Colorimetry', 'modal.audio': 'Audio tracks'
             }
         };
 
         let currentLang = 'es';
 
-        function t(key) {
-            return translations[currentLang]?.[key] || key;
-        }
+        function t(key) { return translations[currentLang]?.[key] || key; }
 
         function applyTranslations() {
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1755,33 +616,25 @@
                 }
             });
             document.getElementById('langLabel').textContent = currentLang.toUpperCase();
-            // Actualizar botón de watchlist
             const wlBtn = document.getElementById('watchlistToggle');
             if (wlBtn) {
                 const txt = t('projects.watchlist');
                 const count = document.getElementById('watchlistCount').textContent;
                 wlBtn.innerHTML = `<i class="fas fa-heart"></i> ${txt} (<span id="watchlistCount">${count}</span>)`;
             }
-            // Actualizar placeholder del buscador
             const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.placeholder = t('projects.search');
-            }
-            // Actualizar botón de certificaciones
+            if (searchInput) searchInput.placeholder = t('projects.search');
             const toggleBtn = document.getElementById('toggleCertsBtn');
             if (toggleBtn) {
                 const isShowingAll = toggleBtn.dataset.showing === 'true';
                 toggleBtn.textContent = isShowingAll ? 'Ver menos' : t('certs.showmore');
             }
-            // Actualizar estado de carga
             const statusEl = document.getElementById('status');
-            if (statusEl && statusEl.classList.contains('loading')) {
-                statusEl.textContent = t('projects.loading');
-            }
-
-            if (allSeries.length) {
-                renderSeriesList();
-            }
+            if (statusEl && statusEl.classList.contains('loading')) statusEl.textContent = t('projects.loading');
+            // Actualizar botones de episodios si existen
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                // ya se hizo
+            });
         }
 
         document.getElementById('langToggle').addEventListener('click', () => {
@@ -1794,8 +647,7 @@
             const canvas = document.getElementById('particlesCanvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
-            let width, height;
-            let particles = [];
+            let width, height, particles = [];
 
             function resize() {
                 const rect = canvas.parentElement.getBoundingClientRect();
@@ -1806,47 +658,21 @@
             }
 
             class Particle {
-                constructor() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.size = Math.random() * 2 + 1;
-                    this.speedX = (Math.random() - 0.5) * 0.6;
-                    this.speedY = (Math.random() - 0.5) * 0.6;
-                    this.opacity = Math.random() * 0.5 + 0.2;
-                }
-
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    if (this.x > width) this.x = 0;
-                    if (this.x < 0) this.x = width;
-                    if (this.y > height) this.y = 0;
-                    if (this.y < 0) this.y = height;
-                }
-
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(91, 154, 255, ${this.opacity})`;
-                    ctx.fill();
-                }
+                constructor() { this.x = Math.random() * width; this.y = Math.random() * height; this.size = Math.random() * 2 + 1; this.speedX = (Math.random() - 0.5) * 0.6; this.speedY = (Math.random() - 0.5) * 0.6; this.opacity = Math.random() * 0.5 + 0.2; }
+                update() { this.x += this.speedX; this.y += this.speedY; if (this.x > width) this.x = 0; if (this.x < 0) this.x = width; if (this.y > height) this.y = 0; if (this.y < 0) this.y = height; }
+                draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(91, 154, 255, ${this.opacity})`; ctx.fill(); }
             }
 
             function init() {
                 resize();
                 particles = [];
                 const count = Math.min(80, Math.floor((width * height) / 8000));
-                for (let i = 0; i < count; i++) {
-                    particles.push(new Particle());
-                }
+                for (let i = 0; i < count; i++) particles.push(new Particle());
             }
 
             function animate() {
                 ctx.clearRect(0, 0, width, height);
-                particles.forEach(p => {
-                    p.update();
-                    p.draw();
-                });
+                particles.forEach(p => { p.update(); p.draw(); });
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
@@ -1864,17 +690,12 @@
                 }
                 requestAnimationFrame(animate);
             }
-
-            window.addEventListener('resize', () => {
-                resize();
-                init();
-            });
-
+            window.addEventListener('resize', () => { resize(); init(); });
             init();
             animate();
         });
 
-        // ─── CERTIFICACIONES (insignias) ───
+        // ─── CERTIFICACIONES ───
         const certData = [
             { name: 'Desarrollo Full Stack', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/fdecf3ca-1fa7-46c9-93c7-e203f718579b/linkedin_thumb_blob', url: 'https://www.credly.com/badges/65c923dc-22a2-45ea-8285-ca464feddfa4' },
             { name: 'Fundamentos de DevOps', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/18d30937-4c1b-442c-83a1-543265bcf02f/linkedin_thumb_image.png', url: 'https://www.credly.com/badges/0595675d-b4e1-42ab-950a-4889cfd51323' },
@@ -1904,24 +725,21 @@
         function renderCerts(showAll) {
             const items = showAll ? certData : certData.slice(0, VISIBLE_COUNT);
             certGrid.innerHTML = items.map(cert => `
-                    <a class="cert-card" href="${cert.url}" target="_blank">
-                        <img src="${cert.img}" alt="${cert.name}" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <h4>${cert.name}</h4>
-                        <div class="issuer">${cert.issuer}</div>
-                    </a>
-                `).join('');
+                <a class="cert-card" href="${cert.url}" target="_blank">
+                    <img src="${cert.img}" alt="${cert.name}" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
+                    <h4>${cert.name}</h4>
+                    <div class="issuer">${cert.issuer}</div>
+                </a>
+            `).join('');
             toggleBtn.textContent = showAll ? 'Ver menos' : t('certs.showmore');
             toggleBtn.dataset.showing = showAll ? 'true' : 'false';
         }
-
         toggleBtn.addEventListener('click', () => {
             showingAll = !showingAll;
             renderCerts(showingAll);
-            // re-aplicar traducción al botón
             const label = showingAll ? 'Ver menos' : t('certs.showmore');
             toggleBtn.textContent = label;
         });
-
         renderCerts(false);
 
         // ─── JELLYFIN ───
@@ -1939,11 +757,14 @@
         const searchInput = document.getElementById('searchInput');
         const watchlistToggle = document.getElementById('watchlistToggle');
         const watchlistCount = document.getElementById('watchlistCount');
-        const showsStatusEl = document.getElementById('showsStatus');
-        const seriesListEl = document.getElementById('seriesList');
-            const seasonTabsEl = document.getElementById('seasonTabs');
-        const episodesGridEl = document.getElementById('episodesGrid');
 
+        // Elementos de series compactas
+        const showsStatusEl = document.getElementById('showsStatus');
+        const seriesStrip = document.getElementById('seriesStrip');
+        const seasonStrip = document.getElementById('seasonStrip');
+        const episodesMini = document.getElementById('episodesMini');
+
+        // Modal
         const overlay = document.getElementById('overlay');
         const modalClose = document.getElementById('modalClose');
         const modalBackdrop = document.getElementById('modalBackdrop');
@@ -1957,14 +778,21 @@
         const videoWrap = document.getElementById('videoWrap');
         const modalRecommendations = document.getElementById('modalRecommendations');
         const recGrid = document.getElementById('recGrid');
+
         let currentPlayer = null;
         let allSeries = [];
         let seriesById = {};
-        let seriesEpisodeCounts = {};
         let selectedSeriesId = null;
         let selectedSeasonId = null;
+        // Para navegación entre episodios
+        let currentEpisodeList = [];
+        let currentEpisodeIndex = -1;
 
-        let currentSearchQuery = '';
+        async function jellyfinGet(path) {
+            const res = await fetch(`${JELLYFIN_URL}${path}`, { headers: { 'X-Emby-Token': API_KEY } });
+            if (!res.ok) throw new Error(`estado ${res.status}`);
+            return res.json();
+        }
 
         function setStatus(type, msg) {
             statusEl.className = `status-banner ${type}`;
@@ -1979,39 +807,9 @@
 
         function setStatusErrorWithRetry(targetEl, message, retryFn) {
             targetEl.className = 'status-banner error';
-            targetEl.innerHTML = `
-                <span>${message}</span>
-                <button type="button" class="btn btn-outline btn-sm" id="${targetEl.id}-retry">${t('shows.retry')}</button>
-            `;
+            targetEl.innerHTML = `<span>${message}</span><button type="button" class="btn btn-outline btn-sm" id="${targetEl.id}-retry">${t('shows.retry')}</button>`;
             const btn = document.getElementById(`${targetEl.id}-retry`);
             if (btn) btn.addEventListener('click', retryFn);
-        }
-
-        function escapeHtml(str) {
-            if (str == null) return '';
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;');
-        }
-
-        async function ensureSeriesEpisodeCount(seriesId) {
-            if (seriesEpisodeCounts[seriesId] != null) return;
-            try {
-                const data = await jellyfinGet(`/Users/${USER_ID}/Items?ParentId=${seriesId}&IncludeItemTypes=Episode&Recursive=true&Limit=1`);
-                seriesEpisodeCounts[seriesId] = data.TotalRecordCount || 0;
-                renderSeriesList();
-            } catch {
-                seriesEpisodeCounts[seriesId] = 0;
-            }
-        }
-
-        async function jellyfinGet(path) {
-            const res = await fetch(`${JELLYFIN_URL}${path}`, { headers: { 'X-Emby-Token': API_KEY } });
-            if (!res.ok) throw new Error(`estado ${res.status}`);
-            return res.json();
         }
 
         function updateWatchlistCount() {
@@ -2019,13 +817,10 @@
             localStorage.setItem('jellyfin_watchlist', JSON.stringify(watchlist));
         }
 
-        function toggleWatchlist(itemId, title) {
+        function toggleWatchlist(itemId) {
             const idx = watchlist.indexOf(itemId);
-            if (idx > -1) {
-                watchlist.splice(idx, 1);
-            } else {
-                watchlist.push(itemId);
-            }
+            if (idx > -1) watchlist.splice(idx, 1);
+            else watchlist.push(itemId);
             updateWatchlistCount();
             if (showingWatchlist) {
                 renderLibrary(allItems.filter(item => watchlist.includes(item.Id)));
@@ -2033,9 +828,7 @@
                 document.querySelectorAll('.item-card').forEach(card => {
                     const id = card.dataset.id;
                     const btn = card.querySelector('.watchlist-btn');
-                    if (btn) {
-                        btn.innerHTML = watchlist.includes(id) ? '⭐' : '☆';
-                    }
+                    if (btn) btn.innerHTML = watchlist.includes(id) ? '⭐' : '☆';
                 });
             }
         }
@@ -2048,19 +841,17 @@
             }
             setStatus('ok', '');
             gridEl.innerHTML = items.map(item => {
-                const imgUrl = item.ImageTags && item.ImageTags.Primary ?
-                    `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}` :
-                    '';
+                const imgUrl = item.ImageTags && item.ImageTags.Primary ? `${JELLYFIN_URL}/Items/${item.Id}/Images/Primary?maxWidth=300&tag=${item.ImageTags.Primary}` : '';
                 const badge = item.Type === 'Series' ? 'Serie' : 'Película';
                 const inWatchlist = watchlist.includes(item.Id);
                 return `
-                        <div class="item-card" data-id="${item.Id}">
-                            <span class="badge-type">${badge}</span>
-                            ${imgUrl ? `<img src="${imgUrl}" alt="${item.Name}" loading="lazy">` : ''}
-                            <div class="title">${item.Name}</div>
-                            <button class="watchlist-btn" data-id="${item.Id}">${inWatchlist ? '⭐' : '☆'}</button>
-                        </div>
-                    `;
+                    <div class="item-card" data-id="${item.Id}">
+                        <span class="badge-type">${badge}</span>
+                        ${imgUrl ? `<img src="${imgUrl}" alt="${item.Name}" loading="lazy">` : ''}
+                        <div class="title">${item.Name}</div>
+                        <button class="watchlist-btn" data-id="${item.Id}">${inWatchlist ? '⭐' : '☆'}</button>
+                    </div>
+                `;
             }).join('');
 
             gridEl.querySelectorAll('.item-card').forEach(card => {
@@ -2080,8 +871,7 @@
 
         async function fetchLibrary() {
             try {
-                const url =
-                    `${JELLYFIN_URL}/Users/${USER_ID}/Items?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=50`;
+                const url = `${JELLYFIN_URL}/Users/${USER_ID}/Items?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=50`;
                 const res = await fetch(url, { headers: { 'X-Emby-Token': API_KEY } });
                 if (!res.ok) throw new Error(`El servidor respondió con estado ${res.status}`);
                 const data = await res.json();
@@ -2091,33 +881,24 @@
                 renderLibrary(allItems);
                 updateWatchlistCount();
             } catch (err) {
-                setStatusErrorWithRetry(
-                    statusEl,
-                    `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`,
-                    fetchLibrary
-                );
+                setStatusErrorWithRetry(statusEl, `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`, fetchLibrary);
                 console.error('Error cargando Jellyfin:', err);
             }
         }
 
+        // ─── SHOWS COMPACT ───
         async function fetchSeriesCatalog() {
             try {
                 setShowsStatus('loading', 'Cargando series...');
-                const data = await jellyfinGet(
-                    `/Users/${USER_ID}/Items?IncludeItemTypes=Series&Recursive=true&SortBy=SortName&Fields=Overview,ProductionYear,CommunityRating,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=300`
-                );
+                const data = await jellyfinGet(`/Users/${USER_ID}/Items?IncludeItemTypes=Series&Recursive=true&SortBy=SortName&Fields=Overview,ProductionYear,CommunityRating,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=300`);
                 allSeries = data.Items || [];
                 seriesById = {};
                 allSeries.forEach(s => { seriesById[s.Id] = s; });
-
                 if (!allSeries.length) {
-                    setShowsStatus('error', 'No se encontraron series en tu biblioteca.');
-                    if (seriesListEl) seriesListEl.innerHTML = '';
-                    if (episodesGridEl) episodesGridEl.innerHTML = '';
+                    setShowsStatus('error', 'No se encontraron series.');
                     return;
                 }
-
-                renderSeriesList();
+                renderSeriesStrip();
                 setShowsStatus('ok', '');
                 await selectSeries(allSeries[0].Id);
             } catch (err) {
@@ -2126,79 +907,53 @@
             }
         }
 
-        function renderSeriesList() {
-            if (!seriesListEl) return;
-            seriesListEl.innerHTML = allSeries.map(s => `
-                <button class="series-item-btn ${s.Id === selectedSeriesId ? 'active' : ''}" data-series-id="${s.Id}">
-                    ${s.ImageTags && s.ImageTags.Primary
-                        ? `<img class="thumb" src="${JELLYFIN_URL}/Items/${s.Id}/Images/Primary?maxWidth=120&tag=${s.ImageTags.Primary}" alt="${escapeHtml(s.Name)}" loading="lazy">`
-                        : '<div class="thumb"></div>'
-                    }
-                    <div class="meta">
-                        <div class="name">${escapeHtml(s.Name)}</div>
-                        <div class="count">${seriesEpisodeCounts[s.Id] == null ? '...' : seriesEpisodeCounts[s.Id]} ${t('shows.episodes')}</div>
-                    </div>
+        function renderSeriesStrip() {
+            if (!seriesStrip) return;
+            seriesStrip.innerHTML = allSeries.map(s => `
+                <button class="series-btn ${s.Id === selectedSeriesId ? 'active' : ''}" data-series-id="${s.Id}">
+                    ${s.ImageTags && s.ImageTags.Primary ? `<img src="${JELLYFIN_URL}/Items/${s.Id}/Images/Primary?maxWidth=60&tag=${s.ImageTags.Primary}" alt="" loading="lazy">` : ''}
+                    ${s.Name}
                 </button>
             `).join('');
-
-            seriesListEl.querySelectorAll('.series-item-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    selectSeries(btn.dataset.seriesId);
-                });
+            seriesStrip.querySelectorAll('.series-btn').forEach(btn => {
+                btn.addEventListener('click', () => selectSeries(btn.dataset.seriesId));
             });
-
-            if (selectedSeriesId) {
-                const active = seriesListEl.querySelector('.series-item-btn.active');
-                if (active) {
-                    active.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            }
         }
 
         async function fetchSeasons(seriesId) {
-            const data = await jellyfinGet(
-                `/Users/${USER_ID}/Items?ParentId=${seriesId}&IncludeItemTypes=Season&Recursive=false&SortBy=SortName&Fields=IndexNumber,Overview,ProductionYear,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary`
-            );
+            const data = await jellyfinGet(`/Users/${USER_ID}/Items?ParentId=${seriesId}&IncludeItemTypes=Season&Recursive=false&SortBy=SortName&Fields=IndexNumber`);
             return data.Items || [];
         }
 
         async function fetchEpisodesForSeason(seasonId) {
-            const data = await jellyfinGet(
-                `/Users/${USER_ID}/Items?ParentId=${seasonId}&IncludeItemTypes=Episode&Recursive=false&SortBy=PremiereDate,SortName&Fields=Overview,RunTimeTicks,IndexNumber,ParentIndexNumber,SeriesName,ProductionYear,CommunityRating,MediaStreams,MediaSources,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary`
-            );
+            const data = await jellyfinGet(`/Users/${USER_ID}/Items?ParentId=${seasonId}&IncludeItemTypes=Episode&Recursive=false&SortBy=PremiereDate,SortName&Fields=Overview,RunTimeTicks,IndexNumber,ParentIndexNumber,SeriesName,ProductionYear,CommunityRating,MediaStreams,MediaSources,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary`);
             return data.Items || [];
         }
 
         async function selectSeries(seriesId) {
             selectedSeriesId = seriesId;
-            renderSeriesList();
-            ensureSeriesEpisodeCount(seriesId);
-            if (!seasonTabsEl) return;
-
+            renderSeriesStrip();
             try {
-                setShowsStatus('loading', 'Cargando temporadas...');
                 const seasons = await fetchSeasons(seriesId);
                 if (!seasons.length) {
-                    seasonTabsEl.innerHTML = '';
-                    episodesGridEl.innerHTML = '<div style="color:var(--muted); font-size:0.85rem;">Esta serie no tiene temporadas visibles.</div>';
-                    setShowsStatus('ok', '');
+                    seasonStrip.innerHTML = '';
+                    episodesMini.innerHTML = '<div style="color:var(--muted);font-size:0.7rem;">Sin temporadas</div>';
                     return;
                 }
-
-                seasonTabsEl.innerHTML = seasons.map((s, i) => {
-                    const seasonNumber = Number.isInteger(s.IndexNumber) ? s.IndexNumber : (i + 1);
-                    return `<button type="button" class="season-tab ${i === 0 ? 'active' : ''}" data-season-id="${s.Id}">${t('shows.season')} ${seasonNumber}</button>`;
+                // Mostrar pestañas de temporada
+                seasonStrip.innerHTML = seasons.map((s, i) => {
+                    const sn = Number.isInteger(s.IndexNumber) ? s.IndexNumber : i + 1;
+                    return `<button class="season-tab ${i === 0 ? 'active' : ''}" data-season-id="${s.Id}">T${sn}</button>`;
                 }).join('');
-
                 selectedSeasonId = seasons[0].Id;
-                await renderEpisodesForSeason(selectedSeasonId);
+                await renderEpisodesMini(selectedSeasonId);
 
-                seasonTabsEl.querySelectorAll('.season-tab').forEach(tab => {
+                seasonStrip.querySelectorAll('.season-tab').forEach(tab => {
                     tab.addEventListener('click', async () => {
-                        seasonTabsEl.querySelectorAll('.season-tab').forEach(tEl => tEl.classList.remove('active'));
+                        seasonStrip.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
                         tab.classList.add('active');
                         selectedSeasonId = tab.dataset.seasonId;
-                        await renderEpisodesForSeason(selectedSeasonId);
+                        await renderEpisodesMini(selectedSeasonId);
                     });
                 });
             } catch (err) {
@@ -2207,84 +962,36 @@
             }
         }
 
-        async function renderEpisodesForSeason(seasonId) {
+        async function renderEpisodesMini(seasonId) {
             try {
-                setShowsStatus('loading', 'Cargando episodios...');
                 const episodes = await fetchEpisodesForSeason(seasonId);
                 if (!episodes.length) {
-                    episodesGridEl.innerHTML = '<div style="color:var(--muted); font-size:0.85rem;">No hay episodios disponibles en esta temporada.</div>';
-                    setShowsStatus('ok', '');
+                    episodesMini.innerHTML = '<div style="color:var(--muted);font-size:0.7rem;">Sin episodios</div>';
                     return;
                 }
-
-                episodesGridEl.innerHTML = episodes.map(ep => {
-                    const seasonNum = Number.isInteger(ep.ParentIndexNumber) ? ep.ParentIndexNumber : 0;
-                    const episodeNum = Number.isInteger(ep.IndexNumber) ? ep.IndexNumber : 0;
-                    const runtime = formatRuntime(ep.RunTimeTicks) || '';
-                    const thumb = ep.ImageTags && ep.ImageTags.Primary
-                        ? `${JELLYFIN_URL}/Items/${ep.Id}/Images/Primary?maxWidth=480&tag=${ep.ImageTags.Primary}`
-                        : '';
-
-                    return `
-                        <div class="episode-card" data-episode-id="${ep.Id}">
-                            ${thumb ? `<img src="${thumb}" alt="${ep.Name}" loading="lazy">` : ''}
-                            <div class="ep-body">
-                                <div class="ep-title">${ep.Name}</div>
-                                <div class="ep-meta">
-                                    <span>S${String(seasonNum).padStart(2, '0')}E${String(episodeNum).padStart(2, '0')}</span>
-                                    <span>${runtime}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                episodesMini.innerHTML = episodes.map((ep, idx) => {
+                    const epNum = Number.isInteger(ep.IndexNumber) ? ep.IndexNumber : idx + 1;
+                    return `<div class="episode-mini" data-episode-id="${ep.Id}" data-episode-index="${idx}">
+                        <span class="ep-num">E${String(epNum).padStart(2, '0')}</span>
+                        ${ep.Name}
+                    </div>`;
                 }).join('');
-
-                episodesGridEl.querySelectorAll('.episode-card').forEach(card => {
-                    card.addEventListener('click', () => {
-                        openModal(card.dataset.episodeId);
+                episodesMini.querySelectorAll('.episode-mini').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const id = el.dataset.episodeId;
+                        const idx = parseInt(el.dataset.episodeIndex, 10);
+                        currentEpisodeList = episodes;
+                        currentEpisodeIndex = idx;
+                        openModal(id);
                     });
                 });
-
-                setShowsStatus('ok', '');
             } catch (err) {
                 console.error('Error cargando episodios:', err);
-                setStatusErrorWithRetry(showsStatusEl, `No se pudieron cargar episodios (${err.message}).`, () => renderEpisodesForSeason(seasonId));
+                setStatusErrorWithRetry(showsStatusEl, `No se pudieron cargar episodios (${err.message}).`, () => renderEpisodesMini(seasonId));
             }
         }
 
-        // ─── Modal desde Jellyfin ───
-        async function fetchItemDetail(id) {
-            const url =
-                `${JELLYFIN_URL}/Users/${USER_ID}/Items/${id}?Fields=MediaStreams,Overview,Genres,MediaSources,BackdropImageTags,CommunityRating,RunTimeTicks,People`;
-            const res = await fetch(url, { headers: { 'X-Emby-Token': API_KEY } });
-            if (!res.ok) throw new Error(`estado ${res.status}`);
-            return res.json();
-        }
-
-        function formatRuntime(ticks) {
-            if (!ticks) return null;
-            const totalMin = Math.round(ticks / 10000000 / 60);
-            const h = Math.floor(totalMin / 60);
-            const m = totalMin % 60;
-            return h > 0 ? `${h}h ${m}m` : `${m}m`;
-        }
-
-        /**
-         * Real fix for the "Enter the Void doesn't play" / "Mandy plays with no audio" bugs.
-         *
-         * The previous approach guessed at playback URLs client-side and used a 3-second
-         * timer to decide when to try the next guess. Two things went wrong with that:
-         *   1) 3 seconds is not enough for the server to cold-start an ffmpeg transcode of
-         *      a large or HEVC file, so the code abandoned a candidate that was about to work.
-         *   2) A candidate that *plays* but has an audio codec the browser can't decode
-         *      (e.g. AC3/E-AC3 in Chrome/Firefox) never fires an "error" event, so nothing
-         *      ever triggered a retry - it just sat there silently.
-         *
-         * The fix is to stop guessing and ask Jellyfin directly, via its own PlaybackInfo
-         * API, what this browser can and can't play. The server then tells us whether to
-         * direct-play the file as-is or hand us a transcoded HLS stream.
-         * See README.md → "Cómo funciona el reproductor" for the full explanation.
-         */
+        // ─── MODAL Y REPRODUCTOR ───
         function buildJellyfinDeviceProfile() {
             return {
                 MaxStreamingBitrate: 20000000,
@@ -2294,19 +1001,17 @@
                     { Container: 'mp4,m4v,mov', Type: 'Video', VideoCodec: 'h264,vp9,av1', AudioCodec: 'aac,mp3,opus,flac' },
                     { Container: 'webm', Type: 'Video', VideoCodec: 'vp8,vp9,av1', AudioCodec: 'opus,vorbis' }
                 ],
-                TranscodingProfiles: [
-                    {
-                        Container: 'ts',
-                        Type: 'Video',
-                        AudioCodec: 'aac',
-                        VideoCodec: 'h264',
-                        Context: 'Streaming',
-                        Protocol: 'hls',
-                        MaxAudioChannels: '2',
-                        MinSegments: 1,
-                        BreakOnNonKeyFrames: true
-                    }
-                ],
+                TranscodingProfiles: [{
+                    Container: 'ts',
+                    Type: 'Video',
+                    AudioCodec: 'aac',
+                    VideoCodec: 'h264',
+                    Context: 'Streaming',
+                    Protocol: 'hls',
+                    MaxAudioChannels: '2',
+                    MinSegments: 1,
+                    BreakOnNonKeyFrames: true
+                }],
                 CodecProfiles: [],
                 SubtitleProfiles: [
                     { Format: 'vtt', Method: 'External' },
@@ -2325,7 +1030,6 @@
             };
             if (Number.isInteger(audioStreamIndex) && audioStreamIndex >= 0) body.AudioStreamIndex = audioStreamIndex;
             if (Number.isInteger(subtitleStreamIndex)) body.SubtitleStreamIndex = subtitleStreamIndex;
-
             const res = await fetch(`${JELLYFIN_URL}/Items/${id}/PlaybackInfo?UserId=${USER_ID}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'X-Emby-Token': API_KEY },
@@ -2335,7 +1039,6 @@
             return res.json();
         }
 
-        // Turns a Jellyfin MediaSource (from PlaybackInfo) into an actual <source> we can play.
         function resolvePlaybackUrl(mediaSource, id, forceTranscode) {
             if (mediaSource.SupportsDirectPlay && !forceTranscode) {
                 const ext = (mediaSource.Container || 'mp4').split(',')[0];
@@ -2346,15 +1049,10 @@
                 };
             }
             if (mediaSource.TranscodingUrl) {
-                const base = mediaSource.TranscodingUrl.startsWith('http')
-                    ? mediaSource.TranscodingUrl
-                    : `${JELLYFIN_URL}${mediaSource.TranscodingUrl}`;
+                const base = mediaSource.TranscodingUrl.startsWith('http') ? mediaSource.TranscodingUrl : `${JELLYFIN_URL}${mediaSource.TranscodingUrl}`;
                 const withKey = base.includes('api_key=') ? base : `${base}${base.includes('?') ? '&' : '?'}api_key=${API_KEY}`;
                 return { src: withKey, type: 'application/x-mpegURL', method: 'Transcode' };
             }
-            // Last resort only: raw byte-for-byte stream. May carry an audio codec the
-            // browser can't decode (this is the "plays but silent" case) - we only reach
-            // this if the server gave us nothing better to work with.
             return {
                 src: `${JELLYFIN_URL}/Videos/${id}/stream?static=true&mediaSourceId=${mediaSource.Id}&api_key=${API_KEY}`,
                 type: 'video/mp4',
@@ -2362,29 +1060,22 @@
             };
         }
 
-        // ─── Función para cargar subtítulos desde archivo ───
         function setupSubtitleTools(videoElement, player) {
             const container = document.createElement('div');
             container.className = 'subtitle-tools';
-
             const subtitleId = `subtitleFile-${Date.now()}`;
             container.innerHTML = `
-                    <div class="subtitle-switcher">
-                        <select id="subtitleSelect"></select>
-                        <button type="button" class="btn btn-outline" id="applySubtitleBtn" style="padding:6px 12px; font-size:0.78rem;">
-                            <i class="fas fa-closed-captioning"></i> Cambiar subtítulo
-                        </button>
-                        <div class="subtitle-list" id="subtitleList">Subtítulos disponibles: cargando...</div>
-                    </div>
-                    <div class="subtitle-upload-area">
-                        <label for="${subtitleId}">
-                            <i class="fas fa-subtitle" style="color:var(--accent);"></i> Cargar subtítulos (.srt / .vtt)
-                        </label>
-                        <input type="file" id="${subtitleId}" accept=".srt,.vtt,.ass" />
-                        <span class="file-name" id="subtitleFileName">Ningún archivo seleccionado</span>
-                    </div>
-                `;
-
+                <div class="subtitle-switcher">
+                    <select id="subtitleSelect"></select>
+                    <button type="button" class="btn btn-outline btn-sm" id="applySubtitleBtn"><i class="fas fa-closed-captioning"></i> Cambiar subtítulo</button>
+                    <div class="subtitle-list" id="subtitleList">Subtítulos disponibles: cargando...</div>
+                </div>
+                <div class="subtitle-upload-area">
+                    <label for="${subtitleId}"><i class="fas fa-subtitle" style="color:var(--accent);"></i> Cargar subtítulos (.srt / .vtt)</label>
+                    <input type="file" id="${subtitleId}" accept=".srt,.vtt,.ass" />
+                    <span class="file-name" id="subtitleFileName">Ningún archivo seleccionado</span>
+                </div>
+            `;
             const fileInput = container.querySelector(`#${subtitleId}`);
             const fileNameSpan = container.querySelector('#subtitleFileName');
             const subtitleSelect = container.querySelector('#subtitleSelect');
@@ -2396,7 +1087,6 @@
                 const options = ['<option value="-1">Sin subtítulos</option>'];
                 const labels = [];
                 let selectedIndex = -1;
-
                 for (let i = 0; i < tracks.length; i++) {
                     const tr = tracks[i];
                     const label = tr.label || tr.language || `Pista ${i + 1}`;
@@ -2404,42 +1094,32 @@
                     if (tr.mode === 'showing') selectedIndex = i;
                     options.push(`<option value="${i}">${label}</option>`);
                 }
-
                 subtitleSelect.innerHTML = options.join('');
                 subtitleSelect.value = String(selectedIndex);
-                subtitleList.textContent = labels.length
-                    ? `Subtítulos disponibles: ${labels.join(' · ')}`
-                    : 'Subtítulos disponibles: ninguno';
+                subtitleList.textContent = labels.length ? `Subtítulos disponibles: ${labels.join(' · ')}` : 'Subtítulos disponibles: ninguno';
             };
 
-            const applySubtitleSelection = () => {
+            applySubtitleBtn.addEventListener('click', () => {
                 const selected = parseInt(subtitleSelect.value, 10);
                 const tracks = player.textTracks();
                 for (let i = 0; i < tracks.length; i++) {
                     tracks[i].mode = (i === selected) ? 'showing' : 'disabled';
                 }
-            };
-
-            applySubtitleBtn.addEventListener('click', applySubtitleSelection);
+            });
 
             fileInput.addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (!file) return;
                 fileNameSpan.textContent = file.name;
-
                 const reader = new FileReader();
                 reader.onload = function(ev) {
                     try {
                         const content = ev.target.result;
                         const blob = new Blob([content], { type: 'text/vtt' });
                         const url = URL.createObjectURL(blob);
-
                         if (!videoElement) return;
-
-                        // Mantener pistas del servidor y reemplazar solo la subida local previa.
                         const oldCustomTracks = videoElement.querySelectorAll('track[data-custom-sub="true"]');
                         oldCustomTracks.forEach(t => t.remove());
-
                         const customTrack = document.createElement('track');
                         customTrack.kind = 'subtitles';
                         customTrack.label = `Archivo: ${file.name}`;
@@ -2447,14 +1127,12 @@
                         customTrack.src = url;
                         customTrack.dataset.customSub = 'true';
                         videoElement.appendChild(customTrack);
-
                         player.load();
                         setTimeout(() => {
                             refreshSubtitleSelector();
                             subtitleSelect.value = String(player.textTracks().length - 1);
-                            applySubtitleSelection();
+                            applySubtitleBtn.click();
                         }, 150);
-
                         fileNameSpan.textContent = `✅ Subtítulos cargados: ${file.name}`;
                         fileNameSpan.style.color = '#5b9aff';
                     } catch (err) {
@@ -2465,15 +1143,27 @@
                 };
                 reader.readAsText(file);
             });
-
             refreshSubtitleSelector();
             return container;
         }
 
+        async function fetchItemDetail(id) {
+            const url = `${JELLYFIN_URL}/Users/${USER_ID}/Items/${id}?Fields=MediaStreams,Overview,Genres,MediaSources,BackdropImageTags,CommunityRating,RunTimeTicks,People`;
+            const res = await fetch(url, { headers: { 'X-Emby-Token': API_KEY } });
+            if (!res.ok) throw new Error(`estado ${res.status}`);
+            return res.json();
+        }
+
+        function formatRuntime(ticks) {
+            if (!ticks) return null;
+            const totalMin = Math.round(ticks / 10000000 / 60);
+            const h = Math.floor(totalMin / 60);
+            const m = totalMin % 60;
+            return h > 0 ? `${h}h ${m}m` : `${m}m`;
+        }
+
         async function openModal(id) {
             const basic = itemsById[id] || null;
-
-            // Limpiar reproductor anterior
             if (currentPlayer) {
                 currentPlayer.dispose();
                 currentPlayer = null;
@@ -2488,9 +1178,7 @@
             modalRecommendations.style.display = 'none';
             videoWrap.innerHTML = '';
             modalActions.innerHTML = '';
-            modalBackdrop.src = basic && basic.ImageTags && basic.ImageTags.Primary
-                ? `${JELLYFIN_URL}/Items/${id}/Images/Primary?maxWidth=800&tag=${basic.ImageTags.Primary}`
-                : '';
+            modalBackdrop.src = basic && basic.ImageTags && basic.ImageTags.Primary ? `${JELLYFIN_URL}/Items/${id}/Images/Primary?maxWidth=800&tag=${basic.ImageTags.Primary}` : '';
             overlay.classList.add('open');
 
             let detail;
@@ -2502,8 +1190,7 @@
             }
 
             if (detail.BackdropImageTags && detail.BackdropImageTags.length > 0) {
-                modalBackdrop.src =
-                    `${JELLYFIN_URL}/Items/${id}/Images/Backdrop/0?maxWidth=900&tag=${detail.BackdropImageTags[0]}`;
+                modalBackdrop.src = `${JELLYFIN_URL}/Items/${id}/Images/Backdrop/0?maxWidth=900&tag=${detail.BackdropImageTags[0]}`;
             }
 
             if (detail.Name) {
@@ -2530,21 +1217,18 @@
             ].filter(Boolean).join('');
 
             modalGenres.innerHTML = (detail.Genres || []).map(g => `<span>${g}</span>`).join('');
-
             modalOverview.textContent = detail.Overview || 'Sin descripción disponible.';
 
             const people = detail.People || [];
             const directors = people.filter(p => p.Type === 'Director').map(p => p.Name).join(', ');
             const writers = people.filter(p => p.Type === 'Writer').map(p => p.Name).join(', ');
             const actors = people.filter(p => p.Type === 'Actor').slice(0, 6).map(p => p.Name).join(', ');
-
             let castHtml = '';
             if (directors) castHtml += `<span class="group"><strong>Director:</strong> ${directors}</span>`;
             if (writers) castHtml += `<span class="group"><strong>Guionista:</strong> ${writers}</span>`;
             if (actors) castHtml += `<span class="group"><strong>Actores:</strong> ${actors}</span>`;
             modalCastCrew.innerHTML = castHtml;
 
-            // Colorimetría (si está en MediaStreams)
             const videoStream = (detail.MediaStreams || []).find(s => s.Type === 'Video');
             let colorInfo = 'No disponible.';
             if (videoStream) {
@@ -2559,7 +1243,6 @@
             }
             modalColorimetry.innerHTML = `<strong>Colorimetría:</strong> ${colorInfo}`;
 
-            // Recomendaciones basadas en director y año
             const recs = allItems.filter(item => {
                 if (item.Id === id) return false;
                 const itemPeople = item.People || [];
@@ -2567,33 +1250,22 @@
                 const sameYear = year && item.ProductionYear === year;
                 return sameDirector || sameYear;
             }).slice(0, 6);
-
             if (recs.length > 0) {
                 modalRecommendations.style.display = 'block';
                 recGrid.innerHTML = recs.map(r => {
-                    const imgUrl = r.ImageTags && r.ImageTags.Primary ?
-                        `${JELLYFIN_URL}/Items/${r.Id}/Images/Primary?maxWidth=200&tag=${r.ImageTags.Primary}` :
-                        '';
-                    return `
-                            <div class="rec-item" data-id="${r.Id}">
-                                ${imgUrl ? `<img src="${imgUrl}" alt="${r.Name}" loading="lazy">` : ''}
-                                <div class="title">${r.Name}</div>
-                            </div>
-                        `;
+                    const imgUrl = r.ImageTags && r.ImageTags.Primary ? `${JELLYFIN_URL}/Items/${r.Id}/Images/Primary?maxWidth=200&tag=${r.ImageTags.Primary}` : '';
+                    return `<div class="rec-item" data-id="${r.Id}">${imgUrl ? `<img src="${imgUrl}" alt="${r.Name}" loading="lazy">` : ''}<div class="title">${r.Name}</div></div>`;
                 }).join('');
                 recGrid.querySelectorAll('.rec-item').forEach(el => {
-                    el.addEventListener('click', () => {
-                        openModal(el.dataset.id);
-                    });
+                    el.addEventListener('click', () => openModal(el.dataset.id));
                 });
             } else {
                 modalRecommendations.style.display = 'none';
             }
 
-            // ─── REPRODUCTOR CON VIDEO.JS + PlaybackInfo de Jellyfin ───
+            // ─── REPRODUCTOR CON NAVEGACIÓN ENTRE EPISODIOS ───
             if (detail.Type === 'Movie' || detail.Type === 'Episode') {
                 const isMovie = detail.Type === 'Movie';
-                const mediaSourceRaw = (detail.MediaSources && detail.MediaSources[0]) ? detail.MediaSources[0] : null;
                 const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
                 const subtitleStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Subtitle');
                 const defaultAudio = audioStreams.find(a => a.IsDefault) || audioStreams[0];
@@ -2603,7 +1275,6 @@
 
                 const videoContainer = document.createElement('div');
                 videoContainer.id = 'jellyfin-player-container';
-
                 const videoEl = document.createElement('video');
                 videoEl.id = 'jellyfin-player';
                 videoEl.className = 'video-js vjs-big-play-centered';
@@ -2622,38 +1293,74 @@
                 const statusLine = document.createElement('div');
                 statusLine.id = 'playbackStatusLine';
                 statusLine.style.cssText = 'color:var(--muted); font-size:0.78rem; margin-top:8px;';
-                statusLine.textContent = isMovie
-                    ? 'Modo recomendado: abrir en Jellyfin nativo para máxima compatibilidad.'
-                    : 'Preparando reproducción…';
+                statusLine.textContent = 'Preparando reproducción…';
                 videoWrap.appendChild(statusLine);
 
+                // Botones de navegación entre episodios (solo si es episodio)
+                const navControls = document.createElement('div');
+                navControls.style.cssText = 'display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;';
+                if (!isMovie && currentEpisodeList.length > 0) {
+                    const prevBtn = document.createElement('button');
+                    prevBtn.className = 'btn btn-outline btn-sm';
+                    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i> ' + t('shows.prev');
+                    prevBtn.disabled = currentEpisodeIndex <= 0;
+                    prevBtn.addEventListener('click', () => {
+                        if (currentEpisodeIndex > 0) {
+                            const newIdx = currentEpisodeIndex - 1;
+                            const ep = currentEpisodeList[newIdx];
+                            if (ep) {
+                                currentEpisodeIndex = newIdx;
+                                openModal(ep.Id);
+                            }
+                        }
+                    });
+
+                    const nextBtn = document.createElement('button');
+                    nextBtn.className = 'btn btn-primary btn-sm';
+                    nextBtn.innerHTML = t('shows.next') + ' <i class="fas fa-chevron-right"></i>';
+                    nextBtn.disabled = currentEpisodeIndex >= currentEpisodeList.length - 1;
+                    nextBtn.addEventListener('click', () => {
+                        if (currentEpisodeIndex < currentEpisodeList.length - 1) {
+                            const newIdx = currentEpisodeIndex + 1;
+                            const ep = currentEpisodeList[newIdx];
+                            if (ep) {
+                                currentEpisodeIndex = newIdx;
+                                openModal(ep.Id);
+                            }
+                        }
+                    });
+
+                    navControls.appendChild(prevBtn);
+                    navControls.appendChild(nextBtn);
+                    // Mostrar información de posición
+                    const posInfo = document.createElement('span');
+                    posInfo.style.cssText = 'color:var(--muted); font-size:0.8rem; align-self:center;';
+                    posInfo.textContent = `${currentEpisodeIndex + 1} / ${currentEpisodeList.length}`;
+                    navControls.appendChild(posInfo);
+                }
+                videoWrap.appendChild(navControls);
+
                 let integratedStarted = false;
-                let nativeFirstPanel = null;
+                let nativeBanner = null;
 
                 if (isMovie) {
                     videoContainer.style.display = 'none';
-                    nativeFirstPanel = document.createElement('div');
-                    nativeFirstPanel.className = 'native-banner';
-                    nativeFirstPanel.innerHTML = `
-                        <div style="color:var(--text);">
-                            <i class="fas fa-shield-alt" style="color:var(--accent);"></i>
-                            Jellyfin nativo recomendado para máxima compatibilidad
-                        </div>
+                    nativeBanner = document.createElement('div');
+                    nativeBanner.className = 'native-banner';
+                    nativeBanner.style.cssText = 'margin-bottom:8px; background:rgba(17,20,26,0.85); border:1px solid var(--border); border-radius:10px; padding:10px; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:0.8rem; color:var(--muted);';
+                    nativeBanner.innerHTML = `
+                        <div style="color:var(--text);"><i class="fas fa-shield-alt" style="color:var(--accent);"></i> Jellyfin nativo recomendado</div>
                         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-left:auto;">
-                            <button type="button" id="openNativeNow" class="btn btn-primary btn-sm">
-                                <i class="fas fa-external-link-alt"></i> Abrir Jellyfin nativo
-                            </button>
-                            <button type="button" id="useIntegratedNow" class="btn btn-outline btn-sm">
-                                <i class="fas fa-play"></i> Usar reproductor integrado
-                            </button>
+                            <button type="button" id="openNativeNow" class="btn btn-primary btn-sm"><i class="fas fa-external-link-alt"></i> Abrir nativo</button>
+                            <button type="button" id="useIntegratedNow" class="btn btn-outline btn-sm"><i class="fas fa-play"></i> Usar integrado</button>
                         </div>
                     `;
-                    videoWrap.prepend(nativeFirstPanel);
+                    videoWrap.prepend(nativeBanner);
                 }
 
                 function attachSidecarSubtitles() {
                     videoEl.querySelectorAll('track[data-server-sub]').forEach(t => t.remove());
-                    const msId = mediaSourceRaw ? mediaSourceRaw.Id : id;
+                    const msId = (detail.MediaSources && detail.MediaSources[0]) ? detail.MediaSources[0].Id : id;
                     subtitleStreams.forEach((s, i) => {
                         const track = document.createElement('track');
                         track.kind = 'subtitles';
@@ -2671,13 +1378,7 @@
                     controls: true,
                     fluid: true,
                     playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
-                    controlBar: {
-                        children: [
-                            'playToggle', 'currentTimeDisplay', 'timeDivider', 'durationDisplay',
-                            'progressControl', 'volumePanel', 'playbackRateMenuButton',
-                            'subsCapsButton', 'fullscreenToggle'
-                        ]
-                    }
+                    controlBar: { children: ['playToggle', 'currentTimeDisplay', 'timeDivider', 'durationDisplay', 'progressControl', 'volumePanel', 'playbackRateMenuButton', 'subsCapsButton', 'fullscreenToggle'] }
                 });
                 currentPlayer = player;
 
@@ -2690,71 +1391,56 @@
                     clearTimeout(stuckTimer);
                     clearTimeout(audioCheckTimer);
                     statusLine.textContent = 'Preparando reproducción…';
-
                     let info;
                     try {
                         info = await getPlaybackInfo(id, audioIndex, subtitleIndex);
                     } catch (err) {
-                        statusLine.textContent = 'No se pudo consultar el servidor para preparar el video.';
+                        statusLine.textContent = 'No se pudo consultar el servidor.';
                         console.error('PlaybackInfo error:', err);
                         return;
                     }
                     if (disposed) return;
-
                     const source = (info.MediaSources || [])[0];
                     if (!source) {
-                        statusLine.textContent = 'El servidor no devolvió información de reproducción para este archivo.';
+                        statusLine.textContent = 'El servidor no devolvió información.';
                         return;
                     }
-
                     const resolved = resolvePlaybackUrl(source, id, forceTranscode);
                     player.src({ src: resolved.src, type: resolved.type });
                     player.load();
                     player.play().catch(() => {});
+                    statusLine.textContent = resolved.method === 'DirectPlay' ? 'Reproduciendo directamente.' : 'Transcodificando en el servidor…';
 
-                    statusLine.textContent = resolved.method === 'DirectPlay'
-                        ? 'Reproduciendo directamente (sin transcodificar).'
-                        : 'Transcodificando en el servidor… puede tardar unos segundos en archivos grandes, 4K o HEVC.';
-
-                    // Detector de "atascado": una ventana generosa, porque un arranque de
-                    // ffmpeg en frío en un archivo pesado puede tardar más de unos segundos.
                     stuckTimer = setTimeout(() => {
                         if (disposed) return;
                         try {
                             if (player.paused() || player.currentTime() < 0.2) {
                                 if (!hasFallenBackToTranscode) {
                                     hasFallenBackToTranscode = true;
-                                    statusLine.textContent = 'No respondió a tiempo. Forzando transcodificación…';
+                                    statusLine.textContent = 'Forzando transcodificación…';
                                     loadSourceFor(audioIndex, subtitleIndex, true);
                                 } else {
-                                    statusLine.textContent = 'El servidor está tardando en preparar el video (puede estar saturado de CPU en este momento).';
+                                    statusLine.textContent = 'El servidor está tardando en preparar el video.';
                                 }
                             }
-                        } catch (e) { /* player ya destruido, ignorar */ }
+                        } catch (e) { /* ignored */ }
                     }, 15000);
 
                     player.one('playing', () => {
                         clearTimeout(stuckTimer);
-                        // Heurística de "video sin audio": el archivo reproduce pero el
-                        // navegador no pudo decodificar ninguna pista de audio (típico con
-                        // AC3/E-AC3/DTS servidos en reproducción directa).
                         audioCheckTimer = setTimeout(() => {
                             if (disposed) return;
                             try {
                                 const el = videoEl;
-                                const hasAudioSignal = Boolean(el.mozHasAudio) ||
-                                    Boolean(el.webkitAudioDecodedByteCount) ||
-                                    (player.audioTracks && player.audioTracks().length > 0);
+                                const hasAudioSignal = Boolean(el.mozHasAudio) || Boolean(el.webkitAudioDecodedByteCount) || (player.audioTracks && player.audioTracks().length > 0);
                                 if (!hasAudioSignal && audioStreams.length > 0 && !hasFallenBackToTranscode) {
                                     hasFallenBackToTranscode = true;
-                                    statusLine.textContent = 'No se detectó audio compatible con el navegador. Cambiando a audio AAC transcodificado…';
+                                    statusLine.textContent = 'Cambiando a audio AAC transcodificado…';
                                     loadSourceFor(audioIndex, subtitleIndex, true);
                                 } else if (hasAudioSignal) {
-                                    statusLine.textContent = resolved.method === 'DirectPlay'
-                                        ? 'Reproduciendo directamente, con audio.'
-                                        : 'Reproduciendo transcodificado, con audio.';
+                                    statusLine.textContent = resolved.method === 'DirectPlay' ? 'Reproduciendo directamente, con audio.' : 'Reproduciendo transcodificado.';
                                 }
-                            } catch (e) { /* player ya destruido, ignorar */ }
+                            } catch (e) { /* ignored */ }
                         }, 2500);
                     });
                 }
@@ -2763,10 +1449,10 @@
                     if (disposed) return;
                     if (!hasFallenBackToTranscode) {
                         hasFallenBackToTranscode = true;
-                        statusLine.textContent = 'Error de reproducción directa. Reintentando con transcodificación forzada…';
+                        statusLine.textContent = 'Error. Reintentando con transcodificación forzada…';
                         loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, true);
                     } else {
-                        statusLine.textContent = 'No se pudo reproducir este archivo ni transcodificado. Revisa los logs de ffmpeg en el servidor.';
+                        statusLine.textContent = 'No se pudo reproducir. Revisa los logs del servidor.';
                     }
                 });
 
@@ -2774,90 +1460,28 @@
                     if (integratedStarted) return;
                     integratedStarted = true;
                     videoContainer.style.display = 'block';
-                    if (nativeFirstPanel) nativeFirstPanel.remove();
+                    if (nativeBanner) nativeBanner.remove();
                     statusLine.textContent = 'Preparando reproducción…';
                     loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
                 };
 
-                if (isMovie) {
-                    const nativeBtn = nativeFirstPanel.querySelector('#openNativeNow');
-                    const integratedBtn = nativeFirstPanel.querySelector('#useIntegratedNow');
-                    nativeBtn.addEventListener('click', () => {
+                if (isMovie && nativeBanner) {
+                    const nativeBtn = nativeBanner.querySelector('#openNativeNow');
+                    const integratedBtn = nativeBanner.querySelector('#useIntegratedNow');
+                    if (nativeBtn) nativeBtn.addEventListener('click', () => {
                         window.open(`${JELLYFIN_URL}/web/#/details?id=${id}`, '_blank', 'noopener,noreferrer');
                     });
-                    integratedBtn.addEventListener('click', () => {
-                        startIntegratedPlayback();
-                    });
+                    if (integratedBtn) integratedBtn.addEventListener('click', startIntegratedPlayback);
                 } else {
                     startIntegratedPlayback();
                 }
 
-                // Información + selector de pista de audio
-                let audioInfo = '';
+                // Mostrar info de audio
                 if (audioStreams.length > 0) {
-                    const codecSummary = audioStreams
-                        .map(a => `${(a.Codec || 'audio').toUpperCase()}${a.Channels ? ` ${a.Channels}ch` : ''}`)
-                        .join(' · ');
-                    const langSummary = audioStreams
-                        .map(a => (a.Language || a.DisplayLanguage || 'und').toUpperCase())
-                        .join(' · ');
-                    audioInfo = `<div style="color:var(--muted); font-size:0.8rem; margin-top:6px;">
-                            <i class="fas fa-volume-up"></i> ${audioStreams.map(a => a.DisplayTitle || a.Language || 'Audio').join(' · ')}<br>
-                            <span style="font-size:0.74rem;">Idiomas: ${langSummary}</span><br>
-                            <span style="font-size:0.74rem;">Codecs originales: ${codecSummary}</span>
-                        </div>`;
-                }
-                const audioInfoEl = document.createElement('div');
-                audioInfoEl.innerHTML = audioInfo;
-                videoWrap.appendChild(audioInfoEl);
-
-                if (audioStreams.length > 1) {
-                    const audioSelectWrap = document.createElement('div');
-                    audioSelectWrap.style.cssText = 'margin-top:8px; display:flex; align-items:center; gap:8px; font-size:0.8rem; color:var(--muted); flex-wrap:wrap;';
-                    audioSelectWrap.innerHTML = `<label for="audioTrackSelect">Pista de audio:</label>`;
-                    const sel = document.createElement('select');
-                    sel.id = 'audioTrackSelect';
-                    audioStreams.forEach(a => {
-                        const opt = document.createElement('option');
-                        opt.value = a.Index;
-                        const language = (a.DisplayLanguage || a.Language || 'Audio').toUpperCase();
-                        const codec = (a.Codec || '').toUpperCase();
-                        const channels = a.Channels ? ` ${a.Channels}ch` : '';
-                        opt.textContent = `${language}${codec ? ` · ${codec}` : ''}${channels}`;
-                        if (a.Index === selectedAudioIndex) opt.selected = true;
-                        sel.appendChild(opt);
-                    });
-                    const applyAudioBtn = document.createElement('button');
-                    applyAudioBtn.type = 'button';
-                    applyAudioBtn.className = 'btn btn-outline';
-                    applyAudioBtn.style.cssText = 'padding:6px 12px; font-size:0.78rem;';
-                    applyAudioBtn.innerHTML = '<i class="fas fa-language"></i> Aplicar audio';
-
-                    applyAudioBtn.addEventListener('click', () => {
-                        selectedAudioIndex = parseInt(sel.value, 10);
-                        hasFallenBackToTranscode = false;
-                        if (!integratedStarted) {
-                            startIntegratedPlayback();
-                        } else {
-                            statusLine.textContent = 'Cambiando pista de audio...';
-                            loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
-                        }
-                    });
-
-                    // Aplicacion rapida al cambiar en el select
-                    sel.addEventListener('change', () => {
-                        selectedAudioIndex = parseInt(sel.value, 10);
-                        hasFallenBackToTranscode = false;
-                        if (!integratedStarted) {
-                            startIntegratedPlayback();
-                        } else {
-                            statusLine.textContent = 'Cambiando pista de audio...';
-                            loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
-                        }
-                    });
-                    audioSelectWrap.appendChild(sel);
-                    audioSelectWrap.appendChild(applyAudioBtn);
-                    videoWrap.appendChild(audioSelectWrap);
+                    const audioInfo = document.createElement('div');
+                    audioInfo.style.cssText = 'color:var(--muted); font-size:0.8rem; margin-top:6px;';
+                    audioInfo.innerHTML = `<i class="fas fa-volume-up"></i> ${audioStreams.map(a => a.DisplayTitle || a.Language || 'Audio').join(' · ')}`;
+                    videoWrap.appendChild(audioInfo);
                 }
 
                 player.ready(function() {
@@ -2874,20 +1498,12 @@
                 player.on('dispose', () => { disposed = true; clearTimeout(stuckTimer); clearTimeout(audioCheckTimer); });
 
                 modalActions.innerHTML = `
-                        <a href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="margin-right:10px;">
-                            <i class="fas fa-external-link-alt"></i> Jellyfin nativo (recomendado)
-                        </a>
-                        <a href="https://www.opensubtitles.org/es/search/sublanguageid-spa" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
-                            <i class="fas fa-search"></i> Buscar subtítulos
-                        </a>
-                    `;
-
+                    <a href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="margin-right:10px;"><i class="fas fa-external-link-alt"></i> Jellyfin nativo</a>
+                    <a href="https://www.opensubtitles.org/es/search/sublanguageid-spa" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm"><i class="fas fa-search"></i> Buscar subtítulos</a>
+                `;
             } else {
-                // Series
-                videoWrap.innerHTML =
-                    `<div class="no-video-note">Las series se reproducen episodio por episodio directo en el servidor.</div>`;
-                modalActions.innerHTML =
-                    `<a class="btn btn-primary" href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank">Ver episodios en el servidor →</a>`;
+                videoWrap.innerHTML = `<div class="no-video-note">Las series se ven en el servidor nativo.</div>`;
+                modalActions.innerHTML = `<a class="btn btn-primary" href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank">Ver episodios en el servidor →</a>`;
             }
         }
 
@@ -2901,17 +1517,12 @@
         }
 
         modalClose.addEventListener('click', closeModal);
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) closeModal();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-        // ─── Buscador ───
+        // ─── BUSCADOR ───
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.trim();
-            currentSearchQuery = query;
             if (showingWatchlist) {
                 const watchlistItems = allItems.filter(item => watchlist.includes(item.Id));
                 const filtered = watchlistItems.filter(item => item.Name.toLowerCase().includes(query.toLowerCase()));
@@ -2931,8 +1542,7 @@
             } else {
                 const txt = t('projects.watchlist');
                 const count = watchlist.length;
-                watchlistToggle.innerHTML =
-                    `<i class="fas fa-heart"></i> ${txt} (<span id="watchlistCount">${count}</span>)`;
+                watchlistToggle.innerHTML = `<i class="fas fa-heart"></i> ${txt} (<span id="watchlistCount">${count}</span>)`;
                 const query = searchInput.value.trim();
                 if (query) {
                     const filtered = allItems.filter(item => item.Name.toLowerCase().includes(query.toLowerCase()));
@@ -2948,6 +1558,5 @@
         fetchLibrary();
         fetchSeriesCatalog();
     </script>
-
 </body>
 </html>
