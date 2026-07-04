@@ -1803,6 +1803,35 @@
             return h > 0 ? `${h}h ${m}m` : `${m}m`;
         }
 
+        function buildPlaybackCandidates(id, mediaSourceId, audioStreamIndex) {
+            const audioIndexQuery = Number.isInteger(audioStreamIndex) && audioStreamIndex >= 0
+                ? `&AudioStreamIndex=${audioStreamIndex}`
+                : '';
+
+            return [
+                {
+                    label: 'HLS transcode (h264+aac)',
+                    src: `${JELLYFIN_URL}/Videos/${id}/master.m3u8?api_key=${API_KEY}&mediaSourceId=${mediaSourceId}&VideoCodec=h264&AudioCodec=aac&TranscodingMaxAudioChannels=6&SegmentContainer=ts&MinSegments=1&BreakOnNonKeyFrames=True${audioIndexQuery}`,
+                    type: 'application/x-mpegURL'
+                },
+                {
+                    label: 'HLS transcode (h264/hevc + aac)',
+                    src: `${JELLYFIN_URL}/Videos/${id}/master.m3u8?api_key=${API_KEY}&mediaSourceId=${mediaSourceId}&VideoCodec=h264,hevc&AudioCodec=aac&TranscodingMaxAudioChannels=6&SegmentContainer=ts&MinSegments=1&BreakOnNonKeyFrames=True${audioIndexQuery}`,
+                    type: 'application/x-mpegURL'
+                },
+                {
+                    label: 'Stream transcode mp4 (h264+aac)',
+                    src: `${JELLYFIN_URL}/Videos/${id}/stream.mp4?api_key=${API_KEY}&mediaSourceId=${mediaSourceId}&VideoCodec=h264&AudioCodec=aac&TranscodingMaxAudioChannels=6&MaxStreamingBitrate=20000000${audioIndexQuery}`,
+                    type: 'video/mp4'
+                },
+                {
+                    label: 'Stream direct mp4',
+                    src: `${JELLYFIN_URL}/Videos/${id}/stream?static=true&mediaSourceId=${mediaSourceId}&api_key=${API_KEY}${audioIndexQuery}`,
+                    type: 'video/mp4'
+                }
+            ];
+        }
+
         // ─── Función para cargar subtítulos desde archivo ───
         function setupSubtitleTools(videoElement, player) {
             const container = document.createElement('div');
@@ -2024,13 +2053,12 @@
             // ─── REPRODUCTOR CON VIDEO.JS ───
             if (detail.Type === 'Movie') {
                 const mediaSourceId = (detail.MediaSources && detail.MediaSources[0]) ? detail.MediaSources[0].Id : id;
-                const streamUrl =
-                    `${JELLYFIN_URL}/Videos/${id}/stream?static=true&mediaSourceId=${mediaSourceId}&api_key=${API_KEY}`;
-                const hlsStreamUrl =
-                    `${JELLYFIN_URL}/Videos/${id}/master.m3u8?api_key=${API_KEY}&MediaSourceId=${mediaSourceId}&AudioCodec=aac,ac3,eac3`;
-
                 const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
+                const defaultAudio = audioStreams.find(a => a.IsDefault) || audioStreams[0];
+                const defaultAudioIndex = defaultAudio && Number.isInteger(defaultAudio.Index) ? defaultAudio.Index : -1;
                 const hasEac3 = audioStreams.some(a => ['eac3', 'ec-3', 'ac3'].includes((a.Codec || '').toLowerCase()));
+                const playbackCandidates = buildPlaybackCandidates(id, mediaSourceId, defaultAudioIndex);
+                let currentPlaybackCandidate = 0;
 
                 // Creamos el contenedor del video
                 const videoContainer = document.createElement('div');
@@ -2044,23 +2072,17 @@
                 videoEl.setAttribute('playsinline', 'true');
                 videoEl.setAttribute('preload', 'auto');
 
-                // Fuentes del video (HLS primero cuando detectamos EAC3/AC3).
-                const sourcePriority = hasEac3
-                    ? [
-                        { src: hlsStreamUrl, type: 'application/x-mpegURL' },
-                        { src: streamUrl, type: 'video/mp4' }
-                    ]
-                    : [
-                        { src: streamUrl, type: 'video/mp4' },
-                        { src: hlsStreamUrl, type: 'application/x-mpegURL' }
-                    ];
+                // Reordenar candidatos: si detectamos EAC3/AC3 empezamos por HLS transcode.
+                if (!hasEac3) {
+                    const directFirst = playbackCandidates.splice(2, 1)[0];
+                    playbackCandidates.unshift(directFirst);
+                }
 
-                sourcePriority.forEach(srcDef => {
-                    const source = document.createElement('source');
-                    source.src = srcDef.src;
-                    source.type = srcDef.type;
-                    videoEl.appendChild(source);
-                });
+                const firstSource = playbackCandidates[0];
+                const source = document.createElement('source');
+                source.src = firstSource.src;
+                source.type = firstSource.type;
+                videoEl.appendChild(source);
 
                 // Subtítulos desde Jellyfin
                 const subtitleStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Subtitle');
@@ -2126,16 +2148,49 @@
                 // Guardar referencia al player
                 currentPlayer = player;
 
-                let switchedToHlsFallback = false;
+                const tryNextPlaybackCandidate = (reason) => {
+                    currentPlaybackCandidate += 1;
+                    if (currentPlaybackCandidate >= playbackCandidates.length) {
+                        modalMeta.innerHTML = `<span style="color:#ff9c9c">No se pudo reproducir este archivo. Probé ${playbackCandidates.length} rutas diferentes y fallaron. Recomendado: contenedor MP4/MKV, video H264, audio AAC o AC3.</span>`;
+                        return;
+                    }
+
+                    const nextSource = playbackCandidates[currentPlaybackCandidate];
+                    console.warn(`Reintentando reproducción por ${reason}. Nuevo intento: ${nextSource.label}`);
+                    modalMeta.innerHTML = `${modalMeta.innerHTML} <span style="color:#9cc4ff"> · Reintentando: ${nextSource.label}</span>`;
+                    player.src({ src: nextSource.src, type: nextSource.type });
+                    player.load();
+                    player.play().catch(() => {});
+                };
+
+                player.on('loadedmetadata', function() {
+                    const audioTracks = player.audioTracks ? player.audioTracks() : null;
+                    if (!audioTracks || !audioTracks.length) return;
+                    let enabledAny = false;
+                    for (let i = 0; i < audioTracks.length; i++) {
+                        if (audioTracks[i].enabled) {
+                            enabledAny = true;
+                            break;
+                        }
+                    }
+                    if (!enabledAny) audioTracks[0].enabled = true;
+                });
 
                 // Manejar error de reproducción (por si el formato no es soportado)
                 player.on('error', function() {
                     console.warn('Error en el reproductor. Posiblemente el formato no es compatible directamente.');
-                    if (switchedToHlsFallback) return;
-                    switchedToHlsFallback = true;
-                    player.src({ src: hlsStreamUrl, type: 'application/x-mpegURL' });
-                    player.load();
-                    player.play().catch(() => {});
+                    tryNextPlaybackCandidate('error');
+                });
+
+                // Si después de 3 segundos no hay progreso de reproducción, intenta la siguiente ruta.
+                let safetyTimeout = setTimeout(() => {
+                    if (!player || player.paused() || player.currentTime() < 0.2) {
+                        tryNextPlaybackCandidate('timeout');
+                    }
+                }, 3000);
+
+                player.on('playing', function() {
+                    clearTimeout(safetyTimeout);
                 });
 
                 // Esperar a que el player esté listo para agregar el área de subtítulos
