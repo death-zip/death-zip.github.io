@@ -636,78 +636,6 @@
             display: none !important;
         }
 
-        /* ── TMDB Search ── */
-        .tmdb-results {
-            margin-top: 20px;
-            border-top: 1px solid var(--border);
-            padding-top: 20px;
-        }
-
-        .tmdb-results h3 {
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            color: var(--muted);
-        }
-
-        .tmdb-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 16px;
-        }
-
-        .tmdb-item {
-            background: var(--card);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transition: all var(--transition);
-            cursor: pointer;
-            text-align: center;
-            padding-bottom: 10px;
-        }
-
-        .tmdb-item:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-        }
-
-        .tmdb-item img {
-            width: 100%;
-            aspect-ratio: 2/3;
-            object-fit: cover;
-            display: block;
-            background: #1a1e26;
-        }
-
-        .tmdb-item .info {
-            padding: 8px 10px 4px;
-        }
-
-        .tmdb-item .info .title {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .tmdb-item .info .year {
-            font-size: 0.7rem;
-            color: var(--muted);
-        }
-
-        .tmdb-item .watchlist-btn {
-            background: transparent;
-            border: none;
-            color: #fbbf24;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 4px 8px;
-            transition: transform var(--transition);
-        }
-
-        .tmdb-item .watchlist-btn:hover {
-            transform: scale(1.2);
-        }
-
         /* ── Experience ── */
         .exp-card {
             background: var(--card);
@@ -1010,9 +938,6 @@
             .cert-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
-            .tmdb-grid {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            }
             .recommendations .rec-grid {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
@@ -1172,7 +1097,7 @@
             </div>
         </section>
 
-        <!-- ─── PROJECTS (JELLYFIN + TMDB) ─── -->
+        <!-- ─── PROYECTO (JELLYFIN) ─── -->
         <section id="projects">
             <h2 class="section-title anim" data-i18n="projects.title">Proyecto destacado</h2>
             <p class="section-sub anim" data-i18n="projects.sub">Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel</p>
@@ -1187,12 +1112,6 @@
             </div>
 
             <div id="library" class="grid anim"></div>
-
-            <!-- Resultados de TMDB -->
-            <div id="tmdbResults" class="tmdb-results anim" style="display:none;">
-                <h3 data-i18n="tmdb.title">Resultados de TMDB</h3>
-                <div id="tmdbGrid" class="tmdb-grid"></div>
-            </div>
 
             <div class="text-center" style="margin-top: 24px; text-align: center;">
                 <a href="https://media.jarr.cc.cd" target="_blank" class="btn btn-primary" data-i18n="projects.full">
@@ -1311,7 +1230,6 @@
                 'certs.title': 'Certificaciones',
                 'certs.sub': 'Verificadas en Credly',
                 'certs.showmore': 'Ver más',
-                'tmdb.title': 'Resultados de TMDB',
                 'exp.title': 'Enfoque actual',
                 'exp.sub': 'Dónde estoy y qué busco',
                 'exp.role': 'Estudiante de Ingeniería en Desarrollo de Software',
@@ -1357,7 +1275,6 @@
                 'certs.title': 'Certifications',
                 'certs.sub': 'Verified on Credly',
                 'certs.showmore': 'Show more',
-                'tmdb.title': 'TMDB Results',
                 'exp.title': 'Current focus',
                 'exp.sub': 'Where I am and what I\'m looking for',
                 'exp.role': 'Software Engineering Student',
@@ -1549,11 +1466,10 @@
 
         renderCerts(false);
 
-        // ─── JELLYFIN + TMDB ───
+        // ─── JELLYFIN ───
         const JELLYFIN_URL = 'https://media.jarr.cc.cd';
         const API_KEY = '4119d7f4257c477ab5b72ddb1fcd735e';
         const USER_ID = '99d724cfca8847e0bf89fbf93a734421';
-        const TMDB_API_KEY = 'TU_API_KEY_TMDB'; // Reemplaza con tu clave de TMDB (gratuita)
 
         let allItems = [];
         let itemsById = {};
@@ -1565,8 +1481,6 @@
         const searchInput = document.getElementById('searchInput');
         const watchlistToggle = document.getElementById('watchlistToggle');
         const watchlistCount = document.getElementById('watchlistCount');
-        const tmdbResults = document.getElementById('tmdbResults');
-        const tmdbGrid = document.getElementById('tmdbGrid');
 
         const overlay = document.getElementById('overlay');
         const modalClose = document.getElementById('modalClose');
@@ -1611,11 +1525,6 @@
                     if (btn) {
                         btn.innerHTML = watchlist.includes(id) ? '⭐' : '☆';
                     }
-                });
-                // También actualizar los botones de TMDB
-                document.querySelectorAll('.tmdb-item .watchlist-btn').forEach(btn => {
-                    const id = btn.dataset.id;
-                    btn.innerHTML = watchlist.includes(id) ? '⭐' : '☆';
                 });
             }
         }
@@ -1673,135 +1582,6 @@
             } catch (err) {
                 setStatus('error', `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`);
                 console.error('Error cargando Jellyfin:', err);
-            }
-        }
-
-        // ─── TMDB Search ───
-        async function searchTMDB(query) {
-            if (!query.trim()) {
-                tmdbResults.style.display = 'none';
-                return;
-            }
-            // Si aún no configuraste tu API key real de TMDB, no intentes la llamada
-            // (evita mostrar un error feo a quien visite el portafolio).
-            if (!TMDB_API_KEY || TMDB_API_KEY === 'TU_API_KEY_TMDB') {
-                tmdbResults.style.display = 'none';
-                return;
-            }
-            try {
-                const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=es`;
-                const res = await fetch(url);
-                if (!res.ok) throw new Error('TMDB error');
-                const data = await res.json();
-                if (data.results && data.results.length > 0) {
-                    tmdbResults.style.display = 'block';
-                    tmdbGrid.innerHTML = data.results.slice(0, 10).map(m => {
-                        const id = `tmdb_${m.id}`;
-                        const inWatchlist = watchlist.includes(id);
-                        const poster = m.poster_path ? `https://image.tmdb.org/t/p/w200${m.poster_path}` : '';
-                        return `
-                                <div class="tmdb-item" data-tmdb-id="${m.id}">
-                                    ${poster ? `<img src="${poster}" alt="${m.title}" loading="lazy">` : ''}
-                                    <div class="info">
-                                        <div class="title">${m.title}</div>
-                                        <div class="year">${m.release_date ? m.release_date.split('-')[0] : ''}</div>
-                                    </div>
-                                    <button class="watchlist-btn" data-id="${id}">${inWatchlist ? '⭐' : '☆'}</button>
-                                </div>
-                            `;
-                    }).join('');
-                    // Añadir eventos a los botones de watchlist de TMDB
-                    tmdbGrid.querySelectorAll('.tmdb-item .watchlist-btn').forEach(btn => {
-                        btn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            const id = btn.dataset.id;
-                            const parent = btn.closest('.tmdb-item');
-                            const title = parent.querySelector('.title')?.textContent || '';
-                            toggleWatchlist(id, title);
-                        });
-                    });
-                    // Al hacer clic en un item de TMDB, abrir modal con info de TMDB
-                    tmdbGrid.querySelectorAll('.tmdb-item').forEach(el => {
-                        el.addEventListener('click', async (e) => {
-                            if (e.target.closest('.watchlist-btn')) return;
-                            const tmdbId = el.dataset.tmdbId;
-                            await openModalFromTMDB(tmdbId);
-                        });
-                    });
-                } else {
-                    tmdbResults.style.display = 'block';
-                    tmdbGrid.innerHTML = `<p style="color:var(--muted);">No se encontraron resultados en TMDB.</p>`;
-                }
-            } catch (err) {
-                console.error('TMDB search error:', err);
-                tmdbResults.style.display = 'block';
-                tmdbGrid.innerHTML = `<p style="color:var(--muted);">Error al conectar con TMDB.</p>`;
-            }
-        }
-
-        // ─── Modal desde TMDB ───
-        async function openModalFromTMDB(tmdbId) {
-            try {
-                const url = `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${TMDB_API_KEY}&language=es&append_to_response=credits,recommendations`;
-                const res = await fetch(url);
-                if (!res.ok) throw new Error('TMDB error');
-                const movie = await res.json();
-
-                modalTitle.textContent = movie.title;
-                modalBackdrop.src = movie.backdrop_path ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}` : '';
-                modalMeta.innerHTML = `
-                        ${movie.release_date ? `<span class="pill">${movie.release_date.split('-')[0]}</span>` : ''}
-                        ${movie.vote_average ? `<span class="rating">⭐ ${movie.vote_average.toFixed(1)}</span>` : ''}
-                        ${movie.runtime ? `<span class="pill">${Math.floor(movie.runtime/60)}h ${movie.runtime%60}m</span>` : ''}
-                        <span class="pill">Película</span>
-                    `;
-                modalGenres.innerHTML = (movie.genres || []).map(g => `<span>${g.name}</span>`).join('');
-                modalOverview.textContent = movie.overview || 'Sin descripción disponible.';
-
-                // Cast & Crew
-                const directors = (movie.credits?.crew || []).filter(p => p.job === 'Director').map(p => p.name).join(', ');
-                const writers = (movie.credits?.crew || []).filter(p => p.job === 'Writer').map(p => p.name).join(', ');
-                const actors = (movie.credits?.cast || []).slice(0, 6).map(p => p.name).join(', ');
-                let castHtml = '';
-                if (directors) castHtml += `<span class="group"><strong>Director:</strong> ${directors}</span>`;
-                if (writers) castHtml += `<span class="group"><strong>Guionista:</strong> ${writers}</span>`;
-                if (actors) castHtml += `<span class="group"><strong>Actores:</strong> ${actors}</span>`;
-                modalCastCrew.innerHTML = castHtml;
-
-                // Colorimetría (si está disponible en TMDB)
-                // No hay campo directo, pero podemos mostrar información técnica
-                modalColorimetry.innerHTML = `
-                        <strong>Colorimetría:</strong> No disponible en TMDB.<br>
-                        <small>Formato de color: Digital (simulado)</small>
-                    `;
-
-                // Recomendaciones
-                const recs = movie.recommendations?.results || [];
-                if (recs.length > 0) {
-                    modalRecommendations.style.display = 'block';
-                    recGrid.innerHTML = recs.slice(0, 6).map(r => `
-                            <div class="rec-item" data-tmdb-id="${r.id}">
-                                ${r.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${r.poster_path}" alt="${r.title}" loading="lazy">` : ''}
-                                <div class="title">${r.title}</div>
-                            </div>
-                        `).join('');
-                    recGrid.querySelectorAll('.rec-item').forEach(el => {
-                        el.addEventListener('click', () => {
-                            openModalFromTMDB(el.dataset.tmdbId);
-                        });
-                    });
-                } else {
-                    modalRecommendations.style.display = 'none';
-                }
-
-                // Reproductor: no tenemos URL de video, mostrar mensaje
-                videoWrap.innerHTML = `
-                        <div class="no-video-note">Esta película no está en tu servidor Jellyfin. Puedes añadirla a tu lista de deseos para descargarla después.</div>
-                    `;
-                modalActions.innerHTML = '';
-                overlay.classList.add('open');
-            } catch (err) {
-                console.error('Error abriendo modal desde TMDB:', err);
             }
         }
 
@@ -1986,11 +1766,10 @@
             if (e.key === 'Escape') closeModal();
         });
 
-        // ─── Buscador combinado ───
+        // ─── Buscador ───
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.trim();
             currentSearchQuery = query;
-            // Filtrar Jellyfin
             if (showingWatchlist) {
                 const watchlistItems = allItems.filter(item => watchlist.includes(item.Id));
                 const filtered = watchlistItems.filter(item => item.Name.toLowerCase().includes(query.toLowerCase()));
@@ -1998,12 +1777,6 @@
             } else {
                 const filtered = allItems.filter(item => item.Name.toLowerCase().includes(query.toLowerCase()));
                 renderLibrary(filtered);
-            }
-            // Buscar en TMDB si hay query
-            if (query.length > 2) {
-                searchTMDB(query);
-            } else {
-                tmdbResults.style.display = 'none';
             }
         });
 
