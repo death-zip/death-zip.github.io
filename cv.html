@@ -23,11 +23,10 @@
             justify-content: center;
             padding: 40px 20px;
             line-height: 1.5;
-            min-height: 100vh;
         }
 
         .cv-container {
-            max-width: 1000px;
+            max-width: 1100px;
             width: 100%;
             background: #11141a;
             border-radius: 16px;
@@ -35,7 +34,6 @@
             padding: 48px 52px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
             position: relative;
-            transition: all 0.3s ease;
         }
 
         /* ── Language Toggle ── */
@@ -46,6 +44,8 @@
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
         }
 
         .lang-toggle {
@@ -58,7 +58,7 @@
             color: #eef0f2;
             cursor: pointer;
             transition: all 0.2s;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
             text-decoration: none;
@@ -223,47 +223,78 @@
             color: #5b9aff;
         }
 
-        /* ── Certifications ── */
-        .cert-list {
+        /* ── CERTIFICATIONS (tarjetas grandes con toggle) ── */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .cert-card {
+            background: #181c24;
+            border: 1px solid #2a2f3a;
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            transition: all 0.3s;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-        }
-
-        .cert-item {
-            display: flex;
             align-items: center;
-            gap: 12px;
-            background: #181c24;
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: 1px solid #2a2f3a;
-            transition: border-color 0.2s;
         }
 
-        .cert-item:hover {
+        .cert-card:hover {
             border-color: #5b9aff;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(91, 154, 255, 0.15);
         }
 
-        .cert-item img {
-            width: 40px;
-            height: 40px;
+        .cert-card img {
+            width: 72px;
+            height: 72px;
             object-fit: contain;
-            border-radius: 6px;
+            border-radius: 8px;
             background: #fff;
-            padding: 4px;
-            flex-shrink: 0;
+            padding: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #2a2f3a;
         }
 
-        .cert-item .info h4 {
-            font-size: 0.82rem;
+        .cert-card h4 {
+            font-size: 0.8rem;
             font-weight: 600;
             color: #eef0f2;
+            line-height: 1.3;
         }
 
-        .cert-item .info .issuer {
-            font-size: 0.72rem;
+        .cert-card .issuer {
+            font-size: 0.7rem;
             color: #8e95a5;
+        }
+
+        .cert-card.hidden {
+            display: none;
+        }
+
+        .cert-more-btn {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .cert-more-btn button {
+            background: transparent;
+            border: 1px solid #5b9aff;
+            color: #5b9aff;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cert-more-btn button:hover {
+            background: #5b9aff;
+            color: #fff;
         }
 
         /* ── Experience ── */
@@ -323,7 +354,7 @@
             line-height: 1.6;
         }
 
-        /* ── Project ── */
+        /* ── PROJECT (con diagrama de arquitectura animado) ── */
         .project-item {
             background: #181c24;
             border: 1px solid #2a2f3a;
@@ -338,16 +369,16 @@
 
         .project-item h4 {
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             color: #eef0f2;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .project-item .tech {
             display: flex;
             flex-wrap: wrap;
             gap: 6px;
-            margin: 4px 0 12px;
+            margin: 6px 0 12px;
         }
 
         .project-item .tech span {
@@ -361,74 +392,99 @@
 
         .project-item p {
             color: #bcc4d4;
-            font-size: 0.85rem;
-            line-height: 1.6;
+            font-size: 0.88rem;
+            line-height: 1.7;
             margin-bottom: 12px;
         }
 
-        .project-item .links a {
+        .project-item .project-links a {
             color: #5b9aff;
             text-decoration: none;
             font-size: 0.85rem;
+            font-weight: 500;
             margin-right: 16px;
             transition: color 0.2s;
         }
 
-        .project-item .links a:hover {
+        .project-item .project-links a:hover {
             color: #eef0f2;
             text-decoration: underline;
         }
 
         /* ─── DIAGRAMA DE ARQUITECTURA ANIMADO ─── */
-        .arch-diagram-wrap {
-            margin: 16px 0 0;
+        .arch-diagram {
+            margin-top: 16px;
+            padding: 16px;
             background: #0a0c10;
             border-radius: 10px;
-            padding: 16px 20px;
             border: 1px solid #2a2f3a;
-            font-family: 'Courier New', monospace;
-            font-size: 0.75rem;
-            line-height: 1.8;
-            overflow-x: auto;
-            white-space: pre;
-            color: #8e95a5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
             position: relative;
         }
 
-        .arch-diagram-wrap .highlight {
-            color: #5b9aff;
-            font-weight: 600;
+        .arch-diagram .flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 16px 8px;
+            width: 100%;
         }
 
-        .arch-diagram-wrap .connector {
-            color: #2a2f3a;
-            animation: pulseConnector 1.8s ease-in-out infinite;
-        }
-
-        @keyframes pulseConnector {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        .arch-diagram-wrap .box {
-            display: inline-block;
+        .arch-node {
             background: #181c24;
-            padding: 0 8px;
-            border-radius: 4px;
             border: 1px solid #2a2f3a;
-            color: #eef0f2;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #bcc4d4;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        .arch-diagram-wrap .box.docker { border-color: #2496ED; color: #2496ED; }
-        .arch-diagram-wrap .box.cloudflare { border-color: #F38020; color: #F38020; }
-        .arch-diagram-wrap .box.nginx { border-color: #009639; color: #009639; }
-        .arch-diagram-wrap .box.linux { border-color: #FCC624; color: #FCC624; }
-        .arch-diagram-wrap .box.jellyfin { border-color: #00A4DC; color: #00A4DC; }
+        .arch-node i {
+            color: #5b9aff;
+            font-size: 1rem;
+        }
+
+        .arch-node:hover {
+            border-color: #5b9aff;
+            transform: scale(1.05);
+        }
+
+        .arch-arrow {
+            color: #5b9aff;
+            font-size: 1.2rem;
+            animation: pulse-arrow 1.8s infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes pulse-arrow {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        .arch-label {
+            color: #5b9aff;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 6px;
+            opacity: 0.6;
+        }
 
         /* ── Remote Readiness ── */
         .readiness-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 10px;
         }
 
@@ -462,7 +518,7 @@
         /* ── Responsive ── */
         @media (max-width: 768px) {
             .cv-container {
-                padding: 24px 20px;
+                padding: 24px 16px;
             }
 
             .cv-header {
@@ -498,9 +554,25 @@
 
             .lang-toggle-wrap {
                 position: static;
-                text-align: right;
-                margin-bottom: 12px;
-                justify-content: flex-end;
+                justify-content: center;
+                margin-bottom: 16px;
+            }
+
+            .cert-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+
+            .arch-diagram .flow-row {
+                gap: 8px;
+            }
+
+            .arch-node {
+                font-size: 0.65rem;
+                padding: 6px 10px;
+            }
+
+            .arch-arrow {
+                font-size: 1rem;
             }
         }
 
@@ -548,14 +620,14 @@
             .skill-tag i {
                 color: #2563eb;
             }
-            .cert-item {
+            .cert-card {
                 background: #f9fafb;
                 border-color: #e5e7eb;
             }
-            .cert-item .info h4 {
+            .cert-card h4 {
                 color: #111827;
             }
-            .cert-item .info .issuer {
+            .cert-card .issuer {
                 color: #6b7280;
             }
             .exp-item h4 {
@@ -592,36 +664,41 @@
             .project-item .tech span {
                 background: #f3f4f6;
                 color: #4b5563;
+                border-color: #d1d5db;
             }
             .project-item p {
                 color: #374151;
             }
-            .project-item .links a {
+            .project-item .project-links a {
                 color: #2563eb;
             }
-            .cert-item img {
+            .cert-card img {
                 background: #fff;
+            }
+            .arch-diagram {
+                background: #f3f4f6;
+                border-color: #d1d5db;
+            }
+            .arch-node {
+                background: #fff;
+                border-color: #d1d5db;
+                color: #1f2937;
+            }
+            .arch-node i {
+                color: #2563eb;
+            }
+            .arch-arrow {
+                color: #2563eb;
+                animation: none;
             }
             .lang-toggle-wrap {
                 display: none;
             }
-            .arch-diagram-wrap {
-                background: #f3f4f6;
-                border-color: #d1d5db;
-                color: #4b5563;
+            .cert-more-btn button {
+                display: none;
             }
-            .arch-diagram-wrap .box {
-                background: #e5e7eb;
-                border-color: #9ca3af;
-            }
-            .arch-diagram-wrap .box.docker { color: #1e40af; border-color: #1e40af; }
-            .arch-diagram-wrap .box.cloudflare { color: #c2410c; border-color: #c2410c; }
-            .arch-diagram-wrap .box.nginx { color: #065f46; border-color: #065f46; }
-            .arch-diagram-wrap .box.linux { color: #854d0e; border-color: #854d0e; }
-            .arch-diagram-wrap .box.jellyfin { color: #0369a1; border-color: #0369a1; }
-            .arch-diagram-wrap .connector {
-                animation: none;
-                color: #9ca3af;
+            .cert-card.hidden {
+                display: flex !important;
             }
         }
     </style>
@@ -633,10 +710,10 @@
         <!-- ─── LANGUAGE TOGGLE + VOLVER + IMPRIMIR ─── -->
         <div class="lang-toggle-wrap">
             <a href="index.html" class="lang-toggle" style="text-decoration:none;">
-                <i class="fas fa-arrow-left"></i> Portfolio
+                <i class="fas fa-arrow-left"></i> Portafolio
             </a>
             <button class="lang-toggle" onclick="window.print()">
-                <i class="fas fa-file-pdf"></i> <span class="lang-es">Guardar PDF</span><span class="lang-en hidden">Save PDF</span>
+                <i class="fas fa-file-pdf"></i> Guardar como PDF
             </button>
             <button class="lang-toggle" id="langToggle">
                 <i class="fas fa-globe"></i> <span id="langLabel">ES</span>
@@ -711,6 +788,58 @@
                         Tunnel, solving its own CORS problem, and consuming its own live API. No templates or
                         copied tutorials — I debugged every piece of it myself.
                     </p>
+                </div>
+            </div>
+
+            <!-- ─── PROJECT DESTACADO (con diagrama de arquitectura) ─── -->
+            <div class="cv-section full-width">
+                <div class="section-title lang-es"><i class="fas fa-code"></i> Proyecto destacado</div>
+                <div class="section-title lang-en hidden"><i class="fas fa-code"></i> Featured Project</div>
+                <div class="project-item">
+                    <h4>Docker Media Server Lab · Infraestructura como Código</h4>
+                    <div class="tech">
+                        <span>Docker</span>
+                        <span>Cloudflare</span>
+                        <span>Jellyfin</span>
+                        <span>Nginx</span>
+                        <span>Linux</span>
+                        <span>WSL2</span>
+                        <span>REST API</span>
+                    </div>
+                    <p class="lang-es">
+                        Servidor de streaming auto‑hospedado con Jellyfin, orquestado con Docker Compose.
+                        Nginx actúa como proxy inverso resolviendo problemas de CORS, y Cloudflare Tunnel
+                        expone el servicio de forma segura con HTTPS automático, sin abrir puertos en el router.
+                        Todo el código y la documentación están disponibles en GitHub.
+                    </p>
+                    <p class="lang-en hidden">
+                        Self‑hosted streaming server with Jellyfin, orchestrated with Docker Compose.
+                        Nginx acts as a reverse proxy solving CORS issues, and Cloudflare Tunnel exposes
+                        the service securely with automatic HTTPS, no router ports open.
+                        All code and documentation are available on GitHub.
+                    </p>
+
+                    <!-- DIAGRAMA DE ARQUITECTURA ANIMADO -->
+                    <div class="arch-diagram">
+                        <div class="flow-row">
+                            <span class="arch-node"><i class="fas fa-user"></i> Usuario</span>
+                            <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                            <span class="arch-node"><i class="fas fa-cloud"></i> Cloudflare Tunnel</span>
+                            <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                            <span class="arch-node"><i class="fas fa-server"></i> Nginx Proxy</span>
+                            <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                            <span class="arch-node"><i class="fas fa-play-circle"></i> Jellyfin</span>
+                            <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                            <span class="arch-node"><i class="fas fa-database"></i> Volumen /media</span>
+                        </div>
+                        <div class="arch-label lang-es">Flujo de tráfico · HTTPS · CORS resuelto</div>
+                        <div class="arch-label lang-en hidden">Traffic flow · HTTPS · CORS resolved</div>
+                    </div>
+
+                    <div class="project-links" style="margin-top:14px;">
+                        <a href="https://media.jarr.cc.cd" target="_blank"><i class="fas fa-external-link-alt"></i> Ver servidor en vivo</a>
+                        <a href="https://github.com/death-zip/death-zip-jellyfin-cloud-infra" target="_blank"><i class="fab fa-github"></i> Ver infraestructura en GitHub</a>
+                    </div>
                 </div>
             </div>
 
@@ -796,13 +925,13 @@
                     <div class="readiness-item">
                         <div class="k lang-es">Zona horaria</div>
                         <div class="k lang-en hidden">Time zone</div>
-                        <div class="v lang-es">México (UTC-6), flexible</div>
+                        <div class="v lang-es">Mexico (UTC-6), flexible</div>
                         <div class="v lang-en hidden">Mexico (UTC-6), flexible overlap</div>
                     </div>
                     <div class="readiness-item">
-                        <div class="k lang-es">Comunicación</div>
+                        <div class="k lang-es">Comunicacion</div>
                         <div class="k lang-en hidden">Communication</div>
-                        <div class="v lang-es">Documentación clara y seguimiento</div>
+                        <div class="v lang-es">Documentacion clara y seguimiento</div>
                         <div class="v lang-en hidden">Clear documentation and follow-through</div>
                     </div>
                     <div class="readiness-item">
@@ -814,160 +943,15 @@
                 </div>
             </div>
 
-            <!-- ─── CERTIFICATIONS ─── -->
+            <!-- ─── CERTIFICATIONS (tarjetas grandes con toggle) ─── -->
             <div class="cv-section full-width">
                 <div class="section-title lang-es"><i class="fas fa-certificate"></i> Certificaciones</div>
                 <div class="section-title lang-en hidden"><i class="fas fa-certificate"></i> Certifications</div>
-                <div class="cert-list">
-                    <!-- 1. Desarrollo Full Stack -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/fdecf3ca-1fa7-46c9-93c7-e203f718579b/linkedin_thumb_blob" alt="Desarrollo Full Stack" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Desarrollo Full Stack</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 2. Fundamentos de DevOps -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/18d30937-4c1b-442c-83a1-543265bcf02f/linkedin_thumb_image.png" alt="Fundamentos de DevOps" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Fundamentos de DevOps</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 3. Gestión de Redes -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/c0e5a9ce-f523-483c-8daa-4c37019ad7aa/linkedin_thumb_blob" alt="Gestión de Redes" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Gestión de Redes</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 4. AWS Cloud Operations -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/07e7ba52-aea4-431f-ba2d-a4113efd1d5a/linkedin_thumb_blob" alt="AWS Cloud Operations" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>AWS Cloud Operations</h4><div class="issuer">Amazon Web Services</div></div>
-                    </div>
-                    <!-- 5. Networking Basics (Cisco) -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/5bdd6a39-3e03-4444-9510-ecff80c9ce79/linkedin_thumb_image.png" alt="Networking Basics" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Networking Basics</h4><div class="issuer">Cisco</div></div>
-                    </div>
-                    <!-- 6. Web Development Fundamentals -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/0c1c6eed-818c-4f78-bfaa-7ea8704c863a/linkedin_thumb_image.png" alt="Web Development Fundamentals" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Web Development Fundamentals</h4><div class="issuer">IBM SkillsBuild</div></div>
-                    </div>
-                    <!-- 7. Ciencia de Datos -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/4013b068-cd88-443a-b109-292cad70e121/linkedin_thumb_blob" alt="Ciencia de Datos" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Ciencia de Datos</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 8. Computación en la Nube -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/da491c56-6aef-47a6-9ae4-eb3bbfa9b60e/linkedin_thumb_blob" alt="Computación en la Nube" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Computación en la Nube</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 9. Fundamentos de Programación -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/0871bc81-7152-4340-8367-8fbe3896c43f/linkedin_thumb_blob" alt="Fundamentos de Programación" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Fundamentos de Programación</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 10. Probabilidad y Estadística -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/c187e134-e491-4f6b-9083-decb5e0bd265/linkedin_thumb_blob" alt="Probabilidad y Estadística" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Probabilidad y Estadística</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 11. Programación Orientada a Objetos -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/dc201a38-6b7c-4ffd-85cc-0d337b22bc05/linkedin_thumb_blob" alt="Programación Orientada a Objetos" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Programación Orientada a Objetos</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 12. Sistemas Operativos -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/24c929ed-4d14-4226-975f-116ee666d81e/linkedin_thumb_blob" alt="Sistemas Operativos" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Sistemas Operativos</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 13. Inglés 5 -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/251db325-c323-4cbf-927d-9970329fdebb/linkedin_thumb_image.png" alt="Inglés 5" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Inglés 5</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 14. Metodologías Ágiles -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/2cc5aef9-1698-4a6c-9a22-6b81b1a6fe51/linkedin_thumb_blob" alt="Metodologías Ágiles" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Metodologías Ágiles</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 15. Bases de Datos -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/3e8f3768-bb7b-426f-ba22-e214da27aca5/linkedin_thumb_blob" alt="Bases de Datos" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Bases de Datos</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 16. Estructura de Datos -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/868fef28-16a5-4ed4-92f6-ef43da8fec4a/linkedin_thumb_blob" alt="Estructura de Datos" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Estructura de Datos</h4><div class="issuer">Universidad Tecmilenio</div></div>
-                    </div>
-                    <!-- 17. Introduction to Data Science -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/b38a42e0-dc58-4ce2-b6c0-28d978e8aaad/linkedin_thumb_image.png" alt="Introduction to Data Science" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Introduction to Data Science</h4><div class="issuer">Cisco</div></div>
-                    </div>
-                    <!-- 18. Python Essentials 1 -->
-                    <div class="cert-item">
-                        <img src="https://images.credly.com/images/68c0b94d-f6ac-40b1-a0e0-921439eb092e/linkedin_thumb_image.png" alt="Python Essentials 1" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%F0%9F%8F%85'" />
-                        <div class="info"><h4>Python Essentials 1</h4><div class="issuer">Cisco</div></div>
-                    </div>
+                <div class="cert-grid" id="certGrid">
+                    <!-- Las certificaciones se inyectarán con JavaScript para mantener el orden y el toggle -->
                 </div>
-            </div>
-
-            <!-- ─── PROJECT ─── -->
-            <div class="cv-section full-width">
-                <div class="section-title lang-es"><i class="fas fa-code"></i> Proyecto destacado</div>
-                <div class="section-title lang-en hidden"><i class="fas fa-code"></i> Featured Project</div>
-                <div class="project-item">
-                    <h4>Docker Media Server Lab</h4>
-                    <div class="tech">
-                        <span>Docker</span>
-                        <span>Cloudflare</span>
-                        <span>Jellyfin</span>
-                        <span>REST API</span>
-                        <span>Linux</span>
-                        <span>WSL2</span>
-                        <span>Nginx</span>
-                    </div>
-                    <p class="lang-es">
-                        Servidor de streaming contenerizado con Docker Compose, expuesto de forma segura
-                        mediante Cloudflare Tunnel (sin abrir puertos). Incluye integración con la API de Jellyfin
-                        para obtener metadatos y URLs de reproducción, además de automatización de verificación
-                        periódica para recuperación ante fallos. El proyecto demuestra habilidades en
-                        contenerización, redes, seguridad y operación de servicios.
-                    </p>
-                    <p class="lang-en hidden">
-                        Containerized streaming server with Docker Compose, securely exposed via Cloudflare
-                        Tunnel (no open ports). Includes integration with Jellyfin's API to fetch metadata
-                        and playback URLs, plus periodic health-check automation for failure recovery.
-                        The project demonstrates containerization, networking, security, and service operations skills.
-                    </p>
-                    <div class="links">
-                        <a href="https://media.jarr.cc.cd" target="_blank"><i class="fas fa-external-link-alt"></i> Ver servidor en vivo</a>
-                        <a href="https://github.com/death-zip/death-zip-jellyfin-cloud-infra" target="_blank"><i class="fab fa-github"></i> Ver infraestructura en GitHub</a>
-                    </div>
-
-                    <!-- 🏗️ DIAGRAMA DE ARQUITECTURA ANIMADO (TEXTO) -->
-                    <div class="arch-diagram-wrap">
-                        <span class="highlight">🏗️ Arquitectura</span>
-                        <span style="color:#5b9aff;"> (infraestructura como código)</span>
-
-┌─────────────────────────────────────────────────────────────┐
-│  <span class="box linux">🖥️ Linux (WSL2)</span>             │
-│                                                             │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │  <span class="box docker">🐳 Docker Compose</span>          │   │
-│  │                                                     │   │
-│  │  ┌──────────────┐        ┌────────────────────┐   │   │
-│  │  │ <span class="box nginx">🔄 Nginx Proxy</span> │  ────  │ <span class="box jellyfin">🎬 Jellyfin</span> │   │   │
-│  │  └──────────────┘        └────────────────────┘   │   │
-│  └─────────────────────────────────────────────────────┘   │
-│                         │                                   │
-│                         ▼                                   │
-│              <span class="box cloudflare">☁️ Cloudflare Tunnel</span>          │
-│                         │                                   │
-│                         ▼                                   │
-│              🌍 <span class="highlight">Internet (HTTPS)</span>               │
-└─────────────────────────────────────────────────────────────┘
-                    </div>
+                <div class="cert-more-btn">
+                    <button id="toggleCertsBtn" data-showing="false">Mostrar más</button>
                 </div>
             </div>
 
@@ -983,7 +967,6 @@
             currentLang = currentLang === 'es' ? 'en' : 'es';
             document.getElementById('langLabel').textContent = currentLang.toUpperCase();
 
-            // Ocultar/mostrar elementos según idioma
             document.querySelectorAll('.lang-es').forEach(el => {
                 el.classList.toggle('hidden', currentLang === 'en');
             });
@@ -991,6 +974,55 @@
                 el.classList.toggle('hidden', currentLang === 'es');
             });
         });
+
+        // ─── CERTIFICACIONES (datos) ───
+        const certData = [
+            { name: 'Desarrollo Full Stack', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/fdecf3ca-1fa7-46c9-93c7-e203f718579b/linkedin_thumb_blob' },
+            { name: 'Fundamentos de DevOps', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/18d30937-4c1b-442c-83a1-543265bcf02f/linkedin_thumb_image.png' },
+            { name: 'Gestión de Redes', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/c0e5a9ce-f523-483c-8daa-4c37019ad7aa/linkedin_thumb_blob' },
+            { name: 'AWS Cloud Operations', issuer: 'Amazon Web Services', img: 'https://images.credly.com/images/07e7ba52-aea4-431f-ba2d-a4113efd1d5a/linkedin_thumb_blob' },
+            { name: 'Networking Basics', issuer: 'Cisco', img: 'https://images.credly.com/images/5bdd6a39-3e03-4444-9510-ecff80c9ce79/linkedin_thumb_image.png' },
+            { name: 'Web Development Fundamentals', issuer: 'IBM SkillsBuild', img: 'https://images.credly.com/images/0c1c6eed-818c-4f78-bfaa-7ea8704c863a/linkedin_thumb_image.png' },
+            { name: 'Ciencia de Datos', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/4013b068-cd88-443a-b109-292cad70e121/linkedin_thumb_blob' },
+            { name: 'Computación en la Nube', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/da491c56-6aef-47a6-9ae4-eb3bbfa9b60e/linkedin_thumb_blob' },
+            { name: 'Fundamentos de Programación', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/0871bc81-7152-4340-8367-8fbe3896c43f/linkedin_thumb_blob' },
+            { name: 'Probabilidad y Estadística', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/c187e134-e491-4f6b-9083-decb5e0bd265/linkedin_thumb_blob' },
+            { name: 'Programación Orientada a Objetos', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/dc201a38-6b7c-4ffd-85cc-0d337b22bc05/linkedin_thumb_blob' },
+            { name: 'Sistemas Operativos', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/24c929ed-4d14-4226-975f-116ee666d81e/linkedin_thumb_blob' },
+            { name: 'Inglés 5', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/251db325-c323-4cbf-927d-9970329fdebb/linkedin_thumb_image.png' },
+            { name: 'Metodologías Ágiles', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/2cc5aef9-1698-4a6c-9a22-6b81b1a6fe51/linkedin_thumb_blob' },
+            { name: 'Bases de Datos', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/3e8f3768-bb7b-426f-ba22-e214da27aca5/linkedin_thumb_blob' },
+            { name: 'Estructura de Datos', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/868fef28-16a5-4ed4-92f6-ef43da8fec4a/linkedin_thumb_blob' },
+            { name: 'Introduction to Data Science', issuer: 'Cisco', img: 'https://images.credly.com/images/b38a42e0-dc58-4ce2-b6c0-28d978e8aaad/linkedin_thumb_image.png' },
+            { name: 'Python Essentials 1', issuer: 'Cisco', img: 'https://images.credly.com/images/68c0b94d-f6ac-40b1-a0e0-921439eb092e/linkedin_thumb_image.png' }
+        ];
+
+        const VISIBLE_COUNT = 6;
+        let showingAll = false;
+
+        function renderCerts(showAll) {
+            const grid = document.getElementById('certGrid');
+            const items = showAll ? certData : certData.slice(0, VISIBLE_COUNT);
+            grid.innerHTML = items.map(cert => `
+                <div class="cert-card">
+                    <img src="${cert.img}" alt="${cert.name}" onerror="this.onerror=null;this.src='https://placehold.co/72x72/1e2430/8e95a5?text=%F0%9F%8F%85'" />
+                    <h4>${cert.name}</h4>
+                    <div class="issuer">${cert.issuer}</div>
+                </div>
+            `).join('');
+
+            const btn = document.getElementById('toggleCertsBtn');
+            btn.textContent = showAll ? 'Ver menos' : 'Mostrar más';
+            btn.dataset.showing = showAll ? 'true' : 'false';
+        }
+
+        document.getElementById('toggleCertsBtn').addEventListener('click', function() {
+            showingAll = !showingAll;
+            renderCerts(showingAll);
+        });
+
+        // Render inicial
+        renderCerts(false);
     </script>
 
 </body>
