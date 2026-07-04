@@ -243,6 +243,12 @@
             color: var(--text);
         }
 
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.78rem;
+            border-radius: 12px;
+        }
+
         .btn:hover {
             transform: translateY(-2px);
         }
@@ -547,8 +553,8 @@
 
         .shows-layout {
             display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 18px;
+            grid-template-columns: 220px 1fr;
+            gap: 12px;
             align-items: start;
         }
 
@@ -556,7 +562,7 @@
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 10px;
-            padding: 14px;
+            padding: 10px;
         }
 
         .shows-panel h4 {
@@ -566,60 +572,108 @@
         }
 
         .series-list {
-            max-height: 440px;
+            max-height: 420px;
             overflow: auto;
             display: grid;
             gap: 8px;
+            scroll-behavior: smooth;
         }
 
         .series-item-btn {
             width: 100%;
             text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             background: #1e2430;
             border: 1px solid var(--border);
             color: var(--text);
             border-radius: 8px;
-            padding: 8px 10px;
+            padding: 7px 8px;
             font-size: 0.82rem;
             cursor: pointer;
-            transition: all var(--transition);
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
         }
 
         .series-item-btn:hover,
         .series-item-btn.active {
             border-color: var(--accent);
             background: #253047;
+            transform: translateX(1px);
+        }
+
+        .series-item-btn .thumb {
+            width: 44px;
+            height: 62px;
+            border-radius: 6px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #111;
+            border: 1px solid var(--border);
+        }
+
+        .series-item-btn .meta {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .series-item-btn .name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .series-item-btn .count {
+            color: var(--muted);
+            font-size: 0.72rem;
+            margin-top: 2px;
         }
 
         .episode-browser {
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 10px;
-            padding: 14px;
+            padding: 10px;
         }
 
         .episode-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 8px;
+            margin-bottom: 10px;
             align-items: center;
         }
 
-        .episode-controls select {
+        .season-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .season-tab {
             background: var(--bg2);
             border: 1px solid var(--border);
             border-radius: 8px;
             color: var(--text);
-            padding: 8px 10px;
-            min-width: 180px;
-            font-size: 0.82rem;
+            padding: 6px 10px;
+            font-size: 0.76rem;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .season-tab:hover,
+        .season-tab.active {
+            border-color: var(--accent);
+            background: #253047;
         }
 
         .episodes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
         }
 
         .episode-card {
@@ -645,17 +699,81 @@
         }
 
         .episode-card .ep-body {
-            padding: 10px;
+            padding: 6px 8px;
         }
 
         .episode-card .ep-title {
-            font-size: 0.84rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .episode-card .ep-meta {
-            font-size: 0.74rem;
+            font-size: 0.7rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+        }
+
+        .status-banner {
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            font-size: 0.86rem;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .status-banner.loading {
+            background: #1a2538;
+            color: #9bbaff;
+        }
+
+        .status-banner.loading::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid rgba(155, 186, 255, 0.35);
+            border-top-color: #9bbaff;
+            animation: spin 0.9s linear infinite;
+            flex-shrink: 0;
+        }
+
+        .status-banner.error {
+            background: #3a1e1e;
+            color: #ff9c9c;
+        }
+
+        .status-banner.ok {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .native-banner {
+            margin-bottom: 8px;
+            background: rgba(17, 20, 26, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
             color: var(--muted);
         }
 
@@ -718,27 +836,6 @@
 
         .item-card .watchlist-btn:hover {
             transform: scale(1.2);
-        }
-
-        #status {
-            padding: 14px 20px;
-            border-radius: var(--radius);
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
-
-        #status.loading {
-            background: #1a2538;
-            color: #9bbaff;
-        }
-
-        #status.error {
-            background: #3a1e1e;
-            color: #ff9c9c;
-        }
-
-        #status.ok {
-            display: none;
         }
 
         /* ── Certifications ── */
@@ -1192,6 +1289,9 @@
             .series-list {
                 max-height: 240px;
             }
+            .episodes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
             .cert-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
@@ -1390,7 +1490,7 @@
             <h2 class="section-title anim" data-i18n="projects.title">Proyecto destacado</h2>
             <p class="section-sub anim" data-i18n="projects.sub">Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel</p>
 
-            <div id="status" class="loading anim" data-i18n="projects.loading">Cargando biblioteca desde el servidor…</div>
+            <div id="status" class="status-banner loading anim" data-i18n="projects.loading">Cargando biblioteca desde el servidor…</div>
 
             <div class="library-controls anim">
                 <input type="text" id="searchInput" placeholder="🔍 Buscar películas…" data-i18n="projects.search" />
@@ -1412,7 +1512,7 @@
         <section id="shows">
             <h2 class="section-title anim" data-i18n="shows.title">Series por temporadas</h2>
             <p class="section-sub anim" data-i18n="shows.sub">Explora series, elige temporada y reproduce episodios con el player compatible de Jellyfin</p>
-            <div id="showsStatus" class="loading anim" style="padding: 10px 14px; border-radius: 10px; margin-bottom: 12px;">Cargando series...</div>
+            <div id="showsStatus" class="status-banner loading anim">Cargando series...</div>
             <div class="shows-layout anim">
                 <div class="shows-panel">
                     <h4 data-i18n="shows.serieslist">Series disponibles</h4>
@@ -1420,8 +1520,7 @@
                 </div>
                 <div class="episode-browser">
                     <div class="episode-controls">
-                        <label for="seasonSelect" data-i18n="shows.season">Temporada</label>
-                        <select id="seasonSelect"></select>
+                        <div id="seasonTabs" class="season-tabs"></div>
                     </div>
                     <div id="episodesGrid" class="episodes-grid"></div>
                 </div>
@@ -1553,6 +1652,8 @@
                 'shows.sub': 'Explora series, elige temporada y reproduce episodios con el player compatible de Jellyfin',
                 'shows.serieslist': 'Series disponibles',
                 'shows.season': 'Temporada',
+                'shows.episodes': 'episodios',
+                'shows.retry': 'Reintentar',
                 'certs.title': 'Certificaciones',
                 'certs.sub': 'Verificadas en Credly',
                 'certs.showmore': 'Ver más',
@@ -1616,6 +1717,8 @@
                 'shows.sub': 'Browse shows, choose season, and play episodes with the Jellyfin-compatible player',
                 'shows.serieslist': 'Available shows',
                 'shows.season': 'Season',
+                'shows.episodes': 'episodes',
+                'shows.retry': 'Retry',
                 'certs.title': 'Certifications',
                 'certs.sub': 'Verified on Credly',
                 'certs.showmore': 'Show more',
@@ -1672,8 +1775,12 @@
             }
             // Actualizar estado de carga
             const statusEl = document.getElementById('status');
-            if (statusEl && statusEl.className === 'loading') {
+            if (statusEl && statusEl.classList.contains('loading')) {
                 statusEl.textContent = t('projects.loading');
+            }
+
+            if (allSeries.length) {
+                renderSeriesList();
             }
         }
 
@@ -1834,7 +1941,7 @@
         const watchlistCount = document.getElementById('watchlistCount');
         const showsStatusEl = document.getElementById('showsStatus');
         const seriesListEl = document.getElementById('seriesList');
-        const seasonSelectEl = document.getElementById('seasonSelect');
+            const seasonTabsEl = document.getElementById('seasonTabs');
         const episodesGridEl = document.getElementById('episodesGrid');
 
         const overlay = document.getElementById('overlay');
@@ -1853,20 +1960,52 @@
         let currentPlayer = null;
         let allSeries = [];
         let seriesById = {};
+        let seriesEpisodeCounts = {};
         let selectedSeriesId = null;
         let selectedSeasonId = null;
 
         let currentSearchQuery = '';
 
         function setStatus(type, msg) {
-            statusEl.className = type;
+            statusEl.className = `status-banner ${type}`;
             statusEl.textContent = msg;
         }
 
         function setShowsStatus(type, msg) {
             if (!showsStatusEl) return;
-            showsStatusEl.className = type;
+            showsStatusEl.className = `status-banner ${type}`;
             showsStatusEl.textContent = msg;
+        }
+
+        function setStatusErrorWithRetry(targetEl, message, retryFn) {
+            targetEl.className = 'status-banner error';
+            targetEl.innerHTML = `
+                <span>${message}</span>
+                <button type="button" class="btn btn-outline btn-sm" id="${targetEl.id}-retry">${t('shows.retry')}</button>
+            `;
+            const btn = document.getElementById(`${targetEl.id}-retry`);
+            if (btn) btn.addEventListener('click', retryFn);
+        }
+
+        function escapeHtml(str) {
+            if (str == null) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        async function ensureSeriesEpisodeCount(seriesId) {
+            if (seriesEpisodeCounts[seriesId] != null) return;
+            try {
+                const data = await jellyfinGet(`/Users/${USER_ID}/Items?ParentId=${seriesId}&IncludeItemTypes=Episode&Recursive=true&Limit=1`);
+                seriesEpisodeCounts[seriesId] = data.TotalRecordCount || 0;
+                renderSeriesList();
+            } catch {
+                seriesEpisodeCounts[seriesId] = 0;
+            }
         }
 
         async function jellyfinGet(path) {
@@ -1952,7 +2091,11 @@
                 renderLibrary(allItems);
                 updateWatchlistCount();
             } catch (err) {
-                setStatus('error', `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`);
+                setStatusErrorWithRetry(
+                    statusEl,
+                    `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`,
+                    fetchLibrary
+                );
                 console.error('Error cargando Jellyfin:', err);
             }
         }
@@ -1979,7 +2122,7 @@
                 await selectSeries(allSeries[0].Id);
             } catch (err) {
                 console.error('Error cargando series:', err);
-                setShowsStatus('error', `No se pudieron cargar las series (${err.message}).`);
+                setStatusErrorWithRetry(showsStatusEl, `No se pudieron cargar las series (${err.message}).`, fetchSeriesCatalog);
             }
         }
 
@@ -1987,7 +2130,14 @@
             if (!seriesListEl) return;
             seriesListEl.innerHTML = allSeries.map(s => `
                 <button class="series-item-btn ${s.Id === selectedSeriesId ? 'active' : ''}" data-series-id="${s.Id}">
-                    ${s.Name}
+                    ${s.ImageTags && s.ImageTags.Primary
+                        ? `<img class="thumb" src="${JELLYFIN_URL}/Items/${s.Id}/Images/Primary?maxWidth=120&tag=${s.ImageTags.Primary}" alt="${escapeHtml(s.Name)}" loading="lazy">`
+                        : '<div class="thumb"></div>'
+                    }
+                    <div class="meta">
+                        <div class="name">${escapeHtml(s.Name)}</div>
+                        <div class="count">${seriesEpisodeCounts[s.Id] == null ? '...' : seriesEpisodeCounts[s.Id]} ${t('shows.episodes')}</div>
+                    </div>
                 </button>
             `).join('');
 
@@ -1996,6 +2146,13 @@
                     selectSeries(btn.dataset.seriesId);
                 });
             });
+
+            if (selectedSeriesId) {
+                const active = seriesListEl.querySelector('.series-item-btn.active');
+                if (active) {
+                    active.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
         }
 
         async function fetchSeasons(seriesId) {
@@ -2015,33 +2172,38 @@
         async function selectSeries(seriesId) {
             selectedSeriesId = seriesId;
             renderSeriesList();
-            if (!seasonSelectEl) return;
+            ensureSeriesEpisodeCount(seriesId);
+            if (!seasonTabsEl) return;
 
             try {
                 setShowsStatus('loading', 'Cargando temporadas...');
                 const seasons = await fetchSeasons(seriesId);
                 if (!seasons.length) {
-                    seasonSelectEl.innerHTML = '';
+                    seasonTabsEl.innerHTML = '';
                     episodesGridEl.innerHTML = '<div style="color:var(--muted); font-size:0.85rem;">Esta serie no tiene temporadas visibles.</div>';
                     setShowsStatus('ok', '');
                     return;
                 }
 
-                seasonSelectEl.innerHTML = seasons.map((s, i) => {
+                seasonTabsEl.innerHTML = seasons.map((s, i) => {
                     const seasonNumber = Number.isInteger(s.IndexNumber) ? s.IndexNumber : (i + 1);
-                    return `<option value="${s.Id}">${t('shows.season')} ${seasonNumber} - ${s.Name || ''}</option>`;
+                    return `<button type="button" class="season-tab ${i === 0 ? 'active' : ''}" data-season-id="${s.Id}">${t('shows.season')} ${seasonNumber}</button>`;
                 }).join('');
 
                 selectedSeasonId = seasons[0].Id;
                 await renderEpisodesForSeason(selectedSeasonId);
 
-                seasonSelectEl.onchange = async () => {
-                    selectedSeasonId = seasonSelectEl.value;
-                    await renderEpisodesForSeason(selectedSeasonId);
-                };
+                seasonTabsEl.querySelectorAll('.season-tab').forEach(tab => {
+                    tab.addEventListener('click', async () => {
+                        seasonTabsEl.querySelectorAll('.season-tab').forEach(tEl => tEl.classList.remove('active'));
+                        tab.classList.add('active');
+                        selectedSeasonId = tab.dataset.seasonId;
+                        await renderEpisodesForSeason(selectedSeasonId);
+                    });
+                });
             } catch (err) {
                 console.error('Error cargando temporadas:', err);
-                setShowsStatus('error', `No se pudieron cargar temporadas (${err.message}).`);
+                setStatusErrorWithRetry(showsStatusEl, `No se pudieron cargar temporadas (${err.message}).`, () => selectSeries(seriesId));
             }
         }
 
@@ -2067,8 +2229,11 @@
                         <div class="episode-card" data-episode-id="${ep.Id}">
                             ${thumb ? `<img src="${thumb}" alt="${ep.Name}" loading="lazy">` : ''}
                             <div class="ep-body">
-                                <div class="ep-title">S${String(seasonNum).padStart(2, '0')}E${String(episodeNum).padStart(2, '0')} - ${ep.Name}</div>
-                                <div class="ep-meta">${runtime}</div>
+                                <div class="ep-title">${ep.Name}</div>
+                                <div class="ep-meta">
+                                    <span>S${String(seasonNum).padStart(2, '0')}E${String(episodeNum).padStart(2, '0')}</span>
+                                    <span>${runtime}</span>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -2083,7 +2248,7 @@
                 setShowsStatus('ok', '');
             } catch (err) {
                 console.error('Error cargando episodios:', err);
-                setShowsStatus('error', `No se pudieron cargar episodios (${err.message}).`);
+                setStatusErrorWithRetry(showsStatusEl, `No se pudieron cargar episodios (${err.message}).`, () => renderEpisodesForSeason(seasonId));
             }
         }
 
@@ -2468,17 +2633,17 @@
                 if (isMovie) {
                     videoContainer.style.display = 'none';
                     nativeFirstPanel = document.createElement('div');
-                    nativeFirstPanel.className = 'subtitle-tools';
+                    nativeFirstPanel.className = 'native-banner';
                     nativeFirstPanel.innerHTML = `
-                        <div style="font-size:0.88rem; margin-bottom:8px; color:var(--text);">
+                        <div style="color:var(--text);">
                             <i class="fas fa-shield-alt" style="color:var(--accent);"></i>
-                            Reproducción priorizada en Jellyfin nativo (más estable para codecs complejos: EAC3, DTS, HEVC, HDR, etc.)
+                            Jellyfin nativo recomendado para máxima compatibilidad
                         </div>
-                        <div style="display:flex; flex-wrap:wrap; gap:8px;">
-                            <button type="button" id="openNativeNow" class="btn btn-primary" style="padding:7px 12px; font-size:0.8rem;">
+                        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-left:auto;">
+                            <button type="button" id="openNativeNow" class="btn btn-primary btn-sm">
                                 <i class="fas fa-external-link-alt"></i> Abrir Jellyfin nativo
                             </button>
-                            <button type="button" id="useIntegratedNow" class="btn btn-outline" style="padding:7px 12px; font-size:0.8rem;">
+                            <button type="button" id="useIntegratedNow" class="btn btn-outline btn-sm">
                                 <i class="fas fa-play"></i> Usar reproductor integrado
                             </button>
                         </div>
@@ -2709,10 +2874,10 @@
                 player.on('dispose', () => { disposed = true; clearTimeout(stuckTimer); clearTimeout(audioCheckTimer); });
 
                 modalActions.innerHTML = `
-                        <a href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:6px 14px; font-size:0.8rem; margin-right:10px;">
+                        <a href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="margin-right:10px;">
                             <i class="fas fa-external-link-alt"></i> Jellyfin nativo (recomendado)
                         </a>
-                        <a href="https://www.opensubtitles.org/es/search/sublanguageid-spa" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding:6px 14px; font-size:0.8rem;">
+                        <a href="https://www.opensubtitles.org/es/search/sublanguageid-spa" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
                             <i class="fas fa-search"></i> Buscar subtítulos
                         </a>
                     `;
