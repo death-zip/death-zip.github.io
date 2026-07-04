@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <style>
-        /* ── Reset & base (mismo que antes, pero con ajustes para la sección de series compacta) ── */
+        /* ── Reset & base ── */
         * { margin:0; padding:0; box-sizing:border-box; }
         :root {
             --bg: #0a0c10; --bg2: #11141a; --card: #181c24; --border: #2a2f3a;
@@ -100,13 +100,14 @@
         .service-card .tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
         .service-card .tags span { background:#1e2430; color:#bcc4d4; font-size:0.7rem; padding:3px 12px; border-radius:30px; }
 
-        /* ── Skills ── */
+        /* ── Skills (simétrico y adaptable) ── */
         .skills-wrapper { position:relative; padding:40px 20px; background:var(--card); border-radius:var(--radius); border:1px solid var(--border); overflow:hidden; min-height:300px; }
         .skills-wrapper canvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
         .skills-cloud { position:relative; z-index:1; display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
-        .skills-cloud .skill-tag { background:rgba(91,154,255,0.1); border:1px solid rgba(91,154,255,0.25); padding:8px 20px; border-radius:30px; font-size:0.85rem; font-weight:500; color:var(--text); transition:all 0.3s ease; cursor:default; backdrop-filter:blur(4px); animation:float 6s ease-in-out infinite; }
+        .skills-cloud .skill-tag { background:rgba(91,154,255,0.1); border:1px solid rgba(91,154,255,0.25); padding:8px 20px; border-radius:30px; font-size:0.85rem; font-weight:500; color:var(--text); transition:all 0.3s ease; cursor:default; backdrop-filter:blur(4px); animation:float 6s ease-in-out infinite; flex:0 1 auto; }
         .skills-cloud .skill-tag:hover { transform:scale(1.1); background:rgba(91,154,255,0.25); border-color:var(--accent); box-shadow:0 0 20px rgba(91,154,255,0.2); }
         .skills-cloud .skill-tag i { margin-right:6px; color:var(--accent); }
+        /* Para que no queden espacios en blanco, usamos flex con gap, y los tags se ajustan automáticamente. Si se quiere que ocupen todo el ancho, se podría usar grid, pero flex es más natural. */
 
         /* ── Library ── */
         .library-controls { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; align-items:center; }
@@ -129,106 +130,25 @@
         .status-banner.ok { display:none; }
         @keyframes spin { to { transform:rotate(360deg); } }
 
-        /* ── SHOWS (ULTRA COMPACTO) ── */
-        .shows-compact {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 8px 10px;
-        }
-        .shows-compact .shows-top {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-        .shows-compact .series-strip {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            flex: 1;
-        }
-        .shows-compact .series-btn {
-            background: #1e2430;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2px 10px;
-            font-size: 0.7rem;
-            color: var(--muted);
-            cursor: pointer;
-            transition: all var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            white-space: nowrap;
-        }
-        .shows-compact .series-btn:hover,
-        .shows-compact .series-btn.active {
-            border-color: var(--accent);
-            background: #253047;
-            color: var(--text);
-        }
-        .shows-compact .series-btn img {
-            width: 20px;
-            height: 28px;
-            object-fit: cover;
-            border-radius: 4px;
-            background: #111;
-        }
-        .shows-compact .season-strip {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            margin: 4px 0;
-        }
-        .shows-compact .season-tab {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2px 10px;
-            font-size: 0.65rem;
-            color: var(--muted);
-            cursor: pointer;
-            transition: all var(--transition);
-        }
-        .shows-compact .season-tab:hover,
-        .shows-compact .season-tab.active {
-            border-color: var(--accent);
-            background: #253047;
-            color: var(--text);
-        }
-        .shows-compact .episodes-mini {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-            gap: 4px;
-            max-height: 140px;
-            overflow-y: auto;
-            margin-top: 4px;
-        }
-        .shows-compact .episode-mini {
-            background: #1e2430;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 2px 4px;
-            font-size: 0.6rem;
-            color: var(--muted);
-            cursor: pointer;
-            transition: all var(--transition);
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .shows-compact .episode-mini:hover {
-            border-color: var(--accent);
-            color: var(--text);
-        }
-        .shows-compact .episode-mini .ep-num {
-            font-weight: 600;
-            color: var(--accent);
-            margin-right: 2px;
-        }
+        /* ── SHOWS (carátulas) ── */
+        .shows-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); gap:16px; }
+        .show-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; cursor:pointer; transition:all var(--transition); text-align:center; padding:8px; }
+        .show-card:hover { transform:translateY(-4px); border-color:var(--accent); }
+        .show-card img { width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:8px; background:#111; }
+        .show-card .show-name { font-size:0.75rem; color:var(--muted); margin-top:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+        /* ── Series modal (temporadas y episodios) ── */
+        .series-modal-content { padding:10px 0; }
+        .season-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+        .season-tab { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-size:0.78rem; color:var(--muted); cursor:pointer; transition:all var(--transition); }
+        .season-tab:hover, .season-tab.active { border-color:var(--accent); background:#253047; color:var(--text); }
+        .episodes-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:12px; max-height:400px; overflow-y:auto; padding-right:4px; }
+        .episode-card { background:#1e2430; border:1px solid var(--border); border-radius:10px; overflow:hidden; cursor:pointer; transition:all var(--transition); }
+        .episode-card:hover { border-color:var(--accent); transform:translateY(-3px); }
+        .episode-card img { width:100%; aspect-ratio:16/9; object-fit:cover; background:#111; display:block; }
+        .episode-card .ep-body { padding:6px 8px; }
+        .episode-card .ep-title { font-size:0.8rem; font-weight:600; line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .episode-card .ep-meta { font-size:0.7rem; color:var(--muted); display:flex; justify-content:space-between; gap:6px; }
 
         /* ── Certifications ── */
         .cert-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:20px; }
@@ -307,7 +227,8 @@
             .about-image img { width:200px; height:200px; }
             .player-modal { max-width:100%; border-radius:0; max-height:100vh; }
             .player-modal .close { top:4px; right:4px; }
-            .shows-compact .episodes-mini { grid-template-columns:repeat(auto-fill, minmax(70px,1fr)); max-height:100px; }
+            .shows-grid { grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); }
+            .episodes-grid { grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); max-height:300px; }
             .cert-grid { grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); }
             .recommendations .rec-grid { grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); }
         }
@@ -315,6 +236,7 @@
             .hero h1 { font-size:1.8rem; }
             .btn { padding:8px 16px; font-size:0.8rem; }
             .grid { grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:12px; }
+            .shows-grid { grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); }
         }
     </style>
 </head>
@@ -412,7 +334,7 @@
             </div>
         </section>
 
-        <!-- ─── SKILLS ─── -->
+        <!-- ─── SKILLS (simétrico) ─── -->
         <section id="skills">
             <h2 class="section-title anim"><i class="fas fa-bolt" style="color: var(--accent);"></i> <span data-i18n="skills.title">Habilidades Técnicas</span></h2>
             <p class="section-sub anim" data-i18n="skills.sub">Tecnologías y herramientas que domino</p>
@@ -454,18 +376,12 @@
             </div>
         </section>
 
-        <!-- ─── SHOWS (ULTRA COMPACTO) ─── -->
+        <!-- ─── SHOWS (carátulas) ─── -->
         <section id="shows">
-            <h2 class="section-title anim" data-i18n="shows.title">Series por temporadas</h2>
-            <p class="section-sub anim" data-i18n="shows.sub">Selecciona una serie y episodio para reproducir</p>
+            <h2 class="section-title anim" data-i18n="shows.title">Series</h2>
+            <p class="section-sub anim" data-i18n="shows.sub">Haz clic en una carátula para explorar temporadas y episodios</p>
             <div id="showsStatus" class="status-banner loading anim">Cargando series...</div>
-            <div class="shows-compact anim" id="showsCompact">
-                <div class="shows-top">
-                    <div class="series-strip" id="seriesStrip"></div>
-                </div>
-                <div class="season-strip" id="seasonStrip"></div>
-                <div class="episodes-mini" id="episodesMini"></div>
-            </div>
+            <div class="shows-grid anim" id="showsGrid"></div>
         </section>
 
         <!-- ─── CERTIFICATIONS ─── -->
@@ -505,7 +421,7 @@
         </div>
     </footer>
 
-    <!-- ─── MODAL ─── -->
+    <!-- ─── MODAL PRINCIPAL (reproductor y series) ─── -->
     <div class="overlay" id="overlay">
         <div class="player-modal">
             <button class="close" id="modalClose">&times;</button>
@@ -531,16 +447,16 @@
         // ─── I18N ───
         const translations = {
             es: {
-                'nav.about': 'Sobre mí', 'nav.hire': 'Contratame', 'nav.services': 'Servicios', 'nav.skills': 'Habilidades',
+                'nav.about': 'Sobre mí', 'nav.hire': 'Contrátame', 'nav.services': 'Servicios', 'nav.skills': 'Habilidades',
                 'nav.projects': 'Proyectos', 'nav.shows': 'Series', 'nav.certs': 'Certificaciones', 'nav.contact': 'Contacto',
                 'hero.eyebrow': '✦ Disponible para oportunidades remotas', 'hero.sub': 'Aspirante a Cloud Engineer · Docker y Linux',
                 'hero.desc': 'Construyo y opero entornos reales con Docker, Linux y Cloudflare Tunnel. Estoy buscando mi primera oportunidad junior remota en Cloud Support o DevOps, donde pueda aportar ejecución técnica, disciplina para documentar y ganas de aprender rápido.',
                 'hero.cta1': 'Contactar ahora', 'hero.cta2': 'Ver CV',
-                'hire.title': 'Por que podrias contratarme hoy', 'hire.desc': 'Perfil junior con enfoque practico: ya construi, asegure y documente un sistema real end-to-end. Puedo apoyar desde el dia uno en tareas operativas, soporte cloud y automatizacion basica.',
+                'hire.title': 'Por qué podrías contratarme hoy', 'hire.desc': 'Perfil junior con enfoque práctico: ya construí, aseguré y documenté un sistema real end-to-end. Puedo apoyar desde el día uno en tareas operativas, soporte cloud y automatización básica.',
                 'hire.f1.label': 'Rol objetivo', 'hire.f1.value': 'Junior Cloud Support / DevOps',
                 'hire.f2.label': 'Modalidad', 'hire.f2.value': 'Remoto, tiempo completo',
-                'hire.f3.label': 'Idiomas', 'hire.f3.value': 'Espanol nativo · Ingles tecnico',
-                'hire.f4.label': 'Fortaleza', 'hire.f4.value': 'Debugging, documentacion y ownership',
+                'hire.f3.label': 'Idiomas', 'hire.f3.value': 'Español nativo · Inglés técnico',
+                'hire.f4.label': 'Fortaleza', 'hire.f4.value': 'Debugging, documentación y ownership',
                 'hire.cta1': 'Agendar entrevista', 'hire.cta2': 'Ver proyecto en vivo',
                 'about.title': 'Sobre Mí', 'about.p1': 'Soy un estudiante de Ingeniería en Desarrollo de Software con una fuerte pasión por la infraestructura en la nube, DevOps y la automatización. Disfruto construir sistemas desde cero — desde aplicaciones contenerizadas hasta túneles de red seguros.',
                 'about.p2': 'Este portafolio es la prueba: un servidor multimedia funcionando en Docker, expuesto con Cloudflare Tunnel, resolviendo su propio problema de CORS y consumiendo su propia API en vivo. Nada de plantillas ni tutoriales copiados — cada parte la debuggeé yo mismo.',
@@ -552,8 +468,7 @@
                 'projects.title': 'Proyecto destacado', 'projects.sub': 'Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel',
                 'projects.loading': 'Cargando biblioteca desde el servidor…', 'projects.search': 'Buscar películas…',
                 'projects.watchlist': 'Mi lista', 'projects.full': 'Abrir servidor completo',
-                'shows.title': 'Series por temporadas', 'shows.sub': 'Selecciona una serie y episodio para reproducir',
-                'shows.serieslist': 'Series disponibles', 'shows.season': 'Temporada', 'shows.episodes': 'episodios',
+                'shows.title': 'Series', 'shows.sub': 'Haz clic en una carátula para explorar temporadas y episodios',
                 'shows.retry': 'Reintentar', 'shows.next': 'Siguiente episodio', 'shows.prev': 'Episodio anterior',
                 'certs.title': 'Certificaciones', 'certs.sub': 'Verificadas en Credly', 'certs.showmore': 'Ver más',
                 'exp.title': 'Enfoque actual', 'exp.sub': 'Dónde estoy y qué busco',
@@ -585,8 +500,7 @@
                 'projects.title': 'Featured Project', 'projects.sub': 'Self‑hosted streaming server · Jellyfin · Docker · Cloudflare Tunnel',
                 'projects.loading': 'Loading library from server…', 'projects.search': 'Search movies…',
                 'projects.watchlist': 'My list', 'projects.full': 'Open full server',
-                'shows.title': 'Shows by season', 'shows.sub': 'Select a show and episode to play',
-                'shows.serieslist': 'Available shows', 'shows.season': 'Season', 'shows.episodes': 'episodes',
+                'shows.title': 'Shows', 'shows.sub': 'Click a poster to explore seasons and episodes',
                 'shows.retry': 'Retry', 'shows.next': 'Next episode', 'shows.prev': 'Previous episode',
                 'certs.title': 'Certifications', 'certs.sub': 'Verified on Credly', 'certs.showmore': 'Show more',
                 'exp.title': 'Current focus', 'exp.sub': 'Where I am and what I\'m looking for',
@@ -631,10 +545,6 @@
             }
             const statusEl = document.getElementById('status');
             if (statusEl && statusEl.classList.contains('loading')) statusEl.textContent = t('projects.loading');
-            // Actualizar botones de episodios si existen
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                // ya se hizo
-            });
         }
 
         document.getElementById('langToggle').addEventListener('click', () => {
@@ -758,11 +668,9 @@
         const watchlistToggle = document.getElementById('watchlistToggle');
         const watchlistCount = document.getElementById('watchlistCount');
 
-        // Elementos de series compactas
+        // Series
         const showsStatusEl = document.getElementById('showsStatus');
-        const seriesStrip = document.getElementById('seriesStrip');
-        const seasonStrip = document.getElementById('seasonStrip');
-        const episodesMini = document.getElementById('episodesMini');
+        const showsGrid = document.getElementById('showsGrid');
 
         // Modal
         const overlay = document.getElementById('overlay');
@@ -783,10 +691,14 @@
         let allSeries = [];
         let seriesById = {};
         let selectedSeriesId = null;
-        let selectedSeasonId = null;
-        // Para navegación entre episodios
         let currentEpisodeList = [];
         let currentEpisodeIndex = -1;
+
+        // ─── Utility ───
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
 
         async function jellyfinGet(path) {
             const res = await fetch(`${JELLYFIN_URL}${path}`, { headers: { 'X-Emby-Token': API_KEY } });
@@ -886,7 +798,7 @@
             }
         }
 
-        // ─── SHOWS COMPACT ───
+        // ─── SHOWS ───
         async function fetchSeriesCatalog() {
             try {
                 setShowsStatus('loading', 'Cargando series...');
@@ -898,30 +810,35 @@
                     setShowsStatus('error', 'No se encontraron series.');
                     return;
                 }
-                renderSeriesStrip();
+                renderShowsGrid();
                 setShowsStatus('ok', '');
-                await selectSeries(allSeries[0].Id);
             } catch (err) {
                 console.error('Error cargando series:', err);
                 setStatusErrorWithRetry(showsStatusEl, `No se pudieron cargar las series (${err.message}).`, fetchSeriesCatalog);
             }
         }
 
-        function renderSeriesStrip() {
-            if (!seriesStrip) return;
-            seriesStrip.innerHTML = allSeries.map(s => `
-                <button class="series-btn ${s.Id === selectedSeriesId ? 'active' : ''}" data-series-id="${s.Id}">
-                    ${s.ImageTags && s.ImageTags.Primary ? `<img src="${JELLYFIN_URL}/Items/${s.Id}/Images/Primary?maxWidth=60&tag=${s.ImageTags.Primary}" alt="" loading="lazy">` : ''}
-                    ${s.Name}
-                </button>
+        function renderShowsGrid() {
+            if (!showsGrid) return;
+            showsGrid.innerHTML = allSeries.map(s => `
+                <div class="show-card" data-series-id="${s.Id}">
+                    ${s.ImageTags && s.ImageTags.Primary
+                        ? `<img src="${JELLYFIN_URL}/Items/${s.Id}/Images/Primary?maxWidth=300&tag=${s.ImageTags.Primary}" alt="${escapeHtml(s.Name)}" loading="lazy">`
+                        : `<div style="aspect-ratio:2/3;background:#1a1e26;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:0.8rem;">${escapeHtml(s.Name)}</div>`
+                    }
+                    <div class="show-name">${escapeHtml(s.Name)}</div>
+                </div>
             `).join('');
-            seriesStrip.querySelectorAll('.series-btn').forEach(btn => {
-                btn.addEventListener('click', () => selectSeries(btn.dataset.seriesId));
+            showsGrid.querySelectorAll('.show-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const seriesId = card.dataset.seriesId;
+                    openSeriesModal(seriesId);
+                });
             });
         }
 
         async function fetchSeasons(seriesId) {
-            const data = await jellyfinGet(`/Users/${USER_ID}/Items?ParentId=${seriesId}&IncludeItemTypes=Season&Recursive=false&SortBy=SortName&Fields=IndexNumber`);
+            const data = await jellyfinGet(`/Users/${USER_ID}/Items?ParentId=${seriesId}&IncludeItemTypes=Season&Recursive=false&SortBy=SortName&Fields=IndexNumber,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary`);
             return data.Items || [];
         }
 
@@ -930,65 +847,100 @@
             return data.Items || [];
         }
 
-        async function selectSeries(seriesId) {
-            selectedSeriesId = seriesId;
-            renderSeriesStrip();
+        // ─── SERIES MODAL ───
+        async function openSeriesModal(seriesId) {
+            const series = seriesById[seriesId];
+            if (!series) return;
+
+            if (currentPlayer) {
+                currentPlayer.dispose();
+                currentPlayer = null;
+            }
+            videoWrap.innerHTML = '';
+            modalTitle.textContent = series.Name;
+            modalBackdrop.src = series.ImageTags && series.ImageTags.Primary
+                ? `${JELLYFIN_URL}/Items/${series.Id}/Images/Primary?maxWidth=800&tag=${series.ImageTags.Primary}`
+                : '';
+            modalMeta.innerHTML = '';
+            modalGenres.innerHTML = '';
+            modalOverview.textContent = '';
+            modalCastCrew.innerHTML = '';
+            modalColorimetry.innerHTML = '';
+            modalRecommendations.style.display = 'none';
+            overlay.classList.add('open');
+
             try {
                 const seasons = await fetchSeasons(seriesId);
                 if (!seasons.length) {
-                    seasonStrip.innerHTML = '';
-                    episodesMini.innerHTML = '<div style="color:var(--muted);font-size:0.7rem;">Sin temporadas</div>';
+                    videoWrap.innerHTML = '<div style="color:var(--muted);">Esta serie no tiene temporadas.</div>';
                     return;
                 }
-                // Mostrar pestañas de temporada
-                seasonStrip.innerHTML = seasons.map((s, i) => {
-                    const sn = Number.isInteger(s.IndexNumber) ? s.IndexNumber : i + 1;
-                    return `<button class="season-tab ${i === 0 ? 'active' : ''}" data-season-id="${s.Id}">T${sn}</button>`;
-                }).join('');
-                selectedSeasonId = seasons[0].Id;
-                await renderEpisodesMini(selectedSeasonId);
 
-                seasonStrip.querySelectorAll('.season-tab').forEach(tab => {
+                let html = `<div class="series-modal-content">`;
+                html += `<div class="season-tabs">`;
+                seasons.forEach((s, i) => {
+                    const sn = Number.isInteger(s.IndexNumber) ? s.IndexNumber : i + 1;
+                    html += `<button class="season-tab ${i===0?'active':''}" data-season-id="${s.Id}">T${sn}</button>`;
+                });
+                html += `</div><div id="seriesEpisodesGrid" class="episodes-grid"></div></div>`;
+                videoWrap.innerHTML = html;
+
+                const firstSeason = seasons[0];
+                const episodes = await fetchEpisodesForSeason(firstSeason.Id);
+                currentEpisodeList = episodes;
+                currentEpisodeIndex = 0;
+                renderSeriesEpisodes(episodes);
+
+                document.querySelectorAll('.season-tab').forEach(tab => {
                     tab.addEventListener('click', async () => {
-                        seasonStrip.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
                         tab.classList.add('active');
-                        selectedSeasonId = tab.dataset.seasonId;
-                        await renderEpisodesMini(selectedSeasonId);
+                        const seasonId = tab.dataset.seasonId;
+                        const eps = await fetchEpisodesForSeason(seasonId);
+                        currentEpisodeList = eps;
+                        currentEpisodeIndex = 0;
+                        renderSeriesEpisodes(eps);
                     });
                 });
+
             } catch (err) {
                 console.error('Error cargando temporadas:', err);
-                setStatusErrorWithRetry(showsStatusEl, `No se pudieron cargar temporadas (${err.message}).`, () => selectSeries(seriesId));
+                videoWrap.innerHTML = `<div style="color:var(--muted);">Error al cargar temporadas: ${err.message}</div>`;
             }
         }
 
-        async function renderEpisodesMini(seasonId) {
-            try {
-                const episodes = await fetchEpisodesForSeason(seasonId);
-                if (!episodes.length) {
-                    episodesMini.innerHTML = '<div style="color:var(--muted);font-size:0.7rem;">Sin episodios</div>';
-                    return;
-                }
-                episodesMini.innerHTML = episodes.map((ep, idx) => {
-                    const epNum = Number.isInteger(ep.IndexNumber) ? ep.IndexNumber : idx + 1;
-                    return `<div class="episode-mini" data-episode-id="${ep.Id}" data-episode-index="${idx}">
-                        <span class="ep-num">E${String(epNum).padStart(2, '0')}</span>
-                        ${ep.Name}
-                    </div>`;
-                }).join('');
-                episodesMini.querySelectorAll('.episode-mini').forEach(el => {
-                    el.addEventListener('click', () => {
-                        const id = el.dataset.episodeId;
-                        const idx = parseInt(el.dataset.episodeIndex, 10);
-                        currentEpisodeList = episodes;
-                        currentEpisodeIndex = idx;
-                        openModal(id);
-                    });
-                });
-            } catch (err) {
-                console.error('Error cargando episodios:', err);
-                setStatusErrorWithRetry(showsStatusEl, `No se pudieron cargar episodios (${err.message}).`, () => renderEpisodesMini(seasonId));
+        function renderSeriesEpisodes(episodes) {
+            const grid = document.getElementById('seriesEpisodesGrid');
+            if (!grid) return;
+            if (!episodes.length) {
+                grid.innerHTML = '<div style="color:var(--muted);font-size:0.85rem;">No hay episodios en esta temporada.</div>';
+                return;
             }
+            grid.innerHTML = episodes.map((ep, idx) => {
+                const epNum = Number.isInteger(ep.IndexNumber) ? ep.IndexNumber : idx + 1;
+                const runtime = formatRuntime(ep.RunTimeTicks) || '';
+                const thumb = ep.ImageTags && ep.ImageTags.Primary
+                    ? `${JELLYFIN_URL}/Items/${ep.Id}/Images/Primary?maxWidth=480&tag=${ep.ImageTags.Primary}`
+                    : '';
+                return `
+                    <div class="episode-card" data-episode-id="${ep.Id}" data-episode-index="${idx}">
+                        ${thumb ? `<img src="${thumb}" alt="${ep.Name}" loading="lazy">` : ''}
+                        <div class="ep-body">
+                            <div class="ep-title">${escapeHtml(ep.Name)}</div>
+                            <div class="ep-meta"><span>E${String(epNum).padStart(2, '0')}</span><span>${runtime}</span></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            grid.querySelectorAll('.episode-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = card.dataset.episodeId;
+                    const idx = parseInt(card.dataset.episodeIndex, 10);
+                    currentEpisodeIndex = idx;
+                    closeModal();
+                    openModal(id);
+                });
+            });
         }
 
         // ─── MODAL Y REPRODUCTOR ───
@@ -1263,7 +1215,7 @@
                 modalRecommendations.style.display = 'none';
             }
 
-            // ─── REPRODUCTOR CON NAVEGACIÓN ENTRE EPISODIOS ───
+            // ─── REPRODUCTOR ───
             if (detail.Type === 'Movie' || detail.Type === 'Episode') {
                 const isMovie = detail.Type === 'Movie';
                 const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
@@ -1296,9 +1248,9 @@
                 statusLine.textContent = 'Preparando reproducción…';
                 videoWrap.appendChild(statusLine);
 
-                // Botones de navegación entre episodios (solo si es episodio)
+                // Navegación episodios
                 const navControls = document.createElement('div');
-                navControls.style.cssText = 'display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;';
+                navControls.style.cssText = 'display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center;';
                 if (!isMovie && currentEpisodeList.length > 0) {
                     const prevBtn = document.createElement('button');
                     prevBtn.className = 'btn btn-outline btn-sm';
@@ -1330,13 +1282,12 @@
                         }
                     });
 
-                    navControls.appendChild(prevBtn);
-                    navControls.appendChild(nextBtn);
-                    // Mostrar información de posición
                     const posInfo = document.createElement('span');
-                    posInfo.style.cssText = 'color:var(--muted); font-size:0.8rem; align-self:center;';
+                    posInfo.style.cssText = 'color:var(--muted); font-size:0.8rem;';
                     posInfo.textContent = `${currentEpisodeIndex + 1} / ${currentEpisodeList.length}`;
+                    navControls.appendChild(prevBtn);
                     navControls.appendChild(posInfo);
+                    navControls.appendChild(nextBtn);
                 }
                 videoWrap.appendChild(navControls);
 
@@ -1346,7 +1297,6 @@
                 if (isMovie) {
                     videoContainer.style.display = 'none';
                     nativeBanner = document.createElement('div');
-                    nativeBanner.className = 'native-banner';
                     nativeBanner.style.cssText = 'margin-bottom:8px; background:rgba(17,20,26,0.85); border:1px solid var(--border); border-radius:10px; padding:10px; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:0.8rem; color:var(--muted);';
                     nativeBanner.innerHTML = `
                         <div style="color:var(--text);"><i class="fas fa-shield-alt" style="color:var(--accent);"></i> Jellyfin nativo recomendado</div>
