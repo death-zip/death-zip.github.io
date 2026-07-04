@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Juan Antonio Rivera · Cloud & DevOps</title>
+    <meta name="description" content="Portafolio de Juan Antonio Rivera: estudiante de Software Engineering con enfoque en DevOps, Cloud y automatizacion. Disponible para rol junior remoto en Cloud Support o DevOps." />
     <!-- Video.js (el reproductor de Jellyfin) -->
     <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
@@ -274,6 +275,55 @@
         .btn-ghost:hover {
             color: var(--text);
             border-color: var(--muted);
+        }
+
+        /* ── Hire Me ── */
+        .hire-section {
+            padding-top: 14px;
+        }
+
+        .hire-panel {
+            background: linear-gradient(135deg, rgba(91, 154, 255, 0.14), rgba(139, 122, 255, 0.08));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+        }
+
+        .hire-panel h2 {
+            font-size: 1.35rem;
+            margin-bottom: 8px;
+        }
+
+        .hire-panel p {
+            color: var(--muted);
+            margin-bottom: 18px;
+        }
+
+        .hire-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .hire-fact {
+            background: rgba(10, 12, 16, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .hire-fact .label {
+            color: var(--muted);
+            font-size: 0.75rem;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .hire-fact .value {
+            font-size: 0.92rem;
+            font-weight: 600;
         }
 
         /* ── Section ── */
@@ -1020,6 +1070,7 @@
             <div class="brand">JAR<span>.</span></div>
             <div class="links">
                 <a href="#about" data-i18n="nav.about">Sobre mí</a>
+                <a href="#hire" data-i18n="nav.hire">Contrátame</a>
                 <a href="#services" data-i18n="nav.services">Servicios</a>
                 <a href="#skills" data-i18n="nav.skills">Habilidades</a>
                 <a href="#projects" data-i18n="nav.projects">Proyectos</a>
@@ -1039,13 +1090,12 @@
             <h1 class="anim anim-delay-2">Juan Antonio Rivera Rodriguez</h1>
             <p class="sub anim anim-delay-3" data-i18n="hero.sub">Aspiring Cloud Engineer · Docker &amp; Linux</p>
             <p class="anim anim-delay-4" data-i18n="hero.desc">
-                Estudiante de Ingeniería en Desarrollo de Software en Universidad Tecmilenio (modelo MAPS).
-                Construyo infraestructura contenerizada y me enfoco en automatización, redes y sistemas
-                auto‑hospedados. Este portafolio en sí mismo es un proyecto en vivo: un servidor de streaming
-                propio, expuesto de forma segura a internet.
+                Construyo y opero entornos reales con Docker, Linux y Cloudflare Tunnel.
+                Estoy buscando mi primera oportunidad junior remota en Cloud Support o DevOps,
+                donde pueda aportar ejecución técnica, disciplina para documentar y ganas de aprender rápido.
             </p>
             <div class="cta-group anim anim-delay-5">
-                <a href="#projects" class="btn btn-primary" data-i18n="hero.cta1"><i class="fas fa-play"></i> Ver proyecto en vivo</a>
+                <a href="mailto:riverarodriguezjuanantonio@gmail.com?subject=Oportunidad%20junior%20Cloud%2FDevOps" class="btn btn-primary" data-i18n="hero.cta1"><i class="fas fa-paper-plane"></i> Contactar ahora</a>
                 <a href="https://github.com/death-zip" target="_blank" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
                 <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank" class="btn btn-ghost"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
                 <a href="cv.html" target="_blank" class="btn btn-outline" data-i18n="hero.cta2"><i class="fas fa-file-pdf"></i> Ver CV</a>
@@ -1054,6 +1104,36 @@
     </header>
 
     <div class="container">
+
+        <!-- ─── HIRE ME ─── -->
+        <section id="hire" class="hire-section">
+            <div class="hire-panel anim">
+                <h2 data-i18n="hire.title">Por qué podrías contratarme hoy</h2>
+                <p data-i18n="hire.desc">Perfil junior con enfoque práctico: ya construí, aseguré y documenté un sistema real end-to-end. Puedo apoyar desde el día uno en tareas operativas, soporte cloud y automatización básica.</p>
+                <div class="hire-facts">
+                    <div class="hire-fact">
+                        <div class="label" data-i18n="hire.f1.label">Rol objetivo</div>
+                        <div class="value" data-i18n="hire.f1.value">Junior Cloud Support / DevOps</div>
+                    </div>
+                    <div class="hire-fact">
+                        <div class="label" data-i18n="hire.f2.label">Modalidad</div>
+                        <div class="value" data-i18n="hire.f2.value">Remoto, tiempo completo</div>
+                    </div>
+                    <div class="hire-fact">
+                        <div class="label" data-i18n="hire.f3.label">Idiomas</div>
+                        <div class="value" data-i18n="hire.f3.value">Español nativo · Inglés técnico</div>
+                    </div>
+                    <div class="hire-fact">
+                        <div class="label" data-i18n="hire.f4.label">Fortaleza</div>
+                        <div class="value" data-i18n="hire.f4.value">Debugging, documentación y ownership</div>
+                    </div>
+                </div>
+                <div class="cta-group">
+                    <a href="mailto:riverarodriguezjuanantonio@gmail.com?subject=Entrevista%20junior%20Cloud%20DevOps" class="btn btn-primary" data-i18n="hire.cta1"><i class="fas fa-calendar-check"></i> Agendar entrevista</a>
+                    <a href="#projects" class="btn btn-outline" data-i18n="hire.cta2"><i class="fas fa-play"></i> Ver proyecto en vivo</a>
+                </div>
+            </div>
+        </section>
 
         <!-- ─── ABOUT ─── -->
         <section id="about">
@@ -1252,6 +1332,7 @@
         const translations = {
             es: {
                 'nav.about': 'Sobre mí',
+                'nav.hire': 'Contratame',
                 'nav.services': 'Servicios',
                 'nav.skills': 'Habilidades',
                 'nav.projects': 'Proyectos',
@@ -1259,9 +1340,21 @@
                 'nav.contact': 'Contacto',
                 'hero.eyebrow': '✦ Disponible para oportunidades remotas',
                 'hero.sub': 'Aspirante a Cloud Engineer · Docker y Linux',
-                'hero.desc': 'Estudiante de Ingeniería en Desarrollo de Software en Universidad Tecmilenio (modelo MAPS). Construyo infraestructura contenerizada y me enfoco en automatización, redes y sistemas auto‑hospedados. Este portafolio en sí mismo es un proyecto en vivo: un servidor de streaming propio, expuesto de forma segura a internet.',
-                'hero.cta1': 'Ver proyecto en vivo',
+                'hero.desc': 'Construyo y opero entornos reales con Docker, Linux y Cloudflare Tunnel. Estoy buscando mi primera oportunidad junior remota en Cloud Support o DevOps, donde pueda aportar ejecución técnica, disciplina para documentar y ganas de aprender rápido.',
+                'hero.cta1': 'Contactar ahora',
                 'hero.cta2': 'Ver CV',
+                'hire.title': 'Por que podrias contratarme hoy',
+                'hire.desc': 'Perfil junior con enfoque practico: ya construi, asegure y documente un sistema real end-to-end. Puedo apoyar desde el dia uno en tareas operativas, soporte cloud y automatizacion basica.',
+                'hire.f1.label': 'Rol objetivo',
+                'hire.f1.value': 'Junior Cloud Support / DevOps',
+                'hire.f2.label': 'Modalidad',
+                'hire.f2.value': 'Remoto, tiempo completo',
+                'hire.f3.label': 'Idiomas',
+                'hire.f3.value': 'Espanol nativo · Ingles tecnico',
+                'hire.f4.label': 'Fortaleza',
+                'hire.f4.value': 'Debugging, documentacion y ownership',
+                'hire.cta1': 'Agendar entrevista',
+                'hire.cta2': 'Ver proyecto en vivo',
                 'about.title': 'Sobre Mí',
                 'about.p1': 'Soy un estudiante de Ingeniería en Desarrollo de Software con una fuerte pasión por la infraestructura en la nube, DevOps y la automatización. Disfruto construir sistemas desde cero — desde aplicaciones contenerizadas hasta túneles de red seguros.',
                 'about.p2': 'Este portafolio es la prueba: un servidor multimedia funcionando en Docker, expuesto con Cloudflare Tunnel, resolviendo su propio problema de CORS y consumiendo su propia API en vivo. Nada de plantillas ni tutoriales copiados — cada parte la debuggeé yo mismo.',
@@ -1297,6 +1390,7 @@
             },
             en: {
                 'nav.about': 'About',
+                'nav.hire': 'Hire Me',
                 'nav.services': 'Services',
                 'nav.skills': 'Skills',
                 'nav.projects': 'Projects',
@@ -1304,9 +1398,21 @@
                 'nav.contact': 'Contact',
                 'hero.eyebrow': '✦ Available for remote opportunities',
                 'hero.sub': 'Aspiring Cloud Engineer · Docker & Linux',
-                'hero.desc': 'Software Engineering student at Universidad Tecmilenio (MAPS model). I build containerized infrastructure and focus on automation, networking, and self‑hosted systems. This portfolio itself is a live project: a self‑hosted streaming server, securely exposed to the internet.',
-                'hero.cta1': 'View live project',
+                'hero.desc': 'I build and operate real environments with Docker, Linux, and Cloudflare Tunnel. I am looking for my first remote junior role in Cloud Support or DevOps, where I can contribute technical execution, strong documentation habits, and fast learning.',
+                'hero.cta1': 'Contact now',
                 'hero.cta2': 'View CV',
+                'hire.title': 'Why you can hire me now',
+                'hire.desc': 'Junior profile with a practical approach: I already built, secured, and documented a real end-to-end system. I can support day-one operations, cloud support tasks, and basic automation.',
+                'hire.f1.label': 'Target role',
+                'hire.f1.value': 'Junior Cloud Support / DevOps',
+                'hire.f2.label': 'Work mode',
+                'hire.f2.value': 'Remote, full-time',
+                'hire.f3.label': 'Languages',
+                'hire.f3.value': 'Native Spanish · Technical English',
+                'hire.f4.label': 'Strength',
+                'hire.f4.value': 'Debugging, documentation, ownership',
+                'hire.cta1': 'Schedule interview',
+                'hire.cta2': 'View live project',
                 'about.title': 'About Me',
                 'about.p1': 'I am a Software Engineering student at Universidad Tecmilenio with a strong passion for cloud infrastructure, DevOps, and automation. I enjoy building systems from the ground up — from containerized applications to secure networking tunnels.',
                 'about.p2': 'This portfolio is the proof: a media server running on Docker, exposed through Cloudflare Tunnel, solving its own CORS problem, and consuming its own live API. No templates or copied tutorials — I debugged every piece of it myself.',
@@ -1352,7 +1458,14 @@
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.dataset.i18n;
                 const val = t(key);
-                if (val) el.textContent = val;
+                if (!val) return;
+                const icon = el.querySelector('i');
+                if (icon) {
+                    const iconClass = icon.className;
+                    el.innerHTML = `<i class="${iconClass}"></i> ${val}`;
+                } else {
+                    el.textContent = val;
+                }
             });
             document.getElementById('langLabel').textContent = currentLang.toUpperCase();
             // Actualizar botón de watchlist
