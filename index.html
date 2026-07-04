@@ -4,14 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Juan Antonio Rivera · Cloud & DevOps</title>
-    <meta name="description" content="Portafolio de Juan Antonio Rivera Rodriguez, estudiante de Ingeniería en Desarrollo de Software especializándose en DevOps. Incluye un servidor de streaming self-hosted en vivo (Docker + Cloudflare Tunnel + Jellyfin) como proyecto de demostración." />
-    <meta property="og:title" content="Juan Antonio Rivera · Cloud & DevOps" />
-    <meta property="og:description" content="Portafolio con proyecto en vivo: servidor de streaming self-hosted en Docker, expuesto vía Cloudflare Tunnel." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://death-zip.github.io" />
-    <meta property="og:image" content="https://death-zip.github.io/1773352902571.jpg" />
+    <!-- Video.js (el reproductor de Jellyfin) -->
+    <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
+    <!-- Video.js Quality Selector (opcional, pero útil) -->
+    <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.4/dist/plugin.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <style>
         /* ── Reset & base ── */
         * {
@@ -870,23 +869,72 @@
             color: var(--muted);
         }
 
-        video.jf-video {
-            width: 100%;
+        /* ── Video.js custom overrides ── */
+        .video-js {
+            width: 100% !important;
             border-radius: 8px;
             background: #000;
-            display: block;
-            max-height: 60vh;
         }
 
-        video.jf-video::cue {
-            background: rgba(0, 0, 0, 0.7);
-            font-size: 1rem;
+        .video-js .vjs-big-play-button {
+            background: rgba(0, 0, 0, 0.6) !important;
+            border: 2px solid var(--accent) !important;
+            border-radius: 50% !important;
+            width: 64px !important;
+            height: 64px !important;
+            line-height: 64px !important;
+            font-size: 1.8rem !important;
+            margin-left: -32px !important;
+            margin-top: -32px !important;
+            color: #fff !important;
         }
 
-        .no-video-note {
+        .video-js .vjs-big-play-button:hover {
+            background: var(--accent) !important;
+        }
+
+        .video-js .vjs-control-bar {
+            background: rgba(0, 0, 0, 0.8) !important;
+        }
+
+        .video-js .vjs-progress-holder .vjs-play-progress {
+            background: var(--accent) !important;
+        }
+
+        /* ── Subtitles upload ── */
+        .subtitle-upload-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-top: 12px;
+            padding: 8px 14px;
+            background: var(--card);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .subtitle-upload-area label {
             color: var(--muted);
             font-size: 0.85rem;
-            margin-top: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subtitle-upload-area label:hover {
+            color: var(--text);
+        }
+
+        .subtitle-upload-area input[type="file"] {
+            display: none;
+        }
+
+        .subtitle-upload-area .file-name {
+            color: var(--muted);
+            font-size: 0.8rem;
+            flex: 1;
         }
 
         /* ── Footer ── */
@@ -1501,6 +1549,7 @@
         const videoWrap = document.getElementById('videoWrap');
         const modalRecommendations = document.getElementById('modalRecommendations');
         const recGrid = document.getElementById('recGrid');
+        let currentPlayer = null;
 
         let currentSearchQuery = '';
 
@@ -1608,9 +1657,88 @@
             return h > 0 ? `${h}h ${m}m` : `${m}m`;
         }
 
+        // ─── Función para cargar subtítulos desde archivo ───
+        function setupSubtitleUpload(videoElement) {
+            const container = document.createElement('div');
+            container.className = 'subtitle-upload-area';
+            container.innerHTML = `
+                    <label for="subtitleFile">
+                        <i class="fas fa-subtitle" style="color:var(--accent);"></i> Cargar subtítulos (.srt / .vtt)
+                    </label>
+                    <input type="file" id="subtitleFile" accept=".srt,.vtt,.ass" />
+                    <span class="file-name" id="subtitleFileName">Ningún archivo seleccionado</span>
+                `;
+
+            const fileInput = container.querySelector('#subtitleFile');
+            const fileNameSpan = container.querySelector('#subtitleFileName');
+
+            fileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                fileNameSpan.textContent = file.name;
+
+                const reader = new FileReader();
+                reader.onload = function(ev) {
+                    try {
+                        const content = ev.target.result;
+                        // Creamos un blob con el contenido del archivo
+                        const blob = new Blob([content], { type: 'text/vtt' });
+                        const url = URL.createObjectURL(blob);
+
+                        // Buscamos el track de subtítulos en el video
+                        const videoEl = videoElement;
+                        if (!videoEl) return;
+
+                        // Eliminamos tracks anteriores
+                        const oldTracks = videoEl.querySelectorAll('track');
+                        oldTracks.forEach(t => t.remove());
+
+                        // Creamos un nuevo track
+                        const track = document.createElement('track');
+                        track.kind = 'subtitles';
+                        track.label = 'Subtítulos cargados';
+                        track.srclang = 'es';
+                        track.src = url;
+                        track.default = true;
+                        videoEl.appendChild(track);
+
+                        // Forzamos al reproductor a cargar los subtítulos
+                        const player = videojs(videoEl);
+                        player.ready(function() {
+                            // Recargar tracks
+                            player.textTracks().forEach(t => {
+                                if (t.label === 'Subtítulos cargados') {
+                                    t.mode = 'showing';
+                                }
+                            });
+                        });
+
+                        // Notificamos al usuario
+                        const notice = container.querySelector('.file-name');
+                        notice.textContent = `✅ Subtítulos cargados: ${file.name}`;
+                        notice.style.color = '#5b9aff';
+                    } catch (err) {
+                        console.error('Error al cargar subtítulos:', err);
+                        const notice = container.querySelector('.file-name');
+                        notice.textContent = '❌ Error al cargar el archivo.';
+                        notice.style.color = '#ff9c9c';
+                    }
+                };
+                reader.readAsText(file);
+            });
+
+            return container;
+        }
+
         async function openModal(id) {
             const basic = itemsById[id];
             if (!basic) return;
+
+            // Limpiar reproductor anterior
+            if (currentPlayer) {
+                currentPlayer.dispose();
+                currentPlayer = null;
+            }
 
             modalTitle.textContent = basic.Name;
             modalMeta.innerHTML = 'Cargando detalles…';
@@ -1712,59 +1840,128 @@
                 modalRecommendations.style.display = 'none';
             }
 
-            // ─── REPRODUCTOR (MEJORADO) ───
+            // ─── REPRODUCTOR CON VIDEO.JS ───
             if (detail.Type === 'Movie') {
                 const mediaSourceId = (detail.MediaSources && detail.MediaSources[0]) ? detail.MediaSources[0].Id : id;
                 const streamUrl =
                     `${JELLYFIN_URL}/Videos/${id}/stream?static=true&mediaSourceId=${mediaSourceId}&api_key=${API_KEY}`;
+
+                // Creamos el contenedor del video
+                const videoContainer = document.createElement('div');
+                videoContainer.id = 'jellyfin-player-container';
+
+                // Creamos el elemento video
+                const videoEl = document.createElement('video');
+                videoEl.id = 'jellyfin-player';
+                videoEl.className = 'video-js vjs-big-play-centered';
+                videoEl.setAttribute('crossorigin', 'anonymous');
+                videoEl.setAttribute('playsinline', 'true');
+                videoEl.setAttribute('preload', 'auto');
+
+                // Fuente del video
+                const source = document.createElement('source');
+                source.src = streamUrl;
+                source.type = 'video/mp4'; // Jellyfin siempre entrega MP4 transcodificado
+                videoEl.appendChild(source);
+
+                // Subtítulos desde Jellyfin
                 const subtitleStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Subtitle');
-                const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
-
-                let tracks = subtitleStreams.map((s, i) => {
-                    const subUrl =
+                subtitleStreams.forEach((s, i) => {
+                    const track = document.createElement('track');
+                    track.kind = 'subtitles';
+                    track.label = s.DisplayTitle || s.Language || `Pista ${i + 1}`;
+                    track.srclang = s.Language || 'und';
+                    track.src =
                         `${JELLYFIN_URL}/Videos/${id}/${mediaSourceId}/Subtitles/${s.Index}/Stream.vtt?api_key=${API_KEY}`;
-                    const label = s.DisplayTitle || s.Language || `Pista ${i + 1}`;
-                    const lang = s.Language || 'und';
-                    const dflt = i === 0 ? 'default' : '';
-                    return `<track kind="subtitles" src="${subUrl}" srclang="${lang}" label="${label}" ${dflt}>`;
-                }).join('');
+                    if (i === 0) track.default = true;
+                    videoEl.appendChild(track);
+                });
 
+                videoContainer.appendChild(videoEl);
+
+                // Contenedor para el área de subtítulos
+                const subtitleArea = document.createElement('div');
+                subtitleArea.id = 'subtitle-upload-container';
+                videoContainer.appendChild(subtitleArea);
+
+                // Limpiamos y agregamos al modal
+                videoWrap.innerHTML = '';
+                videoWrap.appendChild(videoContainer);
+
+                // Información de audio
+                const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
                 let audioInfo = '';
                 if (audioStreams.length > 0) {
                     audioInfo = `<div style="color:var(--muted); font-size:0.8rem; margin-top:6px;">
                             <i class="fas fa-volume-up"></i> ${audioStreams.map(a => a.DisplayTitle || a.Language || 'Audio').join(' · ')}
                         </div>`;
                 }
+                // Agregar info de audio después del reproductor
+                const audioInfoEl = document.createElement('div');
+                audioInfoEl.innerHTML = audioInfo;
+                videoWrap.appendChild(audioInfoEl);
 
-                // ---- HTML del reproductor con enlace para subtítulos ----
-                let subtitleNotice = '';
-                if (subtitleStreams.length === 0) {
-                    subtitleNotice = `
-                        <div class="no-video-note" style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; margin-top:12px;">
-                            <span><i class="fas fa-subtitle" style="color:var(--accent); margin-right:6px;"></i> Este archivo no tiene subtítulos guardados en el servidor.</span>
-                            <a href="https://www.opensubtitles.org/es/search/sublanguageid-spa" target="_blank" class="btn btn-primary" style="padding:6px 14px; font-size:0.8rem;">
-                                <i class="fas fa-search"></i> Buscar subtítulos
-                            </a>
-                        </div>
-                    `;
-                }
+                // Inicializar Video.js
+                const player = videojs('jellyfin-player', {
+                    controls: true,
+                    fluid: true,
+                    playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
+                    controlBar: {
+                        children: [
+                            'playToggle',
+                            'currentTimeDisplay',
+                            'timeDivider',
+                            'durationDisplay',
+                            'progressControl',
+                            'volumePanel',
+                            'playbackRateMenuButton',
+                            'qualitySelector',
+                            'fullscreenToggle'
+                        ]
+                    }
+                });
 
-                videoWrap.innerHTML = `
-                        <video class="jf-video" controls preload="metadata" crossorigin="anonymous" autoplay>
-                            <source src="${streamUrl}" type="video/mp4">
-                            ${tracks}
-                        </video>
-                        ${subtitleNotice}
-                        ${audioInfo}
-                    `;
+                // Guardar referencia al player
+                currentPlayer = player;
 
-                // Botón fijo para añadir subtítulos (siempre visible)
+                // Manejar error de reproducción (por si el formato no es soportado)
+                player.on('error', function() {
+                    console.warn('Error en el reproductor. Posiblemente el formato no es compatible directamente.');
+                    // Intentar recargar con tipo genérico
+                    const videoEl = document.getElementById('jellyfin-player');
+                    if (videoEl) {
+                        const source = videoEl.querySelector('source');
+                        if (source) {
+                            source.type = 'application/vnd.apple.mpegurl'; // Intenta HLS
+                            player.load();
+                        }
+                    }
+                });
+
+                // Esperar a que el player esté listo para agregar el área de subtítulos
+                player.ready(function() {
+                    const container = document.getElementById('subtitle-upload-container');
+                    if (container) {
+                        const videoElement = document.getElementById('jellyfin-player');
+                        if (videoElement) {
+                            const uploadUI = setupSubtitleUpload(videoElement);
+                            container.appendChild(uploadUI);
+                        }
+                    }
+                });
+
+                // Botones de acción
                 modalActions.innerHTML = `
-                        <a href="https://www.opensubtitles.org/es/search/sublanguageid-spa" target="_blank" class="btn btn-primary" style="padding:6px 14px; font-size:0.8rem;">
-                            <i class="fas fa-plus"></i> Añadir subtítulos
+                        <a href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank" class="btn btn-primary" style="padding:6px 14px; font-size:0.8rem; margin-right:10px;">
+                            <i class="fas fa-external-link-alt"></i> Abrir en Jellyfin
+                        </a>
+                        <a href="https://www.opensubtitles.org/es/search/sublanguageid-spa" target="_blank" class="btn btn-outline" style="padding:6px 14px; font-size:0.8rem;">
+                            <i class="fas fa-search"></i> Buscar subtítulos
                         </a>
                     `;
+
             } else {
+                // Series
                 videoWrap.innerHTML =
                     `<div class="no-video-note">Las series se reproducen episodio por episodio directo en el servidor.</div>`;
                 modalActions.innerHTML =
@@ -1774,11 +1971,9 @@
 
         function closeModal() {
             overlay.classList.remove('open');
-            const video = document.querySelector('.jf-video');
-            if (video) {
-                video.pause();
-                video.src = '';
-                video.load();
+            if (currentPlayer) {
+                currentPlayer.dispose();
+                currentPlayer = null;
             }
             videoWrap.innerHTML = '';
         }
