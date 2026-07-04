@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV - Juan Antonio Rivera</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <style>
+        /* ── Reset y base ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, system-ui, sans-serif;
+            background: #0a0c10;
+            color: #eef0f2;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            line-height: 1.5;
+        }
+
+        .cv-container {
+            max-width: 1000px;
+            width: 100%;
+            background: #11141a;
+            border-radius: 16px;
+            border: 1px solid #2a2f3a;
+            padding: 48px 52px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        /* ── Layout ── */
+        .cv-header {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #2a2f3a;
+            margin-bottom: 32px;
+        }
+
+        .cv-avatar {
+            flex-shrink: 0;
+        }
+
+        .cv-avatar img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #5b9aff;
+            box-shadow: 0 0 30px rgba(91, 154, 255, 0.2);
+        }
+
+        .cv-title h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 50%, #b0c4de);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .cv-title .subhead {
+            color: #5b9aff;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .cv-title .tagline {
+            color: #8e95a5;
+            font-size: 0.9rem;
+            max-width: 480px;
+        }
+
+        .cv-contact {
+            margin-left: auto;
+            text-align: right;
+            font-size: 0.85rem;
+            color: #8e95a5;
+            flex-shrink: 0;
+        }
+
+        .cv-contact a {
+            color: #5b9aff;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 4px;
+            transition: color 0.2s;
+        }
+
+        .cv-contact a:hover {
+            color: #eef0f2;
+        }
+
+        .cv-contact .icon {
+            margin-right: 6px;
+            width: 18px;
+            display: inline-block;
+            color: #5b9aff;
+        }
+
+        /* ── Grid ── */
+        .cv-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px 40px;
+        }
+
+        .cv-section {
+            margin-bottom: 24px;
+        }
+
+        .cv-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .cv-section .section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #5b9aff;
+            border-bottom: 1px solid #2a2f3a;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        /* ── About ── */
+        .cv-about p {
+            color: #bcc4d4;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .cv-about p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Skills ── */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: #1e2430;
+            border: 1px solid #2a2f3a;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.78rem;
+            color: #bcc4d4;
+            transition: all 0.2s;
+        }
+
+        .skill-tag:hover {
+            border-color: #5b9aff;
+            color: #eef0f2;
+        }
+
+        .skill-tag i {
+            margin-right: 4px;
+            color: #5b9aff;
+        }
+
+        /* ── Certifications ── */
+        .cert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cert-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #181c24;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #2a2f3a;
+            transition: border-color 0.2s;
+        }
+
+        .cert-item:hover {
+            border-color: #5b9aff;
+        }
+
+        .cert-item img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            border-radius: 6px;
+            background: #fff;
+            padding: 3px;
+            flex-shrink: 0;
+        }
+
+        .cert-item .info h4 {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #eef0f2;
+        }
+
+        .cert-item .info .issuer {
+            font-size: 0.72rem;
+            color: #8e95a5;
+        }
+
+        /* ── Experience ── */
+        .exp-item {
+            margin-bottom: 16px;
+        }
+
+        .exp-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .exp-item h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #eef0f2;
+        }
+
+        .exp-item .role {
+            color: #5b9aff;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .exp-item .period {
+            color: #8e95a5;
+            font-size: 0.78rem;
+            margin-bottom: 4px;
+        }
+
+        .exp-item p {
+            color: #bcc4d4;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* ── Education ── */
+        .edu-item h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #eef0f2;
+        }
+
+        .edu-item .school {
+            color: #5b9aff;
+            font-size: 0.85rem;
+        }
+
+        .edu-item .period {
+            color: #8e95a5;
+            font-size: 0.78rem;
+            margin-bottom: 4px;
+        }
+
+        .edu-item p {
+            color: #bcc4d4;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* ── Project ── */
+        .project-item h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #eef0f2;
+        }
+
+        .project-item .tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 4px 0 8px;
+        }
+
+        .project-item .tech span {
+            background: #1e2430;
+            padding: 2px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            color: #8e95a5;
+        }
+
+        .project-item p {
+            color: #bcc4d4;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .project-item a {
+            color: #5b9aff;
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .project-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── Full-width sections ── */
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .cv-container {
+                padding: 24px 20px;
+            }
+
+            .cv-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 16px;
+            }
+
+            .cv-contact {
+                text-align: center;
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .cv-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .full-width {
+                grid-column: 1;
+            }
+
+            .cv-avatar img {
+                width: 96px;
+                height: 96px;
+            }
+
+            .cv-title h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .cv-container {
+                background: #fff;
+                border: none;
+                box-shadow: none;
+                padding: 40px 48px;
+                border-radius: 0;
+            }
+            .cv-title h1 {
+                background: none;
+                color: #0a0c10;
+                -webkit-text-fill-color: #0a0c10;
+            }
+            .cv-title .subhead {
+                color: #2563eb;
+            }
+            .cv-title .tagline {
+                color: #4b5563;
+            }
+            .cv-contact a {
+                color: #2563eb;
+            }
+            .cv-contact .icon {
+                color: #2563eb;
+            }
+            .cv-section .section-title {
+                color: #2563eb;
+                border-bottom-color: #d1d5db;
+            }
+            .cv-about p {
+                color: #374151;
+            }
+            .skill-tag {
+                background: #f3f4f6;
+                border-color: #d1d5db;
+                color: #1f2937;
+            }
+            .skill-tag i {
+                color: #2563eb;
+            }
+            .cert-item {
+                background: #f9fafb;
+                border-color: #e5e7eb;
+            }
+            .cert-item .info h4 {
+                color: #111827;
+            }
+            .cert-item .info .issuer {
+                color: #6b7280;
+            }
+            .exp-item h4 {
+                color: #111827;
+            }
+            .exp-item .role {
+                color: #2563eb;
+            }
+            .exp-item .period {
+                color: #6b7280;
+            }
+            .exp-item p {
+                color: #374151;
+            }
+            .edu-item h4 {
+                color: #111827;
+            }
+            .edu-item .school {
+                color: #2563eb;
+            }
+            .edu-item .period {
+                color: #6b7280;
+            }
+            .edu-item p {
+                color: #374151;
+            }
+            .project-item h4 {
+                color: #111827;
+            }
+            .project-item .tech span {
+                background: #f3f4f6;
+                color: #4b5563;
+            }
+            .project-item p {
+                color: #374151;
+            }
+            .project-item a {
+                color: #2563eb;
+            }
+            .cert-item img {
+                background: #fff;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cv-container">
+
+        <!-- ═══ HEADER ═══ -->
+        <header class="cv-header">
+            <div class="cv-avatar">
+                <img src="1773352902571.jpg" alt="Juan Antonio Rivera" />
+            </div>
+            <div class="cv-title">
+                <h1>Juan Antonio Rivera Rodriguez</h1>
+                <div class="subhead">Aspiring Cloud Engineer · Docker &amp; Linux</div>
+                <div class="tagline">
+                    Estudiante de Ingeniería en Desarrollo de Software con pasión por la infraestructura en la nube,
+                    DevOps y la automatización. Construyo sistemas desde cero — desde aplicaciones contenerizadas
+                    hasta túneles de red seguros.
+                </div>
+            </div>
+            <div class="cv-contact">
+                <a href="mailto:riverarodriguezjuanantonio@gmail.com">
+                    <span class="icon"><i class="fas fa-envelope"></i></span> Email
+                </a>
+                <a href="https://github.com/death-zip" target="_blank">
+                    <span class="icon"><i class="fab fa-github"></i></span> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/juan-antonio-rivera-rodriguez-25aa56143/" target="_blank">
+                    <span class="icon"><i class="fab fa-linkedin-in"></i></span> LinkedIn
+                </a>
+                <a href="https://death-zip.github.io" target="_blank">
+                    <span class="icon"><i class="fas fa-globe"></i></span> Portfolio
+                </a>
+                <a href="https://media.jarr.cc.cd" target="_blank">
+                    <span class="icon"><i class="fas fa-server"></i></span> Servidor Jellyfin
+                </a>
+            </div>
+        </header>
+
+        <!-- ═══ GRID ═══ -->
+        <div class="cv-grid">
+
+            <!-- ─── ABOUT ─── -->
+            <div class="cv-section full-width">
+                <div class="section-title"><i class="fas fa-user"></i> Sobre Mí</div>
+                <div class="cv-about">
+                    <p>
+                        Soy un estudiante de Ingeniería en Desarrollo de Software en la Universidad Tecmilenio
+                        (modelo MAPS) con una fuerte pasión por la infraestructura en la nube, DevOps y la
+                        automatización. Disfruto construir sistemas desde cero — desde aplicaciones contenerizadas
+                        hasta túneles de red seguros.
+                    </p>
+                    <p>
+                        Este portafolio es un testimonio de ello: un servidor multimedia completamente funcional
+                        ejecutándose en Docker, expuesto a través de Cloudflare Tunnel y consumiendo su propia API REST
+                        — todo construido como un viaje de aprendizaje y una muestra de habilidades prácticas.
+                    </p>
+                </div>
+            </div>
+
+            <!-- ─── SKILLS ─── -->
+            <div class="cv-section">
+                <div class="section-title"><i class="fas fa-bolt"></i> Habilidades Técnicas</div>
+                <div class="skills-grid">
+                    <span class="skill-tag"><i class="fab fa-docker"></i> Docker</span>
+                    <span class="skill-tag"><i class="fab fa-linux"></i> Linux</span>
+                    <span class="skill-tag"><i class="fas fa-cloud"></i> Cloudflare</span>
+                    <span class="skill-tag"><i class="fas fa-code-branch"></i> DevOps</span>
+                    <span class="skill-tag"><i class="fas fa-network-wired"></i> Networking</span>
+                    <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+                    <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+                    <span class="skill-tag"><i class="fab fa-html5"></i> HTML</span>
+                    <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS</span>
+                    <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
+                    <span class="skill-tag"><i class="fas fa-code"></i> Bash</span>
+                    <span class="skill-tag"><i class="fas fa-git-alt"></i> Git</span>
+                    <span class="skill-tag"><i class="fab fa-aws"></i> AWS</span>
+                    <span class="skill-tag"><i class="fas fa-shield-alt"></i> Seguridad</span>
+                    <span class="skill-tag"><i class="fas fa-server"></i> Nginx</span>
+                    <span class="skill-tag"><i class="fas fa-cogs"></i> WSL2</span>
+                    <span class="skill-tag"><i class="fas fa-terminal"></i> Bash</span>
+                    <span class="skill-tag"><i class="fas fa-code"></i> REST APIs</span>
+                </div>
+            </div>
+
+            <!-- ─── EDUCATION ─── -->
+            <div class="cv-section">
+                <div class="section-title"><i class="fas fa-graduation-cap"></i> Educación</div>
+                <div class="edu-item">
+                    <h4>Ingeniería en Desarrollo de Software</h4>
+                    <div class="school">Universidad Tecmilenio · Modelo MAPS</div>
+                    <div class="period">2024 – Presente</div>
+                    <p>Especialización en curso: DevOps Methodology. Coursework en cloud infrastructure,
+                    desarrollo web, redes y prácticas de CI/CD, aplicado en proyectos propios de
+                    contenerización y automatización.</p>
+                </div>
+            </div>
+
+            <!-- ─── EXPERIENCE ─── -->
+            <div class="cv-section full-width">
+                <div class="section-title"><i class="fas fa-briefcase"></i> Experiencia</div>
+                <div class="exp-item">
+                    <h4>Desarrollador Freelance</h4>
+                    <div class="role">Autónomo · 2026 – Presente</div>
+                    <div class="period">Proyectos personalizados para clientes</div>
+                    <p>
+                        Desarrollo de proyectos personalizados para clientes. Especializado en la creación de infraestructura
+                        contenerizada, despliegue de aplicaciones web y automatización de tareas.
+                    </p>
+                </div>
+            </div>
+
+            <!-- ─── CERTIFICATIONS ─── -->
+            <div class="cv-section full-width">
+                <div class="section-title"><i class="fas fa-certificate"></i> Certificaciones</div>
+                <div class="cert-list">
+                    <!-- Generado dinámicamente desde la lista de 18 insignias -->
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/fdecf3ca-1fa7-46c9-93c7-e203f718579b/linkedin_thumb_blob" alt="Desarrollo Full Stack" />
+                        <div class="info"><h4>Desarrollo Full Stack</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/18d30937-4c1b-442c-83a1-543265bcf02f/linkedin_thumb_image.png" alt="Fundamentos de DevOps" />
+                        <div class="info"><h4>Fundamentos de DevOps</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/c0e5a9ce-f523-483c-8daa-4c37019ad7aa/linkedin_thumb_blob" alt="Gestión de Redes" />
+                        <div class="info"><h4>Gestión de Redes</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/07e7ba52-aea4-431f-ba2d-a4113efd1d5a/linkedin_thumb_blob" alt="AWS Cloud Operations" />
+                        <div class="info"><h4>AWS Cloud Operations</h4><div class="issuer">Amazon Web Services</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/5bdd6a39-..." alt="Networking Basics" />
+                        <div class="info"><h4>Networking Basics</h4><div class="issuer">Cisco</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/0c1c6eed-818c-4f78-bfaa-7ea8704c863a/linkedin_thumb_image.png" alt="Web Development Fundamentals" />
+                        <div class="info"><h4>Web Development Fundamentals</h4><div class="issuer">IBM SkillsBuild</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/4013b068-cd88-443a-b109-292cad70e121/linkedin_thumb_blob" alt="Ciencia de Datos" />
+                        <div class="info"><h4>Ciencia de Datos</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/da491c56-6aef-47a6-9ae4-eb3bbfa9b60e/linkedin_thumb_blob" alt="Computación en la Nube" />
+                        <div class="info"><h4>Computación en la Nube</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/0871bc81-7152-4340-8367-8fbe3896c43f/linkedin_thumb_blob" alt="Fundamentos de Programación" />
+                        <div class="info"><h4>Fundamentos de Programación</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/c187e134-e491-4f6b-9083-decb5e0bd265/linkedin_thumb_blob" alt="Probabilidad y Estadística" />
+                        <div class="info"><h4>Probabilidad y Estadística</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/dc201a38-6b7c-4ffd-85cc-0d337b22bc05/linkedin_thumb_blob" alt="Programación Orientada a Objetos" />
+                        <div class="info"><h4>Programación Orientada a Objetos</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/24c929ed-4d14-4226-975f-116ee666d81e/linkedin_thumb_blob" alt="Sistemas Operativos" />
+                        <div class="info"><h4>Sistemas Operativos</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/251db325-c323-4cbf-927d-9970329fdebb/linkedin_thumb_image.png" alt="Inglés 5" />
+                        <div class="info"><h4>Inglés 5</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/2cc5aef9-1698-4a6c-9a22-6b81b1a6fe51/linkedin_thumb_blob" alt="Metodologías Ágiles" />
+                        <div class="info"><h4>Metodologías Ágiles</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/3e8f3768-bb7b-426f-ba22-e214da27aca5/linkedin_thumb_blob" alt="Bases de Datos" />
+                        <div class="info"><h4>Bases de Datos</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/868fef28-16a5-4ed4-92f6-ef43da8fec4a/linkedin_thumb_blob" alt="Estructura de Datos" />
+                        <div class="info"><h4>Estructura de Datos</h4><div class="issuer">Universidad Tecmilenio</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/b38a42e0-dc58-4ce2-b6c0-28d978e8aaad/linkedin_thumb_image.png" alt="Introduction to Data Science" />
+                        <div class="info"><h4>Introduction to Data Science</h4><div class="issuer">Cisco</div></div>
+                    </div>
+                    <div class="cert-item">
+                        <img src="https://images.credly.com/images/68c0b94d-f6ac-40b1-a0e0-921439eb092e/linkedin_thumb_image.png" alt="Python Essentials 1" />
+                        <div class="info"><h4>Python Essentials 1</h4><div class="issuer">Cisco</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── PROJECT ─── -->
+            <div class="cv-section full-width">
+                <div class="section-title"><i class="fas fa-code"></i> Proyecto destacado</div>
+                <div class="project-item">
+                    <h4>Docker Media Server Lab</h4>
+                    <div class="tech">
+                        <span>Docker</span>
+                        <span>Cloudflare</span>
+                        <span>Jellyfin</span>
+                        <span>REST API</span>
+                        <span>Linux</span>
+                        <span>WSL2</span>
+                    </div>
+                    <p>
+                        Servidor de streaming contenerizado con Docker Compose, expuesto de forma segura
+                        mediante Cloudflare Tunnel (sin abrir puertos). Incluye integración con la API de Jellyfin
+                        para obtener metadatos y URLs de reproducción. El proyecto demuestra habilidades en
+                        contenerización, redes, seguridad y administración de sistemas.
+                    </p>
+                    <a href="https://media.jarr.cc.cd" target="_blank">🔗 Ver servidor en vivo</a>
+                    &nbsp;·&nbsp;
+                    <a href="https://github.com/death-zip/docker-mediaserver-lab" target="_blank">📦 Ver en GitHub</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
