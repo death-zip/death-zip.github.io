@@ -174,6 +174,8 @@
         .player-modal { background:var(--bg2); border-radius:var(--radius); max-width:920px; width:100%; max-height:92vh; overflow-y:auto; border:1px solid var(--border); position:relative; }
         .player-modal .close { position:sticky; top:8px; float:right; margin:10px 14px 0 0; background:rgba(0,0,0,0.6); border:none; color:#fff; font-size:1.6rem; cursor:pointer; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; z-index:5; }
         .player-backdrop { width:100%; aspect-ratio:16/8; object-fit:cover; background:#000; display:block; }
+        /* Para episodios: ocultamos el banner */
+        .player-backdrop.hidden { display:none; }
         .player-body { padding:22px 28px 28px; }
         .player-body h3 { font-size:1.4rem; margin-bottom:6px; }
         .meta-row { display:flex; gap:14px; flex-wrap:wrap; align-items:center; color:var(--muted); font-size:0.85rem; margin-bottom:10px; }
@@ -857,8 +859,9 @@
                 currentPlayer.dispose();
                 currentPlayer = null;
             }
-            // Ocultamos el banner grande
-            modalBackdrop.style.display = 'none';
+            // Ocultar el banner
+            modalBackdrop.classList.add('hidden');
+            modalBackdrop.src = '';
             modalTitle.textContent = series.Name;
             modalMeta.innerHTML = '';
             modalGenres.innerHTML = '';
@@ -870,7 +873,6 @@
             modalActions.innerHTML = '';
             overlay.classList.add('open');
 
-            // Mostrar descripción de la serie
             let html = `<div class="series-modal-content">
                 ${series.Overview ? `<div class="series-description">${escapeHtml(series.Overview)}</div>` : ''}
                 <div class="season-tabs" id="seriesSeasonTabs"></div>
@@ -1126,8 +1128,10 @@
                 currentPlayer.dispose();
                 currentPlayer = null;
             }
-            // Asegurar que el banner se muestre para películas (si es película)
-            modalBackdrop.style.display = 'block';
+
+            // Reseteamos el banner: oculto por defecto
+            modalBackdrop.classList.add('hidden');
+            modalBackdrop.src = '';
 
             modalTitle.textContent = basic?.Name || 'Cargando...';
             modalMeta.innerHTML = 'Cargando detalles…';
@@ -1138,7 +1142,6 @@
             modalRecommendations.style.display = 'none';
             videoWrap.innerHTML = '';
             modalActions.innerHTML = '';
-            modalBackdrop.src = basic && basic.ImageTags && basic.ImageTags.Primary ? `${JELLYFIN_URL}/Items/${id}/Images/Primary?maxWidth=800&tag=${basic.ImageTags.Primary}` : '';
             overlay.classList.add('open');
 
             let detail;
@@ -1149,8 +1152,14 @@
                 return;
             }
 
-            if (detail.BackdropImageTags && detail.BackdropImageTags.length > 0) {
+            // Si es película y tiene backdrop, lo mostramos
+            if (detail.Type === 'Movie' && detail.BackdropImageTags && detail.BackdropImageTags.length > 0) {
+                modalBackdrop.classList.remove('hidden');
                 modalBackdrop.src = `${JELLYFIN_URL}/Items/${id}/Images/Backdrop/0?maxWidth=900&tag=${detail.BackdropImageTags[0]}`;
+            } else if (detail.Type === 'Movie' && detail.ImageTags && detail.ImageTags.Primary) {
+                // Si no tiene backdrop pero tiene póster, lo usamos como banner (opcional)
+                modalBackdrop.classList.remove('hidden');
+                modalBackdrop.src = `${JELLYFIN_URL}/Items/${id}/Images/Primary?maxWidth=800&tag=${detail.ImageTags.Primary}`;
             }
 
             if (detail.Name) {
@@ -1472,8 +1481,9 @@
                 currentPlayer = null;
             }
             videoWrap.innerHTML = '';
-            // Restaurar banner para la próxima vez
-            modalBackdrop.style.display = 'block';
+            // Resetear banner
+            modalBackdrop.classList.add('hidden');
+            modalBackdrop.src = '';
         }
 
         modalClose.addEventListener('click', closeModal);
