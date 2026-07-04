@@ -107,7 +107,6 @@
         .skills-cloud .skill-tag { background:rgba(91,154,255,0.1); border:1px solid rgba(91,154,255,0.25); padding:8px 20px; border-radius:30px; font-size:0.85rem; font-weight:500; color:var(--text); transition:all 0.3s ease; cursor:default; backdrop-filter:blur(4px); animation:float 6s ease-in-out infinite; flex:0 1 auto; }
         .skills-cloud .skill-tag:hover { transform:scale(1.1); background:rgba(91,154,255,0.25); border-color:var(--accent); box-shadow:0 0 20px rgba(91,154,255,0.2); }
         .skills-cloud .skill-tag i { margin-right:6px; color:var(--accent); }
-        /* Para que no queden espacios en blanco, usamos flex con gap, y los tags se ajustan automáticamente. Si se quiere que ocupen todo el ancho, se podría usar grid, pero flex es más natural. */
 
         /* ── Library ── */
         .library-controls { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; align-items:center; }
@@ -137,8 +136,9 @@
         .show-card img { width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:8px; background:#111; }
         .show-card .show-name { font-size:0.75rem; color:var(--muted); margin-top:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-        /* ── Series modal (temporadas y episodios) ── */
+        /* ── Series modal (sin banner) ── */
         .series-modal-content { padding:10px 0; }
+        .series-modal-content .series-description { color:var(--muted); font-size:0.9rem; margin-bottom:16px; line-height:1.6; }
         .season-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
         .season-tab { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-size:0.78rem; color:var(--muted); cursor:pointer; transition:all var(--transition); }
         .season-tab:hover, .season-tab.active { border-color:var(--accent); background:#253047; color:var(--text); }
@@ -361,7 +361,7 @@
             </div>
         </section>
 
-        <!-- ─── PROJECTS ─── -->
+        <!-- ─── PROJECTS (SOLO PELÍCULAS) ─── -->
         <section id="projects">
             <h2 class="section-title anim" data-i18n="projects.title">Proyecto destacado</h2>
             <p class="section-sub anim" data-i18n="projects.sub">Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel</p>
@@ -787,7 +787,8 @@
                 const res = await fetch(url, { headers: { 'X-Emby-Token': API_KEY } });
                 if (!res.ok) throw new Error(`El servidor respondió con estado ${res.status}`);
                 const data = await res.json();
-                allItems = data.Items || [];
+                // FILTRAR: solo películas en "Proyecto destacado" (excluir series)
+                allItems = (data.Items || []).filter(item => item.Type === 'Movie');
                 itemsById = {};
                 allItems.forEach(item => { itemsById[item.Id] = item; });
                 renderLibrary(allItems);
@@ -847,7 +848,7 @@
             return data.Items || [];
         }
 
-        // ─── SERIES MODAL ───
+        // ─── SERIES MODAL (sin banner) ───
         async function openSeriesModal(seriesId) {
             const series = seriesById[seriesId];
             if (!series) return;
@@ -856,34 +857,39 @@
                 currentPlayer.dispose();
                 currentPlayer = null;
             }
-            videoWrap.innerHTML = '';
+            // Ocultamos el banner grande
+            modalBackdrop.style.display = 'none';
             modalTitle.textContent = series.Name;
-            modalBackdrop.src = series.ImageTags && series.ImageTags.Primary
-                ? `${JELLYFIN_URL}/Items/${series.Id}/Images/Primary?maxWidth=800&tag=${series.ImageTags.Primary}`
-                : '';
             modalMeta.innerHTML = '';
             modalGenres.innerHTML = '';
             modalOverview.textContent = '';
             modalCastCrew.innerHTML = '';
             modalColorimetry.innerHTML = '';
             modalRecommendations.style.display = 'none';
+            videoWrap.innerHTML = '';
+            modalActions.innerHTML = '';
             overlay.classList.add('open');
+
+            // Mostrar descripción de la serie
+            let html = `<div class="series-modal-content">
+                ${series.Overview ? `<div class="series-description">${escapeHtml(series.Overview)}</div>` : ''}
+                <div class="season-tabs" id="seriesSeasonTabs"></div>
+                <div id="seriesEpisodesGrid" class="episodes-grid"></div>
+            </div>`;
+            videoWrap.innerHTML = html;
 
             try {
                 const seasons = await fetchSeasons(seriesId);
                 if (!seasons.length) {
-                    videoWrap.innerHTML = '<div style="color:var(--muted);">Esta serie no tiene temporadas.</div>';
+                    document.getElementById('seriesEpisodesGrid').innerHTML = '<div style="color:var(--muted);">Esta serie no tiene temporadas.</div>';
                     return;
                 }
 
-                let html = `<div class="series-modal-content">`;
-                html += `<div class="season-tabs">`;
-                seasons.forEach((s, i) => {
+                const tabsContainer = document.getElementById('seriesSeasonTabs');
+                tabsContainer.innerHTML = seasons.map((s, i) => {
                     const sn = Number.isInteger(s.IndexNumber) ? s.IndexNumber : i + 1;
-                    html += `<button class="season-tab ${i===0?'active':''}" data-season-id="${s.Id}">T${sn}</button>`;
-                });
-                html += `</div><div id="seriesEpisodesGrid" class="episodes-grid"></div></div>`;
-                videoWrap.innerHTML = html;
+                    return `<button class="season-tab ${i===0?'active':''}" data-season-id="${s.Id}">T${sn}</button>`;
+                }).join('');
 
                 const firstSeason = seasons[0];
                 const episodes = await fetchEpisodesForSeason(firstSeason.Id);
@@ -891,9 +897,9 @@
                 currentEpisodeIndex = 0;
                 renderSeriesEpisodes(episodes);
 
-                document.querySelectorAll('.season-tab').forEach(tab => {
+                tabsContainer.querySelectorAll('.season-tab').forEach(tab => {
                     tab.addEventListener('click', async () => {
-                        document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
+                        tabsContainer.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
                         tab.classList.add('active');
                         const seasonId = tab.dataset.seasonId;
                         const eps = await fetchEpisodesForSeason(seasonId);
@@ -905,7 +911,7 @@
 
             } catch (err) {
                 console.error('Error cargando temporadas:', err);
-                videoWrap.innerHTML = `<div style="color:var(--muted);">Error al cargar temporadas: ${err.message}</div>`;
+                videoWrap.innerHTML += `<div style="color:var(--muted);">Error al cargar temporadas: ${err.message}</div>`;
             }
         }
 
@@ -1120,6 +1126,8 @@
                 currentPlayer.dispose();
                 currentPlayer = null;
             }
+            // Asegurar que el banner se muestre para películas (si es película)
+            modalBackdrop.style.display = 'block';
 
             modalTitle.textContent = basic?.Name || 'Cargando...';
             modalMeta.innerHTML = 'Cargando detalles…';
@@ -1464,6 +1472,8 @@
                 currentPlayer = null;
             }
             videoWrap.innerHTML = '';
+            // Restaurar banner para la próxima vez
+            modalBackdrop.style.display = 'block';
         }
 
         modalClose.addEventListener('click', closeModal);
