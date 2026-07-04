@@ -545,6 +545,120 @@
             gap: 18px;
         }
 
+        .shows-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .shows-panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .shows-panel h4 {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: var(--muted);
+        }
+
+        .series-list {
+            max-height: 440px;
+            overflow: auto;
+            display: grid;
+            gap: 8px;
+        }
+
+        .series-item-btn {
+            width: 100%;
+            text-align: left;
+            background: #1e2430;
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .series-item-btn:hover,
+        .series-item-btn.active {
+            border-color: var(--accent);
+            background: #253047;
+        }
+
+        .episode-browser {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .episode-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+
+        .episode-controls select {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            padding: 8px 10px;
+            min-width: 180px;
+            font-size: 0.82rem;
+        }
+
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 12px;
+        }
+
+        .episode-card {
+            background: #1e2430;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .episode-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .episode-card img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #111;
+            display: block;
+        }
+
+        .episode-card .ep-body {
+            padding: 10px;
+        }
+
+        .episode-card .ep-title {
+            font-size: 0.84rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .episode-card .ep-meta {
+            font-size: 0.74rem;
+            color: var(--muted);
+        }
+
         .item-card {
             background: var(--card);
             border-radius: 10px;
@@ -1072,6 +1186,12 @@
                 top: 4px;
                 right: 4px;
             }
+            .shows-layout {
+                grid-template-columns: 1fr;
+            }
+            .series-list {
+                max-height: 240px;
+            }
             .cert-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
             }
@@ -1107,6 +1227,7 @@
                 <a href="#services" data-i18n="nav.services">Servicios</a>
                 <a href="#skills" data-i18n="nav.skills">Habilidades</a>
                 <a href="#projects" data-i18n="nav.projects">Proyectos</a>
+                <a href="#shows" data-i18n="nav.shows">Series</a>
                 <a href="#certifications" data-i18n="nav.certs">Certificaciones</a>
                 <a href="#contact" data-i18n="nav.contact">Contacto</a>
                 <button class="lang-toggle" id="langToggle">
@@ -1287,6 +1408,26 @@
             </div>
         </section>
 
+        <!-- ─── SHOWS / SERIES ─── -->
+        <section id="shows">
+            <h2 class="section-title anim" data-i18n="shows.title">Series por temporadas</h2>
+            <p class="section-sub anim" data-i18n="shows.sub">Explora series, elige temporada y reproduce episodios con el player compatible de Jellyfin</p>
+            <div id="showsStatus" class="loading anim" style="padding: 10px 14px; border-radius: 10px; margin-bottom: 12px;">Cargando series...</div>
+            <div class="shows-layout anim">
+                <div class="shows-panel">
+                    <h4 data-i18n="shows.serieslist">Series disponibles</h4>
+                    <div id="seriesList" class="series-list"></div>
+                </div>
+                <div class="episode-browser">
+                    <div class="episode-controls">
+                        <label for="seasonSelect" data-i18n="shows.season">Temporada</label>
+                        <select id="seasonSelect"></select>
+                    </div>
+                    <div id="episodesGrid" class="episodes-grid"></div>
+                </div>
+            </div>
+        </section>
+
         <!-- ─── CERTIFICATIONS ─── -->
         <section id="certifications">
             <h2 class="section-title anim" data-i18n="certs.title">Certificaciones</h2>
@@ -1369,6 +1510,7 @@
                 'nav.services': 'Servicios',
                 'nav.skills': 'Habilidades',
                 'nav.projects': 'Proyectos',
+                'nav.shows': 'Series',
                 'nav.certs': 'Certificaciones',
                 'nav.contact': 'Contacto',
                 'hero.eyebrow': '✦ Disponible para oportunidades remotas',
@@ -1407,6 +1549,10 @@
                 'projects.search': 'Buscar películas…',
                 'projects.watchlist': 'Mi lista',
                 'projects.full': 'Abrir servidor completo',
+                'shows.title': 'Series por temporadas',
+                'shows.sub': 'Explora series, elige temporada y reproduce episodios con el player compatible de Jellyfin',
+                'shows.serieslist': 'Series disponibles',
+                'shows.season': 'Temporada',
                 'certs.title': 'Certificaciones',
                 'certs.sub': 'Verificadas en Credly',
                 'certs.showmore': 'Ver más',
@@ -1427,6 +1573,7 @@
                 'nav.services': 'Services',
                 'nav.skills': 'Skills',
                 'nav.projects': 'Projects',
+                'nav.shows': 'Shows',
                 'nav.certs': 'Certifications',
                 'nav.contact': 'Contact',
                 'hero.eyebrow': '✦ Available for remote opportunities',
@@ -1465,6 +1612,10 @@
                 'projects.search': 'Search movies…',
                 'projects.watchlist': 'My list',
                 'projects.full': 'Open full server',
+                'shows.title': 'Shows by season',
+                'shows.sub': 'Browse shows, choose season, and play episodes with the Jellyfin-compatible player',
+                'shows.serieslist': 'Available shows',
+                'shows.season': 'Season',
                 'certs.title': 'Certifications',
                 'certs.sub': 'Verified on Credly',
                 'certs.showmore': 'Show more',
@@ -1681,6 +1832,10 @@
         const searchInput = document.getElementById('searchInput');
         const watchlistToggle = document.getElementById('watchlistToggle');
         const watchlistCount = document.getElementById('watchlistCount');
+        const showsStatusEl = document.getElementById('showsStatus');
+        const seriesListEl = document.getElementById('seriesList');
+        const seasonSelectEl = document.getElementById('seasonSelect');
+        const episodesGridEl = document.getElementById('episodesGrid');
 
         const overlay = document.getElementById('overlay');
         const modalClose = document.getElementById('modalClose');
@@ -1696,12 +1851,28 @@
         const modalRecommendations = document.getElementById('modalRecommendations');
         const recGrid = document.getElementById('recGrid');
         let currentPlayer = null;
+        let allSeries = [];
+        let seriesById = {};
+        let selectedSeriesId = null;
+        let selectedSeasonId = null;
 
         let currentSearchQuery = '';
 
         function setStatus(type, msg) {
             statusEl.className = type;
             statusEl.textContent = msg;
+        }
+
+        function setShowsStatus(type, msg) {
+            if (!showsStatusEl) return;
+            showsStatusEl.className = type;
+            showsStatusEl.textContent = msg;
+        }
+
+        async function jellyfinGet(path) {
+            const res = await fetch(`${JELLYFIN_URL}${path}`, { headers: { 'X-Emby-Token': API_KEY } });
+            if (!res.ok) throw new Error(`estado ${res.status}`);
+            return res.json();
         }
 
         function updateWatchlistCount() {
@@ -1783,6 +1954,136 @@
             } catch (err) {
                 setStatus('error', `⚠️ No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`);
                 console.error('Error cargando Jellyfin:', err);
+            }
+        }
+
+        async function fetchSeriesCatalog() {
+            try {
+                setShowsStatus('loading', 'Cargando series...');
+                const data = await jellyfinGet(
+                    `/Users/${USER_ID}/Items?IncludeItemTypes=Series&Recursive=true&SortBy=SortName&Fields=Overview,ProductionYear,CommunityRating,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=300`
+                );
+                allSeries = data.Items || [];
+                seriesById = {};
+                allSeries.forEach(s => { seriesById[s.Id] = s; });
+
+                if (!allSeries.length) {
+                    setShowsStatus('error', 'No se encontraron series en tu biblioteca.');
+                    if (seriesListEl) seriesListEl.innerHTML = '';
+                    if (episodesGridEl) episodesGridEl.innerHTML = '';
+                    return;
+                }
+
+                renderSeriesList();
+                setShowsStatus('ok', '');
+                await selectSeries(allSeries[0].Id);
+            } catch (err) {
+                console.error('Error cargando series:', err);
+                setShowsStatus('error', `No se pudieron cargar las series (${err.message}).`);
+            }
+        }
+
+        function renderSeriesList() {
+            if (!seriesListEl) return;
+            seriesListEl.innerHTML = allSeries.map(s => `
+                <button class="series-item-btn ${s.Id === selectedSeriesId ? 'active' : ''}" data-series-id="${s.Id}">
+                    ${s.Name}
+                </button>
+            `).join('');
+
+            seriesListEl.querySelectorAll('.series-item-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectSeries(btn.dataset.seriesId);
+                });
+            });
+        }
+
+        async function fetchSeasons(seriesId) {
+            const data = await jellyfinGet(
+                `/Users/${USER_ID}/Items?ParentId=${seriesId}&IncludeItemTypes=Season&Recursive=false&SortBy=SortName&Fields=IndexNumber,Overview,ProductionYear,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary`
+            );
+            return data.Items || [];
+        }
+
+        async function fetchEpisodesForSeason(seasonId) {
+            const data = await jellyfinGet(
+                `/Users/${USER_ID}/Items?ParentId=${seasonId}&IncludeItemTypes=Episode&Recursive=false&SortBy=PremiereDate,SortName&Fields=Overview,RunTimeTicks,IndexNumber,ParentIndexNumber,SeriesName,ProductionYear,CommunityRating,MediaStreams,MediaSources,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary`
+            );
+            return data.Items || [];
+        }
+
+        async function selectSeries(seriesId) {
+            selectedSeriesId = seriesId;
+            renderSeriesList();
+            if (!seasonSelectEl) return;
+
+            try {
+                setShowsStatus('loading', 'Cargando temporadas...');
+                const seasons = await fetchSeasons(seriesId);
+                if (!seasons.length) {
+                    seasonSelectEl.innerHTML = '';
+                    episodesGridEl.innerHTML = '<div style="color:var(--muted); font-size:0.85rem;">Esta serie no tiene temporadas visibles.</div>';
+                    setShowsStatus('ok', '');
+                    return;
+                }
+
+                seasonSelectEl.innerHTML = seasons.map((s, i) => {
+                    const seasonNumber = Number.isInteger(s.IndexNumber) ? s.IndexNumber : (i + 1);
+                    return `<option value="${s.Id}">${t('shows.season')} ${seasonNumber} - ${s.Name || ''}</option>`;
+                }).join('');
+
+                selectedSeasonId = seasons[0].Id;
+                await renderEpisodesForSeason(selectedSeasonId);
+
+                seasonSelectEl.onchange = async () => {
+                    selectedSeasonId = seasonSelectEl.value;
+                    await renderEpisodesForSeason(selectedSeasonId);
+                };
+            } catch (err) {
+                console.error('Error cargando temporadas:', err);
+                setShowsStatus('error', `No se pudieron cargar temporadas (${err.message}).`);
+            }
+        }
+
+        async function renderEpisodesForSeason(seasonId) {
+            try {
+                setShowsStatus('loading', 'Cargando episodios...');
+                const episodes = await fetchEpisodesForSeason(seasonId);
+                if (!episodes.length) {
+                    episodesGridEl.innerHTML = '<div style="color:var(--muted); font-size:0.85rem;">No hay episodios disponibles en esta temporada.</div>';
+                    setShowsStatus('ok', '');
+                    return;
+                }
+
+                episodesGridEl.innerHTML = episodes.map(ep => {
+                    const seasonNum = Number.isInteger(ep.ParentIndexNumber) ? ep.ParentIndexNumber : 0;
+                    const episodeNum = Number.isInteger(ep.IndexNumber) ? ep.IndexNumber : 0;
+                    const runtime = formatRuntime(ep.RunTimeTicks) || '';
+                    const thumb = ep.ImageTags && ep.ImageTags.Primary
+                        ? `${JELLYFIN_URL}/Items/${ep.Id}/Images/Primary?maxWidth=480&tag=${ep.ImageTags.Primary}`
+                        : '';
+
+                    return `
+                        <div class="episode-card" data-episode-id="${ep.Id}">
+                            ${thumb ? `<img src="${thumb}" alt="${ep.Name}" loading="lazy">` : ''}
+                            <div class="ep-body">
+                                <div class="ep-title">S${String(seasonNum).padStart(2, '0')}E${String(episodeNum).padStart(2, '0')} - ${ep.Name}</div>
+                                <div class="ep-meta">${runtime}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                episodesGridEl.querySelectorAll('.episode-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        openModal(card.dataset.episodeId);
+                    });
+                });
+
+                setShowsStatus('ok', '');
+            } catch (err) {
+                console.error('Error cargando episodios:', err);
+                setShowsStatus('error', `No se pudieron cargar episodios (${err.message}).`);
             }
         }
 
@@ -2044,7 +2345,7 @@
             const year = detail.ProductionYear || '';
             const rating = detail.CommunityRating ? `⭐ ${detail.CommunityRating.toFixed(1)}` : '';
             const runtime = formatRuntime(detail.RunTimeTicks);
-            const type = detail.Type === 'Series' ? 'Serie' : 'Película';
+            const type = detail.Type === 'Series' ? 'Serie' : (detail.Type === 'Episode' ? 'Episodio' : 'Película');
 
             modalMeta.innerHTML = [
                 year ? `<span class="pill">${year}</span>` : '',
@@ -2115,7 +2416,7 @@
             }
 
             // ─── REPRODUCTOR CON VIDEO.JS + PlaybackInfo de Jellyfin ───
-            if (detail.Type === 'Movie') {
+            if (detail.Type === 'Movie' || detail.Type === 'Episode') {
                 const mediaSourceRaw = (detail.MediaSources && detail.MediaSources[0]) ? detail.MediaSources[0] : null;
                 const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
                 const subtitleStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Subtitle');
@@ -2392,6 +2693,7 @@
         // ─── INIT ───
         applyTranslations();
         fetchLibrary();
+        fetchSeriesCatalog();
     </script>
 
 </body>
