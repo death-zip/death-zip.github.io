@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="theme-default">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,13 +13,37 @@
     <style>
         /* ── Reset & base ── */
         * { margin:0; padding:0; box-sizing:border-box; }
-        :root {
-            --bg: #0a0c10; --bg2: #11141a; --card: #181c24; --border: #2a2f3a;
-            --text: #eef0f2; --muted: #8e95a5; --accent: #5b9aff; --accent2: #8b7aff;
-            --shadow: 0 8px 30px rgba(0,0,0,0.5); --radius: 14px; --transition: 0.25s ease;
+        /* Variables para tema por defecto (azul) */
+        .theme-default {
+            --bg: #0a0c10;
+            --bg2: #11141a;
+            --card: #181c24;
+            --border: #2a2f3a;
+            --text: #eef0f2;
+            --muted: #8e95a5;
+            --accent: #5b9aff;
+            --accent2: #8b7aff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.5);
+            --radius: 14px;
+            --transition: 0.25s ease;
         }
+        /* Tema cine (verde oscuro + dorado) */
+        .theme-cine {
+            --bg: #0c120c;
+            --bg2: #141c14;
+            --card: #1a241a;
+            --border: #2a3a2a;
+            --text: #e6eee6;
+            --muted: #8fa88f;
+            --accent: #d4af37; /* dorado */
+            --accent2: #b8860b;
+            --shadow: 0 8px 30px rgba(0,0,0,0.6);
+            --radius: 14px;
+            --transition: 0.25s ease;
+        }
+
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
         a { color: inherit; text-decoration: none; }
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
@@ -44,11 +68,12 @@
         nav .links { display:flex; gap:24px; font-size:0.9rem; align-items:center; flex-wrap:wrap; }
         nav .links a { color:var(--muted); transition:color var(--transition); }
         nav .links a:hover { color:var(--accent); }
-        .lang-toggle { background:var(--card); border:1px solid var(--border); border-radius:30px; padding:4px 14px; font-size:0.8rem; font-weight:500; color:var(--text); cursor:pointer; transition:all var(--transition); display:flex; align-items:center; gap:6px; }
-        .lang-toggle:hover { border-color:var(--accent); background:var(--border); }
+        .lang-toggle, .theme-toggle { background:var(--card); border:1px solid var(--border); border-radius:30px; padding:4px 14px; font-size:0.8rem; font-weight:500; color:var(--text); cursor:pointer; transition:all var(--transition); display:inline-flex; align-items:center; gap:6px; }
+        .lang-toggle:hover, .theme-toggle:hover { border-color:var(--accent); background:var(--border); }
 
         /* ── Hero ── */
         .hero { padding:80px 0 60px; text-align:center; background:radial-gradient(circle at 50% 0%, rgba(91,154,255,0.08), transparent 60%); }
+        .theme-cine .hero { background:radial-gradient(circle at 50% 0%, rgba(212,175,55,0.08), transparent 60%); }
         .hero .eyebrow { color:var(--accent); font-size:0.8rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:12px; font-weight:500; }
         .hero h1 { font-size:3rem; font-weight:700; letter-spacing:-1px; background:linear-gradient(135deg, #ffffff 50%, #b0c4de); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:8px; }
         .hero .sub { font-size:1.2rem; font-weight:400; color:var(--accent); margin-bottom:18px; }
@@ -58,7 +83,7 @@
         .btn { padding:10px 24px; border-radius:40px; font-weight:600; font-size:0.9rem; border:1px solid var(--border); transition:all var(--transition); display:inline-flex; align-items:center; gap:8px; cursor:pointer; background:transparent; color:var(--text); }
         .btn:hover { transform:translateY(-2px); }
         .btn-primary { background:var(--accent); border-color:var(--accent); color:#fff; }
-        .btn-primary:hover { background:#4a8ae8; border-color:#4a8ae8; }
+        .btn-primary:hover { background:var(--accent); filter:brightness(1.1); }
         .btn-outline { border-color:var(--accent); color:var(--accent); }
         .btn-outline:hover { background:var(--accent); color:#fff; }
         .btn-ghost { color:var(--muted); }
@@ -68,10 +93,12 @@
         /* ── Hire panel ── */
         .hire-section { padding-top:14px; }
         .hire-panel { background:linear-gradient(135deg, rgba(91,154,255,0.14), rgba(139,122,255,0.08)); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+        .theme-cine .hire-panel { background:linear-gradient(135deg, rgba(212,175,55,0.14), rgba(184,134,11,0.08)); }
         .hire-panel h2 { font-size:1.35rem; margin-bottom:8px; }
         .hire-panel p { color:var(--muted); margin-bottom:18px; }
         .hire-facts { display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:12px; margin-bottom:16px; }
         .hire-fact { background:rgba(10,12,16,0.5); border:1px solid var(--border); border-radius:10px; padding:12px; }
+        .theme-cine .hire-fact { background:rgba(12,18,12,0.5); }
         .hire-fact .label { color:var(--muted); font-size:0.75rem; margin-bottom:2px; text-transform:uppercase; letter-spacing:0.8px; }
         .hire-fact .value { font-size:0.92rem; font-weight:600; }
 
@@ -88,6 +115,7 @@
         .about-text .badge-pills span { background:var(--card); border:1px solid var(--border); padding:4px 16px; border-radius:30px; font-size:0.8rem; color:var(--muted); }
         .about-image { text-align:center; }
         .about-image img { width:280px; height:280px; border-radius:50%; object-fit:cover; border:3px solid var(--accent); box-shadow:0 0 40px rgba(91,154,255,0.2); transition:all var(--transition); }
+        .theme-cine .about-image img { border-color:var(--accent); box-shadow:0 0 40px rgba(212,175,55,0.2); }
         .about-image img:hover { transform:scale(1.02); box-shadow:0 0 60px rgba(91,154,255,0.4); }
 
         /* ── Services ── */
@@ -100,12 +128,14 @@
         .service-card .tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
         .service-card .tags span { background:#1e2430; color:#bcc4d4; font-size:0.7rem; padding:3px 12px; border-radius:30px; }
 
-        /* ── Skills (simétrico y adaptable) ── */
+        /* ── Skills ── */
         .skills-wrapper { position:relative; padding:40px 20px; background:var(--card); border-radius:var(--radius); border:1px solid var(--border); overflow:hidden; min-height:300px; }
         .skills-wrapper canvas { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
         .skills-cloud { position:relative; z-index:1; display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
         .skills-cloud .skill-tag { background:rgba(91,154,255,0.1); border:1px solid rgba(91,154,255,0.25); padding:8px 20px; border-radius:30px; font-size:0.85rem; font-weight:500; color:var(--text); transition:all 0.3s ease; cursor:default; backdrop-filter:blur(4px); animation:float 6s ease-in-out infinite; flex:0 1 auto; }
+        .theme-cine .skills-cloud .skill-tag { background:rgba(212,175,55,0.1); border-color:rgba(212,175,55,0.25); }
         .skills-cloud .skill-tag:hover { transform:scale(1.1); background:rgba(91,154,255,0.25); border-color:var(--accent); box-shadow:0 0 20px rgba(91,154,255,0.2); }
+        .theme-cine .skills-cloud .skill-tag:hover { background:rgba(212,175,55,0.25); box-shadow:0 0 20px rgba(212,175,55,0.2); }
         .skills-cloud .skill-tag i { margin-right:6px; color:var(--accent); }
 
         /* ── Library ── */
@@ -124,7 +154,9 @@
 
         .status-banner { padding:10px 14px; border-radius:10px; margin-bottom:12px; font-size:0.86rem; border:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
         .status-banner.loading { background:#1a2538; color:#9bbaff; }
+        .theme-cine .status-banner.loading { background:#1a2a1a; color:#d4af37; }
         .status-banner.loading::before { content:''; width:12px; height:12px; border-radius:50%; border:2px solid rgba(155,186,255,0.35); border-top-color:#9bbaff; animation:spin 0.9s linear infinite; flex-shrink:0; }
+        .theme-cine .status-banner.loading::before { border-color:rgba(212,175,55,0.35); border-top-color:#d4af37; }
         .status-banner.error { background:#3a1e1e; color:#ff9c9c; }
         .status-banner.ok { display:none; }
         @keyframes spin { to { transform:rotate(360deg); } }
@@ -136,14 +168,16 @@
         .show-card img { width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:8px; background:#111; }
         .show-card .show-name { font-size:0.75rem; color:var(--muted); margin-top:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-        /* ── Series modal (sin banner) ── */
+        /* ── Series modal ── */
         .series-modal-content { padding:10px 0; }
         .series-modal-content .series-description { color:var(--muted); font-size:0.9rem; margin-bottom:16px; line-height:1.6; }
         .season-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
         .season-tab { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-size:0.78rem; color:var(--muted); cursor:pointer; transition:all var(--transition); }
         .season-tab:hover, .season-tab.active { border-color:var(--accent); background:#253047; color:var(--text); }
+        .theme-cine .season-tab:hover, .theme-cine .season-tab.active { background:#2a3a2a; }
         .episodes-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:12px; max-height:400px; overflow-y:auto; padding-right:4px; }
         .episode-card { background:#1e2430; border:1px solid var(--border); border-radius:10px; overflow:hidden; cursor:pointer; transition:all var(--transition); }
+        .theme-cine .episode-card { background:#1a241a; }
         .episode-card:hover { border-color:var(--accent); transform:translateY(-3px); }
         .episode-card img { width:100%; aspect-ratio:16/9; object-fit:cover; background:#111; display:block; }
         .episode-card .ep-body { padding:6px 8px; }
@@ -167,6 +201,7 @@
         .exp-card .role { color:var(--accent); font-size:0.9rem; margin-bottom:6px; }
         .exp-card .desc { color:var(--muted); font-size:0.88rem; max-width:520px; line-height:1.6; }
         .exp-card .status-badge { background:#1a2a3a; color:#9cc4ff; padding:4px 14px; border-radius:30px; font-size:0.75rem; white-space:nowrap; }
+        .theme-cine .exp-card .status-badge { background:#1a2a1a; color:#d4af37; }
 
         /* ── Modal Player ── */
         .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:100; align-items:center; justify-content:center; padding:20px; }
@@ -174,7 +209,6 @@
         .player-modal { background:var(--bg2); border-radius:var(--radius); max-width:920px; width:100%; max-height:92vh; overflow-y:auto; border:1px solid var(--border); position:relative; }
         .player-modal .close { position:sticky; top:8px; float:right; margin:10px 14px 0 0; background:rgba(0,0,0,0.6); border:none; color:#fff; font-size:1.6rem; cursor:pointer; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; z-index:5; }
         .player-backdrop { width:100%; aspect-ratio:16/8; object-fit:cover; background:#000; display:block; }
-        /* Para episodios: ocultamos el banner */
         .player-backdrop.hidden { display:none; }
         .player-body { padding:22px 28px 28px; }
         .player-body h3 { font-size:1.4rem; margin-bottom:6px; }
@@ -183,12 +217,18 @@
         .meta-row .pill { border:1px solid var(--border); padding:2px 12px; border-radius:30px; }
         .genres { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
         .genres span { background:#1e2430; color:#bcc4d4; font-size:0.75rem; padding:3px 12px; border-radius:30px; }
+        .theme-cine .genres span { background:#1a241a; color:#d4af37; }
         .overview { line-height:1.7; color:#c9cdd4; margin-bottom:14px; font-size:0.92rem; }
         .cast-crew { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; font-size:0.85rem; color:var(--muted); }
         .cast-crew .group { background:var(--card); padding:4px 14px; border-radius:30px; border:1px solid var(--border); }
         .cast-crew strong { color:var(--text); }
-        .colorimetry { background:var(--card); border-radius:8px; padding:8px 14px; margin-bottom:14px; border-left:3px solid var(--accent); font-size:0.85rem; color:var(--muted); }
-        .colorimetry strong { color:var(--text); }
+
+        /* ── Enlaces externos y calidad ── */
+        .external-links { display:flex; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+        .external-links a { display:inline-flex; align-items:center; gap:6px; }
+        .quality-badge { background:var(--card); border:1px solid var(--border); border-radius:30px; padding:4px 14px; font-size:0.75rem; color:var(--muted); display:inline-flex; align-items:center; gap:8px; margin-bottom:10px; }
+        .quality-badge i { color:var(--accent); }
+
         .recommendations { margin-top:14px; border-top:1px solid var(--border); padding-top:14px; }
         .recommendations h4 { font-size:0.95rem; margin-bottom:10px; color:var(--muted); }
         .recommendations .rec-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:12px; }
@@ -223,7 +263,7 @@
 
         /* ── Responsive ── */
         @media (max-width: 768px) {
-            nav .links a:not(.lang-toggle) { display:none; }
+            nav .links a:not(.lang-toggle):not(.theme-toggle) { display:none; }
             .hero h1 { font-size:2.2rem; }
             .about-grid { grid-template-columns:1fr; gap:20px; }
             .about-image img { width:200px; height:200px; }
@@ -257,6 +297,7 @@
                 <a href="#certifications" data-i18n="nav.certs">Certificaciones</a>
                 <a href="#contact" data-i18n="nav.contact">Contacto</a>
                 <button class="lang-toggle" id="langToggle"><i class="fas fa-globe"></i> <span id="langLabel">ES</span></button>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-palette"></i> <span id="themeLabel">🎬 Cine</span></button>
             </div>
         </div>
     </nav>
@@ -336,7 +377,7 @@
             </div>
         </section>
 
-        <!-- ─── SKILLS (simétrico) ─── -->
+        <!-- ─── SKILLS ─── -->
         <section id="skills">
             <h2 class="section-title anim"><i class="fas fa-bolt" style="color: var(--accent);"></i> <span data-i18n="skills.title">Habilidades Técnicas</span></h2>
             <p class="section-sub anim" data-i18n="skills.sub">Tecnologías y herramientas que domino</p>
@@ -363,7 +404,7 @@
             </div>
         </section>
 
-        <!-- ─── PROJECTS (SOLO PELÍCULAS) ─── -->
+        <!-- ─── PROJECTS ─── -->
         <section id="projects">
             <h2 class="section-title anim" data-i18n="projects.title">Proyecto destacado</h2>
             <p class="section-sub anim" data-i18n="projects.sub">Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel</p>
@@ -376,7 +417,6 @@
             <div class="text-center" style="margin-top:24px; text-align:center;">
                 <a href="https://media.jarr.cc.cd" target="_blank" class="btn btn-primary" data-i18n="projects.full"><i class="fas fa-external-link-alt"></i> Abrir servidor completo</a>
             </div>
-            <!-- ✅ Enlace a infraestructura (CORREGIDO) -->
             <div class="text-center" style="margin-top:12px; text-align:center;">
                 <a href="https://github.com/death-zip/death-zip-jellyfin-cloud-infra" class="btn btn-outline" target="_blank">
                     ⚙️ Ver toda la infraestructura en GitHub (Docker + Nginx + Cloudflare)
@@ -384,7 +424,7 @@
             </div>
         </section>
 
-        <!-- ─── SHOWS (carátulas) ─── -->
+        <!-- ─── SHOWS ─── -->
         <section id="shows">
             <h2 class="section-title anim" data-i18n="shows.title">Series</h2>
             <p class="section-sub anim" data-i18n="shows.sub">Haz clic en una carátula para explorar temporadas y episodios</p>
@@ -429,7 +469,7 @@
         </div>
     </footer>
 
-    <!-- ─── MODAL PRINCIPAL (reproductor y series) ─── -->
+    <!-- ─── MODAL ─── -->
     <div class="overlay" id="overlay">
         <div class="player-modal">
             <button class="close" id="modalClose">&times;</button>
@@ -437,10 +477,18 @@
             <div class="player-body">
                 <h3 id="modalTitle"></h3>
                 <div class="meta-row" id="modalMeta"></div>
+                <!-- Quality badge -->
+                <div class="quality-badge" id="qualityBadge" style="display:none;">
+                    <i class="fas fa-video"></i> <span id="videoQuality">1080p</span> · <span id="videoCodec">H.264</span>
+                </div>
                 <div class="genres" id="modalGenres"></div>
                 <div class="overview" id="modalOverview"></div>
                 <div class="cast-crew" id="modalCastCrew"></div>
-                <div class="colorimetry" id="modalColorimetry"></div>
+                <!-- External links -->
+                <div class="external-links" id="externalLinks" style="display:none;">
+                    <a href="#" target="_blank" class="btn btn-outline btn-sm" id="imdbLink"><i class="fab fa-imdb"></i> IMDb</a>
+                    <a href="#" target="_blank" class="btn btn-outline btn-sm" id="letterboxdLink"><i class="fas fa-film"></i> Letterboxd</a>
+                </div>
                 <div id="videoWrap"></div>
                 <div class="actions" id="modalActions"></div>
                 <div class="recommendations" id="modalRecommendations" style="display:none;">
@@ -484,7 +532,8 @@
                 'exp.desc': 'Curso la especialización en DevOps dentro del modelo MAPS. Mientras termino la carrera, construyo proyectos propios de infraestructura para aprender haciendo: este servidor de streaming es el más completo hasta ahora. Buscando mi primera posición junior en Cloud Support o DevOps.',
                 'exp.status': 'Buscando oportunidad',
                 'footer.cta': '¿Tienes un proyecto en mente o quieres charlar?',
-                'recommendations.title': 'Recomendaciones', 'modal.colorimetry': 'Colorimetría', 'modal.audio': 'Pistas de audio'
+                'recommendations.title': 'Recomendaciones', 'modal.colorimetry': 'Colorimetría', 'modal.audio': 'Pistas de audio',
+                'modal.quality': 'Calidad'
             },
             en: {
                 'nav.about': 'About', 'nav.hire': 'Hire Me', 'nav.services': 'Services', 'nav.skills': 'Skills',
@@ -516,7 +565,8 @@
                 'exp.desc': 'Currently specializing in DevOps within the MAPS model. While finishing my degree, I build my own infrastructure projects to learn by doing — this streaming server is the most complete one so far. Looking for my first junior role in Cloud Support or DevOps.',
                 'exp.status': 'Open to opportunities',
                 'footer.cta': 'Have a project in mind or want to chat?',
-                'recommendations.title': 'Recommendations', 'modal.colorimetry': 'Colorimetry', 'modal.audio': 'Audio tracks'
+                'recommendations.title': 'Recommendations', 'modal.colorimetry': 'Colorimetry', 'modal.audio': 'Audio tracks',
+                'modal.quality': 'Quality'
             }
         };
 
@@ -524,6 +574,22 @@
 
         function t(key) { return translations[currentLang]?.[key] || key; }
 
+        // ─── THEME TOGGLE ───
+        let currentTheme = 'default';
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const html = document.documentElement;
+            if (currentTheme === 'default') {
+                html.className = 'theme-cine';
+                currentTheme = 'cine';
+                document.getElementById('themeLabel').textContent = '🎨 Default';
+            } else {
+                html.className = 'theme-default';
+                currentTheme = 'default';
+                document.getElementById('themeLabel').textContent = '🎬 Cine';
+            }
+        });
+
+        // ─── TRANSLATIONS ───
         function applyTranslations() {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.dataset.i18n;
@@ -689,11 +755,16 @@
         const modalGenres = document.getElementById('modalGenres');
         const modalOverview = document.getElementById('modalOverview');
         const modalCastCrew = document.getElementById('modalCastCrew');
-        const modalColorimetry = document.getElementById('modalColorimetry');
         const modalActions = document.getElementById('modalActions');
         const videoWrap = document.getElementById('videoWrap');
         const modalRecommendations = document.getElementById('modalRecommendations');
         const recGrid = document.getElementById('recGrid');
+        const qualityBadge = document.getElementById('qualityBadge');
+        const videoQuality = document.getElementById('videoQuality');
+        const videoCodec = document.getElementById('videoCodec');
+        const imdbLink = document.getElementById('imdbLink');
+        const letterboxdLink = document.getElementById('letterboxdLink');
+        const externalLinks = document.getElementById('externalLinks');
 
         let currentPlayer = null;
         let allSeries = [];
@@ -865,7 +936,6 @@
                 currentPlayer.dispose();
                 currentPlayer = null;
             }
-            // Ocultar el banner
             modalBackdrop.classList.add('hidden');
             modalBackdrop.src = '';
             modalTitle.textContent = series.Name;
@@ -873,7 +943,8 @@
             modalGenres.innerHTML = '';
             modalOverview.textContent = '';
             modalCastCrew.innerHTML = '';
-            modalColorimetry.innerHTML = '';
+            qualityBadge.style.display = 'none';
+            externalLinks.style.display = 'none';
             modalRecommendations.style.display = 'none';
             videoWrap.innerHTML = '';
             modalActions.innerHTML = '';
@@ -1135,7 +1206,6 @@
                 currentPlayer = null;
             }
 
-            // Reseteamos el banner: oculto por defecto
             modalBackdrop.classList.add('hidden');
             modalBackdrop.src = '';
 
@@ -1144,7 +1214,8 @@
             modalGenres.innerHTML = '';
             modalOverview.textContent = '';
             modalCastCrew.innerHTML = '';
-            modalColorimetry.innerHTML = '';
+            qualityBadge.style.display = 'none';
+            externalLinks.style.display = 'none';
             modalRecommendations.style.display = 'none';
             videoWrap.innerHTML = '';
             modalActions.innerHTML = '';
@@ -1158,16 +1229,16 @@
                 return;
             }
 
-            // Si es película y tiene backdrop, lo mostramos
+            // Backdrop
             if (detail.Type === 'Movie' && detail.BackdropImageTags && detail.BackdropImageTags.length > 0) {
                 modalBackdrop.classList.remove('hidden');
                 modalBackdrop.src = `${JELLYFIN_URL}/Items/${id}/Images/Backdrop/0?maxWidth=900&tag=${detail.BackdropImageTags[0]}`;
             } else if (detail.Type === 'Movie' && detail.ImageTags && detail.ImageTags.Primary) {
-                // Si no tiene backdrop pero tiene póster, lo usamos como banner (opcional)
                 modalBackdrop.classList.remove('hidden');
                 modalBackdrop.src = `${JELLYFIN_URL}/Items/${id}/Images/Primary?maxWidth=800&tag=${detail.ImageTags.Primary}`;
             }
 
+            // Title
             if (detail.Name) {
                 if (detail.Type === 'Episode') {
                     const sNum = Number.isInteger(detail.ParentIndexNumber) ? detail.ParentIndexNumber : 0;
@@ -1179,6 +1250,7 @@
                 }
             }
 
+            // Meta
             const year = detail.ProductionYear || '';
             const rating = detail.CommunityRating ? `⭐ ${detail.CommunityRating.toFixed(1)}` : '';
             const runtime = formatRuntime(detail.RunTimeTicks);
@@ -1191,9 +1263,13 @@
                 `<span class="pill">${type}</span>`
             ].filter(Boolean).join('');
 
+            // Genres
             modalGenres.innerHTML = (detail.Genres || []).map(g => `<span>${g}</span>`).join('');
+
+            // Overview
             modalOverview.textContent = detail.Overview || 'Sin descripción disponible.';
 
+            // Cast & Crew
             const people = detail.People || [];
             const directors = people.filter(p => p.Type === 'Director').map(p => p.Name).join(', ');
             const writers = people.filter(p => p.Type === 'Writer').map(p => p.Name).join(', ');
@@ -1204,20 +1280,41 @@
             if (actors) castHtml += `<span class="group"><strong>Actores:</strong> ${actors}</span>`;
             modalCastCrew.innerHTML = castHtml;
 
-            const videoStream = (detail.MediaStreams || []).find(s => s.Type === 'Video');
-            let colorInfo = 'No disponible.';
-            if (videoStream) {
-                const parts = [];
-                if (videoStream.BitDepth) parts.push(`Profundidad de color: ${videoStream.BitDepth} bits`);
-                if (videoStream.ColorSpace) parts.push(`Espacio de color: ${videoStream.ColorSpace}`);
-                if (videoStream.ColorTransfer) parts.push(`Transferencia: ${videoStream.ColorTransfer}`);
-                if (videoStream.ColorPrimaries) parts.push(`Primarias: ${videoStream.ColorPrimaries}`);
-                if (videoStream.PixelFormat) parts.push(`Formato de píxel: ${videoStream.PixelFormat}`);
-                if (videoStream.VideoRange) parts.push(`Rango dinámico: ${videoStream.VideoRange}`);
-                colorInfo = parts.length ? parts.join(' · ') : 'No disponible.';
-            }
-            modalColorimetry.innerHTML = `<strong>Colorimetría:</strong> ${colorInfo}`;
+            // ─── QUALITY & EXTERNAL LINKS ───
+            if (detail.Type === 'Movie') {
+                // Quality
+                const videoStream = (detail.MediaStreams || []).find(s => s.Type === 'Video');
+                if (videoStream) {
+                    const height = videoStream.Height || 0;
+                    const width = videoStream.Width || 0;
+                    let resolution = '';
+                    if (height >= 2160) resolution = '4K';
+                    else if (height >= 1080) resolution = '1080p';
+                    else if (height >= 720) resolution = '720p';
+                    else if (height >= 480) resolution = '480p';
+                    else if (height > 0) resolution = `${height}p`;
+                    else if (width > 0 && height > 0) resolution = `${width}x${height}`;
+                    else resolution = 'HD';
 
+                    const codec = videoStream.Codec || 'H.264';
+
+                    videoQuality.textContent = resolution;
+                    videoCodec.textContent = codec.toUpperCase();
+                    qualityBadge.style.display = 'inline-flex';
+                }
+
+                // External links
+                const title = detail.Name || '';
+                const searchTitle = encodeURIComponent(title);
+                const searchYear = year || '';
+                const imdbUrl = `https://www.imdb.com/find?q=${searchTitle}${searchYear ? `+${searchYear}` : ''}`;
+                const letterboxdUrl = `https://letterboxd.com/search/${searchTitle}${searchYear ? `+${searchYear}` : ''}/`;
+                imdbLink.href = imdbUrl;
+                letterboxdLink.href = letterboxdUrl;
+                externalLinks.style.display = 'flex';
+            }
+
+            // Recommendations
             const recs = allItems.filter(item => {
                 if (item.Id === id) return false;
                 const itemPeople = item.People || [];
@@ -1238,7 +1335,7 @@
                 modalRecommendations.style.display = 'none';
             }
 
-            // ─── REPRODUCTOR ───
+            // ─── PLAYER ───
             if (detail.Type === 'Movie' || detail.Type === 'Episode') {
                 const isMovie = detail.Type === 'Movie';
                 const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
@@ -1315,21 +1412,6 @@
                 videoWrap.appendChild(navControls);
 
                 let integratedStarted = false;
-                let nativeBanner = null;
-
-                if (isMovie) {
-                    videoContainer.style.display = 'none';
-                    nativeBanner = document.createElement('div');
-                    nativeBanner.style.cssText = 'margin-bottom:8px; background:rgba(17,20,26,0.85); border:1px solid var(--border); border-radius:10px; padding:10px; display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:0.8rem; color:var(--muted);';
-                    nativeBanner.innerHTML = `
-                        <div style="color:var(--text);"><i class="fas fa-shield-alt" style="color:var(--accent);"></i> Jellyfin nativo recomendado</div>
-                        <div style="display:flex; flex-wrap:wrap; gap:8px; margin-left:auto;">
-                            <button type="button" id="openNativeNow" class="btn btn-primary btn-sm"><i class="fas fa-external-link-alt"></i> Abrir nativo</button>
-                            <button type="button" id="useIntegratedNow" class="btn btn-outline btn-sm"><i class="fas fa-play"></i> Usar integrado</button>
-                        </div>
-                    `;
-                    videoWrap.prepend(nativeBanner);
-                }
 
                 function attachSidecarSubtitles() {
                     videoEl.querySelectorAll('track[data-server-sub]').forEach(t => t.remove());
@@ -1433,23 +1515,13 @@
                     if (integratedStarted) return;
                     integratedStarted = true;
                     videoContainer.style.display = 'block';
-                    if (nativeBanner) nativeBanner.remove();
                     statusLine.textContent = 'Preparando reproducción…';
                     loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
                 };
 
-                if (isMovie && nativeBanner) {
-                    const nativeBtn = nativeBanner.querySelector('#openNativeNow');
-                    const integratedBtn = nativeBanner.querySelector('#useIntegratedNow');
-                    if (nativeBtn) nativeBtn.addEventListener('click', () => {
-                        window.open(`${JELLYFIN_URL}/web/#/details?id=${id}`, '_blank', 'noopener,noreferrer');
-                    });
-                    if (integratedBtn) integratedBtn.addEventListener('click', startIntegratedPlayback);
-                } else {
-                    startIntegratedPlayback();
-                }
+                startIntegratedPlayback();
 
-                // Mostrar info de audio
+                // Audio info
                 if (audioStreams.length > 0) {
                     const audioInfo = document.createElement('div');
                     audioInfo.style.cssText = 'color:var(--muted); font-size:0.8rem; margin-top:6px;';
@@ -1487,9 +1559,10 @@
                 currentPlayer = null;
             }
             videoWrap.innerHTML = '';
-            // Resetear banner
             modalBackdrop.classList.add('hidden');
             modalBackdrop.src = '';
+            qualityBadge.style.display = 'none';
+            externalLinks.style.display = 'none';
         }
 
         modalClose.addEventListener('click', closeModal);
