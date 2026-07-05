@@ -13,7 +13,6 @@
     <style>
         /* ── Reset & base ── */
         * { margin:0; padding:0; box-sizing:border-box; }
-        /* Variables para tema por defecto (azul) */
         .theme-default {
             --bg: #0a0c10;
             --bg2: #11141a;
@@ -27,7 +26,6 @@
             --radius: 14px;
             --transition: 0.25s ease;
         }
-        /* Tema cine (verde oscuro + dorado) */
         .theme-cine {
             --bg: #0c120c;
             --bg2: #141c14;
@@ -35,13 +33,12 @@
             --border: #2a3a2a;
             --text: #e6eee6;
             --muted: #8fa88f;
-            --accent: #d4af37; /* dorado */
+            --accent: #d4af37;
             --accent2: #b8860b;
             --shadow: 0 8px 30px rgba(0,0,0,0.6);
             --radius: 14px;
             --transition: 0.25s ease;
         }
-
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
         a { color: inherit; text-decoration: none; }
@@ -54,11 +51,11 @@
         @keyframes fadeUp { 0% { opacity:0; transform:translateY(30px); } 100% { opacity:1; transform:translateY(0); } }
         @keyframes float { 0% { transform:translateY(0px); } 50% { transform:translateY(-10px); } 100% { transform:translateY(0px); } }
         .anim { opacity:0; animation: fadeUp 0.7s ease forwards; }
-        .anim-delay-1 { animation-delay: 0.1s; }
-        .anim-delay-2 { animation-delay: 0.2s; }
-        .anim-delay-3 { animation-delay: 0.3s; }
-        .anim-delay-4 { animation-delay: 0.4s; }
-        .anim-delay-5 { animation-delay: 0.5s; }
+        .anim-delay-1 { animation-delay:0.1s; }
+        .anim-delay-2 { animation-delay:0.2s; }
+        .anim-delay-3 { animation-delay:0.3s; }
+        .anim-delay-4 { animation-delay:0.4s; }
+        .anim-delay-5 { animation-delay:0.5s; }
 
         /* ── Nav ── */
         nav { position:sticky; top:0; z-index:60; background:rgba(10,12,16,0.85); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:14px 0; }
@@ -138,11 +135,43 @@
         .theme-cine .skills-cloud .skill-tag:hover { background:rgba(212,175,55,0.25); box-shadow:0 0 20px rgba(212,175,55,0.2); }
         .skills-cloud .skill-tag i { margin-right:6px; color:var(--accent); }
 
-        /* ── Library ── */
+        /* ── Infrastructure Projects ── */
+        .project-card {
+            background:var(--card);
+            border:1px solid var(--border);
+            border-radius:var(--radius);
+            padding:24px;
+            transition:all var(--transition);
+            margin-bottom:20px;
+        }
+        .project-card:hover { border-color:var(--accent); }
+        .project-card h3 { font-size:1.3rem; font-weight:700; color:var(--text); margin-bottom:4px; }
+        .project-card .tech-stack { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 12px; }
+        .project-card .tech-stack span { background:#1e2430; padding:2px 14px; border-radius:30px; font-size:0.7rem; color:var(--muted); border:1px solid var(--border); }
+        .project-card p { color:var(--muted); font-size:0.88rem; line-height:1.7; }
+        .project-card .links { margin:12px 0 0; display:flex; gap:12px; flex-wrap:wrap; }
+        .project-card .links a { color:var(--accent); font-size:0.85rem; font-weight:500; }
+        .project-card .links a:hover { text-decoration:underline; }
+
+        .arch-diagram { margin-top:16px; padding:16px; background:var(--bg); border-radius:10px; border:1px solid var(--border); display:flex; flex-direction:column; align-items:center; overflow:hidden; }
+        .arch-diagram .flow-row { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:16px 8px; width:100%; }
+        .arch-node { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:8px 14px; font-size:0.75rem; font-weight:600; color:var(--muted); display:flex; align-items:center; gap:6px; white-space:nowrap; transition:all 0.3s; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+        .arch-node i { color:var(--accent); font-size:1rem; }
+        .arch-node:hover { border-color:var(--accent); transform:scale(1.05); }
+        .arch-arrow { color:var(--accent); font-size:1.2rem; animation:pulse-arrow 1.8s infinite; opacity:0.7; }
+        @keyframes pulse-arrow { 0%,100% { transform:scale(1); opacity:0.7; } 50% { transform:scale(1.3); opacity:1; } }
+        .arch-label { color:var(--accent); font-size:0.6rem; text-transform:uppercase; letter-spacing:1px; margin-top:6px; opacity:0.6; }
+
+        /* ── Library (Movies & Series) ── */
+        .media-section .sub-section { margin-top:40px; }
+        .media-section .sub-section:first-child { margin-top:0; }
+        .media-section .sub-section h3 { font-size:1.4rem; font-weight:600; color:var(--text); margin-bottom:16px; }
+
         .library-controls { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; align-items:center; }
         .library-controls input { background:var(--card); border:1px solid var(--border); border-radius:40px; padding:10px 18px; color:var(--text); flex:1; min-width:200px; font-size:0.9rem; outline:none; transition:border var(--transition); }
         .library-controls input:focus { border-color:var(--accent); }
         .library-controls input::placeholder { color:var(--muted); }
+
         .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:18px; }
         .item-card { background:var(--card); border-radius:10px; overflow:hidden; border:1px solid var(--border); transition:all var(--transition); cursor:pointer; position:relative; }
         .item-card:hover { transform:translateY(-4px); border-color:var(--accent); }
@@ -161,16 +190,13 @@
         .status-banner.ok { display:none; }
         @keyframes spin { to { transform:rotate(360deg); } }
 
-        /* ── SHOWS (carátulas) ── */
+        /* ── Shows ── */
         .shows-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); gap:16px; }
         .show-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; cursor:pointer; transition:all var(--transition); text-align:center; padding:8px; }
         .show-card:hover { transform:translateY(-4px); border-color:var(--accent); }
         .show-card img { width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:8px; background:#111; }
         .show-card .show-name { font-size:0.75rem; color:var(--muted); margin-top:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-        /* ── Series modal ── */
-        .series-modal-content { padding:10px 0; }
-        .series-modal-content .series-description { color:var(--muted); font-size:0.9rem; margin-bottom:16px; line-height:1.6; }
         .season-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
         .season-tab { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-size:0.78rem; color:var(--muted); cursor:pointer; transition:all var(--transition); }
         .season-tab:hover, .season-tab.active { border-color:var(--accent); background:#253047; color:var(--text); }
@@ -186,14 +212,13 @@
 
         /* ── Certifications ── */
         .cert-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:20px; }
-        .cert-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 16px; text-align:center; transition:all var(--transition); display:flex; flex-direction:column; align-items:center; position:relative; }
+        .cert-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 16px; text-align:center; transition:all var(--transition); display:flex; flex-direction:column; align-items:center; }
         .cert-card:hover { transform:translateY(-6px); border-color:var(--accent); }
         .cert-card img { width:100px; height:100px; object-fit:contain; border-radius:50%; background:#fff; padding:8px; margin-bottom:12px; box-shadow:0 4px 20px rgba(0,0,0,0.4); transition:all 0.3s ease; border:2px solid var(--border); }
         .cert-card:hover img { transform:scale(1.05); border-color:var(--accent); }
         .cert-card h4 { font-size:0.85rem; font-weight:600; margin-bottom:2px; line-height:1.3; }
         .cert-card .issuer { color:var(--muted); font-size:0.75rem; }
         .cert-more-btn { margin-top:20px; text-align:center; }
-        .cert-hidden { display:none !important; }
 
         /* ── Experience ── */
         .exp-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:24px 28px; display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
@@ -223,7 +248,6 @@
         .cast-crew .group { background:var(--card); padding:4px 14px; border-radius:30px; border:1px solid var(--border); }
         .cast-crew strong { color:var(--text); }
 
-        /* ── Enlaces externos y calidad ── */
         .external-links { display:flex; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
         .external-links a { display:inline-flex; align-items:center; gap:6px; }
         .quality-badge { background:var(--card); border:1px solid var(--border); border-radius:30px; padding:4px 14px; font-size:0.75rem; color:var(--muted); display:inline-flex; align-items:center; gap:8px; margin-bottom:10px; }
@@ -237,14 +261,12 @@
         .recommendations .rec-item img { width:100%; aspect-ratio:2/3; object-fit:cover; display:block; background:#1a1e26; }
         .recommendations .rec-item .title { font-size:0.7rem; padding:4px 6px; color:var(--muted); }
 
-        /* ── Video.js ── */
         .video-js { width:100% !important; border-radius:8px; background:#000; }
         .video-js .vjs-big-play-button { background:rgba(0,0,0,0.6) !important; border:2px solid var(--accent) !important; border-radius:50% !important; width:64px !important; height:64px !important; line-height:64px !important; font-size:1.8rem !important; margin-left:-32px !important; margin-top:-32px !important; color:#fff !important; }
         .video-js .vjs-big-play-button:hover { background:var(--accent) !important; }
         .video-js .vjs-control-bar { background:rgba(0,0,0,0.8) !important; }
         .video-js .vjs-progress-holder .vjs-play-progress { background:var(--accent) !important; }
 
-        /* ── Subtitles upload ── */
         .subtitle-upload-area { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:12px; padding:8px 14px; background:var(--card); border-radius:8px; border:1px solid var(--border); }
         .subtitle-upload-area label { color:var(--muted); font-size:0.85rem; cursor:pointer; display:flex; align-items:center; gap:8px; }
         .subtitle-upload-area label:hover { color:var(--text); }
@@ -262,7 +284,7 @@
         footer .foot-links a:hover { color:var(--text); }
 
         /* ── Responsive ── */
-        @media (max-width: 768px) {
+        @media (max-width:768px) {
             nav .links a:not(.lang-toggle):not(.theme-toggle) { display:none; }
             .hero h1 { font-size:2.2rem; }
             .about-grid { grid-template-columns:1fr; gap:20px; }
@@ -274,7 +296,7 @@
             .cert-grid { grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); }
             .recommendations .rec-grid { grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); }
         }
-        @media (max-width: 480px) {
+        @media (max-width:480px) {
             .hero h1 { font-size:1.8rem; }
             .btn { padding:8px 16px; font-size:0.8rem; }
             .grid { grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:12px; }
@@ -292,12 +314,12 @@
                 <a href="#hire" data-i18n="nav.hire">Contrátame</a>
                 <a href="#services" data-i18n="nav.services">Servicios</a>
                 <a href="#skills" data-i18n="nav.skills">Habilidades</a>
-                <a href="#projects" data-i18n="nav.projects">Proyectos</a>
-                <a href="#shows" data-i18n="nav.shows">Series</a>
+                <a href="#infra" data-i18n="nav.infra">Infraestructura</a>
+                <a href="#media" data-i18n="nav.media">Media</a>
                 <a href="#certifications" data-i18n="nav.certs">Certificaciones</a>
                 <a href="#contact" data-i18n="nav.contact">Contacto</a>
                 <button class="lang-toggle" id="langToggle"><i class="fas fa-globe"></i> <span id="langLabel">ES</span></button>
-                <button class="theme-toggle" id="themeToggle"><i class="fas fa-palette"></i> <span id="themeLabel">Cine</span></button>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-palette"></i> <span id="themeLabel">🎬 Cine</span></button>
             </div>
         </div>
     </nav>
@@ -332,7 +354,7 @@
                 </div>
                 <div class="cta-group">
                     <a href="mailto:riverarodriguezjuanantonio@gmail.com?subject=Entrevista%20junior%20Cloud%20DevOps" class="btn btn-primary" data-i18n="hire.cta1"><i class="fas fa-calendar-check"></i> Agendar entrevista</a>
-                    <a href="#projects" class="btn btn-outline" data-i18n="hire.cta2"><i class="fas fa-play"></i> Ver proyecto en vivo</a>
+                    <a href="#infra" class="btn btn-outline" data-i18n="hire.cta2"><i class="fas fa-play"></i> Ver proyecto en vivo</a>
                 </div>
             </div>
         </section>
@@ -404,32 +426,69 @@
             </div>
         </section>
 
-        <!-- ─── PROJECTS ─── -->
-        <section id="projects">
-            <h2 class="section-title anim" data-i18n="projects.title">Proyecto destacado</h2>
-            <p class="section-sub anim" data-i18n="projects.sub">Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel</p>
-            <div id="status" class="status-banner loading anim" data-i18n="projects.loading">Cargando biblioteca desde el servidor…</div>
-            <div class="library-controls anim">
-                <input type="text" id="searchInput" placeholder="🔍 Buscar películas…" data-i18n="projects.search" />
-                <button class="btn btn-primary" id="watchlistToggle"><i class="fas fa-heart"></i> <span data-i18n="projects.watchlist">Mi lista</span> (<span id="watchlistCount">0</span>)</button>
+        <!-- ─── INFRAESTRUCTURA (Proyectos DevOps) ─── -->
+        <section id="infra">
+            <h2 class="section-title anim" data-i18n="infra.title">⚙️ Infraestructura como Código</h2>
+            <p class="section-sub anim" data-i18n="infra.sub">Proyectos reales de contenerización, redes y automatización</p>
+
+            <div class="project-card anim">
+                <h3>Docker Media Server Lab</h3>
+                <div class="tech-stack">
+                    <span>Docker</span><span>Cloudflare</span><span>Jellyfin</span><span>Nginx</span><span>Linux</span><span>WSL2</span><span>REST API</span>
+                </div>
+                <p data-i18n="infra.desc">
+                    Servidor de streaming auto‑hospedado con Jellyfin, orquestado con Docker Compose.
+                    Nginx actúa como proxy inverso resolviendo problemas de CORS, y Cloudflare Tunnel
+                    expone el servicio de forma segura con HTTPS automático, sin abrir puertos en el router.
+                    Todo el código y la documentación están disponibles en GitHub.
+                </p>
+                <!-- Diagrama de arquitectura -->
+                <div class="arch-diagram">
+                    <div class="flow-row">
+                        <span class="arch-node"><i class="fas fa-user"></i> Usuario</span>
+                        <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="arch-node"><i class="fas fa-cloud"></i> Cloudflare Tunnel</span>
+                        <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="arch-node"><i class="fas fa-server"></i> Nginx Proxy</span>
+                        <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="arch-node"><i class="fas fa-play-circle"></i> Jellyfin</span>
+                        <span class="arch-arrow"><i class="fas fa-arrow-right"></i></span>
+                        <span class="arch-node"><i class="fas fa-database"></i> Volumen /media</span>
+                    </div>
+                    <div class="arch-label" data-i18n="infra.diagram">Flujo de tráfico · HTTPS · CORS resuelto</div>
+                </div>
+                <div class="links">
+                    <a href="https://github.com/death-zip/death-zip-jellyfin-cloud-infra" target="_blank"><i class="fab fa-github"></i> Ver infraestructura en GitHub</a>
+                    <a href="https://media.jarr.cc.cd" target="_blank" class="btn btn-primary btn-sm" style="margin-top:8px;"><i class="fas fa-external-link-alt"></i> Ver servidor en vivo</a>
+                </div>
             </div>
-            <div id="library" class="grid anim"></div>
-            <div class="text-center" style="margin-top:24px; text-align:center;">
-                <a href="https://media.jarr.cc.cd" target="_blank" class="btn btn-primary" data-i18n="projects.full"><i class="fas fa-external-link-alt"></i> Abrir servidor completo</a>
-            </div>
-            <div class="text-center" style="margin-top:12px; text-align:center;">
-                <a href="https://github.com/death-zip/death-zip-jellyfin-cloud-infra" class="btn btn-outline" target="_blank">
-                    ⚙️ Ver toda la infraestructura en GitHub (Docker + Nginx + Cloudflare)
-                </a>
-            </div>
+
+            <!-- Puedes añadir más proyectos aquí si los tienes -->
         </section>
 
-        <!-- ─── SHOWS ─── -->
-        <section id="shows">
-            <h2 class="section-title anim" data-i18n="shows.title">Series</h2>
-            <p class="section-sub anim" data-i18n="shows.sub">Haz clic en una carátula para explorar temporadas y episodios</p>
-            <div id="showsStatus" class="status-banner loading anim">Cargando series...</div>
-            <div class="shows-grid anim" id="showsGrid"></div>
+        <!-- ─── MEDIA LIBRARY (Películas y Series) ─── -->
+        <section id="media" class="media-section">
+            <h2 class="section-title anim" data-i18n="media.title">🎬 Media Library</h2>
+            <p class="section-sub anim" data-i18n="media.sub">Contenido disponible en el servidor</p>
+
+            <!-- Películas -->
+            <div class="sub-section">
+                <h3 data-i18n="media.movies">Películas</h3>
+                <div id="status" class="status-banner loading anim" data-i18n="media.loading">Cargando películas…</div>
+                <div class="library-controls anim">
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar películas…" data-i18n="media.search" />
+                    <button class="btn btn-primary" id="watchlistToggle"><i class="fas fa-heart"></i> <span data-i18n="media.watchlist">Mi lista</span> (<span id="watchlistCount">0</span>)</button>
+                </div>
+                <div id="library" class="grid anim"></div>
+            </div>
+
+            <!-- Series -->
+            <div class="sub-section">
+                <h3 data-i18n="media.shows">Series</h3>
+                <p class="section-sub" style="font-size:0.85rem; margin-bottom:16px;" data-i18n="media.shows.sub">Haz clic en una carátula para explorar temporadas y episodios</p>
+                <div id="showsStatus" class="status-banner loading anim">Cargando series...</div>
+                <div class="shows-grid anim" id="showsGrid"></div>
+            </div>
         </section>
 
         <!-- ─── CERTIFICATIONS ─── -->
@@ -477,14 +536,12 @@
             <div class="player-body">
                 <h3 id="modalTitle"></h3>
                 <div class="meta-row" id="modalMeta"></div>
-                <!-- Quality badge -->
                 <div class="quality-badge" id="qualityBadge" style="display:none;">
                     <i class="fas fa-video"></i> <span id="videoQuality">1080p</span> · <span id="videoCodec">H.264</span>
                 </div>
                 <div class="genres" id="modalGenres"></div>
                 <div class="overview" id="modalOverview"></div>
                 <div class="cast-crew" id="modalCastCrew"></div>
-                <!-- External links -->
                 <div class="external-links" id="externalLinks" style="display:none;">
                     <a href="#" target="_blank" class="btn btn-outline btn-sm" id="imdbLink"><i class="fab fa-imdb"></i> IMDb</a>
                     <a href="#" target="_blank" class="btn btn-outline btn-sm" id="letterboxdLink"><i class="fas fa-film"></i> Letterboxd</a>
@@ -504,7 +561,7 @@
         const translations = {
             es: {
                 'nav.about': 'Sobre mí', 'nav.hire': 'Contrátame', 'nav.services': 'Servicios', 'nav.skills': 'Habilidades',
-                'nav.projects': 'Proyectos', 'nav.shows': 'Series', 'nav.certs': 'Certificaciones', 'nav.contact': 'Contacto',
+                'nav.infra': 'Infraestructura', 'nav.media': 'Media', 'nav.certs': 'Certificaciones', 'nav.contact': 'Contacto',
                 'hero.eyebrow': '✦ Disponible para oportunidades remotas', 'hero.sub': 'Aspirante a Cloud Engineer · Docker y Linux',
                 'hero.desc': 'Construyo y opero entornos reales con Docker, Linux y Cloudflare Tunnel. Estoy buscando mi primera oportunidad junior remota en Cloud Support o DevOps, donde pueda aportar ejecución técnica, disciplina para documentar y ganas de aprender rápido.',
                 'hero.cta1': 'Contactar ahora', 'hero.cta2': 'Ver CV',
@@ -521,11 +578,18 @@
                 'services.s2.title': 'Despliegue en la Nube', 'services.s2.desc': 'Configuración de servidores en la nube, túneles seguros (Cloudflare) y exposición de servicios a internet con HTTPS.',
                 'services.s3.title': 'Automatización & Seguridad', 'services.s3.desc': 'Automatización de tareas con scripts y hardening de sistemas para entornos de producción seguros.',
                 'skills.title': 'Habilidades Técnicas', 'skills.sub': 'Tecnologías y herramientas que domino',
-                'projects.title': 'Proyecto destacado', 'projects.sub': 'Servidor de streaming auto‑hospedado · Jellyfin · Docker · Cloudflare Tunnel',
-                'projects.loading': 'Cargando biblioteca desde el servidor…', 'projects.search': 'Buscar películas…',
-                'projects.watchlist': 'Mi lista', 'projects.full': 'Abrir servidor completo',
-                'shows.title': 'Series', 'shows.sub': 'Haz clic en una carátula para explorar temporadas y episodios',
-                'shows.retry': 'Reintentar', 'shows.next': 'Siguiente episodio', 'shows.prev': 'Episodio anterior',
+                'infra.title': '⚙️ Infraestructura como Código',
+                'infra.sub': 'Proyectos reales de contenerización, redes y automatización',
+                'infra.desc': 'Servidor de streaming auto‑hospedado con Jellyfin, orquestado con Docker Compose. Nginx actúa como proxy inverso resolviendo problemas de CORS, y Cloudflare Tunnel expone el servicio de forma segura con HTTPS automático, sin abrir puertos en el router. Todo el código y la documentación están disponibles en GitHub.',
+                'infra.diagram': 'Flujo de tráfico · HTTPS · CORS resuelto',
+                'media.title': '🎬 Media Library',
+                'media.sub': 'Contenido disponible en el servidor',
+                'media.movies': 'Películas',
+                'media.loading': 'Cargando películas…',
+                'media.search': 'Buscar películas…',
+                'media.watchlist': 'Mi lista',
+                'media.shows': 'Series',
+                'media.shows.sub': 'Haz clic en una carátula para explorar temporadas y episodios',
                 'certs.title': 'Certificaciones', 'certs.sub': 'Verificadas en Credly', 'certs.showmore': 'Ver más',
                 'exp.title': 'Enfoque actual', 'exp.sub': 'Dónde estoy y qué busco',
                 'exp.role': 'Estudiante de Ingeniería en Desarrollo de Software', 'exp.period': 'Universidad Tecmilenio · 2026 – Presente',
@@ -533,11 +597,13 @@
                 'exp.status': 'Buscando oportunidad',
                 'footer.cta': '¿Tienes un proyecto en mente o quieres charlar?',
                 'recommendations.title': 'Recomendaciones', 'modal.colorimetry': 'Colorimetría', 'modal.audio': 'Pistas de audio',
-                'modal.quality': 'Calidad'
+                'modal.quality': 'Calidad',
+                'shows.retry': 'Reintentar', 'shows.next': 'Siguiente episodio', 'shows.prev': 'Episodio anterior',
+                'projects.watchlist': 'Mi lista', 'projects.full': 'Abrir servidor completo', 'projects.loading': 'Cargando biblioteca desde el servidor…', 'projects.search': 'Buscar películas…'
             },
             en: {
                 'nav.about': 'About', 'nav.hire': 'Hire Me', 'nav.services': 'Services', 'nav.skills': 'Skills',
-                'nav.projects': 'Projects', 'nav.shows': 'Shows', 'nav.certs': 'Certifications', 'nav.contact': 'Contact',
+                'nav.infra': 'Infrastructure', 'nav.media': 'Media', 'nav.certs': 'Certifications', 'nav.contact': 'Contact',
                 'hero.eyebrow': '✦ Available for remote opportunities', 'hero.sub': 'Aspiring Cloud Engineer · Docker & Linux',
                 'hero.desc': 'I build and operate real environments with Docker, Linux, and Cloudflare Tunnel. I am looking for my first remote junior role in Cloud Support or DevOps, where I can contribute technical execution, strong documentation habits, and fast learning.',
                 'hero.cta1': 'Contact now', 'hero.cta2': 'View CV',
@@ -554,11 +620,18 @@
                 'services.s2.title': 'Cloud Deployment', 'services.s2.desc': 'Configuration of cloud servers, secure tunnels (Cloudflare), and exposure of services to the internet with HTTPS.',
                 'services.s3.title': 'Automation & Security', 'services.s3.desc': 'Task automation with scripts and system hardening for secure production environments.',
                 'skills.title': 'Technical Skills', 'skills.sub': 'Technologies and tools I master',
-                'projects.title': 'Featured Project', 'projects.sub': 'Self‑hosted streaming server · Jellyfin · Docker · Cloudflare Tunnel',
-                'projects.loading': 'Loading library from server…', 'projects.search': 'Search movies…',
-                'projects.watchlist': 'My list', 'projects.full': 'Open full server',
-                'shows.title': 'Shows', 'shows.sub': 'Click a poster to explore seasons and episodes',
-                'shows.retry': 'Retry', 'shows.next': 'Next episode', 'shows.prev': 'Previous episode',
+                'infra.title': '⚙️ Infrastructure as Code',
+                'infra.sub': 'Real projects in containerization, networking, and automation',
+                'infra.desc': 'Self‑hosted streaming server with Jellyfin, orchestrated with Docker Compose. Nginx acts as a reverse proxy solving CORS issues, and Cloudflare Tunnel exposes the service securely with automatic HTTPS, no router ports open. All code and documentation are available on GitHub.',
+                'infra.diagram': 'Traffic flow · HTTPS · CORS resolved',
+                'media.title': '🎬 Media Library',
+                'media.sub': 'Content available on the server',
+                'media.movies': 'Movies',
+                'media.loading': 'Loading movies…',
+                'media.search': 'Search movies…',
+                'media.watchlist': 'My list',
+                'media.shows': 'Shows',
+                'media.shows.sub': 'Click a poster to explore seasons and episodes',
                 'certs.title': 'Certifications', 'certs.sub': 'Verified on Credly', 'certs.showmore': 'Show more',
                 'exp.title': 'Current focus', 'exp.sub': 'Where I am and what I\'m looking for',
                 'exp.role': 'Software Engineering Student', 'exp.period': 'Universidad Tecmilenio · 2026 – Present',
@@ -566,12 +639,13 @@
                 'exp.status': 'Open to opportunities',
                 'footer.cta': 'Have a project in mind or want to chat?',
                 'recommendations.title': 'Recommendations', 'modal.colorimetry': 'Colorimetry', 'modal.audio': 'Audio tracks',
-                'modal.quality': 'Quality'
+                'modal.quality': 'Quality',
+                'shows.retry': 'Retry', 'shows.next': 'Next episode', 'shows.prev': 'Previous episode',
+                'projects.watchlist': 'My list', 'projects.full': 'Open full server', 'projects.loading': 'Loading library from server…', 'projects.search': 'Search movies…'
             }
         };
 
         let currentLang = 'es';
-
         function t(key) { return translations[currentLang]?.[key] || key; }
 
         // ─── THEME TOGGLE ───
@@ -581,11 +655,11 @@
             if (currentTheme === 'default') {
                 html.className = 'theme-cine';
                 currentTheme = 'cine';
-                document.getElementById('themeLabel').textContent = 'Default';
+                document.getElementById('themeLabel').textContent = '🎨 Default';
             } else {
                 html.className = 'theme-default';
                 currentTheme = 'default';
-                document.getElementById('themeLabel').textContent = 'Cine';
+                document.getElementById('themeLabel').textContent = '🎬 Cine';
             }
         });
 
@@ -606,19 +680,19 @@
             document.getElementById('langLabel').textContent = currentLang.toUpperCase();
             const wlBtn = document.getElementById('watchlistToggle');
             if (wlBtn) {
-                const txt = t('projects.watchlist');
+                const txt = t('media.watchlist');
                 const count = document.getElementById('watchlistCount').textContent;
                 wlBtn.innerHTML = `<i class="fas fa-heart"></i> ${txt} (<span id="watchlistCount">${count}</span>)`;
             }
             const searchInput = document.getElementById('searchInput');
-            if (searchInput) searchInput.placeholder = t('projects.search');
+            if (searchInput) searchInput.placeholder = t('media.search');
             const toggleBtn = document.getElementById('toggleCertsBtn');
             if (toggleBtn) {
                 const isShowingAll = toggleBtn.dataset.showing === 'true';
                 toggleBtn.textContent = isShowingAll ? 'Ver menos' : t('certs.showmore');
             }
             const statusEl = document.getElementById('status');
-            if (statusEl && statusEl.classList.contains('loading')) statusEl.textContent = t('projects.loading');
+            if (statusEl && statusEl.classList.contains('loading')) statusEl.textContent = t('media.loading');
         }
 
         document.getElementById('langToggle').addEventListener('click', () => {
@@ -742,11 +816,9 @@
         const watchlistToggle = document.getElementById('watchlistToggle');
         const watchlistCount = document.getElementById('watchlistCount');
 
-        // Series
         const showsStatusEl = document.getElementById('showsStatus');
         const showsGrid = document.getElementById('showsGrid');
 
-        // Modal
         const overlay = document.getElementById('overlay');
         const modalClose = document.getElementById('modalClose');
         const modalBackdrop = document.getElementById('modalBackdrop');
@@ -773,11 +845,7 @@
         let currentEpisodeList = [];
         let currentEpisodeIndex = -1;
 
-        // ─── Utility ───
-        function escapeHtml(str) {
-            if (!str) return '';
-            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        }
+        function escapeHtml(str) { if (!str) return ''; return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
         async function jellyfinGet(path) {
             const res = await fetch(`${JELLYFIN_URL}${path}`, { headers: { 'X-Emby-Token': API_KEY } });
@@ -866,7 +934,6 @@
                 const res = await fetch(url, { headers: { 'X-Emby-Token': API_KEY } });
                 if (!res.ok) throw new Error(`El servidor respondió con estado ${res.status}`);
                 const data = await res.json();
-                // FILTRAR: solo películas en "Proyecto destacado" (excluir series)
                 allItems = (data.Items || []).filter(item => item.Type === 'Movie');
                 itemsById = {};
                 allItems.forEach(item => { itemsById[item.Id] = item; });
@@ -927,15 +994,12 @@
             return data.Items || [];
         }
 
-        // ─── SERIES MODAL (sin banner) ───
+        // ─── SERIES MODAL ───
         async function openSeriesModal(seriesId) {
             const series = seriesById[seriesId];
             if (!series) return;
 
-            if (currentPlayer) {
-                currentPlayer.dispose();
-                currentPlayer = null;
-            }
+            if (currentPlayer) { currentPlayer.dispose(); currentPlayer = null; }
             modalBackdrop.classList.add('hidden');
             modalBackdrop.src = '';
             modalTitle.textContent = series.Name;
@@ -965,8 +1029,8 @@
                 }
 
                 const tabsContainer = document.getElementById('seriesSeasonTabs');
-                tabsContainer.innerHTML = seasons.map((s, i) => {
-                    const sn = Number.isInteger(s.IndexNumber) ? s.IndexNumber : i + 1;
+                tabsContainer.innerHTML = seasons.map((s,i) => {
+                    const sn = Number.isInteger(s.IndexNumber) ? s.IndexNumber : i+1;
                     return `<button class="season-tab ${i===0?'active':''}" data-season-id="${s.Id}">T${sn}</button>`;
                 }).join('');
 
@@ -1004,15 +1068,13 @@
             grid.innerHTML = episodes.map((ep, idx) => {
                 const epNum = Number.isInteger(ep.IndexNumber) ? ep.IndexNumber : idx + 1;
                 const runtime = formatRuntime(ep.RunTimeTicks) || '';
-                const thumb = ep.ImageTags && ep.ImageTags.Primary
-                    ? `${JELLYFIN_URL}/Items/${ep.Id}/Images/Primary?maxWidth=480&tag=${ep.ImageTags.Primary}`
-                    : '';
+                const thumb = ep.ImageTags && ep.ImageTags.Primary ? `${JELLYFIN_URL}/Items/${ep.Id}/Images/Primary?maxWidth=480&tag=${ep.ImageTags.Primary}` : '';
                 return `
                     <div class="episode-card" data-episode-id="${ep.Id}" data-episode-index="${idx}">
                         ${thumb ? `<img src="${thumb}" alt="${ep.Name}" loading="lazy">` : ''}
                         <div class="ep-body">
                             <div class="ep-title">${escapeHtml(ep.Name)}</div>
-                            <div class="ep-meta"><span>E${String(epNum).padStart(2, '0')}</span><span>${runtime}</span></div>
+                            <div class="ep-meta"><span>E${String(epNum).padStart(2,'0')}</span><span>${runtime}</span></div>
                         </div>
                     </div>
                 `;
@@ -1038,22 +1100,9 @@
                     { Container: 'mp4,m4v,mov', Type: 'Video', VideoCodec: 'h264,vp9,av1', AudioCodec: 'aac,mp3,opus,flac' },
                     { Container: 'webm', Type: 'Video', VideoCodec: 'vp8,vp9,av1', AudioCodec: 'opus,vorbis' }
                 ],
-                TranscodingProfiles: [{
-                    Container: 'ts',
-                    Type: 'Video',
-                    AudioCodec: 'aac',
-                    VideoCodec: 'h264',
-                    Context: 'Streaming',
-                    Protocol: 'hls',
-                    MaxAudioChannels: '2',
-                    MinSegments: 1,
-                    BreakOnNonKeyFrames: true
-                }],
+                TranscodingProfiles: [{ Container: 'ts', Type: 'Video', AudioCodec: 'aac', VideoCodec: 'h264', Context: 'Streaming', Protocol: 'hls', MaxAudioChannels: '2', MinSegments: 1, BreakOnNonKeyFrames: true }],
                 CodecProfiles: [],
-                SubtitleProfiles: [
-                    { Format: 'vtt', Method: 'External' },
-                    { Format: 'srt', Method: 'External' }
-                ]
+                SubtitleProfiles: [ { Format: 'vtt', Method: 'External' }, { Format: 'srt', Method: 'External' } ]
             };
         }
 
@@ -1079,22 +1128,14 @@
         function resolvePlaybackUrl(mediaSource, id, forceTranscode) {
             if (mediaSource.SupportsDirectPlay && !forceTranscode) {
                 const ext = (mediaSource.Container || 'mp4').split(',')[0];
-                return {
-                    src: `${JELLYFIN_URL}/Videos/${id}/stream.${ext}?Static=true&mediaSourceId=${mediaSource.Id}&api_key=${API_KEY}`,
-                    type: ext === 'webm' ? 'video/webm' : 'video/mp4',
-                    method: 'DirectPlay'
-                };
+                return { src: `${JELLYFIN_URL}/Videos/${id}/stream.${ext}?Static=true&mediaSourceId=${mediaSource.Id}&api_key=${API_KEY}`, type: ext === 'webm' ? 'video/webm' : 'video/mp4', method: 'DirectPlay' };
             }
             if (mediaSource.TranscodingUrl) {
                 const base = mediaSource.TranscodingUrl.startsWith('http') ? mediaSource.TranscodingUrl : `${JELLYFIN_URL}${mediaSource.TranscodingUrl}`;
-                const withKey = base.includes('api_key=') ? base : `${base}${base.includes('?') ? '&' : '?'}api_key=${API_KEY}`;
+                const withKey = base.includes('api_key=') ? base : `${base}${base.includes('?')?'&':'?'}api_key=${API_KEY}`;
                 return { src: withKey, type: 'application/x-mpegURL', method: 'Transcode' };
             }
-            return {
-                src: `${JELLYFIN_URL}/Videos/${id}/stream?static=true&mediaSourceId=${mediaSource.Id}&api_key=${API_KEY}`,
-                type: 'video/mp4',
-                method: 'DirectStream (fallback)'
-            };
+            return { src: `${JELLYFIN_URL}/Videos/${id}/stream?static=true&mediaSourceId=${mediaSource.Id}&api_key=${API_KEY}`, type: 'video/mp4', method: 'DirectStream (fallback)' };
         }
 
         function setupSubtitleTools(videoElement, player) {
@@ -1126,7 +1167,7 @@
                 let selectedIndex = -1;
                 for (let i = 0; i < tracks.length; i++) {
                     const tr = tracks[i];
-                    const label = tr.label || tr.language || `Pista ${i + 1}`;
+                    const label = tr.label || tr.language || `Pista ${i+1}`;
                     labels.push(label);
                     if (tr.mode === 'showing') selectedIndex = i;
                     options.push(`<option value="${i}">${label}</option>`);
@@ -1172,7 +1213,7 @@
                         }, 150);
                         fileNameSpan.textContent = `✅ Subtítulos cargados: ${file.name}`;
                         fileNameSpan.style.color = '#5b9aff';
-                    } catch (err) {
+                    } catch(err) {
                         console.error('Error al cargar subtítulos:', err);
                         fileNameSpan.textContent = '❌ Error al cargar el archivo.';
                         fileNameSpan.style.color = '#ff9c9c';
@@ -1201,10 +1242,7 @@
 
         async function openModal(id) {
             const basic = itemsById[id] || null;
-            if (currentPlayer) {
-                currentPlayer.dispose();
-                currentPlayer = null;
-            }
+            if (currentPlayer) { currentPlayer.dispose(); currentPlayer = null; }
 
             modalBackdrop.classList.add('hidden');
             modalBackdrop.src = '';
@@ -1222,14 +1260,11 @@
             overlay.classList.add('open');
 
             let detail;
-            try {
-                detail = await fetchItemDetail(id);
-            } catch (err) {
+            try { detail = await fetchItemDetail(id); } catch(err) {
                 modalMeta.innerHTML = `<span style="color:#ff9c9c">No se pudo cargar el detalle (${err.message})</span>`;
                 return;
             }
 
-            // Backdrop
             if (detail.Type === 'Movie' && detail.BackdropImageTags && detail.BackdropImageTags.length > 0) {
                 modalBackdrop.classList.remove('hidden');
                 modalBackdrop.src = `${JELLYFIN_URL}/Items/${id}/Images/Backdrop/0?maxWidth=900&tag=${detail.BackdropImageTags[0]}`;
@@ -1238,19 +1273,17 @@
                 modalBackdrop.src = `${JELLYFIN_URL}/Items/${id}/Images/Primary?maxWidth=800&tag=${detail.ImageTags.Primary}`;
             }
 
-            // Title
             if (detail.Name) {
                 if (detail.Type === 'Episode') {
                     const sNum = Number.isInteger(detail.ParentIndexNumber) ? detail.ParentIndexNumber : 0;
                     const eNum = Number.isInteger(detail.IndexNumber) ? detail.IndexNumber : 0;
                     const seriesName = detail.SeriesName ? `${detail.SeriesName} · ` : '';
-                    modalTitle.textContent = `${seriesName}S${String(sNum).padStart(2, '0')}E${String(eNum).padStart(2, '0')} · ${detail.Name}`;
+                    modalTitle.textContent = `${seriesName}S${String(sNum).padStart(2,'0')}E${String(eNum).padStart(2,'0')} · ${detail.Name}`;
                 } else {
                     modalTitle.textContent = detail.Name;
                 }
             }
 
-            // Meta
             const year = detail.ProductionYear || '';
             const rating = detail.CommunityRating ? `⭐ ${detail.CommunityRating.toFixed(1)}` : '';
             const runtime = formatRuntime(detail.RunTimeTicks);
@@ -1263,65 +1296,50 @@
                 `<span class="pill">${type}</span>`
             ].filter(Boolean).join('');
 
-            // Genres
             modalGenres.innerHTML = (detail.Genres || []).map(g => `<span>${g}</span>`).join('');
-
-            // Overview
             modalOverview.textContent = detail.Overview || 'Sin descripción disponible.';
 
-            // Cast & Crew
             const people = detail.People || [];
             const directors = people.filter(p => p.Type === 'Director').map(p => p.Name).join(', ');
             const writers = people.filter(p => p.Type === 'Writer').map(p => p.Name).join(', ');
-            const actors = people.filter(p => p.Type === 'Actor').slice(0, 6).map(p => p.Name).join(', ');
+            const actors = people.filter(p => p.Type === 'Actor').slice(0,6).map(p => p.Name).join(', ');
             let castHtml = '';
             if (directors) castHtml += `<span class="group"><strong>Director:</strong> ${directors}</span>`;
             if (writers) castHtml += `<span class="group"><strong>Guionista:</strong> ${writers}</span>`;
             if (actors) castHtml += `<span class="group"><strong>Actores:</strong> ${actors}</span>`;
             modalCastCrew.innerHTML = castHtml;
 
-            // ─── QUALITY & EXTERNAL LINKS ───
             if (detail.Type === 'Movie') {
-                // Quality
                 const videoStream = (detail.MediaStreams || []).find(s => s.Type === 'Video');
                 if (videoStream) {
                     const height = videoStream.Height || 0;
-                    const width = videoStream.Width || 0;
                     let resolution = '';
                     if (height >= 2160) resolution = '4K';
                     else if (height >= 1080) resolution = '1080p';
                     else if (height >= 720) resolution = '720p';
                     else if (height >= 480) resolution = '480p';
                     else if (height > 0) resolution = `${height}p`;
-                    else if (width > 0 && height > 0) resolution = `${width}x${height}`;
                     else resolution = 'HD';
-
                     const codec = videoStream.Codec || 'H.264';
-
                     videoQuality.textContent = resolution;
                     videoCodec.textContent = codec.toUpperCase();
                     qualityBadge.style.display = 'inline-flex';
                 }
-
-                // External links
                 const title = detail.Name || '';
                 const searchTitle = encodeURIComponent(title);
                 const searchYear = year || '';
-                const imdbUrl = `https://www.imdb.com/find?q=${searchTitle}${searchYear ? `+${searchYear}` : ''}`;
-                const letterboxdUrl = `https://letterboxd.com/search/${searchTitle}${searchYear ? `+${searchYear}` : ''}/`;
-                imdbLink.href = imdbUrl;
-                letterboxdLink.href = letterboxdUrl;
+                imdbLink.href = `https://www.imdb.com/find?q=${searchTitle}${searchYear ? `+${searchYear}` : ''}`;
+                letterboxdLink.href = `https://letterboxd.com/search/${searchTitle}${searchYear ? `+${searchYear}` : ''}/`;
                 externalLinks.style.display = 'flex';
             }
 
-            // Recommendations
             const recs = allItems.filter(item => {
                 if (item.Id === id) return false;
                 const itemPeople = item.People || [];
                 const sameDirector = directors && itemPeople.some(p => p.Type === 'Director' && directors.includes(p.Name));
                 const sameYear = year && item.ProductionYear === year;
                 return sameDirector || sameYear;
-            }).slice(0, 6);
+            }).slice(0,6);
             if (recs.length > 0) {
                 modalRecommendations.style.display = 'block';
                 recGrid.innerHTML = recs.map(r => {
@@ -1335,7 +1353,7 @@
                 modalRecommendations.style.display = 'none';
             }
 
-            // ─── PLAYER ───
+            // ─── REPRODUCTOR ───
             if (detail.Type === 'Movie' || detail.Type === 'Episode') {
                 const isMovie = detail.Type === 'Movie';
                 const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
@@ -1368,7 +1386,6 @@
                 statusLine.textContent = 'Preparando reproducción…';
                 videoWrap.appendChild(statusLine);
 
-                // Navegación episodios
                 const navControls = document.createElement('div');
                 navControls.style.cssText = 'display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center;';
                 if (!isMovie && currentEpisodeList.length > 0) {
@@ -1380,10 +1397,7 @@
                         if (currentEpisodeIndex > 0) {
                             const newIdx = currentEpisodeIndex - 1;
                             const ep = currentEpisodeList[newIdx];
-                            if (ep) {
-                                currentEpisodeIndex = newIdx;
-                                openModal(ep.Id);
-                            }
+                            if (ep) { currentEpisodeIndex = newIdx; openModal(ep.Id); }
                         }
                     });
 
@@ -1395,10 +1409,7 @@
                         if (currentEpisodeIndex < currentEpisodeList.length - 1) {
                             const newIdx = currentEpisodeIndex + 1;
                             const ep = currentEpisodeList[newIdx];
-                            if (ep) {
-                                currentEpisodeIndex = newIdx;
-                                openModal(ep.Id);
-                            }
+                            if (ep) { currentEpisodeIndex = newIdx; openModal(ep.Id); }
                         }
                     });
 
@@ -1416,10 +1427,10 @@
                 function attachSidecarSubtitles() {
                     videoEl.querySelectorAll('track[data-server-sub]').forEach(t => t.remove());
                     const msId = (detail.MediaSources && detail.MediaSources[0]) ? detail.MediaSources[0].Id : id;
-                    subtitleStreams.forEach((s, i) => {
+                    subtitleStreams.forEach((s,i) => {
                         const track = document.createElement('track');
                         track.kind = 'subtitles';
-                        track.label = s.DisplayTitle || s.Language || `Pista ${i + 1}`;
+                        track.label = s.DisplayTitle || s.Language || `Pista ${i+1}`;
                         track.srclang = s.Language || 'und';
                         track.dataset.serverSub = 'true';
                         track.src = `${JELLYFIN_URL}/Videos/${id}/${msId}/Subtitles/${s.Index}/Stream.vtt?api_key=${API_KEY}`;
@@ -1432,38 +1443,29 @@
                 const player = videojs('jellyfin-player', {
                     controls: true,
                     fluid: true,
-                    playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
-                    controlBar: { children: ['playToggle', 'currentTimeDisplay', 'timeDivider', 'durationDisplay', 'progressControl', 'volumePanel', 'playbackRateMenuButton', 'subsCapsButton', 'fullscreenToggle'] }
+                    playbackRates: [0.5,0.75,1,1.25,1.5,2],
+                    controlBar: { children: ['playToggle','currentTimeDisplay','timeDivider','durationDisplay','progressControl','volumePanel','playbackRateMenuButton','subsCapsButton','fullscreenToggle'] }
                 });
                 currentPlayer = player;
 
-                let stuckTimer = null;
-                let audioCheckTimer = null;
-                let hasFallenBackToTranscode = false;
-                let disposed = false;
+                let stuckTimer = null, audioCheckTimer = null, hasFallenBackToTranscode = false, disposed = false;
 
                 async function loadSourceFor(audioIndex, subtitleIndex, forceTranscode) {
-                    clearTimeout(stuckTimer);
-                    clearTimeout(audioCheckTimer);
+                    clearTimeout(stuckTimer); clearTimeout(audioCheckTimer);
                     statusLine.textContent = 'Preparando reproducción…';
                     let info;
-                    try {
-                        info = await getPlaybackInfo(id, audioIndex, subtitleIndex);
-                    } catch (err) {
+                    try { info = await getPlaybackInfo(id, audioIndex, subtitleIndex); } catch(err) {
                         statusLine.textContent = 'No se pudo consultar el servidor.';
                         console.error('PlaybackInfo error:', err);
                         return;
                     }
                     if (disposed) return;
                     const source = (info.MediaSources || [])[0];
-                    if (!source) {
-                        statusLine.textContent = 'El servidor no devolvió información.';
-                        return;
-                    }
+                    if (!source) { statusLine.textContent = 'El servidor no devolvió información.'; return; }
                     const resolved = resolvePlaybackUrl(source, id, forceTranscode);
                     player.src({ src: resolved.src, type: resolved.type });
                     player.load();
-                    player.play().catch(() => {});
+                    player.play().catch(()=>{});
                     statusLine.textContent = resolved.method === 'DirectPlay' ? 'Reproduciendo directamente.' : 'Transcodificando en el servidor…';
 
                     stuckTimer = setTimeout(() => {
@@ -1478,7 +1480,7 @@
                                     statusLine.textContent = 'El servidor está tardando en preparar el video.';
                                 }
                             }
-                        } catch (e) { /* ignored */ }
+                        } catch(e) { /* ignored */ }
                     }, 15000);
 
                     player.one('playing', () => {
@@ -1495,7 +1497,7 @@
                                 } else if (hasAudioSignal) {
                                     statusLine.textContent = resolved.method === 'DirectPlay' ? 'Reproduciendo directamente, con audio.' : 'Reproduciendo transcodificado.';
                                 }
-                            } catch (e) { /* ignored */ }
+                            } catch(e) { /* ignored */ }
                         }, 2500);
                     });
                 }
@@ -1521,7 +1523,6 @@
 
                 startIntegratedPlayback();
 
-                // Audio info
                 if (audioStreams.length > 0) {
                     const audioInfo = document.createElement('div');
                     audioInfo.style.cssText = 'color:var(--muted); font-size:0.8rem; margin-top:6px;';
@@ -1554,10 +1555,7 @@
 
         function closeModal() {
             overlay.classList.remove('open');
-            if (currentPlayer) {
-                currentPlayer.dispose();
-                currentPlayer = null;
-            }
+            if (currentPlayer) { currentPlayer.dispose(); currentPlayer = null; }
             videoWrap.innerHTML = '';
             modalBackdrop.classList.add('hidden');
             modalBackdrop.src = '';
@@ -1585,11 +1583,11 @@
         watchlistToggle.addEventListener('click', () => {
             showingWatchlist = !showingWatchlist;
             if (showingWatchlist) {
-                watchlistToggle.innerHTML = `<i class="fas fa-arrow-left"></i> <span data-i18n="projects.back">Volver a todas</span>`;
+                watchlistToggle.innerHTML = `<i class="fas fa-arrow-left"></i> <span data-i18n="media.back">Volver a todas</span>`;
                 const watchlistItems = allItems.filter(item => watchlist.includes(item.Id));
                 renderLibrary(watchlistItems);
             } else {
-                const txt = t('projects.watchlist');
+                const txt = t('media.watchlist');
                 const count = watchlist.length;
                 watchlistToggle.innerHTML = `<i class="fas fa-heart"></i> ${txt} (<span id="watchlistCount">${count}</span>)`;
                 const query = searchInput.value.trim();
