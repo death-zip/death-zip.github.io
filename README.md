@@ -1,13 +1,13 @@
-# 🎬 Self-Hosted Streaming Portfolio
+# Self-Hosted Streaming Portfolio
 
 Portafolio personal que además funciona como demo en vivo de un servidor de streaming
 auto-hospedado. En vez de solo *contar* que sé usar Docker, Cloudflare y APIs REST, este
 proyecto lo demuestra: es una biblioteca de Jellyfin real, corriendo en mi propia máquina,
 expuesta a internet de forma segura, y consumida en vivo desde esta misma página.
 
-**🔗 Demo en vivo:** https://death-zip.github.io
-**🔗 Servidor Jellyfin:** https://media.jarr.cc.cd
-**🔗 CV interactivo:** https://death-zip.github.io/cv.html
+**Demo en vivo:** https://death-zip.github.io
+**Servidor Jellyfin:** https://media.jarr.cc.cd
+**CV interactivo:** https://death-zip.github.io/cv.html
 
 ---
 
@@ -37,7 +37,10 @@ index.html (portafolio)
   generar y mantener un PDF estático aparte.
 - El **proyecto destacado** dentro del portafolio no es una captura de pantalla ni una
   descripción: es la biblioteca real de mi servidor Jellyfin, consumida en vivo por el
-  navegador de quien visite la página.
+  navegador de quien visite la página. Las carátulas usan un diseño tipo streaming (Netflix/Prime):
+  overlay al pasar el cursor, botón de reproducción y ficha de tipo/año.
+- Ambas páginas comparten un mismo sistema de modo claro/oscuro persistente (guardado en
+  `localStorage`, así que la preferencia se mantiene al navegar entre el portafolio y el CV).
 
 Ambos documentos comparten paleta de colores, tipografía (Inter) y tono — se navegan como
 una sola experiencia, no como archivos independientes.
@@ -173,10 +176,13 @@ sudo systemctl enable --now jellyfin-watchdog.timer
 
 ## Roadmap / próximos pasos
 
+- [x] Modo claro/oscuro persistente y compartido entre `index.html` y `cv.html`
+- [x] Rediseño de las carátulas de películas/series con estética tipo streaming
 - [ ] Mover la API key detrás de un backend ligero para no exponerla en el cliente
 - [ ] Agregar métricas básicas (uptime del túnel, uso de CPU/memoria de los contenedores)
 - [ ] Migrar el proxy CORS de nginx a un Cloudflare Worker cuando resuelva el bug de la interfaz
 - [ ] Tests automatizados del pipeline de despliegue
+- [ ] Completar la traducción a inglés de los mensajes dinámicos del reproductor (estados de carga/transcodificación)
 
 ## Sobre mí
 
