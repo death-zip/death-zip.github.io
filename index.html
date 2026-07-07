@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
     <style>
-        /* ── Reset & base ── (sin cambios, igual que en tu versión) ── */
+        /* ── Reset & base ── */
         * { margin:0; padding:0; box-sizing:border-box; }
         .theme-default {
             --bg: #0a0c10;
@@ -556,7 +556,7 @@
             </div>
         </section>
 
-        <!-- ─── MEDIA LIBRARY (Películas y Series) ─── (sin cambios, exactamente igual que en tu versión) ─── -->
+        <!-- ─── MEDIA LIBRARY (Películas y Series) ─── -->
         <section id="media" class="media-section">
             <h2 class="section-title anim"><i class="fas fa-clapperboard" style="color: var(--accent);"></i> <span data-i18n="media.title">Media Library</span></h2>
             <p class="section-sub anim" data-i18n="media.sub">Biblioteca real, servida en vivo desde mi servidor Jellyfin</p>
@@ -648,7 +648,7 @@
     </div>
 
     <script>
-        // ─── I18N ─── (actualizado con las nuevas claves)
+        // ─── I18N ─── (actualizado con todas las claves)
         const translations = {
             es: {
                 'nav.about': 'Sobre mí', 'nav.hire': 'Contrátame', 'nav.services': 'Servicios', 'nav.skills': 'Habilidades',
@@ -686,6 +686,7 @@
                 'media.type.movie': 'Película', 'media.type.series': 'Serie', 'media.type.episode': 'Episodio',
                 'media.empty': 'No se encontraron resultados.', 'media.no_overview': 'Sin descripción disponible.',
                 'media.no_seasons': 'Esta serie no tiene temporadas.', 'media.no_episodes': 'No hay episodios en esta temporada.',
+                'media.back': 'Volver a todas',
                 'cast.director': 'Director', 'cast.writer': 'Guionista', 'cast.actors': 'Actores',
                 'certs.title': 'Certificaciones', 'certs.sub': 'Verificadas en Credly', 'certs.showmore': 'Ver más', 'certs.showless': 'Ver menos',
                 'exp.title': 'Enfoque actual', 'exp.sub': 'Dónde estoy y qué busco',
@@ -734,6 +735,7 @@
                 'media.type.movie': 'Movie', 'media.type.series': 'Series', 'media.type.episode': 'Episode',
                 'media.empty': 'No results found.', 'media.no_overview': 'No description available.',
                 'media.no_seasons': 'This show has no seasons.', 'media.no_episodes': 'No episodes in this season.',
+                'media.back': 'Back to all',
                 'cast.director': 'Director', 'cast.writer': 'Writer', 'cast.actors': 'Cast',
                 'certs.title': 'Certifications', 'certs.sub': 'Verified on Credly', 'certs.showmore': 'Show more', 'certs.showless': 'Show less',
                 'exp.title': 'Current focus', 'exp.sub': 'Where I am and what I\'m looking for',
@@ -880,7 +882,7 @@
             animate();
         });
 
-        // ─── CERTIFICACIONES ───
+        // ─── CERTIFICACIONES ─── (ahora con DOMContentLoaded seguro)
         const certData = [
             { name: 'Desarrollo Full Stack', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/fdecf3ca-1fa7-46c9-93c7-e203f718579b/linkedin_thumb_blob', url: 'https://www.credly.com/badges/65c923dc-22a2-45ea-8285-ca464feddfa4' },
             { name: 'Fundamentos de DevOps', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/18d30937-4c1b-442c-83a1-543265bcf02f/linkedin_thumb_image.png', url: 'https://www.credly.com/badges/0595675d-b4e1-42ab-950a-4889cfd51323' },
@@ -908,25 +910,41 @@
         const VISIBLE_COUNT = 6;
 
         function renderCerts(showAll) {
+            console.log('🎓 Renderizando certificados, showAll =', showAll);
+            const grid = document.getElementById('certGrid');
+            if (!grid) {
+                console.error('❌ No se encontró #certGrid en el DOM');
+                return;
+            }
             const items = showAll ? certData : certData.slice(0, VISIBLE_COUNT);
-            certGrid.innerHTML = items.map(cert => `
+            grid.innerHTML = items.map(cert => `
                 <a class="cert-card" href="${cert.url}" target="_blank" rel="noopener noreferrer">
                     <img src="${cert.img}" alt="${cert.name}" onerror="this.onerror=null;this.src='https://placehold.co/64x64/1e2430/8e95a5?text=%20'" />
                     <h4>${cert.name}</h4>
                     <div class="issuer">${cert.issuer}</div>
                 </a>
             `).join('');
-            toggleBtn.textContent = showAll ? t('certs.showless') : t('certs.showmore');
-            toggleBtn.dataset.showing = showAll ? 'true' : 'false';
+            if (toggleBtn) {
+                toggleBtn.textContent = showAll ? t('certs.showless') : t('certs.showmore');
+                toggleBtn.dataset.showing = showAll ? 'true' : 'false';
+            }
         }
-        toggleBtn.addEventListener('click', () => {
-            showingAll = !showingAll;
-            renderCerts(showingAll);
-        });
-        renderCerts(false);
 
-        // ─── JELLYFIN ─── (código completo, igual que en tu versión anterior, solo se mantiene)
+        // Inicializar certificaciones cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCerts(false);
+        });
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                showingAll = !showingAll;
+                renderCerts(showingAll);
+            });
+        }
+
+        // ─── JELLYFIN con PROXY para CORS ───
         const JELLYFIN_URL = 'https://media.jarr.cc.cd';
+        const PROXY_URL = 'https://thingproxy.freeboard.io/fetch/';
         const API_KEY = '4119d7f4257c477ab5b72ddb1fcd735e';
         const USER_ID = '99d724cfca8847e0bf89fbf93a734421';
 
@@ -972,9 +990,13 @@
 
         function escapeHtml(str) { if (!str) return ''; return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
+        // Función GET con proxy para evitar CORS
         async function jellyfinGet(path) {
-            const res = await fetch(`${JELLYFIN_URL}${path}`, { headers: { 'X-Emby-Token': API_KEY } });
-            if (!res.ok) throw new Error(`estado ${res.status}`);
+            const target = `${JELLYFIN_URL}${path}`;
+            const proxyTarget = `${PROXY_URL}${target}`;
+            console.log(`🌐 Proxy request: ${proxyTarget}`);
+            const res = await fetch(proxyTarget, { headers: { 'X-Emby-Token': API_KEY } });
+            if (!res.ok) throw new Error(`HTTP ${res.status} - ${res.statusText}`);
             return res.json();
         }
 
@@ -1060,22 +1082,20 @@
 
         async function fetchLibrary() {
             try {
-                const url = `${JELLYFIN_URL}/Users/${USER_ID}/Items?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=50`;
-                const res = await fetch(url, { headers: { 'X-Emby-Token': API_KEY } });
-                if (!res.ok) throw new Error(`El servidor respondió con estado ${res.status}`);
-                const data = await res.json();
+                setStatus('loading', 'Cargando películas...');
+                const data = await jellyfinGet(`/Users/${USER_ID}/Items?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=50`);
                 allItems = (data.Items || []).filter(item => item.Type === 'Movie');
                 itemsById = {};
                 allItems.forEach(item => { itemsById[item.Id] = item; });
                 renderLibrary(allItems);
                 updateWatchlistCount();
+                setStatus('ok', '');
             } catch (err) {
-                setStatusErrorWithRetry(statusEl, `No se pudo conectar: ${err.message}. Verifica que el túnel esté activo.`, fetchLibrary);
+                setStatusErrorWithRetry(statusEl, `Error: ${err.message}. Revisa la consola.`, fetchLibrary);
                 console.error('Error cargando Jellyfin:', err);
             }
         }
 
-        // ─── SHOWS ───
         async function fetchSeriesCatalog() {
             try {
                 setShowsStatus('loading', 'Cargando series...');
@@ -1117,13 +1137,11 @@
         }
 
         async function fetchSeasons(seriesId) {
-            const data = await jellyfinGet(`/Users/${USER_ID}/Items?ParentId=${seriesId}&IncludeItemTypes=Season&Recursive=false&SortBy=SortName&Fields=IndexNumber,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary`);
-            return data.Items || [];
+            return await jellyfinGet(`/Users/${USER_ID}/Items?ParentId=${seriesId}&IncludeItemTypes=Season&Recursive=false&SortBy=SortName&Fields=IndexNumber,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary`);
         }
 
         async function fetchEpisodesForSeason(seasonId) {
-            const data = await jellyfinGet(`/Users/${USER_ID}/Items?ParentId=${seasonId}&IncludeItemTypes=Episode&Recursive=false&SortBy=PremiereDate,SortName&Fields=Overview,RunTimeTicks,IndexNumber,ParentIndexNumber,SeriesName,ProductionYear,CommunityRating,MediaStreams,MediaSources,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary`);
-            return data.Items || [];
+            return await jellyfinGet(`/Users/${USER_ID}/Items?ParentId=${seasonId}&IncludeItemTypes=Episode&Recursive=false&SortBy=PremiereDate,SortName&Fields=Overview,RunTimeTicks,IndexNumber,ParentIndexNumber,SeriesName,ProductionYear,CommunityRating,MediaStreams,MediaSources,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary`);
         }
 
         // ─── SERIES MODAL ───
@@ -1251,7 +1269,6 @@
             const res = await fetch(`${JELLYFIN_URL}/Items/${id}/PlaybackInfo?UserId=${USER_ID}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'X-Emby-Token': API_KEY },
-                body: JSON.stringify(body)
             });
             if (!res.ok) throw new Error(`PlaybackInfo HTTP ${res.status}`);
             return res.json();
@@ -1426,274 +1443,3 @@
                 rating ? `<span class="rating">${rating}</span>` : '',
                 runtime ? `<span class="pill">${runtime}</span>` : '',
                 `<span class="pill">${type}</span>`
-            ].filter(Boolean).join('');
-
-            modalGenres.innerHTML = (detail.Genres || []).map(g => `<span>${g}</span>`).join('');
-            modalOverview.textContent = detail.Overview || t('media.no_overview');
-
-            const people = detail.People || [];
-            const directors = people.filter(p => p.Type === 'Director').map(p => p.Name).join(', ');
-            const writers = people.filter(p => p.Type === 'Writer').map(p => p.Name).join(', ');
-            const actors = people.filter(p => p.Type === 'Actor').slice(0,6).map(p => p.Name).join(', ');
-            let castHtml = '';
-            if (directors) castHtml += `<span class="group"><strong>${t('cast.director')}:</strong> ${directors}</span>`;
-            if (writers) castHtml += `<span class="group"><strong>${t('cast.writer')}:</strong> ${writers}</span>`;
-            if (actors) castHtml += `<span class="group"><strong>${t('cast.actors')}:</strong> ${actors}</span>`;
-            modalCastCrew.innerHTML = castHtml;
-
-            if (detail.Type === 'Movie') {
-                const videoStream = (detail.MediaStreams || []).find(s => s.Type === 'Video');
-                if (videoStream) {
-                    const height = videoStream.Height || 0;
-                    let resolution = '';
-                    if (height >= 2160) resolution = '4K';
-                    else if (height >= 1080) resolution = '1080p';
-                    else if (height >= 720) resolution = '720p';
-                    else if (height >= 480) resolution = '480p';
-                    else if (height > 0) resolution = `${height}p`;
-                    else resolution = 'HD';
-                    const codec = videoStream.Codec || 'H.264';
-                    videoQuality.textContent = resolution;
-                    videoCodec.textContent = codec.toUpperCase();
-                    qualityBadge.style.display = 'inline-flex';
-                }
-                const title = detail.Name || '';
-                const searchTitle = encodeURIComponent(title);
-                const searchYear = year || '';
-                imdbLink.href = `https://www.imdb.com/find?q=${searchTitle}${searchYear ? `+${searchYear}` : ''}`;
-                letterboxdLink.href = `https://letterboxd.com/search/${searchTitle}${searchYear ? `+${searchYear}` : ''}/`;
-                externalLinks.style.display = 'flex';
-            }
-
-            const recs = allItems.filter(item => {
-                if (item.Id === id) return false;
-                const itemPeople = item.People || [];
-                const sameDirector = directors && itemPeople.some(p => p.Type === 'Director' && directors.includes(p.Name));
-                const sameYear = year && item.ProductionYear === year;
-                return sameDirector || sameYear;
-            }).slice(0,6);
-            if (recs.length > 0) {
-                modalRecommendations.style.display = 'block';
-                recGrid.innerHTML = recs.map(r => {
-                    const imgUrl = r.ImageTags && r.ImageTags.Primary ? `${JELLYFIN_URL}/Items/${r.Id}/Images/Primary?maxWidth=200&tag=${r.ImageTags.Primary}` : '';
-                    return `<div class="rec-item" data-id="${r.Id}">${imgUrl ? `<img src="${imgUrl}" alt="${r.Name}" loading="lazy">` : ''}<div class="title">${r.Name}</div></div>`;
-                }).join('');
-                recGrid.querySelectorAll('.rec-item').forEach(el => {
-                    el.addEventListener('click', () => openModal(el.dataset.id));
-                });
-            } else {
-                modalRecommendations.style.display = 'none';
-            }
-
-            // ─── REPRODUCTOR ───
-            if (detail.Type === 'Movie' || detail.Type === 'Episode') {
-                const isMovie = detail.Type === 'Movie';
-                const audioStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Audio');
-                const subtitleStreams = (detail.MediaStreams || []).filter(s => s.Type === 'Subtitle');
-                const defaultAudio = audioStreams.find(a => a.IsDefault) || audioStreams[0];
-                const defaultSub = subtitleStreams.find(s => s.IsDefault);
-                let selectedAudioIndex = defaultAudio && Number.isInteger(defaultAudio.Index) ? defaultAudio.Index : null;
-                let selectedSubtitleIndex = defaultSub && Number.isInteger(defaultSub.Index) ? defaultSub.Index : null;
-
-                const videoContainer = document.createElement('div');
-                videoContainer.id = 'jellyfin-player-container';
-                const videoEl = document.createElement('video');
-                videoEl.id = 'jellyfin-player';
-                videoEl.className = 'video-js vjs-big-play-centered';
-                videoEl.setAttribute('crossorigin', 'anonymous');
-                videoEl.setAttribute('playsinline', 'true');
-                videoEl.setAttribute('preload', 'auto');
-                videoContainer.appendChild(videoEl);
-
-                const subtitleArea = document.createElement('div');
-                subtitleArea.id = 'subtitle-upload-container';
-                videoContainer.appendChild(subtitleArea);
-
-                videoWrap.innerHTML = '';
-                videoWrap.appendChild(videoContainer);
-
-                const statusLine = document.createElement('div');
-                statusLine.id = 'playbackStatusLine';
-                statusLine.style.cssText = 'color:var(--muted); font-size:0.78rem; margin-top:8px;';
-                statusLine.textContent = 'Preparando reproducción…';
-                videoWrap.appendChild(statusLine);
-
-                const navControls = document.createElement('div');
-                navControls.style.cssText = 'display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; align-items:center;';
-                if (!isMovie && currentEpisodeList.length > 0) {
-                    const prevBtn = document.createElement('button');
-                    prevBtn.className = 'btn btn-outline btn-sm';
-                    prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i> ' + t('shows.prev');
-                    prevBtn.disabled = currentEpisodeIndex <= 0;
-                    prevBtn.addEventListener('click', () => {
-                        if (currentEpisodeIndex > 0) {
-                            const newIdx = currentEpisodeIndex - 1;
-                            const ep = currentEpisodeList[newIdx];
-                            if (ep) { currentEpisodeIndex = newIdx; openModal(ep.Id); }
-                        }
-                    });
-
-                    const nextBtn = document.createElement('button');
-                    nextBtn.className = 'btn btn-primary btn-sm';
-                    nextBtn.innerHTML = t('shows.next') + ' <i class="fas fa-chevron-right"></i>';
-                    nextBtn.disabled = currentEpisodeIndex >= currentEpisodeList.length - 1;
-                    nextBtn.addEventListener('click', () => {
-                        if (currentEpisodeIndex < currentEpisodeList.length - 1) {
-                            const newIdx = currentEpisodeIndex + 1;
-                            const ep = currentEpisodeList[newIdx];
-                            if (ep) { currentEpisodeIndex = newIdx; openModal(ep.Id); }
-                        }
-                    });
-
-                    const posInfo = document.createElement('span');
-                    posInfo.style.cssText = 'color:var(--muted); font-size:0.8rem;';
-                    posInfo.textContent = `${currentEpisodeIndex + 1} / ${currentEpisodeList.length}`;
-                    navControls.appendChild(prevBtn);
-                    navControls.appendChild(posInfo);
-                    navControls.appendChild(nextBtn);
-                }
-                videoWrap.appendChild(navControls);
-
-                let integratedStarted = false;
-
-                function attachSidecarSubtitles() {
-                    videoEl.querySelectorAll('track[data-server-sub]').forEach(t => t.remove());
-                    const msId = (detail.MediaSources && detail.MediaSources[0]) ? detail.MediaSources[0].Id : id;
-                    subtitleStreams.forEach((s,i) => {
-                        const track = document.createElement('track');
-                        track.kind = 'subtitles';
-                        track.label = s.DisplayTitle || s.Language || `Pista ${i+1}`;
-                        track.srclang = s.Language || 'und';
-                        track.dataset.serverSub = 'true';
-                        track.src = `${JELLYFIN_URL}/Videos/${id}/${msId}/Subtitles/${s.Index}/Stream.vtt?api_key=${API_KEY}`;
-                        if (i === 0) track.default = true;
-                        videoEl.appendChild(track);
-                    });
-                }
-                attachSidecarSubtitles();
-
-                const player = videojs('jellyfin-player', {
-                    controls: true,
-                    fluid: true,
-                    playbackRates: [0.5,0.75,1,1.25,1.5,2],
-                    controlBar: { children: ['playToggle','currentTimeDisplay','timeDivider','durationDisplay','progressControl','volumePanel','playbackRateMenuButton','subsCapsButton','fullscreenToggle'] }
-                });
-                currentPlayer = player;
-
-                let stuckTimer = null, audioCheckTimer = null, hasFallenBackToTranscode = false, disposed = false;
-
-                async function loadSourceFor(audioIndex, subtitleIndex, forceTranscode) {
-                    clearTimeout(stuckTimer); clearTimeout(audioCheckTimer);
-                    statusLine.textContent = 'Preparando reproducción…';
-                    let info;
-                    try { info = await getPlaybackInfo(id, audioIndex, subtitleIndex); } catch(err) {
-                        statusLine.textContent = 'No se pudo consultar el servidor.';
-                        console.error('PlaybackInfo error:', err);
-                        return;
-                    }
-                    if (disposed) return;
-                    const source = (info.MediaSources || [])[0];
-                    if (!source) { statusLine.textContent = 'El servidor no devolvió información.'; return; }
-                    const resolved = resolvePlaybackUrl(source, id, forceTranscode);
-                    player.src({ src: resolved.src, type: resolved.type });
-                    player.load();
-                    player.play().catch(()=>{});
-                    statusLine.textContent = resolved.method === 'DirectPlay' ? 'Reproduciendo directamente.' : 'Transcodificando en el servidor…';
-
-                    stuckTimer = setTimeout(() => {
-                        if (disposed) return;
-                        try {
-                            if (player.paused() || player.currentTime() < 0.2) {
-                                if (!hasFallenBackToTranscode) {
-                                    hasFallenBackToTranscode = true;
-                                    statusLine.textContent = 'Forzando transcodificación…';
-                                    loadSourceFor(audioIndex, subtitleIndex, true);
-                                } else {
-                                    statusLine.textContent = 'El servidor está tardando en preparar el video.';
-                                }
-                            }
-                        } catch(e) { /* ignored */ }
-                    }, 15000);
-
-                    player.one('playing', () => {
-                        clearTimeout(stuckTimer);
-                        audioCheckTimer = setTimeout(() => {
-                            if (disposed) return;
-                            try {
-                                const el = videoEl;
-                                const hasAudioSignal = Boolean(el.mozHasAudio) || Boolean(el.webkitAudioDecodedByteCount) || (player.audioTracks && player.audioTracks().length > 0);
-                                if (!hasAudioSignal && audioStreams.length > 0 && !hasFallenBackToTranscode) {
-                                    hasFallenBackToTranscode = true;
-                                    statusLine.textContent = 'Cambiando a audio AAC transcodificado…';
-                                    loadSourceFor(audioIndex, subtitleIndex, true);
-                                } else if (hasAudioSignal) {
-                                    statusLine.textContent = resolved.method === 'DirectPlay' ? 'Reproduciendo directamente, con audio.' : 'Reproduciendo transcodificado.';
-                                }
-                            } catch(e) { /* ignored */ }
-                        }, 2500);
-                    });
-                }
-
-                player.on('error', () => {
-                    if (disposed) return;
-                    if (!hasFallenBackToTranscode) {
-                        hasFallenBackToTranscode = true;
-                        statusLine.textContent = 'Error. Reintentando con transcodificación forzada…';
-                        loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, true);
-                    } else {
-                        statusLine.textContent = 'No se pudo reproducir. Revisa los logs del servidor.';
-                    }
-                });
-
-                const startIntegratedPlayback = () => {
-                    if (integratedStarted) return;
-                    integratedStarted = true;
-                    videoContainer.style.display = 'block';
-                    statusLine.textContent = 'Preparando reproducción…';
-                    loadSourceFor(selectedAudioIndex, selectedSubtitleIndex, false);
-                };
-
-                startIntegratedPlayback();
-
-                if (audioStreams.length > 0) {
-                    const audioInfo = document.createElement('div');
-                    audioInfo.style.cssText = 'color:var(--muted); font-size:0.8rem; margin-top:6px;';
-                    audioInfo.innerHTML = `<i class="fas fa-volume-up"></i> ${audioStreams.map(a => a.DisplayTitle || a.Language || 'Audio').join(' · ')}`;
-                    videoWrap.appendChild(audioInfo);
-                }
-
-                player.ready(function() {
-                    const container = document.getElementById('subtitle-upload-container');
-                    if (container) {
-                        const videoElement = document.getElementById('jellyfin-player');
-                        if (videoElement) {
-                            const subtitleTools = setupSubtitleTools(videoElement, player);
-                            container.appendChild(subtitleTools);
-                        }
-                    }
-                });
-
-                player.on('dispose', () => { disposed = true; clearTimeout(stuckTimer); clearTimeout(audioCheckTimer); });
-
-                modalActions.innerHTML = `
-                    <a href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" style="margin-right:10px;"><i class="fas fa-external-link-alt"></i> Jellyfin nativo</a>
-                    <a href="https://www.opensubtitles.org/es/search/sublanguageid-spa" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm"><i class="fas fa-search"></i> Buscar subtítulos</a>
-                `;
-            } else {
-                videoWrap.innerHTML = `<div class="no-video-note">Las series se ven en el servidor nativo.</div>`;
-                modalActions.innerHTML = `<a class="btn btn-primary" href="${JELLYFIN_URL}/web/#/details?id=${id}" target="_blank" rel="noopener noreferrer">Ver episodios en el servidor →</a>`;
-            }
-        }
-
-        function closeModal() {
-            overlay.classList.remove('open');
-            if (currentPlayer) { currentPlayer.dispose(); currentPlayer = null; }
-            videoWrap.innerHTML = '';
-            modalBackdrop.classList.add('hidden');
-            modalBackdrop.src = '';
-            qualityBadge.style.display = 'none';
-            externalLinks.style.display = 'none';
-        }
-
-        modalClose.addEventListener('click', closeModal);
-        overlay.addEventListener('click', (e) => {
