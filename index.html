@@ -302,6 +302,70 @@
         @keyframes pulse-arrow { 0%,100% { transform:scale(1); opacity:0.7; } 50% { transform:scale(1.3); opacity:1; } }
         .arch-label { color:var(--accent); font-size:0.6rem; text-transform:uppercase; letter-spacing:1px; margin-top:6px; opacity:0.6; }
 
+        /* ── Library (Movies & Series) ── (diseño original intacto) */
+        .media-section .sub-section { margin-top:40px; }
+        .media-section .sub-section:first-child { margin-top:0; }
+        .media-section .sub-section h3 { font-size:1.4rem; font-weight:600; color:var(--text); margin-bottom:16px; }
+
+        .library-controls { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; align-items:center; }
+        .library-controls input { background:var(--card); border:1px solid var(--border); border-radius:40px; padding:10px 18px; color:var(--text); flex:1; min-width:200px; font-size:0.9rem; outline:none; transition:border var(--transition); }
+        .library-controls input:focus { border-color:var(--accent); }
+        .library-controls input::placeholder { color:var(--muted); }
+        .search-wrap { position:relative; flex:1; min-width:200px; }
+        .search-wrap i { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:0.85rem; pointer-events:none; }
+        .search-wrap input { padding-left:38px; width:100%; }
+
+        .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(170px,1fr)); gap:22px; }
+        .item-card { background:#0d0f14; border-radius:8px; overflow:hidden; border:none; cursor:pointer; position:relative; box-shadow:0 4px 14px rgba(0,0,0,0.35); transition:transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease; transform-origin:center 65%; }
+        .item-card:hover { transform:scale(1.08) translateY(-6px); box-shadow:0 22px 40px rgba(0,0,0,0.5), 0 0 0 2px var(--accent); z-index:5; }
+        .item-card img { width:100%; aspect-ratio:2/3; object-fit:cover; display:block; background:#1a1e26; transition:transform 0.5s ease; }
+        .item-card:hover img { transform:scale(1.04); }
+        .item-card .card-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.55) 38%, transparent 68%); opacity:0; transition:opacity 0.3s ease; display:flex; flex-direction:column; justify-content:flex-end; padding:12px; pointer-events:none; }
+        .item-card:hover .card-overlay { opacity:1; }
+        .item-card .title { font-size:0.82rem; font-weight:600; color:#fff; line-height:1.3; text-shadow:0 1px 4px rgba(0,0,0,0.6); }
+        .item-card .badge-type { position:absolute; top:9px; left:9px; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); color:var(--accent); font-size:0.6rem; padding:3px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; font-weight:700; z-index:2; }
+        .item-card .watchlist-btn { position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.55); backdrop-filter:blur(4px); border:none; color:#fff; font-size:0.85rem; cursor:pointer; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; opacity:0; transform:translateY(-6px); transition:all 0.25s ease; z-index:2; }
+        .item-card:hover .watchlist-btn { opacity:1; transform:translateY(0); }
+        .item-card .watchlist-btn:hover { background:var(--accent); color:#0a0c10; transform:scale(1.12); }
+        .item-card .play-hint { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.6); width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,0.95); color:#0a0c10; display:flex; align-items:center; justify-content:center; font-size:0.95rem; opacity:0; transition:all 0.3s ease; pointer-events:none; }
+        .item-card:hover .play-hint { opacity:1; transform:translate(-50%,-50%) scale(1); }
+
+        .status-banner { padding:10px 14px; border-radius:10px; margin-bottom:12px; font-size:0.86rem; border:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+        .status-banner.loading { background:#1a2538; color:#9bbaff; }
+        .theme-light .status-banner.loading { background:#eaf1ff; color:#2f6fed; }
+        .status-banner.loading::before { content:''; width:12px; height:12px; border-radius:50%; border:2px solid rgba(155,186,255,0.35); border-top-color:#9bbaff; animation:spin 0.9s linear infinite; flex-shrink:0; }
+        .theme-light .status-banner.loading::before { border-color:rgba(47,111,237,0.3); border-top-color:#2f6fed; }
+        .status-banner.error { background:#3a1e1e; color:#ff9c9c; }
+        .theme-light .status-banner.error { background:#fdecec; color:#c62828; }
+        .status-banner.ok { display:none; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+
+        /* ── Shows ── */
+        .shows-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:22px; }
+        .show-card { background:#0d0f14; border:none; border-radius:8px; overflow:hidden; cursor:pointer; transition:transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease; text-align:left; padding:0; position:relative; box-shadow:0 4px 14px rgba(0,0,0,0.35); transform-origin:center 65%; }
+        .show-card:hover { transform:scale(1.08) translateY(-6px); box-shadow:0 22px 40px rgba(0,0,0,0.5), 0 0 0 2px var(--accent); z-index:5; }
+        .show-card img { width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:0; background:#111; display:block; transition:transform 0.5s ease; }
+        .show-card:hover img { transform:scale(1.04); }
+        .show-card .card-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.4) 45%, transparent 70%); display:flex; align-items:flex-end; padding:12px; opacity:0; transition:opacity 0.3s ease; }
+        .show-card:hover .card-overlay { opacity:1; }
+        .show-card .badge-type { position:absolute; top:9px; left:9px; background:rgba(0,0,0,0.6); backdrop-filter:blur(4px); color:var(--accent); font-size:0.6rem; padding:3px 9px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; font-weight:700; }
+        .show-card .show-name { font-size:0.82rem; font-weight:600; color:#fff; line-height:1.3; text-shadow:0 1px 4px rgba(0,0,0,0.6); white-space:normal; }
+        .show-card .play-hint { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.6); width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,0.95); color:#0a0c10; display:flex; align-items:center; justify-content:center; font-size:0.95rem; opacity:0; transition:all 0.3s ease; pointer-events:none; }
+        .show-card:hover .play-hint { opacity:1; transform:translate(-50%,-50%) scale(1); }
+
+        .season-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+        .season-tab { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-size:0.78rem; color:var(--muted); cursor:pointer; transition:all var(--transition); }
+        .season-tab:hover, .season-tab.active { border-color:var(--accent); background:#253047; color:var(--text); }
+        .theme-light .season-tab:hover, .theme-light .season-tab.active { background:#eaf1ff; }
+        .episodes-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(180px,1fr)); gap:12px; max-height:400px; overflow-y:auto; padding-right:4px; }
+        .episode-card { background:#1e2430; border:1px solid var(--border); border-radius:10px; overflow:hidden; cursor:pointer; transition:all var(--transition); }
+        .theme-light .episode-card { background:#f5f7fb; }
+        .episode-card:hover { border-color:var(--accent); transform:translateY(-3px); }
+        .episode-card img { width:100%; aspect-ratio:16/9; object-fit:cover; background:#111; display:block; }
+        .episode-card .ep-body { padding:6px 8px; }
+        .episode-card .ep-title { font-size:0.8rem; font-weight:600; line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .episode-card .ep-meta { font-size:0.7rem; color:var(--muted); display:flex; justify-content:space-between; gap:6px; }
+
         /* ── Certifications ── */
         .cert-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:20px; }
         .cert-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 16px; text-align:center; transition:all var(--transition); display:flex; flex-direction:column; align-items:center; }
@@ -312,7 +376,7 @@
         .cert-card .issuer { color:var(--muted); font-size:0.75rem; }
         .cert-more-btn { margin-top:20px; text-align:center; }
 
-        /* ── Experiencia ── */
+        /* ── Experience ── */
         .exp-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:24px 28px; display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
         .exp-card h3 { font-size:1.1rem; margin-bottom:2px; }
         .exp-card .role { color:var(--accent); font-size:0.9rem; margin-bottom:6px; }
@@ -320,13 +384,7 @@
         .exp-card .status-badge { background:#1a2a3a; color:#9cc4ff; padding:4px 14px; border-radius:30px; font-size:0.75rem; white-space:nowrap; }
         .theme-light .exp-card .status-badge { background:#eaf1ff; color:#2f6fed; }
 
-        /* ── Footer ── */
-        footer { text-align:center; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:20px; color:var(--muted); font-size:0.85rem; }
-        footer .foot-links { margin-top:12px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
-        footer .foot-links a { color:var(--accent); transition:color var(--transition); }
-        footer .foot-links a:hover { color:var(--text); }
-
-        /* ── Overlay y Modal (corregido) ── */
+        /* ── Modal Player (corregido: centrado y con scroll) ── */
         .overlay {
             display: none;
             position: fixed;
@@ -595,20 +653,30 @@
             font-size: 0.78rem;
         }
 
+        /* ── Footer ── */
+        footer { text-align:center; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:20px; color:var(--muted); font-size:0.85rem; }
+        footer .foot-links { margin-top:12px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+        footer .foot-links a { color:var(--accent); transition:color var(--transition); }
+        footer .foot-links a:hover { color:var(--text); }
+
         /* ── Responsive ── */
         @media (max-width:768px) {
             nav .links a:not(.lang-toggle):not(.theme-toggle) { display:none; }
             .hero h1 { font-size:2.2rem; }
             .about-grid { grid-template-columns:1fr; gap:20px; }
             .about-image img { width:200px; height:200px; }
-            .metrics-bar { grid-template-columns: repeat(2,1fr); }
-            .decision-grid { grid-template-columns: 1fr; }
             .player-modal { max-width:100%; border-radius:0; max-height:100vh; }
             .player-modal .close { top:4px; right:4px; }
+            .shows-grid { grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); }
+            .episodes-grid { grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); max-height:300px; }
+            .cert-grid { grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); }
+            .recommendations .rec-grid { grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); }
         }
         @media (max-width:480px) {
             .hero h1 { font-size:1.8rem; }
             .btn { padding:8px 16px; font-size:0.8rem; }
+            .grid { grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:12px; }
+            .shows-grid { grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); }
         }
     </style>
 </head>
@@ -639,9 +707,9 @@
             <h1 class="anim anim-delay-2">Juan Antonio Rivera Rodriguez</h1>
             <p class="sub anim anim-delay-3" data-i18n="hero.sub">Software Engineering Student · Construyendo infraestructura real con Docker y Cloud</p>
             <p class="anim anim-delay-4" data-i18n="hero.desc">
-                Quería ver películas difíciles de encontrar en plataformas convencionales, en mi televisor y en mi móvil, sin depender de que estén disponibles en Netflix. 
-                Para eso construí un servidor multimedia auto‑hospedado con Jellyfin, lo expuse de forma segura con Cloudflare Tunnel 
-                y lo orquesté con Docker. Así, soy dueño de mi contenido y puedo acceder a él desde cualquier lugar. Busco mi primera oportunidad 
+                Quería ver películas difíciles de encontrar en plataformas convencionales, en mi televisor y en mi móvil, sin depender de que estén disponibles en Netflix.
+                Para eso construí un servidor multimedia auto‑hospedado con Jellyfin, lo expuse de forma segura con Cloudflare Tunnel
+                y lo orquesté con Docker. Así, soy dueño de mi contenido y puedo acceder a él desde cualquier lugar. Busco mi primera oportunidad
                 junior en Cloud, DevOps o WordPress.
             </p>
             <div class="cta-group anim anim-delay-5">
@@ -660,9 +728,9 @@
             <div class="hire-panel anim">
                 <h2 data-i18n="hire.title">Por qué contratarme como junior</h2>
                 <p data-i18n="hire.desc">
-                    No traigo años de experiencia laboral, traigo un sistema real que diseñé, aseguré y sigo manteniendo en producción. 
-                    Construí desde cero un tema WordPress personalizado, un servidor multimedia en Docker con Cloudflare Tunnel, 
-                    y scripts de automatización con Bash y Python. Mi motivación principal: ser dueño de mi contenido 
+                    No traigo años de experiencia laboral, traigo un sistema real que diseñé, aseguré y sigo manteniendo en producción.
+                    Construí desde cero un tema WordPress personalizado, un servidor multimedia en Docker con Cloudflare Tunnel,
+                    y scripts de automatización con Bash y Python. Mi motivación principal: ser dueño de mi contenido
                     y poder ver películas difíciles de encontrar en cualquier dispositivo sin depender de plataformas externas.
                 </p>
                 <div class="hire-facts">
@@ -685,14 +753,14 @@
             <div class="about-grid">
                 <div class="about-text anim">
                     <p data-i18n="about.p1">
-                        Como amante del cine, siempre me frustraba que las películas que quería ver no estuvieran en ningún servicio de streaming. 
-                        Decidí construir mi propia biblioteca: descargué mis archivos, monté Jellyfin en Docker, y usé Cloudflare Tunnel 
-                        para tener acceso seguro desde fuera de mi casa sin abrir puertos en el router. Hoy mi familia y yo podemos ver 
+                        Como amante del cine, siempre me frustraba que las películas que quería ver no estuvieran en ningún servicio de streaming.
+                        Decidí construir mi propia biblioteca: descargué mis archivos, monté Jellyfin en Docker, y usé Cloudflare Tunnel
+                        para tener acceso seguro desde fuera de mi casa sin abrir puertos en el router. Hoy mi familia y yo podemos ver
                         cualquier película en cualquier dispositivo, y yo soy el único que decide qué se queda y qué se va.
                     </p>
                     <p data-i18n="about.p2">
-                        Estudio Ingeniería en Desarrollo de Software en la Universidad Tecmilenio, con enfoque en infraestructura cloud, 
-                        automatización y arquitectura de software. He construido temas WordPress desde cero, servidores Docker en producción, 
+                        Estudio Ingeniería en Desarrollo de Software en la Universidad Tecmilenio, con enfoque en infraestructura cloud,
+                        automatización y arquitectura de software. He construido temas WordPress desde cero, servidores Docker en producción,
                         automatizado tareas con Bash y Python, y explorado integración de APIs. Todo documentado y subido a GitHub.
                     </p>
                     <div class="badge-pills"><span>WordPress</span><span>Docker</span><span>Linux</span><span>Cloudflare</span><span>Python</span><span>Bash</span><span>React</span><span>Nginx</span></div>
@@ -814,30 +882,30 @@
                 <div class="problem-item">
                     <h3>El problema de las películas difíciles de encontrar</h3>
                     <p>
-                        Quería ver películas de culto, clásicos y títulos que no están en Netflix, Amazon o Disney+. 
-                        La solución fue montar mi propio servidor multimedia y ser dueño de mi contenido. 
+                        Quería ver películas de culto, clásicos y títulos que no están en Netflix, Amazon o Disney+.
+                        La solución fue montar mi propio servidor multimedia y ser dueño de mi contenido.
                         Ahora mi familia y yo podemos acceder a toda la colección desde cualquier dispositivo, en cualquier lugar.
                     </p>
                 </div>
                 <div class="problem-item">
                     <h3>CORS y headers duplicados</h3>
                     <p>
-                        Al poner nginx como proxy inverso, Jellyfin ya enviaba sus propios headers CORS. 
-                        El navegador los veía duplicados y rechazaba las peticiones. 
+                        Al poner nginx como proxy inverso, Jellyfin ya enviaba sus propios headers CORS.
+                        El navegador los veía duplicados y rechazaba las peticiones.
                         Solución: usar <code>proxy_hide_header</code> en nginx para eliminar los headers originales de Jellyfin y luego agregar los míos.
                     </p>
                 </div>
                 <div class="problem-item">
                     <h3>Acceso seguro sin abrir puertos</h3>
                     <p>
-                        No quería exponer mi red doméstica. Cloudflare Tunnel me dio un túnel cifrado sin necesidad de abrir puertos en el router, 
+                        No quería exponer mi red doméstica. Cloudflare Tunnel me dio un túnel cifrado sin necesidad de abrir puertos en el router,
                         con HTTPS automático y protección adicional.
                     </p>
                 </div>
                 <div class="problem-item">
                     <h3>WSL2 se suspendía y todo se caía</h3>
                     <p>
-                        Al cerrar todas las terminales de WSL, Windows lo suspendía y con él Docker y el túnel. 
+                        Al cerrar todas las terminales de WSL, Windows lo suspendía y con él Docker y el túnel.
                         Implementé un servicio systemd para cloudflared y un script watchdog que verifica y reinicia los contenedores cada 2 minutos.
                     </p>
                 </div>
@@ -870,7 +938,7 @@ Docker (WSL2 / Ubuntu)
                 </pre>
             </div>
             <p style="color:var(--muted); font-size:0.9rem; margin-top:12px;">
-                Cada componente tiene una responsabilidad clara: Cloudflare resuelve el DNS y el túnel, nginx maneja los headers y el enrutamiento, 
+                Cada componente tiene una responsabilidad clara: Cloudflare resuelve el DNS y el túnel, nginx maneja los headers y el enrutamiento,
                 Jellyfin sirve el contenido y el volumen almacena los archivos multimedia.
             </p>
         </section>
@@ -996,7 +1064,7 @@ Docker (WSL2 / Ubuntu)
             <div class="cert-more-btn"><button id="toggleCertsBtn" class="btn btn-primary" data-i18n="certs.showmore">Ver más</button></div>
         </section>
 
-        <!-- ─── MEDIA LIBRARY (Jellyfin) ─── -->
+        <!-- ─── MEDIA LIBRARY (Películas y Series) ─── -->
         <section id="media" class="media-section">
             <h2 class="section-title anim"><i class="fas fa-clapperboard" style="color: var(--accent);"></i> <span data-i18n="media.title">Media Library</span></h2>
             <p class="section-sub anim" data-i18n="media.sub">Biblioteca real, servida en vivo desde mi servidor Jellyfin</p>
@@ -1020,7 +1088,6 @@ Docker (WSL2 / Ubuntu)
                 <div class="shows-grid anim" id="showsGrid"></div>
             </div>
         </section>
-        <!-- ─── FIN MEDIA ─── -->
 
     </div>
 
@@ -1067,9 +1134,8 @@ Docker (WSL2 / Ubuntu)
         </div>
     </div>
 
-    <!-- ─── SCRIPTS ─── -->
     <script>
-        // ─── I18N ─── (actualizado con las nuevas claves)
+        // ─── I18N ─── (actualizado con las nuevas claves y sin emojis)
         const translations = {
             es: {
                 'nav.about': 'Sobre mí', 'nav.hire': 'Contrátame', 'nav.services': 'Servicios', 'nav.skills': 'Habilidades',
@@ -1123,7 +1189,7 @@ Docker (WSL2 / Ubuntu)
                 'projects.watchlist': 'Mi lista', 'projects.full': 'Abrir servidor completo', 'projects.loading': 'Cargando biblioteca desde el servidor…', 'projects.search': 'Buscar películas…'
             },
             en: {
-                // Traducciones al inglés (opcional, puedes dejar vacío o copiar de tu original)
+                // (Puedes copiar tus traducciones al inglés aquí si las necesitas)
             }
         };
 
