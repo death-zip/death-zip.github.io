@@ -775,7 +775,7 @@
                 <div class="metric"><strong>3</strong> semanas de desarrollo</div>
                 <div class="metric"><strong>7</strong> tecnologías integradas</div>
                 <div class="metric"><strong>2</strong> contenedores Docker</div>
-                <div class="metric"><strong>500+</strong> películas en la biblioteca</div>
+                <div class="metric"><strong id="movieCount">0</strong> películas en la biblioteca</div>
             </div>
         </section>
 
@@ -1452,6 +1452,9 @@ Docker (WSL2 / Ubuntu)
             if (!items || items.length === 0) {
                 setStatus('error', t('media.empty'));
                 gridEl.innerHTML = '';
+                // Actualizar contador a 0
+                const movieCountEl = document.getElementById('movieCount');
+                if (movieCountEl) movieCountEl.textContent = '0';
                 return;
             }
             setStatus('ok', '');
@@ -1473,6 +1476,12 @@ Docker (WSL2 / Ubuntu)
                     </div>
                 `;
             }).join('');
+
+            // Actualizar contador de películas
+            const movieCountEl = document.getElementById('movieCount');
+            if (movieCountEl) {
+                movieCountEl.textContent = items.length;
+            }
 
             gridEl.querySelectorAll('.item-card').forEach(card => {
                 card.addEventListener('click', (e) => {
