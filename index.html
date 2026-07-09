@@ -319,16 +319,11 @@
         .exp-card .status-badge { background:#1a2a3a; color:#9cc4ff; padding:4px 14px; border-radius:30px; font-size:0.75rem; white-space:nowrap; }
         .theme-light .exp-card .status-badge { background:#eaf1ff; color:#2f6fed; }
 
-        /* ── Footer ── */
-        footer { text-align:center; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:20px; color:var(--muted); font-size:0.85rem; }
-        footer .foot-links { margin-top:12px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
-        footer .foot-links a { color:var(--accent); transition:color var(--transition); }
-        footer .foot-links a:hover { color:var(--text); }
-
-        /* ── Media Library (Jellyfin) ── (estilos ya existentes) */
+        /* ── Media Library (Jellyfin) ── */
         .media-section .sub-section { margin-top:40px; }
         .media-section .sub-section:first-child { margin-top:0; }
         .media-section .sub-section h3 { font-size:1.4rem; font-weight:600; color:var(--text); margin-bottom:16px; }
+
         .library-controls { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; align-items:center; }
         .library-controls input { background:var(--card); border:1px solid var(--border); border-radius:40px; padding:10px 18px; color:var(--text); flex:1; min-width:200px; font-size:0.9rem; outline:none; transition:border var(--transition); }
         .library-controls input:focus { border-color:var(--accent); }
@@ -336,6 +331,7 @@
         .search-wrap { position:relative; flex:1; min-width:200px; }
         .search-wrap i { position:absolute; left:16px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:0.85rem; pointer-events:none; }
         .search-wrap input { padding-left:38px; width:100%; }
+
         .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(170px,1fr)); gap:22px; }
         .item-card { background:#0d0f14; border-radius:8px; overflow:hidden; border:none; cursor:pointer; position:relative; box-shadow:0 4px 14px rgba(0,0,0,0.35); transition:transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease; transform-origin:center 65%; }
         .item-card:hover { transform:scale(1.08) translateY(-6px); box-shadow:0 22px 40px rgba(0,0,0,0.5), 0 0 0 2px var(--accent); z-index:5; }
@@ -350,6 +346,7 @@
         .item-card .watchlist-btn:hover { background:var(--accent); color:#0a0c10; transform:scale(1.12); }
         .item-card .play-hint { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.6); width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,0.95); color:#0a0c10; display:flex; align-items:center; justify-content:center; font-size:0.95rem; opacity:0; transition:all 0.3s ease; pointer-events:none; }
         .item-card:hover .play-hint { opacity:1; transform:translate(-50%,-50%) scale(1); }
+
         .status-banner { padding:10px 14px; border-radius:10px; margin-bottom:12px; font-size:0.86rem; border:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
         .status-banner.loading { background:#1a2538; color:#9bbaff; }
         .theme-light .status-banner.loading { background:#eaf1ff; color:#2f6fed; }
@@ -359,6 +356,8 @@
         .theme-light .status-banner.error { background:#fdecec; color:#c62828; }
         .status-banner.ok { display:none; }
         @keyframes spin { to { transform:rotate(360deg); } }
+
+        /* Shows */
         .shows-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:22px; }
         .show-card { background:#0d0f14; border:none; border-radius:8px; overflow:hidden; cursor:pointer; transition:transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease; text-align:left; padding:0; position:relative; box-shadow:0 4px 14px rgba(0,0,0,0.35); transform-origin:center 65%; }
         .show-card:hover { transform:scale(1.08) translateY(-6px); box-shadow:0 22px 40px rgba(0,0,0,0.5), 0 0 0 2px var(--accent); z-index:5; }
@@ -370,6 +369,7 @@
         .show-card .show-name { font-size:0.82rem; font-weight:600; color:#fff; line-height:1.3; text-shadow:0 1px 4px rgba(0,0,0,0.6); white-space:normal; }
         .show-card .play-hint { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(0.6); width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,0.95); color:#0a0c10; display:flex; align-items:center; justify-content:center; font-size:0.95rem; opacity:0; transition:all 0.3s ease; pointer-events:none; }
         .show-card:hover .play-hint { opacity:1; transform:translate(-50%,-50%) scale(1); }
+
         .season-tabs { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
         .season-tab { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:6px 12px; font-size:0.78rem; color:var(--muted); cursor:pointer; transition:all var(--transition); }
         .season-tab:hover, .season-tab.active { border-color:var(--accent); background:#253047; color:var(--text); }
@@ -383,6 +383,61 @@
         .episode-card .ep-title { font-size:0.8rem; font-weight:600; line-height:1.3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .episode-card .ep-meta { font-size:0.7rem; color:var(--muted); display:flex; justify-content:space-between; gap:6px; }
 
+        /* ── Modal Player ── */
+        .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:100; align-items:center; justify-content:center; padding:20px; }
+        .overlay.open { display:flex; }
+        .player-modal { background:var(--bg2); border-radius:var(--radius); max-width:920px; width:100%; max-height:92vh; overflow-y:auto; border:1px solid var(--border); position:relative; }
+        .player-modal .close { position:sticky; top:8px; float:right; margin:10px 14px 0 0; background:rgba(0,0,0,0.6); border:none; color:#fff; font-size:1.6rem; cursor:pointer; width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; z-index:5; }
+        .player-backdrop { width:100%; aspect-ratio:16/8; object-fit:cover; background:#000; display:block; }
+        .player-backdrop.hidden { display:none; }
+        .player-body { padding:22px 28px 28px; }
+        .player-body h3 { font-size:1.4rem; margin-bottom:6px; }
+        .meta-row { display:flex; gap:14px; flex-wrap:wrap; align-items:center; color:var(--muted); font-size:0.85rem; margin-bottom:10px; }
+        .meta-row .rating { color:#fbbf24; font-weight:600; }
+        .meta-row .pill { border:1px solid var(--border); padding:2px 12px; border-radius:30px; }
+        .genres { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+        .genres span { background:#1e2430; color:#bcc4d4; font-size:0.75rem; padding:3px 12px; border-radius:30px; }
+        .theme-light .genres span { background:#eef1f6; color:#3a4250; }
+        .overview { line-height:1.7; color:var(--text); opacity:0.88; margin-bottom:14px; font-size:0.92rem; }
+        .cast-crew { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; font-size:0.85rem; color:var(--muted); }
+        .cast-crew .group { background:var(--card); padding:4px 14px; border-radius:30px; border:1px solid var(--border); }
+        .cast-crew strong { color:var(--text); }
+
+        .external-links { display:flex; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+        .external-links a { display:inline-flex; align-items:center; gap:6px; }
+        .quality-badge { background:var(--card); border:1px solid var(--border); border-radius:30px; padding:4px 14px; font-size:0.75rem; color:var(--muted); display:inline-flex; align-items:center; gap:8px; margin-bottom:10px; }
+        .quality-badge i { color:var(--accent); }
+
+        .recommendations { margin-top:14px; border-top:1px solid var(--border); padding-top:14px; }
+        .recommendations h4 { font-size:0.95rem; margin-bottom:10px; color:var(--muted); }
+        .recommendations .rec-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:12px; }
+        .recommendations .rec-item { background:var(--card); border-radius:8px; overflow:hidden; border:1px solid var(--border); transition:all var(--transition); cursor:pointer; text-align:center; padding-bottom:6px; }
+        .recommendations .rec-item:hover { transform:translateY(-3px); border-color:var(--accent); }
+        .recommendations .rec-item img { width:100%; aspect-ratio:2/3; object-fit:cover; display:block; background:#1a1e26; }
+        .recommendations .rec-item .title { font-size:0.7rem; padding:4px 6px; color:var(--muted); }
+
+        .video-js { width:100% !important; border-radius:8px; background:#000; }
+        .video-js .vjs-big-play-button { background:rgba(0,0,0,0.6) !important; border:2px solid var(--accent) !important; border-radius:50% !important; width:64px !important; height:64px !important; line-height:64px !important; font-size:1.8rem !important; margin-left:-32px !important; margin-top:-32px !important; color:#fff !important; }
+        .video-js .vjs-big-play-button:hover { background:var(--accent) !important; }
+        .video-js .vjs-control-bar { background:rgba(0,0,0,0.8) !important; }
+        .video-js .vjs-progress-holder .vjs-play-progress { background:var(--accent) !important; }
+
+        .subtitle-upload-area { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:12px; padding:8px 14px; background:var(--card); border-radius:8px; border:1px solid var(--border); }
+        .subtitle-upload-area label { color:var(--muted); font-size:0.85rem; cursor:pointer; display:flex; align-items:center; gap:8px; }
+        .subtitle-upload-area label:hover { color:var(--text); }
+        .subtitle-upload-area input[type="file"] { display:none; }
+        .subtitle-upload-area .file-name { color:var(--muted); font-size:0.8rem; flex:1; }
+        .subtitle-tools { margin-top:12px; background:var(--card); border:1px solid var(--border); border-radius:8px; padding:10px 12px; }
+        .subtitle-switcher { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:8px; }
+        .subtitle-switcher select { background:var(--bg2); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:7px 10px; min-width:240px; font-size:0.82rem; outline:none; }
+        .subtitle-switcher .subtitle-list { width:100%; color:var(--muted); font-size:0.78rem; }
+
+        /* ── Footer ── */
+        footer { text-align:center; padding:40px 0 20px; border-top:1px solid var(--border); margin-top:20px; color:var(--muted); font-size:0.85rem; }
+        footer .foot-links { margin-top:12px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+        footer .foot-links a { color:var(--accent); transition:color var(--transition); }
+        footer .foot-links a:hover { color:var(--text); }
+
         /* ── Responsive ── */
         @media (max-width:768px) {
             nav .links a:not(.lang-toggle):not(.theme-toggle) { display:none; }
@@ -391,14 +446,18 @@
             .about-image img { width:200px; height:200px; }
             .metrics-bar { grid-template-columns: repeat(2,1fr); }
             .decision-grid { grid-template-columns: 1fr; }
-            .grid { grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); }
-            .shows-grid { grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); }
+            .grid { grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:12px; }
+            .shows-grid { grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); }
+            .player-modal { max-width:100%; border-radius:0; max-height:100vh; }
+            .player-modal .close { top:4px; right:4px; }
+            .episodes-grid { grid-template-columns:repeat(auto-fill, minmax(140px,1fr)); max-height:300px; }
+            .recommendations .rec-grid { grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); }
         }
         @media (max-width:480px) {
             .hero h1 { font-size:1.8rem; }
             .btn { padding:8px 16px; font-size:0.8rem; }
             .grid { grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); }
-            .shows-grid { grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); }
+            .shows-grid { grid-template-columns:repeat(auto-fill, minmax(80px,1fr)); }
         }
     </style>
 </head>
@@ -493,11 +552,11 @@
 
         <!-- ─── MÉTRICAS ─── -->
         <section id="metrics" class="anim">
-            <div class="metrics-bar">
-                <div class="metric"><strong>3</strong> semanas de desarrollo</div>
-                <div class="metric"><strong>7</strong> tecnologías integradas</div>
-                <div class="metric"><strong>2</strong> contenedores Docker</div>
-                <div class="metric" id="movieCountMetric"><strong id="movieCountNumber">500+</strong> <span id="movieCountLabel">películas en la biblioteca</span></div>
+            <div class="metrics-bar" id="metricsBar">
+                <div class="metric"><strong id="metricWeeks">3</strong> semanas de desarrollo</div>
+                <div class="metric"><strong id="metricTechs">7</strong> tecnologías integradas</div>
+                <div class="metric"><strong id="metricContainers">2</strong> contenedores Docker</div>
+                <div class="metric"><strong id="metricMovies">500+</strong> películas en la biblioteca</div>
             </div>
         </section>
 
@@ -530,7 +589,6 @@
                     <p data-i18n="services.s4.desc">Automatización de tareas con scripts Bash y Python, hardening básico y backups automatizados con AWS S3.</p>
                     <div class="tags"><span>Bash</span><span>Python</span><span>AWS</span></div>
                 </div>
-                <!-- Eliminada la tarjeta de IA -->
             </div>
         </section>
 
@@ -567,7 +625,6 @@
                     <span class="skill-tag"><i class="fas fa-fire"></i> Firewall</span>
                     <span class="skill-tag"><i class="fas fa-flask"></i> Flask</span>
                     <span class="skill-tag"><i class="fas fa-code"></i> REST APIs</span>
-                    <!-- Quitado IA / Machine Learning -->
                 </div>
             </div>
         </section>
@@ -696,7 +753,6 @@ Usuario
                     hecho con la API de bloques de WordPress y un sistema de menús de navegación configurable.
                     Fue mi primer acercamiento a cómo funciona WordPress por dentro, más allá de instalar plugins.
                 </p>
-                <!-- Diagrama de arquitectura WordPress -->
                 <div class="arch-diagram">
                     <div class="flow-row">
                         <span class="arch-node"><i class="fas fa-user"></i> Usuario</span>
@@ -786,7 +842,7 @@ Usuario
             <div class="cert-more-btn"><button id="toggleCertsBtn" class="btn btn-primary" data-i18n="certs.showmore">Ver más</button></div>
         </section>
 
-        <!-- ─── MEDIA LIBRARY (Jellyfin) ─── -->
+        <!-- ─── MEDIA LIBRARY (Películas y Series) ─── -->
         <section id="media" class="media-section">
             <h2 class="section-title anim"><i class="fas fa-clapperboard" style="color: var(--accent);"></i> <span data-i18n="media.title">Media Library</span></h2>
             <p class="section-sub anim" data-i18n="media.sub">Biblioteca real, servida en vivo desde mi servidor Jellyfin</p>
@@ -806,7 +862,7 @@ Usuario
             <div class="sub-section">
                 <h3 data-i18n="media.shows">Series</h3>
                 <p class="section-sub" style="font-size:0.85rem; margin-bottom:16px;" data-i18n="media.shows.sub">Haz clic en una carátula para explorar temporadas y episodios</p>
-                <div id="showsStatus" class="status-banner loading anim" data-i18n="media.loading">Cargando series…</div>
+                <div id="showsStatus" class="status-banner loading anim" data-i18n="media.loading">Cargando películas…</div>
                 <div class="shows-grid anim" id="showsGrid"></div>
             </div>
         </section>
@@ -828,7 +884,7 @@ Usuario
         </div>
     </footer>
 
-    <!-- ─── MODAL ─── (para Jellyfin) -->
+    <!-- ─── MODAL ─── -->
     <div class="overlay" id="overlay">
         <div class="player-modal">
             <button class="close" id="modalClose">&times;</button>
@@ -856,7 +912,6 @@ Usuario
         </div>
     </div>
 
-    <!-- ─── SCRIPTS ─── -->
     <script>
         // ─── I18N ─── (actualizado con las nuevas claves)
         const translations = {
@@ -912,7 +967,7 @@ Usuario
                 'projects.watchlist': 'Mi lista', 'projects.full': 'Abrir servidor completo', 'projects.loading': 'Cargando biblioteca desde el servidor…', 'projects.search': 'Buscar películas…'
             },
             en: {
-                // (Puedes añadir la versión en inglés si quieres)
+                // (Puedes copiar tus traducciones inglesas aquí, pero no es necesario ahora)
             }
         };
 
@@ -1114,8 +1169,6 @@ Usuario
         const imdbLink = document.getElementById('imdbLink');
         const letterboxdLink = document.getElementById('letterboxdLink');
         const externalLinks = document.getElementById('externalLinks');
-        const movieCountNumber = document.getElementById('movieCountNumber');
-        const movieCountLabel = document.getElementById('movieCountLabel');
 
         let currentPlayer = null;
         let allSeries = [];
@@ -1216,33 +1269,37 @@ Usuario
 
         async function fetchLibrary() {
             try {
-                const data = await jellyfinGet(`/Users/${USER_ID}/Items?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=100`);
-                const movies = (data.Items || []).filter(item => item.Type === 'Movie');
-                const series = (data.Items || []).filter(item => item.Type === 'Series');
-                allItems = movies;
+                const data = await jellyfinGet(`/Users/${USER_ID}/Items?SortBy=DateCreated&SortOrder=Descending&IncludeItemTypes=Movie,Series&Recursive=true&Fields=PrimaryImageAspectRatio,Overview,ProductionYear,CommunityRating&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=50`);
+                allItems = (data.Items || []).filter(item => item.Type === 'Movie');
                 itemsById = {};
                 allItems.forEach(item => { itemsById[item.Id] = item; });
                 renderLibrary(allItems);
                 updateWatchlistCount();
-                // Actualizar contador de películas
-                const count = movies.length;
-                movieCountNumber.textContent = count > 0 ? count : '0';
-                movieCountLabel.textContent = count === 1 ? 'película en la biblioteca' : 'películas en la biblioteca';
-                // También guardar series para la otra sección
-                allSeries = series;
-                seriesById = {};
-                allSeries.forEach(s => { seriesById[s.Id] = s; });
-                if (allSeries.length > 0) {
-                    renderShowsGrid();
-                    setShowsStatus('ok', '');
-                } else {
-                    setShowsStatus('error', 'No se encontraron series.');
-                }
+                // Actualizar métrica de películas
+                const movieCount = allItems.length;
+                document.getElementById('metricMovies').textContent = movieCount > 0 ? movieCount : '0';
             } catch (err) {
                 setStatusErrorWithRetry(statusEl, `Error: ${err.message}. Revisa la consola.`, fetchLibrary);
                 console.error('Error cargando Jellyfin:', err);
-                // También mostrar error en series
-                setShowsStatus('error', 'No se pudieron cargar las series.');
+            }
+        }
+
+        async function fetchSeriesCatalog() {
+            try {
+                setShowsStatus('loading', 'Cargando series...');
+                const data = await jellyfinGet(`/Users/${USER_ID}/Items?IncludeItemTypes=Series&Recursive=true&SortBy=SortName&Fields=Overview,ProductionYear,CommunityRating,PrimaryImageAspectRatio&ImageTypeLimit=1&EnableImageTypes=Primary&Limit=300`);
+                allSeries = data.Items || [];
+                seriesById = {};
+                allSeries.forEach(s => { seriesById[s.Id] = s; });
+                if (!allSeries.length) {
+                    setShowsStatus('error', 'No se encontraron series.');
+                    return;
+                }
+                renderShowsGrid();
+                setShowsStatus('ok', '');
+            } catch (err) {
+                console.error('Error cargando series:', err);
+                setStatusErrorWithRetry(showsStatusEl, `No se pudieron cargar las series (${err.message}).`, fetchSeriesCatalog);
             }
         }
 
@@ -1373,7 +1430,7 @@ Usuario
             });
         }
 
-        // ─── MODAL Y REPRODUCTOR ─── (se mantiene igual que antes)
+        // ─── MODAL Y REPRODUCTOR ───
         function buildJellyfinDeviceProfile() {
             return {
                 MaxStreamingBitrate: 20000000,
@@ -1886,6 +1943,7 @@ Usuario
         // ─── INIT ───
         applyTranslations();
         fetchLibrary();
+        fetchSeriesCatalog();
     </script>
 </body>
 </html>
