@@ -5,9 +5,9 @@ auto-hospedado. En vez de solo *contar* que sé usar Docker, Cloudflare y APIs R
 proyecto lo demuestra: es una biblioteca de Jellyfin real, corriendo en mi propia máquina,
 expuesta a internet de forma segura, y consumida en vivo desde esta misma página.
 
-**Demo en vivo:** https://death-zip.github.io
+**Demo en vivo:** https://j1rr.github.io
 **Servidor Jellyfin:** https://media.jarr.cc.cd
-**CV interactivo:** https://death-zip.github.io/cv.html
+**CV interactivo:** https://dj1rr.github.io/cv.html
 
 ---
 
