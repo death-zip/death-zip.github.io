@@ -507,41 +507,309 @@
             .arch-node { font-size: 0.65rem; padding: 6px 10px; }
             .arch-arrow { font-size: 1rem; }
         }
+
+        /* ── ESTILOS PARA IMPRESIÓN (corregidos y robustos) ── */
         @media print {
-            body { background: #fff; padding: 0; }
-            .cv-container { background: #fff; border: none; box-shadow: none; padding: 40px 48px; border-radius: 0; }
-            .cv-title h1 { background: none; color: #0a0c10; -webkit-text-fill-color: #0a0c10; }
-            .cv-title .subhead { color: #2563eb; }
-            .cv-title .tagline { color: #4b5563; }
-            .cv-contact a { color: #2563eb; }
-            .cv-contact .icon { color: #2563eb; }
-            .cv-profile { background: #f9fafb; border-left-color: #2563eb; border-color: #e5e7eb; }
-            .cv-profile p { color: #374151; }
-            .cv-section .section-title { color: #2563eb; border-bottom-color: #d1d5db; }
-            .cv-about p { color: #374151; }
-            .skill-tag { background: #f3f4f6; border-color: #d1d5db; color: #1f2937; }
-            .skill-tag i { color: #2563eb; }
-            .soft-skills span { background: #f3f4f6; border-color: #d1d5db; color: #4b5563; }
-            .cert-card { background: #f9fafb; border-color: #e5e7eb; }
-            .cert-card h4 { color: #111827; }
-            .cert-card .issuer { color: #6b7280; }
-            .exp-item h4 { color: #111827; }
-            .exp-item .role { color: #2563eb; }
-            .exp-item .period { color: #6b7280; }
-            .exp-item p { color: #374151; }
-            .project-item { background: #f9fafb; border-color: #e5e7eb; }
-            .project-item h4 { color: #111827; }
-            .project-item .tech span { background: #f3f4f6; color: #4b5563; border-color: #d1d5db; }
-            .project-item p { color: #374151; }
-            .project-item .project-links a { color: #2563eb; }
-            .cert-card img { background: #fff; }
-            .arch-diagram { background: #f3f4f6; border-color: #d1d5db; }
-            .arch-node { background: #fff; border-color: #d1d5db; color: #1f2937; }
-            .arch-node i { color: #2563eb; }
-            .arch-arrow { color: #2563eb; animation: none; }
-            .lang-toggle-wrap { display: none; }
-            .cert-more-btn button { display: none; }
-            .cert-card.hidden { display: flex !important; }
+            /* Reset total para impresión */
+            * {
+                background: transparent !important;
+                color: #000000 !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                border-color: #cccccc !important;
+            }
+            body {
+                background: #ffffff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 10pt !important;
+                line-height: 1.5 !important;
+                font-family: 'Inter', Arial, sans-serif !important;
+                color: #000000 !important;
+            }
+            .cv-container {
+                max-width: 100% !important;
+                background: #ffffff !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 30px 35px !important;
+                border-radius: 0 !important;
+                margin: 0 auto !important;
+            }
+            /* Encabezado */
+            .cv-header {
+                display: flex !important;
+                gap: 24px !important;
+                align-items: center !important;
+                border-bottom: 2px solid #000000 !important;
+                padding-bottom: 16px !important;
+                margin-bottom: 20px !important;
+                flex-wrap: wrap !important;
+            }
+            .cv-avatar img {
+                width: 80px !important;
+                height: 80px !important;
+                border: 2px solid #1a4c8a !important;
+                border-radius: 50% !important;
+            }
+            .cv-title h1 {
+                background: none !important;
+                color: #000000 !important;
+                -webkit-text-fill-color: #000000 !important;
+                font-size: 20pt !important;
+                margin-bottom: 0 !important;
+            }
+            .cv-title .subhead {
+                color: #1a4c8a !important;
+                font-size: 11pt !important;
+                font-weight: 600 !important;
+            }
+            .cv-title .tagline {
+                color: #333333 !important;
+                font-size: 9pt !important;
+                max-width: 100% !important;
+            }
+            .cv-contact {
+                text-align: right !important;
+                margin-left: auto !important;
+                font-size: 8pt !important;
+            }
+            .cv-contact a {
+                color: #1a4c8a !important;
+                text-decoration: underline !important;
+                display: block !important;
+                margin-bottom: 2px !important;
+                font-weight: 500 !important;
+            }
+            .cv-contact .icon {
+                color: #1a4c8a !important;
+                width: 14px !important;
+            }
+            /* Perfil */
+            .cv-profile {
+                background: #f5f7fa !important;
+                border-left: 4px solid #1a4c8a !important;
+                padding: 10px 14px !important;
+                border-radius: 4px !important;
+                margin-bottom: 16px !important;
+                border: 1px solid #dddddd !important;
+            }
+            .cv-profile p {
+                color: #000000 !important;
+                font-size: 9pt !important;
+                line-height: 1.6 !important;
+            }
+            .cv-profile strong {
+                color: #000000 !important;
+                font-weight: 700 !important;
+            }
+            /* Grid */
+            .cv-grid {
+                display: block !important;
+            }
+            .cv-section {
+                margin-bottom: 18px !important;
+                page-break-inside: avoid !important;
+            }
+            .cv-section .section-title {
+                color: #1a4c8a !important;
+                border-bottom: 1px solid #999999 !important;
+                font-size: 9pt !important;
+                letter-spacing: 1px !important;
+                padding-bottom: 4px !important;
+                margin-bottom: 8px !important;
+                text-transform: uppercase !important;
+                font-weight: 700 !important;
+            }
+            .cv-section .section-title i {
+                color: #1a4c8a !important;
+            }
+            /* Skills */
+            .skills-grid {
+                gap: 4px !important;
+            }
+            .skill-tag {
+                background: #f0f2f5 !important;
+                border: 1px solid #bbbbbb !important;
+                color: #000000 !important;
+                font-size: 7pt !important;
+                padding: 2px 10px !important;
+                border-radius: 30px !important;
+            }
+            .skill-tag i {
+                color: #1a4c8a !important;
+            }
+            .soft-skills span {
+                background: #f0f2f5 !important;
+                border: 1px solid #cccccc !important;
+                color: #333333 !important;
+                font-size: 7pt !important;
+                padding: 2px 10px !important;
+            }
+            /* Proyectos */
+            .project-item {
+                background: #f9fafb !important;
+                border: 1px solid #cccccc !important;
+                border-radius: 6px !important;
+                padding: 14px 18px !important;
+                margin-bottom: 14px !important;
+                page-break-inside: avoid !important;
+            }
+            .project-item h4 {
+                color: #000000 !important;
+                font-size: 11pt !important;
+                font-weight: 700 !important;
+            }
+            .project-item .tech span {
+                background: #eef1f6 !important;
+                border: 1px solid #cccccc !important;
+                color: #333333 !important;
+                font-size: 6pt !important;
+                padding: 1px 10px !important;
+            }
+            .project-item p {
+                color: #333333 !important;
+                font-size: 8.5pt !important;
+                line-height: 1.5 !important;
+            }
+            .project-item .project-links a {
+                color: #1a4c8a !important;
+                font-size: 8pt !important;
+                text-decoration: underline !important;
+                margin-right: 12px !important;
+            }
+            /* Diagramas */
+            .arch-diagram {
+                background: #f5f7fa !important;
+                border: 1px solid #cccccc !important;
+                padding: 10px !important;
+                border-radius: 4px !important;
+                margin-top: 10px !important;
+            }
+            .arch-node {
+                background: #ffffff !important;
+                border: 1px solid #999999 !important;
+                color: #000000 !important;
+                font-size: 6pt !important;
+                padding: 4px 8px !important;
+                box-shadow: none !important;
+                border-radius: 4px !important;
+            }
+            .arch-node i {
+                color: #1a4c8a !important;
+            }
+            .arch-arrow {
+                color: #1a4c8a !important;
+                animation: none !important;
+                font-size: 9pt !important;
+            }
+            .arch-label {
+                color: #1a4c8a !important;
+                font-size: 5pt !important;
+                opacity: 1 !important;
+            }
+            /* Certificaciones */
+            .cert-grid {
+                display: grid !important;
+                grid-template-columns: repeat(auto-fill, minmax(140px,1fr)) !important;
+                gap: 10px !important;
+            }
+            .cert-card {
+                background: #f9fafb !important;
+                border: 1px solid #cccccc !important;
+                border-radius: 6px !important;
+                padding: 10px 8px !important;
+                box-shadow: none !important;
+                transform: none !important;
+            }
+            .cert-card img {
+                width: 50px !important;
+                height: 50px !important;
+                border: 1px solid #cccccc !important;
+                background: #ffffff !important;
+                padding: 4px !important;
+                margin-bottom: 6px !important;
+            }
+            .cert-card h4 {
+                color: #000000 !important;
+                font-size: 8pt !important;
+            }
+            .cert-card .issuer {
+                color: #666666 !important;
+                font-size: 7pt !important;
+            }
+            /* Experiencia / Enfoque */
+            .exp-item h4 {
+                color: #000000 !important;
+                font-size: 10pt !important;
+            }
+            .exp-item .role {
+                color: #1a4c8a !important;
+                font-size: 9pt !important;
+            }
+            .exp-item .period {
+                color: #666666 !important;
+                font-size: 8pt !important;
+            }
+            .exp-item p {
+                color: #333333 !important;
+                font-size: 8.5pt !important;
+            }
+            /* Remote Readiness */
+            .readiness-grid {
+                display: grid !important;
+                grid-template-columns: repeat(auto-fill, minmax(160px,1fr)) !important;
+                gap: 8px !important;
+            }
+            .readiness-item {
+                background: #f9fafb !important;
+                border: 1px solid #cccccc !important;
+                padding: 6px 10px !important;
+                border-radius: 4px !important;
+            }
+            .readiness-item .k {
+                color: #666666 !important;
+                font-size: 6pt !important;
+                text-transform: uppercase !important;
+            }
+            .readiness-item .v {
+                color: #000000 !important;
+                font-size: 8pt !important;
+            }
+            /* Ocultar elementos interactivos */
+            .lang-toggle-wrap {
+                display: none !important;
+            }
+            .cert-more-btn {
+                display: none !important;
+            }
+            .cert-card.hidden {
+                display: flex !important;
+            }
+            /* Enlaces */
+            a {
+                color: #1a4c8a !important;
+                text-decoration: underline !important;
+            }
+            /* Ajustes de página */
+            @page {
+                margin: 0.6in 0.5in;
+                size: A4;
+            }
+            /* Evitar saltos de página dentro de secciones */
+            .cv-section {
+                page-break-inside: avoid !important;
+            }
+            .project-item {
+                page-break-inside: avoid !important;
+            }
+            .full-width {
+                page-break-inside: avoid !important;
+            }
+            /* Asegurar que los grids de certificados no se rompan */
+            .cert-grid {
+                page-break-inside: avoid !important;
+            }
         }
     </style>
 </head>
@@ -653,7 +921,7 @@
                     <span class="skill-tag"><i class="fas fa-flask"></i> Flask</span>
                     <span class="skill-tag"><i class="fas fa-code"></i> REST APIs</span>
                 </div>
-                <!-- Habilidades blandas (del PDF) -->
+                <!-- Habilidades blandas -->
                 <div style="margin-top:16px;">
                     <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:6px;">Competencias</div>
                     <div class="soft-skills">
@@ -867,14 +1135,11 @@
         applyThemeLabel();
 
         // ─── CERTIFICACIONES ───
-        // Mezcla las certificaciones de tu PDF con las que ya tenías, priorizando las que aparecen en el PDF
         const certData = [
-            // Certificaciones del PDF
             { name: 'Python Essentials 1', issuer: 'Cisco', img: 'https://images.credly.com/images/68c0b94d-f6ac-40b1-a0e0-921439eb092e/linkedin_thumb_image.png' },
             { name: 'Fundamentos de Programación', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/0871bc81-7152-4340-8367-8fbe3896c43f/linkedin_thumb_blob' },
             { name: 'Computación en la Nube', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/da491c56-6aef-47a6-9ae4-eb3bbfa9b60e/linkedin_thumb_blob' },
             { name: 'AWS Cloud Operations', issuer: 'AWS Academy', img: 'https://images.credly.com/images/07e7ba52-aea4-431f-ba2d-a4113efd1d5a/linkedin_thumb_blob' },
-            // Otras relevantes de tu lista original
             { name: 'Desarrollo Full Stack', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/fdecf3ca-1fa7-46c9-93c7-e203f718579b/linkedin_thumb_blob' },
             { name: 'Fundamentos de DevOps', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/18d30937-4c1b-442c-83a1-543265bcf02f/linkedin_thumb_image.png' },
             { name: 'Gestión de Redes', issuer: 'Universidad Tecmilenio', img: 'https://images.credly.com/images/c0e5a9ce-f523-483c-8daa-4c37019ad7aa/linkedin_thumb_blob' },
