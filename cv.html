@@ -508,9 +508,8 @@
             .arch-arrow { font-size: 1rem; }
         }
 
-        /* ── ESTILOS PARA IMPRESIÓN (corregidos y robustos) ── */
+        /* ── ESTILOS PARA IMPRESIÓN ── */
         @media print {
-            /* Reset total para impresión */
             * {
                 background: transparent !important;
                 color: #000000 !important;
@@ -536,7 +535,6 @@
                 border-radius: 0 !important;
                 margin: 0 auto !important;
             }
-            /* Encabezado */
             .cv-header {
                 display: flex !important;
                 gap: 24px !important;
@@ -585,7 +583,6 @@
                 color: #1a4c8a !important;
                 width: 14px !important;
             }
-            /* Perfil */
             .cv-profile {
                 background: #f5f7fa !important;
                 border-left: 4px solid #1a4c8a !important;
@@ -603,7 +600,6 @@
                 color: #000000 !important;
                 font-weight: 700 !important;
             }
-            /* Grid */
             .cv-grid {
                 display: block !important;
             }
@@ -624,7 +620,6 @@
             .cv-section .section-title i {
                 color: #1a4c8a !important;
             }
-            /* Skills */
             .skills-grid {
                 gap: 4px !important;
             }
@@ -646,7 +641,6 @@
                 font-size: 7pt !important;
                 padding: 2px 10px !important;
             }
-            /* Proyectos */
             .project-item {
                 background: #f9fafb !important;
                 border: 1px solid #cccccc !important;
@@ -678,7 +672,6 @@
                 text-decoration: underline !important;
                 margin-right: 12px !important;
             }
-            /* Diagramas */
             .arch-diagram {
                 background: #f5f7fa !important;
                 border: 1px solid #cccccc !important;
@@ -708,7 +701,6 @@
                 font-size: 5pt !important;
                 opacity: 1 !important;
             }
-            /* Certificaciones */
             .cert-grid {
                 display: grid !important;
                 grid-template-columns: repeat(auto-fill, minmax(140px,1fr)) !important;
@@ -738,7 +730,6 @@
                 color: #666666 !important;
                 font-size: 7pt !important;
             }
-            /* Experiencia / Enfoque */
             .exp-item h4 {
                 color: #000000 !important;
                 font-size: 10pt !important;
@@ -755,7 +746,6 @@
                 color: #333333 !important;
                 font-size: 8.5pt !important;
             }
-            /* Remote Readiness */
             .readiness-grid {
                 display: grid !important;
                 grid-template-columns: repeat(auto-fill, minmax(160px,1fr)) !important;
@@ -776,7 +766,6 @@
                 color: #000000 !important;
                 font-size: 8pt !important;
             }
-            /* Ocultar elementos interactivos */
             .lang-toggle-wrap {
                 display: none !important;
             }
@@ -786,17 +775,14 @@
             .cert-card.hidden {
                 display: flex !important;
             }
-            /* Enlaces */
             a {
                 color: #1a4c8a !important;
                 text-decoration: underline !important;
             }
-            /* Ajustes de página */
             @page {
                 margin: 0.6in 0.5in;
                 size: A4;
             }
-            /* Evitar saltos de página dentro de secciones */
             .cv-section {
                 page-break-inside: avoid !important;
             }
@@ -806,7 +792,6 @@
             .full-width {
                 page-break-inside: avoid !important;
             }
-            /* Asegurar que los grids de certificados no se rompan */
             .cert-grid {
                 page-break-inside: avoid !important;
             }
@@ -877,13 +862,15 @@
             <p class="lang-es">
                 <strong>Estudiante de Ingeniería en Software</strong> con pasión por la infraestructura cloud, la automatización y el desarrollo de sistemas robustos. 
                 He construido y puesto en producción un servidor multimedia con <strong>Docker</strong> y <strong>Cloudflare Tunnel</strong>, 
-                un tema <strong>WordPress</strong> 100% personalizado, y scripts de automatización con Bash y Python. 
+                un tema <strong>WordPress</strong> 100% personalizado, un sistema de exámenes con <strong>Flask</strong> y JavaScript, 
+                y scripts de automatización con Bash y Python. 
                 Busco mi <strong>primera oportunidad junior</strong> en un equipo de Cloud, DevOps o desarrollo backend donde pueda aprender, aportar y crecer.
             </p>
             <p class="lang-en hidden">
                 <strong>Software Engineering student</strong> passionate about cloud infrastructure, automation, and building robust systems. 
                 I have built and put into production a media server with <strong>Docker</strong> and <strong>Cloudflare Tunnel</strong>, 
-                a 100% custom <strong>WordPress</strong> theme, and automation scripts with Bash and Python. 
+                a 100% custom <strong>WordPress</strong> theme, an exam system with <strong>Flask</strong> and JavaScript, 
+                and automation scripts with Bash and Python. 
                 Looking for my <strong>first junior opportunity</strong> in a Cloud, DevOps or backend development team where I can learn, contribute and grow.
             </p>
         </div>
@@ -906,8 +893,9 @@
                     <span class="skill-tag"><i class="fas fa-code"></i> React</span>
                     <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
                     <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+                    <span class="skill-tag"><i class="fas fa-flask"></i> Flask</span>
                     <span class="skill-tag"><i class="fas fa-code"></i> Bash</span>
-                    <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
+                    <span class="skill-tag"><i class="fas fa-database"></i> SQL (SQLite, MySQL)</span>
                     <span class="skill-tag"><i class="fas fa-code-branch"></i> DevOps</span>
                     <span class="skill-tag"><i class="fas fa-network-wired"></i> Networking</span>
                     <span class="skill-tag"><i class="fas fa-shield-alt"></i> Seguridad</span>
@@ -918,7 +906,6 @@
                     <span class="skill-tag"><i class="fas fa-file-code"></i> YAML</span>
                     <span class="skill-tag"><i class="fas fa-clock"></i> Cron</span>
                     <span class="skill-tag"><i class="fas fa-fire"></i> Firewall</span>
-                    <span class="skill-tag"><i class="fas fa-flask"></i> Flask</span>
                     <span class="skill-tag"><i class="fas fa-code"></i> REST APIs</span>
                 </div>
                 <!-- Habilidades blandas -->
@@ -971,7 +958,6 @@
                         It registers a Custom Post Type to list projects, a custom Gutenberg block built with the
                         WordPress block API, and a configurable navigation menu system.
                     </p>
-                    <!-- Diagrama de arquitectura WordPress -->
                     <div class="arch-diagram">
                         <div class="flow-row">
                             <span class="arch-node"><i class="fas fa-user"></i> Usuario</span>
@@ -1030,6 +1016,29 @@
                         <a href="https://github.com/death-zip/death-zip-jellyfin-cloud-infra" target="_blank"><i class="fab fa-github"></i> Ver infraestructura en GitHub</a>
                     </div>
                 </div>
+
+                <!-- Proyecto 3: Sistema de Exámenes PXE -->
+                <div class="project-item">
+                    <h4>Sistema de Exámenes PXE · Flask + JavaScript</h4>
+                    <div class="tech">
+                        <span>Flask</span><span>Python</span><span>JavaScript</span><span>HTML/CSS</span><span>SQLite</span><span>REST API</span>
+                    </div>
+                    <p class="lang-es">
+                        Aplicación web para entornos de aula que permite a profesores crear exámenes y a estudiantes 
+                        resolverlos en tiempo real. Incluye autenticación de usuarios, temporizador, calificación automática, 
+                        distintos tipos de preguntas (opción múltiple, selección múltiple, respuesta abierta), 
+                        y sincronización del estado mediante polling. Desarrollado como proyecto académico para la universidad.
+                    </p>
+                    <p class="lang-en hidden">
+                        Web application for classroom environments that allows teachers to create exams and students 
+                        to solve them in real time. Includes user authentication, timer, automatic grading, different 
+                        question types (multiple choice, multiple selection, open answer), and state synchronization 
+                        via polling. Developed as an academic project for university.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://github.com/death-zip/Sistema-de-Examenes-PXE" target="_blank"><i class="fab fa-github"></i> Ver código en GitHub</a>
+                    </div>
+                </div>
             </div>
 
             <!-- ─── CERTIFICACIONES ─── -->
@@ -1055,13 +1064,13 @@
                     <div class="period lang-en hidden">Looking for a first junior role in Cloud, DevOps, or WordPress</div>
                     <p class="lang-es">
                         Construyo proyectos reales: temas WordPress personalizados, servidores Docker en producción,
-                        scripts de automatización y APIs REST. Busco mi primera posición junior
+                        sistemas completos con Flask, scripts de automatización y APIs REST. Busco mi primera posición junior
                         en Cloud, DevOps o desarrollo WordPress, donde pueda aplicar lo que sé y seguir aprendiendo.
                     </p>
                     <p class="lang-en hidden">
-                        I build real projects: custom WordPress themes, Docker servers in production, automation scripts,
-                        and REST APIs. Looking for my first junior role in Cloud, DevOps, or WordPress development,
-                        where I can apply what I know and keep learning.
+                        I build real projects: custom WordPress themes, Docker servers in production,
+                        complete systems with Flask, automation scripts and REST APIs. Looking for my first junior role
+                        in Cloud, DevOps or WordPress development, where I can apply what I know and keep learning.
                     </p>
                 </div>
             </div>
